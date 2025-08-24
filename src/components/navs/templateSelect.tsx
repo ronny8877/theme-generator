@@ -1,20 +1,31 @@
+"use client";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Link from "next/link";
 
 const tempPlates = [
   {
     title: "Blog",
-    description: "Description for Blog Template",
-    image: "https://picscave.com/assetstore/medium/zerotwo_EGKGahsvG4Q2kp.jpeg",
+    description: "Static blog layouts with post and landing pages",
+    image:
+      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=200&fit=crop",
+    href: "/templates",
+    available: true,
   },
   {
     title: "E-commerce",
-    description: "Description for E-commerce Template",
-    image: "https://picscave.com/assetstore/medium/zerotwo_EGKGahsvG4Q2kp.jpeg",
+    description: "Coming soon - Product listings and checkout flows",
+    image:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=200&fit=crop",
+    href: "#",
+    available: false,
   },
   {
     title: "Landing Page",
-    description: "Description for Landing Page Template",
-    image: "https://picscave.com/assetstore/medium/zerotwo_EGKGahsvG4Q2kp.jpeg",
+    description: "Coming soon - Marketing and promotional pages",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop",
+    href: "#",
+    available: false,
   },
 ];
 
@@ -30,18 +41,31 @@ export default function TemplateSelect() {
           <ScrollArea className="h-full">
             <div className="space-y-2 pr-2">
               {tempPlates.map((template) => (
-                <div
+                <Link
                   key={template.title}
-                  className="relative rounded-xl overflow-hidden bg-base-100/60 hover:bg-base-100/80 transition-all duration-200 cursor-pointer group/card"
+                  href={template.href}
+                  className={`block relative rounded-xl overflow-hidden bg-base-100/60 hover:bg-base-100/80 transition-all duration-200 group/card ${
+                    !template.available
+                      ? "opacity-60 cursor-not-allowed"
+                      : "cursor-pointer"
+                  }`}
+                  onClick={(e) => !template.available && e.preventDefault()}
                 >
                   {/* Image - always visible */}
                   <div className="relative">
                     <img
                       src={template.image}
                       alt={template.title}
-                      className="w-full  h-16 group-hover:h-22 min-w-10 object-cover transition-all duration-300"
+                      className="w-full h-16 group-hover:h-22 min-w-10 object-cover transition-all duration-300"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group/card-hover:opacity-100 transition-opacity duration-200" />
+                    {!template.available && (
+                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                        <span className="text-white text-xs font-medium px-2 py-1 bg-black/60 rounded">
+                          Coming Soon
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Text content - only visible on hover */}
@@ -53,7 +77,7 @@ export default function TemplateSelect() {
                       {template.description}
                     </p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </ScrollArea>

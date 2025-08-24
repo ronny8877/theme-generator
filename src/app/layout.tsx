@@ -43,8 +43,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-base-100 text-base-content`}
       >
-        <Navbar />
-        <main className="container mx-auto px-4 py-6">{children}</main>
+        {/* <Navbar /> */}
+        <main>{children}</main>
       </body>
     </html>
   );
