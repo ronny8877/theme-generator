@@ -56,7 +56,7 @@ export function AppleStyleDock() {
         {data.map((item, idx) => (
           <DockItem
             key={idx}
-            className="aspect-square rounded-full bg-base-200 cursor-pointer  "
+            className="aspect-square rounded-full bg-base-200 cursor-pointer"
           >
             <DockLabel>{item.title}</DockLabel>
             <DockIcon>{item.icon}</DockIcon>

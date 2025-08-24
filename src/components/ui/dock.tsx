@@ -166,7 +166,7 @@ function DockItem({ children, className, onClick }: DockItemProps) {
       onClick={onClick}
     >
       {Children.map(children, (child) =>
-        cloneElement(child as React.ReactElement, { width, isHovered }),
+        cloneElement(child as React.ReactElement<any>, { width, isHovered }),
       )}
     </motion.div>
   );
@@ -194,7 +194,7 @@ function DockLabel({ children, className, ...rest }: DockLabelProps) {
           exit={{ opacity: 0, y: 0 }}
           transition={{ duration: 0.2 }}
           className={cn(
-            "absolute -top-6 left-1/2 w-fit whitespace-pre rounded-full bg-primary/90 px-3 py-1 text-sm font-medium text-base-content shadow-lg",
+            "absolute -top-6 left-1/2 w-fit whitespace-pre rounded-full bg-base-200 px-3 py-1 text-sm font-medium text-base-content shadow-lg",
             className,
           )}
           role="tooltip"
