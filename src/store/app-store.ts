@@ -23,6 +23,7 @@ const AppTheme = types.model("AppTheme", {
 // UI state management
 const UIState = types.model("UIState", {
   sidebarCollapsed: types.optional(types.boolean, false),
+  locked_ui: types.optional(types.boolean, false), //if ads are disabled we lock the UI
   activePanel: types.optional(
     types.enumeration("Panel", ["templates", "editor", "preview", "settings"]),
     "templates",

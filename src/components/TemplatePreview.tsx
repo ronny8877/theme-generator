@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Palette, Monitor, Tablet, Smartphone } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
 import { BlogPost, BlogLanding } from "@/templates/blog";
+import { observer } from "mobx-react-lite";
+import { useAppStore } from "@/store/hooks";
 interface TemplatePreviewProps {
   template: React.ComponentType<any>;
   templateName: string;
@@ -27,10 +29,12 @@ const templates = [
   },
 ];
 
-export default function TemplatePreview() {
+function TemplatePreview() {
   const [viewport, setViewport] = useState<ViewportSize>("desktop");
   const [selectedColorScheme, setSelectedColorScheme] = useState("default");
   const [selectedTemplate, setSelectedTemplate] = useState(templates[1]);
+
+  const store = useAppStore();
 
   // Color schemes - similar to DaisyUI themes
   const colorSchemes = {
@@ -97,50 +101,36 @@ export default function TemplatePreview() {
   };
 
   const getViewportClasses = () => {
-    switch (viewport) {
+    switch (store.activePreviewDevice) {
       case "mobile":
-        return "w-[375px] h-[667px]";
+        return "w-[430px] h-[900px]";
       case "tablet":
-        return "w-[768px] h-[1024px]";
+        return "w-[768px] h-full";
       default:
         return "w-full h-full";
     }
   };
 
-  const getViewportIcon = (size: ViewportSize) => {
-    switch (size) {
-      case "mobile":
-        return <Smartphone className="w-4 h-4" />;
-      case "tablet":
-        return <Tablet className="w-4 h-4" />;
-      default:
-        return <Monitor className="w-4 h-4" />;
-    }
-  };
-
-  return (<div className="h-full flex items-center justify-center  p-5">
-          <div
-            className={`${getViewportClasses()} bg-white rounded-4xl shadow-lg overflow-hidden transition-all duration-300`}
-            style={{
-              transform:
-                viewport === "mobile"
-                  ? "scale(0.8)"
-                  : viewport === "tablet"
-                    ? "scale(0.7)"
-                    : "scale(1)",
-              transformOrigin: "center",
-            }}
-          >
-            <ScrollArea className="w-full h-full ">
-              <selectedTemplate.component
-                colors={
-                  colorSchemes["rose"]
-                    .colors
-                }
-              />
-             </ScrollArea>
-          </div>
+  return (
+    <div className="h-full flex items-center justify-center  p-5">
+      <div
+        className={`${getViewportClasses()} bg-white rounded-4xl shadow-lg overflow-hidden transition-all duration-400`}
+        style={{
+          transform:
+            viewport === "mobile"
+              ? "scale(0.8)"
+              : viewport === "tablet"
+                ? "scale(0.7)"
+                : "scale(1)",
+          transformOrigin: "center",
+        }}
+      >
+        <ScrollArea className="w-full h-full ">
+          <selectedTemplate.component colors={colorSchemes["rose"].colors} />
+        </ScrollArea>
       </div>
-
+    </div>
   );
 }
+
+export default observer(TemplatePreview);
