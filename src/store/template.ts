@@ -75,7 +75,7 @@ const Template = types
       return self.tags.join(", ");
     },
 
-    get theme() {
+    get templateTheme() {
       return self.theme;
     },
 

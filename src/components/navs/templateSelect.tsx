@@ -31,7 +31,7 @@ const tempPlates = [
 
 export default function TemplateSelect() {
   return (
-    <div className="fixed left-5 top-1/2 -translate-y-1/2 w-16 hover:w-64 h-96 glass rounded-3xl transition-all duration-300 ease-in-out group overflow-hidden shadow-lg">
+    <div className="fixed left-5 top-1/2 -translate-y-1/2 w-16 z-50 hover:w-64 h-96 glass rounded-3xl transition-all duration-300 ease-in-out group overflow-hidden shadow-lg">
       <div className="p-3 h-full flex flex-col">
         <h2 className="text-lg font-semibold text-base-content opacity-0 group-hover:opacity-100 transition-opacity duration-300 mb-3 whitespace-nowrap">
           Templates

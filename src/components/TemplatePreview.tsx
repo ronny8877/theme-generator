@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Palette, Monitor, Tablet, Smartphone } from "lucide-react";
-
+import { ScrollArea } from "./ui/scroll-area";
+import { BlogPost, BlogLanding } from "@/templates/blog";
 interface TemplatePreviewProps {
   template: React.ComponentType<any>;
   templateName: string;
@@ -9,13 +10,27 @@ interface TemplatePreviewProps {
 
 type ViewportSize = "desktop" | "tablet" | "mobile";
 
-export default function TemplatePreview({
-  template: Template,
-  templateName,
-  description,
-}: TemplatePreviewProps) {
+const templates = [
+  {
+    id: "blog-post",
+    name: "Blog Post",
+    description:
+      "A detailed blog post layout with header, content, interactions, and suggested articles",
+    component: BlogPost,
+  },
+  {
+    id: "blog-landing",
+    name: "Blog Landing Page",
+    description:
+      "A complete blog homepage with featured posts, recent articles, trending content, and newsletter signup",
+    component: BlogLanding,
+  },
+];
+
+export default function TemplatePreview() {
   const [viewport, setViewport] = useState<ViewportSize>("desktop");
   const [selectedColorScheme, setSelectedColorScheme] = useState("default");
+  const [selectedTemplate, setSelectedTemplate] = useState(templates[1]);
 
   // Color schemes - similar to DaisyUI themes
   const colorSchemes = {
@@ -103,87 +118,9 @@ export default function TemplatePreview({
     }
   };
 
-  return (
-    <div className="h-screen flex flex-col bg-gray-50">
-      {/* Preview Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-xl font-semibold text-gray-900">
-              {templateName}
-            </h1>
-            {description && (
-              <p className="text-sm text-gray-600 mt-1">{description}</p>
-            )}
-          </div>
-
-          <div className="flex items-center gap-4">
-            {/* Color Scheme Selector */}
-            <div className="flex items-center gap-2">
-              <Palette className="w-4 h-4 text-gray-500" />
-              <select
-                value={selectedColorScheme}
-                onChange={(e) => setSelectedColorScheme(e.target.value)}
-                className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                {Object.entries(colorSchemes).map(([key, scheme]) => (
-                  <option key={key} value={key}>
-                    {scheme.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Viewport Selector */}
-            <div className="flex items-center bg-gray-100 rounded-lg p-1">
-              {(["desktop", "tablet", "mobile"] as ViewportSize[]).map(
-                (size) => (
-                  <button
-                    key={size}
-                    onClick={() => setViewport(size)}
-                    className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                      viewport === size
-                        ? "bg-white text-gray-900 shadow-sm"
-                        : "text-gray-600 hover:text-gray-900"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2">
-                      {getViewportIcon(size)}
-                      <span className="capitalize">{size}</span>
-                    </div>
-                  </button>
-                ),
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Color Palette Preview */}
-        <div className="mt-4 flex items-center gap-2">
-          <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-            Color Palette:
-          </span>
-          <div className="flex gap-1">
-            {Object.entries(
-              colorSchemes[selectedColorScheme as keyof typeof colorSchemes]
-                .colors,
-            ).map(([key, color]) => (
-              <div
-                key={key}
-                className="w-6 h-6 rounded-full border-2 border-white shadow-sm"
-                style={{ backgroundColor: color }}
-                title={`${key}: ${color}`}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Preview Content */}
-      <div className="flex-1 p-6 overflow-hidden">
-        <div className="h-full flex items-center justify-center">
+  return (<div className="h-full flex items-center justify-center  p-5">
           <div
-            className={`${getViewportClasses()} bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300`}
+            className={`${getViewportClasses()} bg-white rounded-4xl shadow-lg overflow-hidden transition-all duration-300`}
             style={{
               transform:
                 viewport === "mobile"
@@ -194,35 +131,16 @@ export default function TemplatePreview({
               transformOrigin: "center",
             }}
           >
-            <div className="w-full h-full overflow-auto">
-              <Template
+            <ScrollArea className="w-full h-full ">
+              <selectedTemplate.component
                 colors={
-                  colorSchemes[selectedColorScheme as keyof typeof colorSchemes]
+                  colorSchemes["rose"]
                     .colors
                 }
               />
-            </div>
+             </ScrollArea>
           </div>
-        </div>
       </div>
 
-      {/* Preview Footer */}
-      <div className="bg-white border-t border-gray-200 px-6 py-3">
-        <div className="flex items-center justify-between text-sm text-gray-500">
-          <div>
-            Template: <span className="font-medium">{templateName}</span>
-          </div>
-          <div>
-            Theme:{" "}
-            <span className="font-medium">
-              {
-                colorSchemes[selectedColorScheme as keyof typeof colorSchemes]
-                  .name
-              }
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }
