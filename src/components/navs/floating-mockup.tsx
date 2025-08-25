@@ -18,12 +18,12 @@ import { Dock, DockIcon, DockItem, DockLabel } from "@/ui/dock";
 
 const data = [
   {
-    title: "Desktop",
+    title: "Website",
     icon: <LaptopMinimal className="h-full w-full text-base-content" />,
     href: "#",
   },
   {
-    title: "Mobile",
+    title: "Apps",
     icon: <Smartphone className="h-full w-full text-base-content" />,
     href: "#",
   },
