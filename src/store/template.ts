@@ -71,6 +71,15 @@ const Template = types
       };
     },
 
+    get getTheme() {
+      //Composing themes
+      return {
+        ...self.theme.colors,
+        ...self.theme.radius,
+        ...self.theme.misc,
+      };
+    },
+
     get formattedTags() {
       return self.tags.join(", ");
     },
@@ -211,7 +220,6 @@ export const TemplateStore = types
     clearTagFilters() {
       self.selectedTags.clear();
     },
-
     addTemplate(templateData: {
       name: string;
       description: string;

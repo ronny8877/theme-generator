@@ -3,7 +3,7 @@ import { Palette, Monitor, Tablet, Smartphone } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
 import { BlogPost, BlogLanding } from "@/templates/blog";
 import { observer } from "mobx-react-lite";
-import { useAppStore } from "@/store/hooks";
+import { useAppStore, useTemplateStore } from "@/store/hooks";
 interface TemplatePreviewProps {
   template: React.ComponentType<any>;
   templateName: string;
@@ -35,6 +35,21 @@ function TemplatePreview() {
   const [selectedTemplate, setSelectedTemplate] = useState(templates[1]);
 
   const store = useAppStore();
+  const templateStore = useTemplateStore();
+
+  // Helper function to convert theme object to CSS custom properties
+  const applyCSSVariables = (
+    theme: Record<string, any>,
+  ): React.CSSProperties => {
+    const cssVars: Record<string, any> = {};
+    Object.entries(theme).forEach(([key, value]) => {
+      // CSS custom properties should start with --
+      if (key.startsWith("--")) {
+        cssVars[key] = value;
+      }
+    });
+    return cssVars;
+  };
 
   // Color schemes - similar to DaisyUI themes
   const colorSchemes = {
@@ -103,18 +118,18 @@ function TemplatePreview() {
   const getViewportClasses = () => {
     switch (store.activePreviewDevice) {
       case "mobile":
-        return "w-[430px] h-[900px]";
+        return "max-w-[430px] h-[900px]";
       case "tablet":
-        return "w-[768px] h-full";
+        return "max-w-[768px] h-full";
       default:
-        return "w-full h-full";
+        return "max-w-full h-full";
     }
   };
 
   return (
     <div className="h-full flex items-center justify-center  p-5">
       <div
-        className={`${getViewportClasses()} bg-white rounded-4xl shadow-lg overflow-hidden transition-all duration-400`}
+        className={`${getViewportClasses()} w-full @container bg-white rounded-4xl shadow-lg overflow-hidden transition-all duration-400`}
         style={{
           transform:
             viewport === "mobile"
@@ -126,7 +141,9 @@ function TemplatePreview() {
         }}
       >
         <ScrollArea className="w-full h-full ">
-          <selectedTemplate.component colors={colorSchemes["rose"].colors} />
+          <div style={applyCSSVariables(templateStore.templates[0].getTheme)}>
+            <selectedTemplate.component />
+          </div>
         </ScrollArea>
       </div>
     </div>

@@ -1,30 +1,11 @@
-import {
-  Activity,
-  Component,
-  HomeIcon,
-  Image,
-  LaptopMinimal,
-  Mail,
-  Package,
-  PaintRoller,
-  Phone,
-  ScrollText,
-  Smartphone,
-  SunMoon,
-  Text,
-} from "lucide-react";
+import { Image, Laptop, PaintRoller, SunMoon, Text } from "lucide-react";
 
 import { Dock, DockIcon, DockItem, DockLabel } from "@/ui/dock";
 
 const data = [
   {
-    title: "Website",
-    icon: <LaptopMinimal className="h-full w-full text-base-content" />,
-    href: "#",
-  },
-  {
-    title: "Apps",
-    icon: <Smartphone className="h-full w-full text-base-content" />,
+    title: "Web / Apps",
+    icon: <Laptop className="h-full w-full text-base-content" />,
     href: "#",
   },
   {
@@ -49,7 +30,7 @@ const data = [
   },
 ];
 
-export function AppleStyleDock() {
+export function ToolSelect() {
   return (
     <div className="absolute bottom-2 left-1/2 max-w-full -translate-x-1/2">
       <Dock className="items-end pb-3 bg-base-300 rounded-full">
