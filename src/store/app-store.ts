@@ -1,9 +1,5 @@
 import { types, Instance } from "mobx-state-tree";
-import {
-  AVILABLE_THEMES,
-  AVILABLE_PREVIEW_DEVICES,
-  TOOL_VARIANTS,
-} from "@/lib/constants";
+import { AVILABLE_PREVIEW_DEVICES, TOOL_VARIANTS } from "@/lib/constants";
 
 // Preview device configuration for each tool
 const ToolPreviewConfig = types.model("ToolPreviewConfig", {
@@ -16,8 +12,8 @@ const ToolPreviewConfig = types.model("ToolPreviewConfig", {
 
 // App theme configuration
 const AppTheme = types.model("AppTheme", {
-  current: types.enumeration("Theme", AVILABLE_THEMES),
-  options: types.array(types.enumeration("ThemeOption", AVILABLE_THEMES)),
+  current: types.string,
+  options: types.array(types.string),
 });
 
 // UI state management
@@ -81,7 +77,7 @@ export const AppStore = types
   }))
   .actions((self) => ({
     // Theme management
-    setTheme(theme: (typeof AVILABLE_THEMES)[number]) {
+    setTheme(theme: string) {
       self.theme.current = theme;
     },
 

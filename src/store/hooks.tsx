@@ -35,37 +35,13 @@ export const useAppStore = () => {
 };
 
 export const useTemplateStore = () => {
-  const { templates } = useStore();
-  return templates;
+  const { template } = useStore();
+  return template;
 };
 
 export const useUndoRedoStore = () => {
   const { undoRedo } = useStore();
   return undoRedo;
-};
-
-// Hook for undo/redo functionality
-export const useUndoRedo = () => {
-  const store = useStore();
-  return {
-    canUndo: store.canUndo,
-    canRedo: store.canRedo,
-    undo: store.undo,
-    redo: store.redo,
-    history: store.undoRedo.getHistorySummary(),
-  };
-};
-
-// Hook for template management
-export const useTemplateActions = () => {
-  const store = useStore();
-  return {
-    createTemplate: store.createTemplate,
-    updateTemplate: store.updateTemplate,
-    updateTemplateTheme: store.updateTemplateTheme,
-    deleteTemplate: store.deleteTemplate,
-    duplicateTemplate: store.duplicateTemplate,
-  };
 };
 
 // Hook for app actions

@@ -21,19 +21,8 @@ interface BlogLandingProps {
   };
 }
 
-export default function BlogLanding({ colors }: BlogLandingProps) {
+export default function BlogLanding() {
   // DaisyUI handles theming automatically, but we'll keep this for custom overrides if needed
-  const defaultColors = {
-    primary: "#3b82f6",
-    secondary: "#64748b",
-    accent: "#f59e0b",
-    background: "#ffffff",
-    surface: "#f8fafc",
-    text: "#1e293b",
-    textSecondary: "#64748b",
-  };
-
-  const theme = colors || defaultColors;
 
   const featuredPost = {
     title: "The Future of Web Development: Trends to Watch in 2025",

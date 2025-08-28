@@ -1,14 +1,16 @@
 "use client";
-
 import * as React from "react";
 import { ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useStore } from "@/store/hooks";
+import { observer } from "mobx-react-lite";
 
 export interface SelectOption {
   id: string;
   title: string;
   image?: string;
   description?: string;
+  theme_id?: string;
 }
 
 export interface SelectSection {
@@ -24,11 +26,7 @@ export interface FloatingSelectProps {
   placeholder?: string;
   className?: string;
 }
-
-export const FloatingSelect = React.forwardRef<
-  HTMLDivElement,
-  FloatingSelectProps
->(
+const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
   (
     {
       options = [],
@@ -40,6 +38,7 @@ export const FloatingSelect = React.forwardRef<
     },
     ref,
   ) => {
+    const appStore = useStore();
     const [isOpen, setIsOpen] = React.useState(false);
     const [selectedOption, setSelectedOption] =
       React.useState<SelectOption | null>(null);
@@ -76,6 +75,7 @@ export const FloatingSelect = React.forwardRef<
     }, []);
 
     const handleSelect = (option: SelectOption) => {
+      appStore.setActiveTemplate(option.id);
       setSelectedOption(option);
       onValueChange?.(option.id);
       setIsOpen(false);
@@ -191,3 +191,5 @@ export const FloatingSelect = React.forwardRef<
 );
 
 FloatingSelect.displayName = "FloatingSelect";
+
+export default observer(FloatingSelect);

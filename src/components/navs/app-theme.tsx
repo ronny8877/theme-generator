@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Palette, Check } from "lucide-react";
 import { useAppStore } from "@/store/hooks";
 import { observer } from "mobx-react-lite";
-import { AVILABLE_THEMES } from "@/lib/constants";
+import { DAISY_UI_AVILABLE_THEMES } from "@/lib/constants";
 
 // Theme display information with colors and emojis
 const THEME_INFO = {
@@ -163,8 +163,8 @@ function FloatingThemeSelector() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedTheme = localStorage.getItem("theme");
-      if (savedTheme && AVILABLE_THEMES.includes(savedTheme as any)) {
-        store.setTheme(savedTheme as (typeof AVILABLE_THEMES)[number]);
+      if (savedTheme && DAISY_UI_AVILABLE_THEMES.includes(savedTheme as any)) {
+        store.setTheme(savedTheme as (typeof DAISY_UI_AVILABLE_THEMES)[number]);
         document.documentElement.setAttribute("data-theme", savedTheme);
       } else {
         // Set default theme
@@ -176,7 +176,9 @@ function FloatingThemeSelector() {
     }
   }, [store]);
 
-  const handleThemeChange = (theme: (typeof AVILABLE_THEMES)[number]) => {
+  const handleThemeChange = (
+    theme: (typeof DAISY_UI_AVILABLE_THEMES)[number],
+  ) => {
     store.setTheme(theme);
 
     // Apply theme to document
@@ -212,7 +214,7 @@ function FloatingThemeSelector() {
           </div>
 
           <div className="grid grid-cols-2 gap-3 max-h-72 overflow-y-auto theme-scroll pr-2">
-            {AVILABLE_THEMES.map((theme) => {
+            {DAISY_UI_AVILABLE_THEMES.map((theme) => {
               const themeInfo = THEME_INFO[theme as keyof typeof THEME_INFO];
               const isActive = currentTheme === theme;
 
