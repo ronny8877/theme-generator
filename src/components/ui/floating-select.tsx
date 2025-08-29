@@ -2,8 +2,7 @@
 import * as React from "react";
 import { ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useStore } from "@/store/hooks";
-import { observer } from "mobx-react-lite";
+import { useTemplateStore, useTemplateActions } from "@/store/hooks";
 
 export interface SelectOption {
   id: string;
@@ -38,7 +37,8 @@ const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
     },
     ref,
   ) => {
-    const appStore = useStore();
+    const templateStore = useTemplateStore();
+    const { setActiveTemplate } = useTemplateActions();
     const [isOpen, setIsOpen] = React.useState(false);
     const [selectedOption, setSelectedOption] =
       React.useState<SelectOption | null>(null);
@@ -75,7 +75,7 @@ const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
     }, []);
 
     const handleSelect = (option: SelectOption) => {
-      appStore.setActiveTemplate(option.id);
+      setActiveTemplate(option.id);
       setSelectedOption(option);
       onValueChange?.(option.id);
       setIsOpen(false);
@@ -192,4 +192,4 @@ const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
 
 FloatingSelect.displayName = "FloatingSelect";
 
-export default observer(FloatingSelect);
+export default FloatingSelect;

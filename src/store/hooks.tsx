@@ -1,58 +1,73 @@
-import React, { createContext, useContext, ReactNode } from "react";
-import { createRootStore, RootStoreInstance } from "./index";
+import { useStore } from "@nanostores/react";
+import {
+  $app,
+  $template,
+  $undoRedo,
+  $availableThemes,
+  $activeNotifications,
+  $hasActiveNotifications,
+  $activeTheme,
+  $prominentColors,
+  $cssVariables,
+  $canUndo,
+  $canRedo,
+  setTheme,
+  setActiveTool,
+  setPreviewDevice,
+  toggleSidebar,
+  setActivePanel,
+  addNotification,
+  setActiveTemplate,
+  updateColorScheme,
+  updateRadius,
+  updateMiscConfig,
+  switchTool,
+} from "./nano-store";
 
-// Create store context
-const StoreContext = createContext<RootStoreInstance | null>(null);
-
-// Store provider component
-interface StoreProviderProps {
-  children: ReactNode;
-  store?: RootStoreInstance;
-}
-
-export const StoreProvider: React.FC<StoreProviderProps> = ({
-  children,
-  store = createRootStore(),
-}) => {
-  return (
-    <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
-  );
-};
-
-// Hook to access the store
-export const useStore = (): RootStoreInstance => {
-  const store = useContext(StoreContext);
-  if (!store) {
-    throw new Error("useStore must be used within a StoreProvider");
-  }
-  return store;
-};
-
-// Convenience hooks for specific stores
+// Hook to access app store
 export const useAppStore = () => {
-  const { app } = useStore();
-  return app;
+  return useStore($app);
 };
 
+// Hook to access template store
 export const useTemplateStore = () => {
-  const { template } = useStore();
-  return template;
+  return useStore($template);
 };
 
+// Hook to access undo-redo store
 export const useUndoRedoStore = () => {
-  const { undoRedo } = useStore();
-  return undoRedo;
+  return useStore($undoRedo);
 };
+
+// Hook for computed values
+export const useAvailableThemes = () => useStore($availableThemes);
+export const useActiveNotifications = () => useStore($activeNotifications);
+export const useHasActiveNotifications = () => useStore($hasActiveNotifications);
+export const useActiveTheme = () => useStore($activeTheme);
+export const useProminentColors = () => useStore($prominentColors);
+export const useCssVariables = () => useStore($cssVariables);
+export const useCanUndo = () => useStore($canUndo);
+export const useCanRedo = () => useStore($canRedo);
 
 // Hook for app actions
 export const useAppActions = () => {
-  const store = useStore();
   return {
-    setTheme: store.app.setTheme,
-    switchTool: store.switchTool,
-    setPreviewDevice: store.app.setPreviewDevice,
-    toggleSidebar: store.app.toggleSidebar,
-    setActivePanel: store.app.setActivePanel,
-    addNotification: store.app.addNotification,
+    setTheme,
+    switchTool,
+    setPreviewDevice,
+    toggleSidebar,
+    setActivePanel,
+    addNotification,
+    setActiveTool,
+  };
+};
+
+// Hook for template actions
+export const useTemplateActions = () => {
+  return {
+    setActiveTemplate,
+    updateColorScheme,
+    updateRadius,
+    updateMiscConfig,
   };
 };

@@ -1,9 +1,23 @@
-import { useAppStore } from "@/store/hooks";
-import { observer } from "mobx-react-lite";
+import { useAppStore, useAppActions } from "@/store/hooks";
 
 function DeviceSelect() {
-  const store = useAppStore();
-  const activeDevice = store.activePreviewDevice;
+  const appStore = useAppStore();
+  const { setPreviewDevice } = useAppActions();
+  const activeDevice = appStore.activePreviewDevice;
+
+  // Get allowed devices based on active tool
+  const getAllowedDevices = () => {
+    switch (appStore.activeTool) {
+      case "app":
+        return ["mobile", "tablet"];
+      case "poster":
+        return ["tablet", "desktop"];
+      default:
+        return ["desktop", "tablet", "mobile"];
+    }
+  };
+
+  const allowedDevices = getAllowedDevices();
 
   return (
     <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
@@ -18,10 +32,10 @@ function DeviceSelect() {
         {/* Expanded state - Full navigation */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 opacity-0 group-hover:w-auto group-hover:opacity-100 transition-all duration-700 ease-out overflow-hidden">
           <div className="flex items-center bg-base-100 border border-base-300 rounded-full shadow-xl px-4 py-2 gap-2 h-12 whitespace-nowrap">
-            {store.allowedPreviewDevices.map((device, index) => (
+            {allowedDevices.map((device, index) => (
               <button
                 key={device}
-                onClick={() => store.setPreviewDevice(device)}
+                onClick={() => setPreviewDevice(device as any)}
                 className={`btn btn-sm rounded-full transition-all duration-300 ease-out hover:scale-105 normal-case ${
                   activeDevice === device
                     ? "btn-primary shadow-md"
@@ -73,4 +87,4 @@ function DeviceSelect() {
   );
 }
 
-export default observer(DeviceSelect);
+export default DeviceSelect;

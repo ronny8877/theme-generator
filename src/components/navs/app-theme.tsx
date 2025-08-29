@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Palette, Check } from "lucide-react";
-import { useAppStore } from "@/store/hooks";
-import { observer } from "mobx-react-lite";
+import { useAppStore, useAppActions } from "@/store/hooks";
 import { DAISY_UI_AVILABLE_THEMES } from "@/lib/constants";
 
 // Theme display information with colors and emojis
@@ -157,29 +156,30 @@ const THEME_INFO = {
 
 function FloatingThemeSelector() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const store = useAppStore();
+  const appStore = useAppStore();
+  const { setTheme } = useAppActions();
 
   // Initialize theme from localStorage on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedTheme = localStorage.getItem("theme");
       if (savedTheme && DAISY_UI_AVILABLE_THEMES.includes(savedTheme as any)) {
-        store.setTheme(savedTheme as (typeof DAISY_UI_AVILABLE_THEMES)[number]);
+        setTheme(savedTheme as (typeof DAISY_UI_AVILABLE_THEMES)[number]);
         document.documentElement.setAttribute("data-theme", savedTheme);
       } else {
         // Set default theme
         document.documentElement.setAttribute(
           "data-theme",
-          store.theme.current,
+          appStore.theme.current,
         );
       }
     }
-  }, [store]);
+  }, []);
 
   const handleThemeChange = (
     theme: (typeof DAISY_UI_AVILABLE_THEMES)[number],
   ) => {
-    store.setTheme(theme);
+    setTheme(theme);
 
     // Apply theme to document
     if (typeof document !== "undefined") {
@@ -194,7 +194,7 @@ function FloatingThemeSelector() {
     setIsExpanded(false);
   };
 
-  const currentTheme = store.theme.current;
+  const currentTheme = appStore.theme.current;
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -272,4 +272,4 @@ function FloatingThemeSelector() {
   );
 }
 
-export default observer(FloatingThemeSelector);
+export default FloatingThemeSelector;

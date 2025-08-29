@@ -1,11 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { Palette, Monitor, Tablet, Smartphone } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
 import { BlogPost, BlogLanding } from "@/templates/blog";
-import { observer } from "mobx-react-lite";
-import { useAppStore, useTemplateStore } from "@/store/hooks";
-import { SelectSection } from "./ui/floating-select";
+import { useAppStore, useTemplateStore, useCssVariables } from "@/store/hooks";
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 type ViewportSize = "desktop" | "tablet" | "mobile";
 
@@ -16,9 +14,12 @@ const componentMap = {
 
 function TemplatePreview() {
   const [viewport, setViewport] = useState<ViewportSize>("desktop");
+  const [parent] = useAutoAnimate<HTMLDivElement>();
 
-  const store = useAppStore();
+  const appStore = useAppStore();
   const templateStore = useTemplateStore();
+  const cssVariables = useCssVariables();
+  
   console.log("Active Theme CSS Variables:", templateStore.activeTemplateId);
 
   // Helper function to convert theme object to CSS custom properties
@@ -36,7 +37,7 @@ function TemplatePreview() {
   };
 
   const getViewportClasses = () => {
-    switch (store.activePreviewDevice) {
+    switch (appStore.activePreviewDevice) {
       case "mobile":
         return "max-w-[430px] h-[900px]";
       case "tablet":
@@ -66,7 +67,8 @@ function TemplatePreview() {
       >
         <ScrollArea className="w-full h-full ">
           <div
-            style={applyCSSVariables(templateStore.active_theme.CssVariables)}
+            ref={parent}
+            style={applyCSSVariables(cssVariables)}
           >
             {/* Use key to force remount on template change */}
             <ActiveComponent key={activeComponentId} />
@@ -77,4 +79,4 @@ function TemplatePreview() {
   );
 }
 
-export default observer(TemplatePreview);
+export default TemplatePreview;
