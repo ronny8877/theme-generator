@@ -144,3 +144,15 @@
 .theme-scroll::-webkit-scrollbar-thumb:hover {
   background-color: oklch(var(--bc) / 0.3);
 }
+
+.smooth-theme-transition,
+.smooth-theme-transition * {
+  transition:
+    background-color 0.25s ease-out,
+    color 0.25s ease-out,
+    border-color 0.25s ease-out,
+    fill 0.25s ease-out,
+    stroke 0.25s ease-out,
+    box-shadow 0.25s ease-out;
+  will-change: background-color, color, border-color;
+}

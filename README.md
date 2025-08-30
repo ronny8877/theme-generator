@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+THE MAIN thing we gonna have
 
-## Getting Started
+# Templates
 
-First, run the development server:
+[ ] Blog landing page
+[ ] Blog Post Page
+[ ] AI chat UI
+[ ] Protfolio
+[ ] E-commerce
+[ ] Social Page
+[ ] Recipe Book
+[ ] Fitness Tracker
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# personal for me
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[ ] Video game shrine
+[ ] retro internet
+[ ] Personal Portfolio
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Work flow
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+all the reusable components go in UI which follow shadcn design system
+these componenets will be individually can be previewd at componenet page.
 
-## Learn More
+We need to lazy load and code split the components to improve performance.
 
-To learn more about Next.js, take a look at the following resources:
+# Exporting
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+So we export for multiple demographics
+from UI people to tech people
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Philosophy is simple NICE UI and nicer UX

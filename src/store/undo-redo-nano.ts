@@ -31,22 +31,28 @@ export const $canUndo = computed($undoRedo, (state) => state.currentIndex > 0);
 
 export const $canRedo = computed(
   $undoRedo,
-  (state) => state.currentIndex < state.history.length - 1
+  (state) => state.currentIndex < state.history.length - 1,
 );
 
-export const $currentEntry = computed($undoRedo, (state) =>
-  state.history[state.currentIndex] || null
+export const $currentEntry = computed(
+  $undoRedo,
+  (state) => state.history[state.currentIndex] || null,
 );
 
-export const $nextEntry = computed($undoRedo, (state) =>
-  state.history[state.currentIndex + 1] || null
+export const $nextEntry = computed(
+  $undoRedo,
+  (state) => state.history[state.currentIndex + 1] || null,
 );
 
-export const $previousEntry = computed($undoRedo, (state) =>
-  state.history[state.currentIndex - 1] || null
+export const $previousEntry = computed(
+  $undoRedo,
+  (state) => state.history[state.currentIndex - 1] || null,
 );
 
-export const $historySize = computed($undoRedo, (state) => state.history.length);
+export const $historySize = computed(
+  $undoRedo,
+  (state) => state.history.length,
+);
 
 // Actions
 export function recordState(target: any, action: string, description?: string) {

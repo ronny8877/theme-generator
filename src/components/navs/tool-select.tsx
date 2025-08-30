@@ -1,4 +1,11 @@
-import { Image, Laptop, PaintRoller, SunMoon, Text } from "lucide-react";
+import {
+  Component,
+  Image,
+  Laptop,
+  PaintRoller,
+  SunMoon,
+  Text,
+} from "lucide-react";
 
 import { Dock, DockIcon, DockItem, DockLabel } from "@/ui/dock";
 
@@ -24,8 +31,8 @@ const data = [
     href: "#",
   },
   {
-    title: "Theme",
-    icon: <SunMoon className="h-full w-full text-base-content" />,
+    title: "Componentss",
+    icon: <Component className="h-full w-full text-base-content" />,
     href: "#",
   },
 ];

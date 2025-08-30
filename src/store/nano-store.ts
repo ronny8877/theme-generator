@@ -1,9 +1,14 @@
 import { atom, computed } from "nanostores";
-import { AVILABLE_PREVIEW_DEVICES, TOOL_VARIANTS, THEMES, TEMPLATES_ARRAY } from "@/lib/constants";
+import {
+  AVILABLE_PREVIEW_DEVICES,
+  TOOL_VARIANTS,
+  THEMES,
+  TEMPLATES_ARRAY,
+} from "@/lib/constants";
 
 // Types
-export type PreviewDevice = typeof AVILABLE_PREVIEW_DEVICES[number];
-export type ToolVariant = typeof TOOL_VARIANTS[number];
+export type PreviewDevice = (typeof AVILABLE_PREVIEW_DEVICES)[number];
+export type ToolVariant = (typeof TOOL_VARIANTS)[number];
 export type NotificationType = "success" | "error" | "warning" | "info";
 export type Panel = "templates" | "editor" | "preview" | "settings";
 
@@ -67,6 +72,10 @@ export interface AppState {
   };
   activePreviewDevice: PreviewDevice | null;
   activeTool: ToolVariant;
+  editor: {
+    is_open: boolean;
+    ui_type: "floating" | "default";
+  };
   ui: {
     sidebarCollapsed: boolean;
     locked_ui: boolean;
@@ -106,9 +115,13 @@ const initialAppState: AppState = {
   ui: {
     sidebarCollapsed: false,
     locked_ui: false,
-    activePanel: "templates",
     isLoading: false,
     notifications: [],
+    activePanel: "templates",
+  },
+  editor: {
+    is_open: false,
+    ui_type: "default",
   },
 };
 
@@ -132,32 +145,37 @@ export const $undoRedo = atom<UndoRedoState>(initialUndoRedoState);
 // Computed values - App
 export const $availableThemes = computed($app, (app) => app.theme.options);
 export const $activeNotifications = computed($app, (app) =>
-  app.ui.notifications.filter((n) => !n.dismissed)
+  app.ui.notifications.filter((n) => !n.dismissed),
 );
 export const $hasActiveNotifications = computed(
   $activeNotifications,
-  (notifications) => notifications.length > 0
+  (notifications) => notifications.length > 0,
 );
 
 // Computed values - Template
-export const $activeTheme = computed($template, (template) => template.active_theme);
+export const $activeTheme = computed(
+  $template,
+  (template) => template.active_theme,
+);
 export const $prominentColors = computed($activeTheme, (theme) => ({
   primary: theme.colors["--color-primary"],
   secondary: theme.colors["--color-secondary"],
   accent: theme.colors["--color-accent"],
   base: theme.colors["--color-base-100"],
 }));
-export const $cssVariables = computed($activeTheme, (theme) => ({
-  ...theme.colors,
-  ...theme.radius,
-  ...theme.misc,
-}));
+export const $cssVariables = computed($activeTheme, (theme) => {
+  return {
+    ...theme.colors,
+    ...theme.radius,
+    ...theme.misc,
+  };
+});
 
 // Computed values - Undo/Redo
 export const $canUndo = computed($undoRedo, (state) => state.currentIndex > 0);
 export const $canRedo = computed(
   $undoRedo,
-  (state) => state.currentIndex < state.history.length - 1
+  (state) => state.currentIndex < state.history.length - 1,
 );
 
 // Root store computed values
@@ -241,7 +259,7 @@ export function dismissNotification(id: string) {
     ui: {
       ...currentApp.ui,
       notifications: currentApp.ui.notifications.map((n) =>
-        n.id === id ? { ...n, dismissed: true } : n
+        n.id === id ? { ...n, dismissed: true } : n,
       ),
     },
   });
@@ -323,7 +341,9 @@ export function updateMiscConfig(misc: Partial<MiscConfig>) {
 }
 
 // Root store actions
-export function switchTool(tool: "website" | "app" | "poster" | "typography" | "gradient") {
+export function switchTool(
+  tool: "website" | "app" | "poster" | "typography" | "gradient",
+) {
   setActiveTool(tool);
 }
 
@@ -344,7 +364,7 @@ export function updateTemplateTheme(
     colors?: any;
     radius?: any;
     misc?: any;
-  }
+  },
 ) {
   if (themeUpdates.colors) updateColorScheme(themeUpdates.colors);
   if (themeUpdates.radius) updateRadius(themeUpdates.radius);
@@ -361,4 +381,18 @@ function getDefaultDeviceForTool(tool: ToolVariant): PreviewDevice {
     default:
       return "desktop";
   }
+}
+
+export function editEditorSettings(settings: {
+  is_open?: boolean;
+  ui_type?: "floating" | "default";
+}) {
+  const currentApp = $app.get();
+  $app.set({
+    ...currentApp,
+    editor: {
+      ...currentApp.editor,
+      ...settings,
+    },
+  });
 }

@@ -1,5 +1,5 @@
-import { AppleStyleDock } from "@/components/navs/floating-mockup";
-import TemplateSelect from "@/components/navs/templateSelect";
+import { ToolSelect } from "@/components/navs/tool-select";
+import TemplateSelect from "@/components/navs/template-select";
 import FloatingThemeSelector from "@/components/navs/app-theme";
 
 export default function Home() {
@@ -7,7 +7,7 @@ export default function Home() {
     <>
       <TemplateSelect />
 
-      <AppleStyleDock />
+      <ToolSelect />
       <FloatingThemeSelector />
     </>
   );

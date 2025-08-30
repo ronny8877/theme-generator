@@ -12,18 +12,20 @@ const tempPlates = [
     available: true,
   },
   {
-    title: "E-commerce",
-    description: "Coming soon - Product listings and checkout flows",
-    image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=200&fit=crop",
-    href: "#",
-    available: false,
-  },
-  {
-    title: "Landing Page",
-    description: "Coming soon - Marketing and promotional pages",
+    title: "Website",
+    description:
+      "Complete website templates including social, e-commerce, portfolio, and recipe sites",
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=200&fit=crop",
+    href: "/templates",
+    available: true,
+  },
+  {
+    title: "E-commerce",
+    description:
+      "Coming soon - Advanced e-commerce features and checkout flows",
+    image:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=200&fit=crop",
     href: "#",
     available: false,
   },

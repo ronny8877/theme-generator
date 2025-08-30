@@ -42,7 +42,8 @@ export const useUndoRedoStore = () => {
 // Hook for computed values
 export const useAvailableThemes = () => useStore($availableThemes);
 export const useActiveNotifications = () => useStore($activeNotifications);
-export const useHasActiveNotifications = () => useStore($hasActiveNotifications);
+export const useHasActiveNotifications = () =>
+  useStore($hasActiveNotifications);
 export const useActiveTheme = () => useStore($activeTheme);
 export const useProminentColors = () => useStore($prominentColors);
 export const useCssVariables = () => useStore($cssVariables);
