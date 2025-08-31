@@ -33,7 +33,7 @@ export default function Editor() {
           </TabsTrigger>
         </TabsList>
 
-        <ScrollArea    className="h-[82vh] ">
+        <ScrollArea    className="h-[82vh]   ">
         <TabsContent value="themes">
           <ThemeList />
         </TabsContent>

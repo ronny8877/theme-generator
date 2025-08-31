@@ -5,6 +5,7 @@ import {
   THEMES,
   TEMPLATES_ARRAY,
 } from "@/lib/constants/constants";
+import { $fontCSSVariables } from "./font-store";
 
 // Types
 export type PreviewDevice = (typeof AVILABLE_PREVIEW_DEVICES)[number];
@@ -163,13 +164,17 @@ export const $prominentColors = computed($activeTheme, (theme) => ({
   accent: theme.colors["--color-accent"],
   base: theme.colors["--color-base-100"],
 }));
-export const $cssVariables = computed($activeTheme, (theme) => {
-  return {
-    ...theme.colors,
-    ...theme.radius,
-    ...theme.misc,
-  };
-});
+export const $cssVariables = computed(
+  [$activeTheme, $fontCSSVariables], 
+  (theme, fontVars) => {
+    return {
+      ...theme.colors,
+      ...theme.radius,
+      ...theme.misc,
+      ...fontVars,
+    };
+  }
+);
 
 // Computed values - Undo/Redo
 export const $canUndo = computed($undoRedo, (state) => state.currentIndex > 0);
