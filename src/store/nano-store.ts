@@ -4,7 +4,7 @@ import {
   TOOL_VARIANTS,
   THEMES,
   TEMPLATES_ARRAY,
-} from "@/lib/constants";
+} from "@/lib/constants/constants";
 
 // Types
 export type PreviewDevice = (typeof AVILABLE_PREVIEW_DEVICES)[number];

@@ -1,4 +1,7 @@
-import { DAISY_UI_AVILABLE_THEMES, THEME_INFO } from "@/lib/constants";
+import {
+  DAISY_UI_AVILABLE_THEMES,
+  THEME_INFO,
+} from "@/lib/constants/constants";
 import { ScrollArea } from "../ui/scroll-area";
 import { setActiveTheme } from "@/store/nano-store";
 import { cn } from "@/lib/utils";

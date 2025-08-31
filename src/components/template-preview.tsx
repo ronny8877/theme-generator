@@ -10,9 +10,6 @@ import {
 } from "@/templates/website";
 import { useAppStore, useTemplateStore, useCssVariables } from "@/store/hooks";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { $app, editEditorSettings } from "@/store";
-import { motion } from "framer-motion";
-import { PictureInPicture } from "lucide-react";
 import EditorFloatingWrapper from "./editor/editor-floating-wrapper";
 import Editor from "./editor/editor";
 type ViewportSize = "desktop" | "tablet" | "mobile";

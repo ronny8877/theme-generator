@@ -20,6 +20,12 @@ export default function Editor() {
           >
             Advanced
           </TabsTrigger>
+          <TabsTrigger
+            value="fonts"
+            className="rounded-full data-[state=active]:bg-base-200 shadow-none cursor-pointer"
+          >
+            Fonts
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="themes">
           <ThemeList />

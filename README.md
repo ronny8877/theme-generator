@@ -10,6 +10,24 @@ THE MAIN thing we gonna have
 [ ] Social Page
 [ ] Recipe Book
 [ ] Fitness Tracker
+[ ] Enclycopedia Wiki pedia
+[ ] Dashboard
+[ ] SaaS Landing Page
+[ ] Documentation site
+[ ] Event landing page
+[ ] Newsletter site
+[ ] Job board
+[ ] Forum
+[ ] Q&A site
+[ ] Learning platform
+[ ] Travel booking site
+[ ] Real estate listing site
+[ ] Non-profit organization site
+[ ] Personal blog
+[ ] Photography portfolio
+[ ] Musician portfolio
+[ ] Artist portfolio
+[ ] Writer portfolio
 
 # personal for me
 

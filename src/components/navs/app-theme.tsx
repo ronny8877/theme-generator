@@ -3,7 +3,10 @@
 import { useState, useEffect } from "react";
 import { Palette, Check } from "lucide-react";
 import { useAppStore, useAppActions } from "@/store/hooks";
-import { DAISY_UI_AVILABLE_THEMES, THEME_INFO } from "@/lib/constants";
+import {
+  DAISY_UI_AVILABLE_THEMES,
+  THEME_INFO,
+} from "@/lib/constants/constants";
 
 function FloatingThemeSelector() {
   const [isExpanded, setIsExpanded] = useState(false);
