@@ -23,6 +23,17 @@ import {
   updateMiscConfig,
   switchTool,
 } from "./nano-store";
+import {
+  $fontStore,
+  $headingFont,
+  $bodyFont,
+  $fontOverrides,
+  $fontCSSVariables,
+  updateHeadingFont,
+  updateBodyFont,
+  updateFontOverrides,
+  loadGoogleFont,
+} from "./font-store";
 
 // Hook to access app store
 export const useAppStore = () => {
@@ -50,6 +61,13 @@ export const useCssVariables = () => useStore($cssVariables);
 export const useCanUndo = () => useStore($canUndo);
 export const useCanRedo = () => useStore($canRedo);
 
+// Font store hooks
+export const useFontStore = () => useStore($fontStore);
+export const useHeadingFont = () => useStore($headingFont);
+export const useBodyFont = () => useStore($bodyFont);
+export const useFontOverrides = () => useStore($fontOverrides);
+export const useFontCSSVariables = () => useStore($fontCSSVariables);
+
 // Hook for app actions
 export const useAppActions = () => {
   return {
@@ -70,5 +88,15 @@ export const useTemplateActions = () => {
     updateColorScheme,
     updateRadius,
     updateMiscConfig,
+  };
+};
+
+// Hook for font actions
+export const useFontActions = () => {
+  return {
+    updateHeadingFont,
+    updateBodyFont,
+    updateFontOverrides,
+    loadGoogleFont,
   };
 };

@@ -2,7 +2,6 @@ import {
   DAISY_UI_AVILABLE_THEMES,
   THEME_INFO,
 } from "@/lib/constants/constants";
-import { ScrollArea } from "../ui/scroll-area";
 import { setActiveTheme } from "@/store/nano-store";
 import { cn } from "@/lib/utils";
 import { useTemplateStore } from "@/store/hooks";
@@ -10,7 +9,6 @@ import { useTemplateStore } from "@/store/hooks";
 export default function ThemeList() {
   const templateStore = useTemplateStore();
   return (
-    <ScrollArea className="h-[80vh] ">
       <div className="flex flex-col gap-3 h-full pr-2">
         {DAISY_UI_AVILABLE_THEMES.map((theme) => {
           const themeInfo = THEME_INFO[theme as keyof typeof THEME_INFO];
@@ -48,6 +46,5 @@ export default function ThemeList() {
           );
         })}
       </div>
-    </ScrollArea>
   );
 }
