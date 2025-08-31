@@ -53,7 +53,7 @@ export function ToolSelect() {
         {data.map((item, idx) => (
           <DockItem
             key={idx}
-            className='aspect-square rounded-full bg-gray-200 cursor-pointer dark:bg-neutral-800'
+            className="aspect-square rounded-full bg-gray-200 cursor-pointer dark:bg-neutral-800"
             onClick={() => handleToolClick(item.tool)}
           >
             <DockLabel>{item.title}</DockLabel>

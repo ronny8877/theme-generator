@@ -164,7 +164,10 @@
   font-size: var(--font-heading-size);
   line-height: var(--font-heading-line-height);
   letter-spacing: var(--font-heading-letter-spacing);
-  margin-bottom: var(--font-heading-margin-bottom);
+  margin-bottom: max(
+    var(--font-heading-margin-bottom),
+    var(--font-heading-min-margin)
+  );
 }
 
 .template-content .font-body {
@@ -173,7 +176,10 @@
   font-size: var(--font-body-size);
   line-height: var(--font-body-line-height);
   letter-spacing: var(--font-body-letter-spacing);
-  margin-bottom: var(--font-body-margin-bottom);
+  margin-bottom: max(
+    var(--font-body-margin-bottom),
+    var(--font-body-min-margin)
+  );
 }
 
 /* Template-scoped heading tag styles */
@@ -185,9 +191,12 @@
 .template-content h6 {
   font-family: var(--font-heading-family) !important;
   font-weight: var(--font-heading-weight);
-  line-height: var(--font-heading-line-height);
-  letter-spacing: var(--font-heading-letter-spacing);
-  margin-bottom: var(--font-heading-margin-bottom);
+  line-height: var(--font-heading-line-height) !important;
+  letter-spacing: var(--font-heading-letter-spacing) !important;
+  margin-bottom: max(
+    var(--font-heading-margin-bottom),
+    var(--font-heading-min-margin)
+  );
 }
 
 /* Template-scoped body text styles */
@@ -202,8 +211,17 @@
 .template-content button {
   font-family: var(--font-body-family) !important;
   font-weight: var(--font-body-weight);
-  line-height: var(--font-body-line-height);
-  letter-spacing: var(--font-body-letter-spacing);
+  font-size: var(--font-body-size) !important;
+  line-height: var(--font-body-line-height) !important;
+  letter-spacing: var(--font-body-letter-spacing) !important;
+}
+
+/* Apply margin specifically to paragraph elements */
+.template-content p {
+  margin-bottom: max(
+    var(--font-body-margin-bottom),
+    var(--font-body-min-margin)
+  );
 }
 
 /* Template-scoped heading sizes while maintaining font family */

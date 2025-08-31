@@ -31,7 +31,7 @@ const componentMap = {
 };
 
 function TemplatePreview() {
-  const [viewport, setViewport] = useState<ViewportSize>("desktop");
+  const [viewport, setViewPort] = useState<ViewportSize>("desktop");
   const [parent] = useAutoAnimate<HTMLDivElement>();
   const [animationParent] = useAutoAnimate<HTMLDivElement>();
 
@@ -43,8 +43,10 @@ function TemplatePreview() {
 
   // Helper function to convert theme object to CSS custom properties
   const applyCSSVariables = (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     theme: Record<string, any>,
   ): React.CSSProperties => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const cssVars: Record<string, any> = {};
     Object.entries(theme).forEach(([key, value]) => {
       // CSS custom properties should start with --
@@ -91,7 +93,7 @@ function TemplatePreview() {
           <div className="mockup-browser-toolbar">
             <div className="input rounded-full">SITENAME</div>
           </div>
-          <ScrollArea className="w-full h-[90vh]">
+          <ScrollArea className="w-full h-[92vh]">
             <div
               ref={parent}
               className="smooth-theme-transition template-content relative"

@@ -178,18 +178,18 @@ export const LETTER_SPACINGS = [
 // Initial state
 const initialFontState: FontState = {
   heading: {
-    family: "Inter",
-    weight: "600",
-    size: "32px",
+    family: "Fira Code",
+    weight: "400",
+    size: "24px",
     lineHeight: "1.2",
     letterSpacing: "-0.025em",
   },
   body: {
-    family: "Inter",
+    family: "Montserrat",
     weight: "400",
     size: "16px",
-    lineHeight: "1.5",
-    letterSpacing: "0em",
+    lineHeight: "1.625",
+    letterSpacing: "0.025em",
   },
   overrides: {
     lineHeight: "1.5",
@@ -199,7 +199,7 @@ const initialFontState: FontState = {
     headingMinMargin: "0.5rem",
     bodyMinMargin: "0.25rem",
   },
-  loadedFonts: new Set(["Inter"]), // Inter is usually pre-loaded
+  loadedFonts: new Set(["Fira Code", "Montserrat"]), // Default fonts
 };
 
 // Store
@@ -283,18 +283,30 @@ export function loadGoogleFont(fontFamily: string) {
 
 // CSS Variables computed
 export const $fontCSSVariables = computed($fontStore, (store) => {
+  // Determine if global overrides should be applied
+  const useGlobalLineHeight = store.overrides.lineHeight !== "1.5"; // default value
+  const useGlobalLetterSpacing = store.overrides.letterSpacing !== "0em"; // default value
+
   return {
     "--font-heading-family": `"${store.heading.family}", sans-serif`,
     "--font-heading-weight": store.heading.weight,
     "--font-heading-size": store.heading.size,
-    "--font-heading-line-height": store.heading.lineHeight,
-    "--font-heading-letter-spacing": store.heading.letterSpacing,
+    "--font-heading-line-height": useGlobalLineHeight
+      ? store.overrides.lineHeight
+      : store.heading.lineHeight,
+    "--font-heading-letter-spacing": useGlobalLetterSpacing
+      ? store.overrides.letterSpacing
+      : store.heading.letterSpacing,
 
     "--font-body-family": `"${store.body.family}", sans-serif`,
     "--font-body-weight": store.body.weight,
     "--font-body-size": store.body.size,
-    "--font-body-line-height": store.body.lineHeight,
-    "--font-body-letter-spacing": store.body.letterSpacing,
+    "--font-body-line-height": useGlobalLineHeight
+      ? store.overrides.lineHeight
+      : store.body.lineHeight,
+    "--font-body-letter-spacing": useGlobalLetterSpacing
+      ? store.overrides.letterSpacing
+      : store.body.letterSpacing,
 
     "--font-override-line-height": store.overrides.lineHeight,
     "--font-override-letter-spacing": store.overrides.letterSpacing,
