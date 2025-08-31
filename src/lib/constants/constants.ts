@@ -146,9 +146,56 @@ export const THEME_INFO = {
     emoji: "❄️",
     colors: ["#f0f9ff", "#0284c7", "#1e40af"],
   },
+  // New Modern Themes
+  neon: {
+    name: "Neon",
+    emoji: "💡",
+    colors: ["#0a0a0a", "#00ff88", "#ff0080"],
+  },
+  sunset: {
+    name: "Sunset",
+    emoji: "🌅",
+    colors: ["#1a1a2e", "#ff6b6b", "#ffd93d"],
+  },
+  ocean: {
+    name: "Ocean",
+    emoji: "🌊",
+    colors: ["#e0f2fe", "#0369a1", "#075985"],
+  },
+  minimal: {
+    name: "Minimal",
+    emoji: "⚪",
+    colors: ["#fafafa", "#171717", "#737373"],
+  },
+  gaming: {
+    name: "Gaming",
+    emoji: "🎮",
+    colors: ["#0f0f0f", "#7c3aed", "#06ffa5"],
+  },
+  berry: {
+    name: "Berry",
+    emoji: "🫐",
+    colors: ["#fdf2f8", "#be185d", "#831843"],
+  },
+  space: {
+    name: "Space",
+    emoji: "🚀",
+    colors: ["#0c0a09", "#6366f1", "#a855f7"],
+  },
+  mint: {
+    name: "Mint",
+    emoji: "🌿",
+    colors: ["#f0fdf4", "#059669", "#047857"],
+  },
 } as const;
 
-export const DAISY_UI_AVILABLE_THEMES = ["lemonade", "synthwave", "cyberpunk"];
+export const DAISY_UI_AVILABLE_THEMES = [
+  "lemonade",
+  "synthwave",
+  "cyberpunk",
+  "autumn",
+  "winter",
+];
 
 export const AVILABLE_PREVIEW_DEVICES = [
   "mobile",
@@ -361,6 +408,153 @@ export const THEMES = [
       "--noise": 0,
     },
   },
+  {
+    name: "autumn",
+    id: "autumn",
+    default: false,
+    colors: {
+      "--color-base-100": "oklch(97.87% 0.008 106.06)",
+      "--color-base-200": "oklch(91.96% 0.013 106.06)",
+      "--color-base-300": "oklch(84.32% 0.019 106.06)",
+      "--color-base-content": "oklch(24.18% 0.034 106.06)",
+
+      "--color-primary": "oklch(62.92% 0.166 35.28)",
+      "--color-primary-content": "oklch(98.13% 0.007 35.28)",
+
+      "--color-secondary": "oklch(73.19% 0.116 35.28)",
+      "--color-secondary-content": "oklch(14.64% 0.023 35.28)",
+
+      "--color-accent": "oklch(75.67% 0.154 51.24)",
+      "--color-accent-content": "oklch(15.13% 0.031 51.24)",
+
+      "--color-neutral": "oklch(33.25% 0.051 35.28)",
+      "--color-neutral-content": "oklch(89.64% 0.009 35.28)",
+
+      "--color-info": "oklch(70.76% 0.129 231.6)",
+      "--color-info-content": "oklch(14.14% 0.026 231.6)",
+
+      "--color-success": "oklch(69.17% 0.132 162.48)",
+      "--color-success-content": "oklch(13.83% 0.026 162.48)",
+
+      "--color-warning": "oklch(84.25% 0.132 82.11)",
+      "--color-warning-content": "oklch(16.85% 0.026 82.11)",
+
+      "--color-error": "oklch(65.69% 0.199 27.33)",
+      "--color-error-content": "oklch(89.95% 0.008 27.33)",
+    },
+
+    radius: {
+      "--radius-selector": "0.5rem",
+      "--radius-field": "0.5rem",
+      "--radius-box": "1rem",
+    },
+
+    misc: {
+      "--size-selector": "0.25rem",
+      "--size-field": "0.25rem",
+      "--border": "1px",
+      "--depth": 0,
+      "--noise": 0,
+    },
+  },
+  {
+    name: "winter",
+    id: "winter",
+    default: false,
+    colors: {
+      "--color-base-100": "oklch(100% 0 0)",
+      "--color-base-200": "oklch(96.86% 0.004 197.14)",
+      "--color-base-300": "oklch(93.86% 0.008 197.14)",
+      "--color-base-content": "oklch(13.18% 0.004 197.14)",
+
+      "--color-primary": "oklch(47.41% 0.165 263.36)",
+      "--color-primary-content": "oklch(100% 0 0)",
+
+      "--color-secondary": "oklch(69.71% 0.329 192.18)",
+      "--color-secondary-content": "oklch(100% 0 0)",
+
+      "--color-accent": "oklch(76.76% 0.184 183.61)",
+      "--color-accent-content": "oklch(13.18% 0.008 183.61)",
+
+      "--color-neutral": "oklch(23.04% 0.065 229.87)",
+      "--color-neutral-content": "oklch(100% 0 0)",
+
+      "--color-info": "oklch(70.76% 0.129 231.6)",
+      "--color-info-content": "oklch(14.14% 0.026 231.6)",
+
+      "--color-success": "oklch(69.17% 0.132 162.48)",
+      "--color-success-content": "oklch(13.83% 0.026 162.48)",
+
+      "--color-warning": "oklch(84.25% 0.132 82.11)",
+      "--color-warning-content": "oklch(16.85% 0.026 82.11)",
+
+      "--color-error": "oklch(65.69% 0.199 27.33)",
+      "--color-error-content": "oklch(89.95% 0.008 27.33)",
+    },
+
+    radius: {
+      "--radius-selector": "0.5rem",
+      "--radius-field": "0.5rem",
+      "--radius-box": "1rem",
+    },
+
+    misc: {
+      "--size-selector": "0.25rem",
+      "--size-field": "0.25rem",
+      "--border": "1px",
+      "--depth": 0,
+      "--noise": 0,
+    },
+  },
+  {
+    name: "acid",
+    id: "acid",
+    default: false,
+    colors: {
+      "--color-base-100": "oklch(100% 0 0)",
+      "--color-base-200": "oklch(95.69% 0.041 326.36)",
+      "--color-base-300": "oklch(90.84% 0.065 326.36)",
+      "--color-base-content": "oklch(13.18% 0.041 326.36)",
+
+      "--color-primary": "oklch(57.95% 0.266 326.36)",
+      "--color-primary-content": "oklch(100% 0 0)",
+
+      "--color-secondary": "oklch(84.87% 0.199 146.36)",
+      "--color-secondary-content": "oklch(100% 0 0)",
+
+      "--color-accent": "oklch(74.22% 0.167 183.61)",
+      "--color-accent-content": "oklch(100% 0 0)",
+
+      "--color-neutral": "oklch(39.21% 0.132 326.36)",
+      "--color-neutral-content": "oklch(100% 0 0)",
+
+      "--color-info": "oklch(70.76% 0.129 231.6)",
+      "--color-info-content": "oklch(14.14% 0.026 231.6)",
+
+      "--color-success": "oklch(69.17% 0.132 162.48)",
+      "--color-success-content": "oklch(13.83% 0.026 162.48)",
+
+      "--color-warning": "oklch(84.25% 0.132 82.11)",
+      "--color-warning-content": "oklch(16.85% 0.026 82.11)",
+
+      "--color-error": "oklch(65.69% 0.199 27.33)",
+      "--color-error-content": "oklch(89.95% 0.008 27.33)",
+    },
+
+    radius: {
+      "--radius-selector": "0.5rem",
+      "--radius-field": "0.5rem",
+      "--radius-box": "1rem",
+    },
+
+    misc: {
+      "--size-selector": "0.25rem",
+      "--size-field": "0.25rem",
+      "--border": "1px",
+      "--depth": 0,
+      "--noise": 0,
+    },
+  },
 ];
 
 export const TEMPLATES_ARRAY = [
@@ -404,6 +598,27 @@ export const TEMPLATES_ARRAY = [
     title: "Personal Portfolio",
     description:
       "A professional portfolio website with projects, experience, skills, and contact information",
+    theme_id: "test",
+  },
+  {
+    id: "saas-landing",
+    title: "SaaS Landing Page",
+    description:
+      "A modern SaaS landing page with features, pricing, testimonials, and call-to-action sections",
+    theme_id: "test",
+  },
+  {
+    id: "ai-chat-ui",
+    title: "AI Chat Interface",
+    description:
+      "A sleek AI chat interface with conversation history, message formatting, and user interactions",
+    theme_id: "test",
+  },
+  {
+    id: "concert-poster",
+    title: "Concert Poster",
+    description:
+      "An eye-catching concert poster design with neon effects, event details, and ticket information",
     theme_id: "test",
   },
 ];
@@ -458,6 +673,37 @@ export const TEMPLATES: SelectSection[] = [
         title: "Personal Portfolio",
         description:
           "A professional portfolio website with projects, experience, skills, and contact information",
+      },
+      {
+        theme_id: "test",
+        id: "saas-landing",
+        title: "SaaS Landing Page",
+        description:
+          "A modern SaaS landing page with features, pricing, testimonials, and call-to-action sections",
+      },
+    ],
+  },
+  {
+    title: "App Templates",
+    options: [
+      {
+        theme_id: "test",
+        id: "ai-chat-ui",
+        title: "AI Chat Interface",
+        description:
+          "A sleek AI chat interface with conversation history, message formatting, and user interactions",
+      },
+    ],
+  },
+  {
+    title: "Poster Templates",
+    options: [
+      {
+        theme_id: "test",
+        id: "concert-poster",
+        title: "Concert Poster",
+        description:
+          "An eye-catching concert poster design with neon effects, event details, and ticket information",
       },
     ],
   },

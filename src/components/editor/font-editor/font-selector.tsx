@@ -26,15 +26,21 @@ const fetchGoogleFonts = async (query: string): Promise<GoogleFont[]> => {
   if (!query.trim()) {
     return GOOGLE_FONTS;
   }
-  
-  return GOOGLE_FONTS.filter(font => 
-    font.family.toLowerCase().includes(query.toLowerCase())
+
+  return GOOGLE_FONTS.filter((font) =>
+    font.family.toLowerCase().includes(query.toLowerCase()),
   );
 };
 
-export const FontSelector = ({ value, onChange, isOpen, onToggle }: FontSelectorProps) => {
+export const FontSelector = ({
+  value,
+  onChange,
+  isOpen,
+  onToggle,
+}: FontSelectorProps) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredFonts, setFilteredFonts] = useState<GoogleFont[]>(GOOGLE_FONTS);
+  const [filteredFonts, setFilteredFonts] =
+    useState<GoogleFont[]>(GOOGLE_FONTS);
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -82,17 +88,27 @@ export const FontSelector = ({ value, onChange, isOpen, onToggle }: FontSelector
         onClick={onToggle}
         className="w-full justify-between text-left font-normal h-10 px-3 rounded-xl bg-base-100 border-base-300 hover:bg-base-200"
       >
-        <span 
+        <span
           style={{ fontFamily: `"${value}", sans-serif` }}
           className="truncate"
         >
           {value}
         </span>
-        <svg className="w-4 h-4 opacity-50 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        <svg
+          className="w-4 h-4 opacity-50 flex-shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </Button>
-      
+
       {isOpen && (
         <div className="absolute top-full left-0 right-0 z-50 mt-1 bg-base-100 border border-base-300 rounded-xl shadow-lg overflow-hidden">
           {/* Search Input */}
@@ -106,14 +122,16 @@ export const FontSelector = ({ value, onChange, isOpen, onToggle }: FontSelector
               className="w-full h-8 px-3 bg-base-200 border border-base-300 rounded-lg focus:outline-none focus:border-primary transition-colors text-sm"
             />
           </div>
-          
+
           {/* Font List */}
           <ScrollArea className="h-60">
             <div className="p-2">
               {isLoading ? (
                 <div className="flex items-center justify-center py-4">
                   <div className="animate-spin w-4 h-4 border-2 border-primary border-t-transparent rounded-full"></div>
-                  <span className="ml-2 text-sm text-base-content/60">Loading fonts...</span>
+                  <span className="ml-2 text-sm text-base-content/60">
+                    Loading fonts...
+                  </span>
                 </div>
               ) : filteredFonts.length === 0 ? (
                 <div className="text-center py-4 text-sm text-base-content/60">
@@ -126,7 +144,7 @@ export const FontSelector = ({ value, onChange, isOpen, onToggle }: FontSelector
                     onClick={() => handleFontSelect(font.family)}
                     className={cn(
                       "w-full text-left px-3 py-2 rounded-lg hover:bg-base-200 transition-colors",
-                      value === font.family && "bg-base-200"
+                      value === font.family && "bg-base-200",
                     )}
                     style={{ fontFamily: `"${font.family}", sans-serif` }}
                   >

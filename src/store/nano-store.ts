@@ -73,6 +73,7 @@ export interface AppState {
   };
   activePreviewDevice: PreviewDevice | null;
   activeTool: ToolVariant;
+  activeEditorTab: "themes" | "fonts" | "advanced";
   editor: {
     is_open: boolean;
     ui_type: "floating" | "default";
@@ -113,6 +114,7 @@ const initialAppState: AppState = {
   },
   activePreviewDevice: "desktop",
   activeTool: "website",
+  activeEditorTab: "themes",
   ui: {
     sidebarCollapsed: false,
     locked_ui: false,
@@ -165,7 +167,7 @@ export const $prominentColors = computed($activeTheme, (theme) => ({
   base: theme.colors["--color-base-100"],
 }));
 export const $cssVariables = computed(
-  [$activeTheme, $fontCSSVariables], 
+  [$activeTheme, $fontCSSVariables],
   (theme, fontVars) => {
     return {
       ...theme.colors,
@@ -173,7 +175,7 @@ export const $cssVariables = computed(
       ...theme.misc,
       ...fontVars,
     };
-  }
+  },
 );
 
 // Computed values - Undo/Redo
@@ -205,6 +207,14 @@ export function setActiveTool(tool: ToolVariant) {
     ...currentApp,
     activeTool: tool,
     activePreviewDevice: getDefaultDeviceForTool(tool),
+  });
+}
+
+export function setActiveEditorTab(tab: "themes" | "fonts" | "advanced") {
+  const currentApp = $app.get();
+  $app.set({
+    ...currentApp,
+    activeEditorTab: tab,
   });
 }
 
@@ -350,6 +360,11 @@ export function switchTool(
   tool: "website" | "app" | "poster" | "typography" | "gradient",
 ) {
   setActiveTool(tool);
+  // Open the floating editor when a tool is selected
+  editEditorSettings({
+    is_open: true,
+    ui_type: "floating",
+  });
 }
 
 export function setActiveTemplateById(templateId: string) {

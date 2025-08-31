@@ -4,14 +4,26 @@ import ThemeList from "./theme-list";
 import { FontEditor } from "./fonts-editor";
 import { ScrollArea } from "../ui/scroll-area";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { useStore } from "@nanostores/react";
+import { $app } from "../../store";
+import { useAppActions } from "../../store/hooks";
 
 export default function Editor() {
+  const appStore = useStore($app);
+  const { setActiveEditorTab } = useAppActions();
+
+  const handleTabChange = (value: string) => {
+    setActiveEditorTab(value as "themes" | "fonts" | "advanced");
+  };
+
   return (
     <div className="w-[400px] h-full rounded-4xl p-3 bg-base-300">
       <EditorHeader />
-      <Tabs 
-
-      defaultValue="themes" className="w-full mt-3">
+      <Tabs
+        value={appStore.activeEditorTab}
+        onValueChange={handleTabChange}
+        className="w-full mt-3"
+      >
         <TabsList className="w-full bg-base-100 rounded-full h-12 gap-3 cursor-pointer">
           <TabsTrigger
             value="themes"
@@ -33,17 +45,17 @@ export default function Editor() {
           </TabsTrigger>
         </TabsList>
 
-        <ScrollArea    className="h-[82vh]   ">
-        <TabsContent value="themes">
-          <ThemeList />
-        </TabsContent>
-        <TabsContent value="advanced">
-          Change your advanced settings here.
-        </TabsContent>
-        <TabsContent value="fonts" className="mt-4">
-          <FontEditor />
-        </TabsContent>
-      </ScrollArea>
+        <ScrollArea className="h-[82vh]   ">
+          <TabsContent value="themes">
+            <ThemeList />
+          </TabsContent>
+          <TabsContent value="advanced">
+            Change your advanced settings here.
+          </TabsContent>
+          <TabsContent value="fonts" className="mt-4">
+            <FontEditor />
+          </TabsContent>
+        </ScrollArea>
       </Tabs>
     </div>
   );

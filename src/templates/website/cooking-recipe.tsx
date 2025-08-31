@@ -158,10 +158,10 @@ export default function CookingRecipe() {
               </li>
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl @md:text-2xl font-bold text-primary">
+          <h1 className="text-xl @md:text-2xl font-bold text-primary">
             <ChefHat className="w-7 h-7 @md:w-8 @md:h-8" />
             FoodieHub
-          </a>
+          </h1>
         </div>
 
         <div className="navbar-center hidden @lg:flex">

@@ -13,6 +13,7 @@ import {
   $canRedo,
   setTheme,
   setActiveTool,
+  setActiveEditorTab,
   setPreviewDevice,
   toggleSidebar,
   setActivePanel,
@@ -78,6 +79,7 @@ export const useAppActions = () => {
     setActivePanel,
     addNotification,
     setActiveTool,
+    setActiveEditorTab,
   };
 };
 

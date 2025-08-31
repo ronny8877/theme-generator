@@ -109,30 +109,28 @@ export default function BlogLanding() {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow-lg border border-base-200"
             >
               <li>
-                <a className="text-sm @sm:text-base font-medium">Home</a>
+                <a>Home</a>
               </li>
               <li>
-                <a className="text-sm @sm:text-base">Categories</a>
+                <a>Categories</a>
               </li>
               <li>
-                <a className="text-sm @sm:text-base">About</a>
+                <a>About</a>
               </li>
               <li>
-                <a className="text-sm @sm:text-base">Contact</a>
+                <a>Contact</a>
               </li>
             </ul>
           </div>
-          <a className="btn btn-ghost text-lg @sm:text-xl @lg:text-2xl font-bold text-primary">
+          <h1 className="text-lg @sm:text-xl @lg:text-2xl font-bold text-primary cursor-pointer">
             DevBlog
-          </a>
+          </h1>
         </div>
 
         <div className="navbar-center hidden @lg:flex">
           <ul className="menu menu-horizontal px-1 gap-2">
             <li>
-              <a className="btn btn-ghost btn-sm @xl:btn-md font-medium">
-                Home
-              </a>
+              <a className="btn btn-ghost btn-sm @xl:btn-md">Home</a>
             </li>
             <li>
               <a className="btn btn-ghost btn-sm @xl:btn-md">Categories</a>

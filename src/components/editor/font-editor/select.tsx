@@ -12,9 +12,14 @@ interface SelectProps {
   placeholder?: string;
 }
 
-export const Select = ({ value, onChange, options, placeholder }: SelectProps) => {
+export const Select = ({
+  value,
+  onChange,
+  options,
+  placeholder,
+}: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  
+
   return (
     <div className="relative">
       <Button
@@ -23,13 +28,23 @@ export const Select = ({ value, onChange, options, placeholder }: SelectProps) =
         className="w-full justify-between text-left font-normal h-10 px-3 rounded-xl bg-base-100 border-base-300 hover:bg-base-200"
       >
         <span className="truncate">
-          {options.find(opt => opt.value === value)?.label || placeholder}
+          {options.find((opt) => opt.value === value)?.label || placeholder}
         </span>
-        <svg className="w-4 h-4 opacity-50 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        <svg
+          className="w-4 h-4 opacity-50 flex-shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </Button>
-      
+
       {isOpen && (
         <div className="absolute top-full left-0 right-0 z-50 mt-1 bg-base-100 border border-base-300 rounded-xl shadow-lg max-h-40 overflow-hidden">
           <ScrollArea className="h-40">
@@ -43,7 +58,7 @@ export const Select = ({ value, onChange, options, placeholder }: SelectProps) =
                   }}
                   className={cn(
                     "w-full text-left px-3 py-2 rounded-lg hover:bg-base-200 transition-colors",
-                    value === option.value && "bg-base-200"
+                    value === option.value && "bg-base-200",
                   )}
                 >
                   <span className="truncate">{option.label}</span>

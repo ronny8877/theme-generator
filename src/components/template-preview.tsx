@@ -7,11 +7,15 @@ import {
   CookingRecipe,
   EcommerceSite,
   PersonalPortfolio,
+  SaaSLanding,
 } from "@/templates/website";
+import { AIChatUI } from "@/templates/app";
+import { ConcertPoster } from "@/templates/poster";
 import { useAppStore, useTemplateStore, useCssVariables } from "@/store/hooks";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import EditorFloatingWrapper from "./editor/editor-floating-wrapper";
 import Editor from "./editor/editor";
+import { FontInjector } from "./font-injector";
 type ViewportSize = "desktop" | "tablet" | "mobile";
 
 const componentMap = {
@@ -21,6 +25,9 @@ const componentMap = {
   "cooking-recipe-site": CookingRecipe,
   "ecommerce-store": EcommerceSite,
   "personal-portfolio": PersonalPortfolio,
+  "saas-landing": SaaSLanding,
+  "ai-chat-ui": AIChatUI,
+  "concert-poster": ConcertPoster,
 };
 
 function TemplatePreview() {
@@ -87,9 +94,10 @@ function TemplatePreview() {
           <ScrollArea className="w-full h-[90vh]">
             <div
               ref={parent}
-              className="smooth-theme-transition relative"
+              className="smooth-theme-transition template-content relative"
               style={applyCSSVariables(cssVariables)}
             >
+              <FontInjector />
               {/* Use key to force remount on template change */}
               <ActiveComponent key={activeComponentId} />
             </div>

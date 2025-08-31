@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { useStore } from "@nanostores/react";
-import { 
+import {
   $bodyFont,
   updateBodyFont,
   FONT_SIZES,
   LINE_HEIGHTS,
   LETTER_SPACINGS,
-  getFontWeights
+  getFontWeights,
 } from "@/store/font-store";
 import { FontSelector } from "./font-selector";
 import { Select } from "./select";
@@ -17,28 +17,42 @@ export const BodyFontCard = () => {
   const bodyFont = useStore($bodyFont);
   const [bodyFontOpen, setBodyFontOpen] = useState(false);
 
-  const bodyWeights = getFontWeights(bodyFont.family).map(weight => ({
+  const bodyWeights = getFontWeights(bodyFont.family).map((weight) => ({
     label: weight,
-    value: weight
+    value: weight,
   }));
 
   return (
     <div className="bg-base-100 rounded-2xl p-5 border border-base-300 shadow-sm">
       <div className="flex items-center gap-3 mb-4">
         <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center">
-          <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+          <svg
+            className="w-5 h-5 text-secondary"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 10h16M4 14h16M4 18h16"
+            />
           </svg>
         </div>
         <div>
           <h3 className="font-semibold text-base-content">Body Font</h3>
-          <p className="text-sm text-base-content/60">Configure body text typography</p>
+          <p className="text-sm text-base-content/60">
+            Configure body text typography
+          </p>
         </div>
       </div>
 
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-base-content mb-2">Font Family</label>
+          <label className="block text-sm font-medium text-base-content mb-2">
+            Font Family
+          </label>
           <FontSelector
             value={bodyFont.family}
             onChange={(family) => updateBodyFont({ family })}
@@ -49,7 +63,9 @@ export const BodyFontCard = () => {
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-sm font-medium text-base-content mb-2">Weight</label>
+            <label className="block text-sm font-medium text-base-content mb-2">
+              Weight
+            </label>
             <Select
               value={bodyFont.weight}
               onChange={(weight) => updateBodyFont({ weight })}
@@ -58,7 +74,9 @@ export const BodyFontCard = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-base-content mb-2">Size</label>
+            <label className="block text-sm font-medium text-base-content mb-2">
+              Size
+            </label>
             <Select
               value={bodyFont.size}
               onChange={(size) => updateBodyFont({ size })}
@@ -70,7 +88,9 @@ export const BodyFontCard = () => {
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-sm font-medium text-base-content mb-2">Line Height</label>
+            <label className="block text-sm font-medium text-base-content mb-2">
+              Line Height
+            </label>
             <Select
               value={bodyFont.lineHeight}
               onChange={(lineHeight) => updateBodyFont({ lineHeight })}
@@ -79,7 +99,9 @@ export const BodyFontCard = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-base-content mb-2">Letter Spacing</label>
+            <label className="block text-sm font-medium text-base-content mb-2">
+              Letter Spacing
+            </label>
             <Select
               value={bodyFont.letterSpacing}
               onChange={(letterSpacing) => updateBodyFont({ letterSpacing })}
@@ -92,7 +114,7 @@ export const BodyFontCard = () => {
         {/* Preview */}
         <div className="bg-base-200 rounded-xl p-4 border border-base-300">
           <p className="text-xs text-base-content/60 mb-2">Preview</p>
-          <p 
+          <p
             style={{
               fontFamily: `"${bodyFont.family}", sans-serif`,
               fontWeight: bodyFont.weight,
@@ -102,7 +124,9 @@ export const BodyFontCard = () => {
             }}
             className="break-words overflow-hidden"
           >
-            This is sample body text that demonstrates how your chosen font settings will look in actual content. It includes multiple sentences to show the line height and letter spacing effects.
+            This is sample body text that demonstrates how your chosen font
+            settings will look in actual content. It includes multiple sentences
+            to show the line height and letter spacing effects.
           </p>
         </div>
       </div>
