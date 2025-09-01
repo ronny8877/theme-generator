@@ -12,6 +12,7 @@ import {
 } from "@/store/font-store";
 import { FontSelector } from "./font-selector";
 import { Select } from "./select";
+import { Text } from "lucide-react";
 
 export const BodyFontCard = () => {
   const bodyFont = useStore($bodyFont);
@@ -26,19 +27,7 @@ export const BodyFontCard = () => {
     <div className="bg-base-100 rounded-2xl p-5 border border-base-300 shadow-sm">
       <div className="flex items-center gap-3 mb-4">
         <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center">
-          <svg
-            className="w-5 h-5 text-secondary"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 10h16M4 14h16M4 18h16"
-            />
-          </svg>
+         <Text/>
         </div>
         <div>
           <h3 className="font-semibold text-base-content">Body Font</h3>

@@ -21,9 +21,12 @@ export const Input = ({
   step = 0.1,
   type = "text",
 }: InputProps) => {
-  const parseValue = (val: string): number => {
+  const parseValue = (val = ""): number => {
     if (type === "number") {
-      const num = parseFloat(val.replace(/[^\d.-]/g, ""));
+      // Remove any non-numeric characters except digits, signs, decimal point and exponent markers
+      // This strips suffixes like "px" or "%" while preserving values like "1e3" or "+3.5"
+      const cleaned = String(val).replace(/[^0-9eE.+-]/g, "");
+      const num = parseFloat(cleaned);
       return isNaN(num) ? 0 : num;
     }
     return 0;
@@ -31,7 +34,11 @@ export const Input = ({
 
   const formatValue = (val: number): string => {
     if (type === "number") {
-      return val.toString() + (suffix || "");
+      // Round to max two decimal places and remove unnecessary trailing zeros
+      // Example: 1 -> "1", 1.2 -> "1.2", 1.234 -> "1.23"
+      const rounded = Math.round((val + Number.EPSILON) * 100) / 100;
+      const str = parseFloat(rounded.toFixed(2)).toString();
+      return str + (suffix || "");
     }
     return val.toString();
   };

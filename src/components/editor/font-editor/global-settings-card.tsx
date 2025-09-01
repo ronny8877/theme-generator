@@ -3,6 +3,7 @@
 import { useStore } from "@nanostores/react";
 import { $fontOverrides, updateFontOverrides } from "@/store/font-store";
 import { Input } from "./input";
+import { Globe2 } from "lucide-react";
 
 export const GlobalSettingsCard = () => {
   const fontOverrides = useStore($fontOverrides);
@@ -11,19 +12,7 @@ export const GlobalSettingsCard = () => {
     <div className="bg-base-100 rounded-2xl p-5 border border-base-300 shadow-sm">
       <div className="flex items-center gap-3 mb-4">
         <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
-          <svg
-            className="w-5 h-5 text-accent"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"
-            />
-          </svg>
+          <Globe2/>
         </div>
         <div>
           <h3 className="font-semibold text-base-content">Global Settings</h3>
@@ -34,7 +23,7 @@ export const GlobalSettingsCard = () => {
       </div>
 
       <div className="space-y-4">
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3">
           <div>
             <label className="block text-sm font-medium text-base-content mb-2">
               Global Line Height
@@ -45,7 +34,7 @@ export const GlobalSettingsCard = () => {
               placeholder="1.5"
               type="number"
               min={1}
-              max={3}
+              max={5}
               step={0.1}
             />
           </div>
@@ -62,7 +51,7 @@ export const GlobalSettingsCard = () => {
               suffix="em"
               type="number"
               min={-0.1}
-              max={0.2}
+              max={5}
               step={0.01}
             />
           </div>
@@ -82,7 +71,7 @@ export const GlobalSettingsCard = () => {
               suffix="rem"
               type="number"
               min={0}
-              max={5}
+              max={10}
               step={0.25}
             />
           </div>
@@ -99,7 +88,7 @@ export const GlobalSettingsCard = () => {
               suffix="rem"
               type="number"
               min={0}
-              max={5}
+              max={10}
               step={0.25}
             />
           </div>
@@ -119,7 +108,7 @@ export const GlobalSettingsCard = () => {
               suffix="rem"
               type="number"
               min={0}
-              max={3}
+              max={5}
               step={0.25}
             />
           </div>
@@ -136,7 +125,7 @@ export const GlobalSettingsCard = () => {
               suffix="rem"
               type="number"
               min={0}
-              max={3}
+              max={5}
               step={0.25}
             />
           </div>
