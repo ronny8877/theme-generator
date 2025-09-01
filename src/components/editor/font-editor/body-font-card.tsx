@@ -27,7 +27,7 @@ export const BodyFontCard = () => {
     <div className="bg-base-100 rounded-2xl p-5 border border-base-300 shadow-sm">
       <div className="flex items-center gap-3 mb-4">
         <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center">
-         <Text/>
+          <Text />
         </div>
         <div>
           <h3 className="font-semibold text-base-content">Body Font</h3>

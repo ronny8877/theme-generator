@@ -138,6 +138,65 @@ export const GOOGLE_FONTS = [
     category: "monospace",
     weights: ["300", "400", "600", "700", "900"],
   },
+  // Additional fonts requested
+  { family: "Asimovian", category: "display", weights: ["400"] },
+  { family: "TASA Explorer", category: "sans-serif", weights: ["400"] },
+  { family: "Story Script", category: "handwriting", weights: ["400"] },
+  { family: "Arimo", category: "sans-serif", weights: ["400", "700"] },
+  // Note: Nunito already included above, skipping duplicate
+  {
+    family: "Rubik",
+    category: "sans-serif",
+    weights: ["300", "400", "500", "700", "900"],
+  },
+  {
+    family: "Ubuntu",
+    category: "sans-serif",
+    weights: ["300", "400", "500", "700"],
+  },
+  {
+    family: "Quicksand",
+    category: "sans-serif",
+    weights: ["300", "400", "500", "600", "700"],
+  },
+  {
+    family: "Barlow",
+    category: "sans-serif",
+    weights: ["300", "400", "500", "600", "700", "800"],
+  },
+  {
+    family: "Outfit",
+    category: "sans-serif",
+    weights: ["300", "400", "500", "600", "700", "800", "900"],
+  },
+  { family: "Michroma", category: "display", weights: ["400"] },
+  {
+    family: "Josefin Sans",
+    category: "sans-serif",
+    weights: ["300", "400", "600", "700"],
+  },
+  {
+    family: "Exo 2",
+    category: "display",
+    weights: ["200", "300", "400", "500", "600", "700", "800", "900"],
+  },
+  // Pacifico already included earlier, skipping duplicate
+  { family: "Oxygen", category: "sans-serif", weights: ["300", "400", "700"] },
+  { family: "Abel", category: "sans-serif", weights: ["400"] },
+  { family: "Comfortaa", category: "display", weights: ["300", "400", "700"] },
+  { family: "Kode Mono", category: "monospace", weights: ["400", "700"] },
+  { family: "Caveat", category: "handwriting", weights: ["400", "700"] },
+  {
+    family: "Orbitron",
+    category: "display",
+    weights: ["400", "500", "700", "900"],
+  },
+  { family: "Indie Flower", category: "handwriting", weights: ["400"] },
+  {
+    family: "Exo",
+    category: "display",
+    weights: ["300", "400", "600", "700", "800", "900"],
+  },
 ];
 
 // Font size presets
@@ -178,7 +237,7 @@ export const LETTER_SPACINGS = [
 // Initial state
 const initialFontState: FontState = {
   heading: {
-    family: "Fira Code",
+    family: "Ubuntu",
     weight: "400",
     size: "24px",
     lineHeight: "1.2",
@@ -199,11 +258,16 @@ const initialFontState: FontState = {
     headingMinMargin: "0.5rem",
     bodyMinMargin: "0.25rem",
   },
-  loadedFonts: new Set(["Fira Code", "Montserrat"]), // Default fonts
+  loadedFonts: new Set(["Ubuntu", "Montserrat"]), // Default fonts
 };
 
 // Store
 export const $fontStore = atom<FontState>(initialFontState);
+
+// Exportable defaults for other components to reference
+export const DEFAULT_FONT_OVERRIDES: FontOverrides = {
+  ...initialFontState.overrides,
+};
 
 // Computed values
 export const $headingFont = computed($fontStore, (store) => store.heading);

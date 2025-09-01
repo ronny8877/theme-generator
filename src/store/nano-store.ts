@@ -4,7 +4,7 @@ import {
   TOOL_VARIANTS,
   THEMES,
   TEMPLATES_ARRAY,
-} from "@/lib/constants/constants";
+} from "@/lib/constants";
 import { $fontCSSVariables } from "./font-store";
 
 // Types
@@ -301,7 +301,7 @@ export function setActiveTemplate(templateId: string | null) {
 }
 
 export function setActiveTheme(theme_id: string) {
-  const theme = THEMES.find((t) => t.id === theme_id);
+  const theme = THEMES.find((t) => t.name === theme_id);
   if (theme) {
     const currentTemplate = $template.get();
     $template.set({

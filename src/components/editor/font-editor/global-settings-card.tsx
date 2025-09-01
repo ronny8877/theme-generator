@@ -1,7 +1,11 @@
 "use client";
 
 import { useStore } from "@nanostores/react";
-import { $fontOverrides, updateFontOverrides } from "@/store/font-store";
+import {
+  $fontOverrides,
+  updateFontOverrides,
+  DEFAULT_FONT_OVERRIDES,
+} from "@/store/font-store";
 import { Input } from "./input";
 import { Globe2 } from "lucide-react";
 
@@ -10,9 +14,9 @@ export const GlobalSettingsCard = () => {
 
   return (
     <div className="bg-base-100 rounded-2xl p-5 border border-base-300 shadow-sm">
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-center justify-between gap-3 mb-4">
         <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
-          <Globe2/>
+          <Globe2 />
         </div>
         <div>
           <h3 className="font-semibold text-base-content">Global Settings</h3>
@@ -130,6 +134,13 @@ export const GlobalSettingsCard = () => {
             />
           </div>
         </div>
+        <button
+          type="button"
+          onClick={() => updateFontOverrides(DEFAULT_FONT_OVERRIDES)}
+          className="btn rounded-3xl w-full"
+        >
+          Reset
+        </button>
       </div>
     </div>
   );
