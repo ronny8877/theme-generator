@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { ScrollArea } from "../../ui/scroll-area";
-import { Button } from "../../ui/button";
+import { ScrollArea } from "@/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { GOOGLE_FONTS, loadGoogleFont } from "@/store/font-store";
 
@@ -83,10 +82,9 @@ export const FontSelector = ({
 
   return (
     <div className="relative">
-      <Button
-        variant="outline"
+      <button
         onClick={onToggle}
-        className="w-full justify-between text-left font-normal h-10 px-3 rounded-xl bg-base-100 border-base-300 hover:bg-base-200"
+        className="w-full btn justify-between text-left font-normal h-10 px-3 rounded-xl bg-base-100 border-base-300 hover:bg-base-200"
       >
         <span
           style={{ fontFamily: `"${value}", sans-serif` }}
@@ -107,7 +105,7 @@ export const FontSelector = ({
             d="M19 9l-7 7-7-7"
           />
         </svg>
-      </Button>
+      </button>
 
       {isOpen && (
         <div className="absolute top-full left-0 right-0 z-50 mt-1 bg-base-100 border border-base-300 rounded-xl shadow-lg overflow-hidden">

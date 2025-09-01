@@ -123,7 +123,7 @@ const initialAppState: AppState = {
     activePanel: "templates",
   },
   editor: {
-    is_open: false,
+    is_open: true,
     ui_type: "default",
   },
 };

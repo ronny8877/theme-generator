@@ -33,8 +33,12 @@ export default function ThemeList() {
           <div className="text-sm text-base-content">No themes found</div>
         </>
       )}
-      <h2 className="text-lg font-semibold">Daisy UI Themes</h2>
-      <span className="divider my-0" />
+{ filteredThemes.length > 0 && (
+  <>
+    <h2 className="text-lg font-semibold">Daisy UI Themes</h2>
+    <span className="divider my-0" />
+  </>)
+  }
       {filteredThemes.map((theme) => {
         return (
           <div

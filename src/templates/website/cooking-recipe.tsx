@@ -1,517 +1,200 @@
-import {
-  Clock,
-  Users,
-  ChefHat,
-  Star,
-  Heart,
-  Share2,
-  Printer,
-  BookOpen,
-  Timer,
-  Thermometer,
-  Scale,
-  Check,
-  Plus,
-  Search,
-  Filter,
-  Menu,
-  MoreHorizontal,
-} from "lucide-react";
+import { Clock, ChefHat, Star } from "lucide-react";
+
+type Ingredient = { label: string };
+type Instruction = { step: number; title: string; body: string };
+type Review = { name: string; ago: string; text: string; rating: number; avatar?: string; likes?: number; comments?: number };
 
 export default function CookingRecipe() {
-  const recipe = {
-    title: "Mediterranean Quinoa Bowl",
-    description:
-      "A healthy and delicious quinoa bowl packed with fresh vegetables, feta cheese, and a tangy lemon dressing",
-    image:
-      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&h=600&fit=crop",
-    author: {
-      name: "Chef Maria Rodriguez",
-      avatar:
-        "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
-      bio: "Mediterranean cuisine specialist",
-    },
-    rating: 4.8,
-    reviews: 127,
-    prepTime: "15 min",
-    cookTime: "20 min",
-    totalTime: "35 min",
-    servings: 4,
-    difficulty: "Easy",
-    calories: 380,
-  };
+  const title = "Creamy Tomato Pasta with Basil";
+  const description = "A simple yet flavorful pasta dish with a rich tomato sauce and a touch of cream, garnished with fresh basil.";
+  const heroImage = "https://lh3.googleusercontent.com/aida-public/AB6AXuCIjDu3r4zKNeY93Iep61jwU4UscR9D45Og9N3SHe2X1CuT1nOhV1k_6iVuPrsDiWLKttlEMOkndxyckQ0QUkHw8AyTkCC8yJkwMj8SuErYwp4vaHldYQYK3eDBlmXkFXXs1uGrCiP3DMtii6Tc_UKQNYNiPXR8RnSc2qdtQGXg6Q9TjmzL3qp4HT-mFRYRTd87685aUTsPqLOtKqTZ_tRYmDuHzMvhQdvpnTfdbHx5kYx12VkGuK-hnBKYU-kYB1LllCxlVnb6k3E";
 
-  const ingredients = [
-    { item: "Quinoa", amount: "1 cup", checked: false },
-    { item: "Cherry tomatoes", amount: "1 cup", checked: false },
-    { item: "Cucumber", amount: "1 large", checked: false },
-    { item: "Red onion", amount: "1/2 medium", checked: false },
-    { item: "Feta cheese", amount: "4 oz", checked: false },
-    { item: "Kalamata olives", amount: "1/2 cup", checked: false },
-    { item: "Fresh parsley", amount: "1/4 cup", checked: false },
-    { item: "Lemon juice", amount: "3 tbsp", checked: false },
-    { item: "Extra virgin olive oil", amount: "3 tbsp", checked: false },
-    { item: "Garlic", amount: "2 cloves", checked: false },
-    { item: "Dried oregano", amount: "1 tsp", checked: false },
-    { item: "Salt and pepper", amount: "to taste", checked: false },
+  const ingredients: Ingredient[] = [
+    { label: "200g pasta (e.g., spaghetti)" },
+    { label: "400g canned chopped tomatoes" },
+    { label: "100ml double cream" },
+    { label: "1 onion, finely chopped" },
+    { label: "2 cloves garlic, minced" },
+    { label: "2 tbsp olive oil" },
+    { label: "Fresh basil leaves" },
   ];
 
-  const instructions = [
+  const instructions: Instruction[] = [
     {
       step: 1,
-      instruction:
-        "Rinse quinoa under cold water until water runs clear. In a medium saucepan, bring 2 cups of water to a boil.",
-      time: "2 min",
+      title: "Prepare the Base",
+      body:
+        "Heat the olive oil in a pan over medium heat. Add the chopped onion and cook until softened, about 5 minutes. Stir in the minced garlic and cook for another minute until fragrant.",
     },
     {
       step: 2,
-      instruction:
-        "Add quinoa to boiling water, reduce heat to low, cover and simmer for 15 minutes or until water is absorbed.",
-      time: "15 min",
+      title: "Simmer the Sauce",
+      body: "Pour in the canned chopped tomatoes and bring to a simmer. Cook for about 10 minutes, stirring occasionally, until the sauce thickens slightly.",
     },
     {
       step: 3,
-      instruction:
-        "Remove from heat and let stand 5 minutes. Fluff with a fork and let cool completely.",
-      time: "5 min",
+      title: "Add the Cream",
+      body: "Stir in the double cream and season with salt and pepper to taste. Continue to cook for another 2-3 minutes until the sauce is smooth and creamy.",
     },
     {
       step: 4,
-      instruction:
-        "Meanwhile, dice cucumber, halve cherry tomatoes, and thinly slice red onion.",
-      time: "5 min",
+      title: "Cook the Pasta",
+      body: "While the sauce is simmering, cook the pasta according to package instructions until al dente. Drain the pasta and add it to the creamy tomato sauce.",
     },
     {
       step: 5,
-      instruction:
-        "In a small bowl, whisk together lemon juice, olive oil, minced garlic, oregano, salt, and pepper.",
-      time: "2 min",
-    },
-    {
-      step: 6,
-      instruction:
-        "In a large bowl, combine cooled quinoa, tomatoes, cucumber, red onion, feta cheese, and olives.",
-      time: "3 min",
-    },
-    {
-      step: 7,
-      instruction:
-        "Pour dressing over quinoa mixture and toss gently. Garnish with fresh parsley and serve.",
-      time: "2 min",
+      title: "Combine and Serve",
+      body: "Toss the pasta in the sauce until it's well coated. Garnish with fresh basil leaves before serving.",
     },
   ];
 
-  const relatedRecipes = [
+  const reviews: Review[] = [
     {
-      title: "Greek Salad",
-      image:
-        "https://images.unsplash.com/photo-1544025162-d76694265947?w=300&h=200&fit=crop",
-      time: "10 min",
-      rating: 4.6,
+      name: "Sophia Carter",
+      ago: "1 month ago",
+      text: "This recipe is a game-changer! So easy to make and the flavors are incredible. The creamy tomato sauce is rich and satisfying, and the fresh basil adds a lovely touch.",
+      rating: 5,
+      avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuD8aZkNP6785jo4dNpGW9aiLV_3SZLZtFenQ4sfEIAT5_TMaA5PeVf9bNufFceWvpWj1pdgMhH2w7uhW-LQDhga0Q9ZKn61liuvAeUoAeTBBLfRp7E97Y_irRT800rqGiO5EoVxAnMyKjRKulKwEPJDd_WdVk2rzpK-koQw7c2_voKZsNXIBnok5eZJgS127AUhMqLcxQAqrsDrLWDRRJ5AhU3cL8qS61icB5HFnsG10XgH1R5kXZjXBt4Np9zV8FYQomhfHE4Nvx8",
+      likes: 12,
+      comments: 1,
     },
     {
-      title: "Lemon Herb Chicken",
-      image:
-        "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=300&h=200&fit=crop",
-      time: "45 min",
-      rating: 4.9,
+      name: "Ethan Bennett",
+      ago: "2 months ago",
+      text: "A solid recipe for a quick and tasty meal. The sauce is creamy and flavorful. I added a pinch of red pepper flakes for heat.",
+      rating: 4,
+      avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuCINBUQUomz-Z1kQUO6Rujrx9uwAlVLo-BlBhB0XJgZVNFpKxpoqYVlicDkhXon-KWyEUcO0jLr2Ms8NvBTeej3w-Dr2MFjZ2sDDcNu0uwP5SX7tMv63syl9oN-aysEiNJTxYry23ru9_fXDEuUfw5qMBSIEw9mRiRBhmyCwj8u9zUah7_Exq13ITcljQjqVCBlwXq2KCxn14twNT6peBaHfgR1wcG4u99m-2-fiDy0aFydmW5Y22QORtW-IZR4vljq9QyUMp4JdHY",
+      likes: 8,
+      comments: 2,
     },
-    {
-      title: "Hummus & Vegetables",
-      image:
-        "https://images.unsplash.com/photo-1571197119270-3b4b0f4e9dee?w=300&h=200&fit=crop",
-      time: "15 min",
-      rating: 4.7,
-    },
-  ];
-
-  const nutritionFacts = [
-    { label: "Calories", value: "380" },
-    { label: "Protein", value: "14g" },
-    { label: "Carbs", value: "48g" },
-    { label: "Fat", value: "16g" },
-    { label: "Fiber", value: "6g" },
-    { label: "Sugar", value: "8g" },
   ];
 
   return (
     <div className="min-h-screen bg-base-100 @container">
-      {/* Header */}
-      <div className="navbar bg-base-100 shadow-lg border-b border-base-300 sticky top-0 z-50">
-        <div className="navbar-start">
-          <div className="dropdown @lg:hidden">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-sm">
-              <Menu className="w-5 h-5" />
+      <header className="flex items-center justify-between border-b border-base-300 bg-white px-6 py-4">
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 text-red-600">
+            <div className="w-8 h-8">
+              <svg viewBox="0 0 48 48" fill="currentColor" className="w-full h-full">
+                <path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" />
+              </svg>
             </div>
-            <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow-xl border border-base-300">
-              <li>
-                <a className="font-medium">Recipes</a>
-              </li>
-              <li>
-                <a>Categories</a>
-              </li>
-              <li>
-                <a>Meal Plans</a>
-              </li>
-              <li>
-                <a>Shopping Lists</a>
-              </li>
-            </ul>
+            <h2 className="text-xl font-bold">Cookbook</h2>
           </div>
-          <h1 className="text-xl @md:text-2xl font-bold text-primary">
-            <ChefHat className="w-7 h-7 @md:w-8 @md:h-8" />
-            FoodieHub
-          </h1>
+
+          <nav className="hidden @md:flex items-center gap-6 text-sm text-base-content/70">
+            <a className="hover:text-red-600 transition-colors">Recipes</a>
+            <a className="hover:text-red-600 transition-colors">Ingredients</a>
+            <a className="hover:text-red-600 transition-colors">Meal Plans</a>
+            <a className="hover:text-red-600 transition-colors">Community</a>
+          </nav>
         </div>
 
-        <div className="navbar-center hidden @lg:flex">
-          <ul className="menu menu-horizontal px-1 gap-1">
-            <li>
-              <a className="btn btn-ghost btn-sm @xl:btn-md font-medium bg-primary text-primary-content">
-                Recipes
-              </a>
-            </li>
-            <li>
-              <a className="btn btn-ghost btn-sm @xl:btn-md hover:bg-base-200">
-                Categories
-              </a>
-            </li>
-            <li>
-              <a className="btn btn-ghost btn-sm @xl:btn-md hover:bg-base-200">
-                Meal Plans
-              </a>
-            </li>
-            <li>
-              <a className="btn btn-ghost btn-sm @xl:btn-md hover:bg-base-200">
-                Shopping Lists
-              </a>
-            </li>
-          </ul>
-        </div>
+        <div className="flex items-center gap-4">
+          <div className="relative hidden @sm:block">
+            <div className="flex items-center rounded-full border border-base-300 bg-white px-3 py-1 gap-2 w-64">
+              <svg className="w-4 h-4 text-base-content/60" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+              <input className="w-full bg-transparent focus:outline-none text-sm" placeholder="Search recipes..." />
+            </div>
+          </div>
 
-        <div className="navbar-end gap-2">
-          <button className="btn btn-ghost btn-circle btn-sm @md:btn-md">
-            <Search className="w-4 h-4 @md:w-5 @md:h-5" />
+          <button className="btn btn-ghost btn-circle">
+            <svg className="w-4 h-4" viewBox="0 0 256 256" fill="currentColor"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Zm0,177.57-51.77-32.35a8,8,0,0,0-8.48,0L72,209.57V48H184Z"/></svg>
           </button>
-          <button className="btn btn-ghost btn-circle btn-sm @md:btn-md">
-            <Filter className="w-4 h-4 @md:w-5 @md:h-5" />
-          </button>
-          <button className="btn btn-primary btn-sm @md:btn-md">Sign In</button>
-        </div>
-      </div>
 
-      <div className="container mx-auto px-4 py-6 @lg:py-8">
-        <div className="grid @lg:grid-cols-3 gap-6 @lg:gap-8">
-          {/* Main Recipe Content */}
-          <div className="@lg:col-span-2 space-y-6">
-            {/* Recipe Header */}
-            <div className="space-y-6">
-              <div className="aspect-video @md:aspect-[16/10] rounded-2xl overflow-hidden shadow-lg">
-                <img
-                  src={recipe.image}
-                  alt={recipe.title}
-                  className="w-full h-full object-cover"
-                />
+          <div className="w-10 h-10 rounded-full bg-cover bg-center ring-2 ring-offset-2" style={{ backgroundImage: `url(https://images.unsplash.com/photo-1545996124-1b2325a5a3b9?w=200&h=200&fit=crop)` }} />
+        </div>
+      </header>
+
+      <main className="px-4 py-10">
+        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="w-full bg-cover bg-center min-h-[360px]" style={{ backgroundImage: `url(${heroImage})` }} />
+
+          <div className="p-8">
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold leading-tight">{title}</h1>
+              <p className="text-base-content/60 mt-2">{description}</p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center border-y border-base-200 py-4 mb-8 gap-4">
+              <div className="flex-1 text-center sm:text-left border-r sm:border-r border-base-200 pr-0 sm:pr-6">
+                <p className="text-sm text-base-content/60 font-medium">Prep time</p>
+                <p className="text-lg font-bold">15 minutes</p>
               </div>
-
-              <div className="space-y-4">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <h1 className="text-2xl @md:text-3xl @lg:text-4xl font-bold text-base-content leading-tight">
-                      {recipe.title}
-                    </h1>
-                    <p className="text-sm @md:text-base @lg:text-lg text-base-content/70 mt-3 leading-relaxed">
-                      {recipe.description}
-                    </p>
-                  </div>
-                  <div className="dropdown dropdown-end">
-                    <div
-                      tabIndex={0}
-                      role="button"
-                      className="btn btn-ghost btn-circle btn-sm"
-                    >
-                      <MoreHorizontal className="w-5 h-5" />
-                    </div>
-                    <ul className="dropdown-content menu bg-base-100 rounded-box w-52 p-2 shadow-xl border border-base-300">
-                      <li>
-                        <a>Share Recipe</a>
-                      </li>
-                      <li>
-                        <a>Save to Collection</a>
-                      </li>
-                      <li>
-                        <a>Report Issue</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Recipe Meta */}
-                <div className="card bg-base-200 shadow-sm">
-                  <div className="card-body p-4 @md:p-6">
-                    <div className="flex flex-wrap items-center gap-4 @md:gap-6">
-                      <div className="flex items-center gap-3">
-                        <div className="avatar">
-                          <div className="w-12 h-12 @md:w-14 @md:h-14 rounded-full ring-2 ring-primary ring-offset-2">
-                            <img
-                              src={recipe.author.avatar}
-                              alt={recipe.author.name}
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <p className="font-bold text-base @md:text-lg text-base-content">
-                            {recipe.author.name}
-                          </p>
-                          <p className="text-sm @md:text-base text-base-content/60">
-                            {recipe.author.bio}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        <div className="rating rating-sm @md:rating-md">
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              className={`w-4 h-4 @md:w-5 @md:h-5 ${
-                                i < Math.floor(recipe.rating)
-                                  ? "text-warning fill-current"
-                                  : "text-base-300"
-                              }`}
-                            />
-                          ))}
-                        </div>
-                        <span className="font-bold text-base @md:text-lg">
-                          {recipe.rating}
-                        </span>
-                        <span className="text-sm @md:text-base text-base-content/60">
-                          ({recipe.reviews} reviews)
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Recipe Stats */}
-                <div className="grid grid-cols-2 @sm:grid-cols-4 gap-4">
-                  <div className="card bg-base-100 shadow-sm border border-base-300">
-                    <div className="card-body p-4 text-center">
-                      <Clock className="w-6 h-6 @md:w-8 @md:h-8 mx-auto mb-2 text-primary" />
-                      <p className="text-xs @md:text-sm text-base-content/60 font-medium">
-                        Prep Time
-                      </p>
-                      <p className="font-bold text-sm @md:text-base text-base-content">
-                        {recipe.prepTime}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="card bg-base-100 shadow-sm border border-base-300">
-                    <div className="card-body p-4 text-center">
-                      <Timer className="w-6 h-6 @md:w-8 @md:h-8 mx-auto mb-2 text-warning" />
-                      <p className="text-xs @md:text-sm text-base-content/60 font-medium">
-                        Cook Time
-                      </p>
-                      <p className="font-bold text-sm @md:text-base text-base-content">
-                        {recipe.cookTime}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="card bg-base-100 shadow-sm border border-base-300">
-                    <div className="card-body p-4 text-center">
-                      <Users className="w-6 h-6 @md:w-8 @md:h-8 mx-auto mb-2 text-success" />
-                      <p className="text-xs @md:text-sm text-base-content/60 font-medium">
-                        Servings
-                      </p>
-                      <p className="font-bold text-sm @md:text-base text-base-content">
-                        {recipe.servings}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="card bg-base-100 shadow-sm border border-base-300">
-                    <div className="card-body p-4 text-center">
-                      <Scale className="w-6 h-6 @md:w-8 @md:h-8 mx-auto mb-2 text-info" />
-                      <p className="text-xs @md:text-sm text-base-content/60 font-medium">
-                        Difficulty
-                      </p>
-                      <p className="font-bold text-sm @md:text-base text-base-content">
-                        {recipe.difficulty}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex flex-wrap gap-3">
-                  <button className="btn btn-primary btn-sm @md:btn-md shadow-lg hover:shadow-xl transition-all duration-200">
-                    <Plus className="w-4 h-4 @md:w-5 @md:h-5" />
-                    Add to Meal Plan
-                  </button>
-                  <button className="btn btn-outline btn-sm @md:btn-md border-error text-error hover:bg-error hover:text-error-content">
-                    <Heart className="w-4 h-4 @md:w-5 @md:h-5" />
-                    Save Recipe
-                  </button>
-                  <button className="btn btn-outline btn-sm @md:btn-md">
-                    <Share2 className="w-4 h-4 @md:w-5 @md:h-5" />
-                    Share
-                  </button>
-                  <button className="btn btn-outline btn-sm @md:btn-md">
-                    <Printer className="w-4 h-4 @md:w-5 @md:h-5" />
-                    Print
-                  </button>
-                </div>
+              <div className="flex-1 text-center">
+                <p className="text-sm text-base-content/60 font-medium">Servings</p>
+                <p className="text-lg font-bold">2</p>
               </div>
             </div>
 
-            {/* Ingredients */}
-            <div className="card bg-base-100 shadow-lg border border-base-300">
-              <div className="card-body p-6 @md:p-8">
-                <h2 className="card-title text-xl @md:text-2xl mb-6 text-base-content">
-                  <BookOpen className="w-6 h-6 @md:w-7 @md:h-7 text-primary" />
-                  Ingredients
-                </h2>
-                <div className="grid @md:grid-cols-2 gap-3">
-                  {ingredients.map((ingredient, index) => (
-                    <label
-                      key={index}
-                      className="flex items-center gap-4 p-4 hover:bg-base-200 rounded-xl transition-all duration-200 cursor-pointer group"
-                    >
-                      <input
-                        type="checkbox"
-                        className="checkbox checkbox-primary checkbox-sm @md:checkbox-md"
-                      />
-                      <div className="flex-1">
-                        <span className="font-semibold text-sm @md:text-base text-primary">
-                          {ingredient.amount}
-                        </span>
-                        <span className="text-sm @md:text-base text-base-content ml-2 group-has-[:checked]:line-through group-has-[:checked]:text-base-content/50 transition-all duration-200">
-                          {ingredient.item}
-                        </span>
-                      </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              <aside className="md:col-span-1">
+                <h2 className="text-2xl font-bold mb-4">Ingredients</h2>
+                <div className="space-y-3">
+                  {ingredients.map((ing, i) => (
+                    <label key={i} className="flex items-center gap-3">
+                      <input type="checkbox" className="checkbox checkbox-accent" />
+                      <span className="text-base">{ing.label}</span>
                     </label>
                   ))}
                 </div>
-              </div>
-            </div>
+              </aside>
 
-            {/* Instructions */}
-            <div className="card bg-base-100 shadow-lg border border-base-300">
-              <div className="card-body p-6 @md:p-8">
-                <h2 className="card-title text-xl @md:text-2xl mb-6 text-base-content">
-                  <ChefHat className="w-6 h-6 @md:w-7 @md:h-7 text-primary" />
-                  Instructions
-                </h2>
+              <section className="md:col-span-2">
+                <h2 className="text-2xl font-bold mb-4">Instructions</h2>
                 <div className="space-y-6">
-                  {instructions.map((step) => (
-                    <div
-                      key={step.step}
-                      className="card bg-base-200 shadow-sm border border-base-300"
-                    >
-                      <div className="card-body p-4 @md:p-6">
-                        <div className="flex gap-4">
-                          <div className="flex-shrink-0">
-                            <div className="w-10 h-10 @md:w-12 @md:h-12 bg-primary text-primary-content rounded-full flex items-center justify-center font-bold text-base @md:text-lg shadow-lg">
-                              {step.step}
-                            </div>
-                          </div>
-                          <div className="flex-1">
-                            <p className="text-sm @md:text-base text-base-content mb-3 leading-relaxed">
-                              {step.instruction}
-                            </p>
-                            <div className="flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-warning" />
-                              <span className="text-xs @md:text-sm text-base-content/70 font-medium">
-                                {step.time}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
+                  {instructions.map((ins) => (
+                    <div key={ins.step} className="flex gap-4">
+                      <div className="flex-shrink-0 h-8 w-8 rounded-full bg-red-500 text-white flex items-center justify-center font-bold">{ins.step}</div>
+                      <div>
+                        <p className="text-base font-semibold">{ins.title}</p>
+                        <p className="text-base-content/70">{ins.body}</p>
                       </div>
                     </div>
                   ))}
                 </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Nutrition Facts */}
-            <div className="card bg-base-100 shadow-lg border border-base-300">
-              <div className="card-body p-6">
-                <h3 className="card-title text-lg @md:text-xl mb-4 text-base-content">
-                  <Thermometer className="w-5 h-5 @md:w-6 @md:h-6 text-info" />
-                  Nutrition Facts
-                </h3>
-                <div className="space-y-3">
-                  {nutritionFacts.map((fact, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-between items-center p-3 hover:bg-base-200 rounded-lg transition-all duration-200 border border-base-300"
-                    >
-                      <span className="text-sm @md:text-base text-base-content/80 font-medium">
-                        {fact.label}
-                      </span>
-                      <span className="font-bold text-sm @md:text-base text-primary">
-                        {fact.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              </section>
             </div>
 
-            {/* Related Recipes */}
-            <div className="card bg-base-100 shadow-lg border border-base-300">
-              <div className="card-body p-6">
-                <h3 className="card-title text-lg @md:text-xl mb-4 text-base-content">
-                  Related Recipes
-                </h3>
-                <div className="space-y-4">
-                  {relatedRecipes.map((related, index) => (
-                    <div
-                      key={index}
-                      className="card bg-base-200 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer group border border-base-300"
-                    >
-                      <div className="card-body p-4">
-                        <div className="flex gap-3">
-                          <div className="w-16 h-16 @md:w-20 @md:h-20 rounded-xl overflow-hidden flex-shrink-0">
-                            <img
-                              src={related.image}
-                              alt={related.title}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-                            />
-                          </div>
-                          <div className="flex-1">
-                            <h4 className="font-bold text-sm @md:text-base line-clamp-2 text-base-content group-hover:text-primary transition-colors duration-200">
-                              {related.title}
-                            </h4>
-                            <div className="flex items-center gap-2 mt-2">
-                              <Clock className="w-3 h-3 @md:w-4 @md:h-4 text-warning" />
-                              <span className="text-xs @md:text-sm text-base-content/70 font-medium">
-                                {related.time}
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-1 mt-1">
-                              <Star className="w-3 h-3 @md:w-4 @md:h-4 text-warning fill-current" />
-                              <span className="text-xs @md:text-sm text-base-content/70 font-medium">
-                                {related.rating}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
+            <div className="mt-12 pt-8 border-t border-base-200">
+              <h2 className="text-2xl font-bold mb-6">User Reviews</h2>
+              <div className="space-y-8">
+                {reviews.map((r, idx) => (
+                  <div key={idx} className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-full bg-cover bg-center" style={{ backgroundImage: `url(${r.avatar})` }} />
+                      <div>
+                        <p className="font-semibold">{r.name}</p>
+                        <p className="text-sm text-base-content/60">{r.ago}</p>
                       </div>
                     </div>
-                  ))}
-                </div>
-                <button className="btn btn-outline btn-sm w-full mt-4">
-                  View More Recipes
-                </button>
+
+                    <div className="flex items-center gap-1 text-yellow-400">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star key={i} className={i < r.rating ? "w-4 h-4 text-yellow-400" : "w-4 h-4 text-gray-300"} />
+                      ))}
+                    </div>
+
+                    <p className="text-base-content/70">{r.text}</p>
+
+                    <div className="flex gap-4 text-base-content/60">
+                      <button className="flex items-center gap-2 hover:text-red-600 transition-colors">
+                        <svg className="w-5 h-5" viewBox="0 0 256 256" fill="currentColor"><path d="M234,80.12A24,24,0,0,0,216,72H160V56a40,40,0,0,0-40-40,8,8,0,0,0-7.16,4.42L75.06,96H32a16,16,0,0,0-16,16v88a16,16,0,0,0,16,16H204a24,24,0,0,0,23.82-21l12-96A24,24,0,0,0,234,80.12ZM32,112H72v88H32ZM223.94,97l-12,96a8,8,0,0,1-7.94,7H88V105.89l36.71-73.43A24,24,0,0,1,144,56V80a8,8,0,0,0,8,8h64a8,8,0,0,1,7.94,9Z"/></svg>
+                        <span>{r.likes ?? 0}</span>
+                      </button>
+
+                      <button className="flex items-center gap-2 hover:text-red-600 transition-colors">
+                        <svg className="w-5 h-5" viewBox="0 0 256 256" fill="currentColor"><path d="M239.82,157l-12-96A24,24,0,0,0,204,40H32A16,16,0,0,0,16,56v88a16,16,0,0,0,16,16H75.06l37.78,75.58A8,8,0,0,0,120,240a40,40,0,0,0,40-40V184h56a24,24,0,0,0,23.82-27ZM72,144H32V56H72Zm150,21.29a7.88,7.88,0,0,1-6,2.71H152a8,8,0,0,0-8,8v24a24,24,0,0,1-19.29,23.54L88,150.11V56H204a8,8,0,0,1,7.94,7l12,96A7.87,7.87,0,0,1,222,165.29Z"/></svg>
+                        <span>{r.comments ?? 0}</span>
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

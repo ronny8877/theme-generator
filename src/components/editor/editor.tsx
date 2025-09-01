@@ -3,7 +3,6 @@ import { EditorHeader } from "./header";
 import ThemeList from "./theme-list";
 import { FontEditor } from "./fonts-editor";
 import { ScrollArea } from "../ui/scroll-area";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useStore } from "@nanostores/react";
 import { $app } from "../../store";
 import { useAppActions } from "../../store/hooks";
