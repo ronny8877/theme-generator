@@ -165,7 +165,7 @@ export default function BlogLanding() {
                 <div className="flex items-start gap-4">
                   <div className="text-3xl ">🌐</div>
                   <div>
-                    <h3 className="font-semibold text-base-contentt">
+                    <h3 className="font-semibold text-base-content">
                       Remote Work Playbooks
                     </h3>
                     <p className="text-sm text-base-content mt-1">
@@ -180,7 +180,9 @@ export default function BlogLanding() {
                 <div className="flex items-start gap-4">
                   <div className="text-3xl">🔒</div>
                   <div>
-                    <h3 className="font-semibold">Security First</h3>
+                    <h3 className="font-semibold text-base-content">
+                      Security First
+                    </h3>
                     <p className="text-sm text-base-content/70 mt-1">
                       Practical tips and checklists to keep your team and users
                       safe without the scare tactics.

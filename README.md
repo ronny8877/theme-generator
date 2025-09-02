@@ -48,3 +48,5 @@ So we export for multiple demographics
 from UI people to tech people
 
 Philosophy is simple NICE UI and nicer UX
+
+//THE ONLY BACKEND feature i will add for now is the ability to PUBLISH themes
