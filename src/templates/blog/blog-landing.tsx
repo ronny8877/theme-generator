@@ -42,9 +42,9 @@ export default function BlogLanding() {
 
   return (
     <div className="min-h-screen bg-base-100 @container">
-      <header className="flex items-center justify-between border-b border-base-200 bg-white px-6 py-4 sticky top-0 z-40">
+      <header className="flex items-center justify-between border-b border-base-200 bg-primary text-primary-content px-6 py-4 sticky top-0 z-40">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-3 text-primary">
+          <div className="flex items-center gap-3">
             <svg
               className="h-6 w-6"
               viewBox="0 0 48 48"
@@ -53,16 +53,16 @@ export default function BlogLanding() {
             >
               <path d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" />
             </svg>
-            <h2 className="text-lg @sm:text-xl font-bold tracking-tight">
+            <h2 className="@sm:text-xl font-bold tracking-tight">
               Tech Insights
             </h2>
           </div>
 
-          <nav className="hidden @md:flex items-center gap-6 text-sm text-base-content/80">
-            <a className="hover:text-primary transition-colors">Home</a>
-            <a className="hover:text-primary transition-colors">Articles</a>
-            <a className="hover:text-primary transition-colors">About</a>
-            <a className="hover:text-primary transition-colors">Contact</a>
+          <nav className="hidden @md:flex items-center gap-6 text-sm">
+            <a className=" transition-colors">Home</a>
+            <a className=" transition-colors">Articles</a>
+            <a className=" transition-colors">About</a>
+            <a className=" transition-colors">Contact</a>
           </nav>
         </div>
 
