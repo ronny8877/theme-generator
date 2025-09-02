@@ -130,7 +130,7 @@ const initialAppState: AppState = {
 
 const initialTemplateState: TemplateState = {
   active_theme: THEMES[0],
-  activeTemplateId: "simple-blog-post",
+  activeTemplateId: "simple-blog-landing",
 };
 
 const initialUndoRedoState: UndoRedoState = {

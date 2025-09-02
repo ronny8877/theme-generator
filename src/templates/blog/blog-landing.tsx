@@ -42,7 +42,7 @@ export default function BlogLanding() {
 
   return (
     <div className="min-h-screen bg-base-100 @container">
-      <header className="flex items-center justify-between border-b border-base-200 bg-primary text-primary-content px-6 py-4 sticky top-0 z-40">
+      <header className="flex items-center justify-between border-b border-base-200 bg-primary text-primary-content px-6 py-4 @md:sticky top-0 z-40 rounded-selector max-w-6xl mx-auto">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <svg
@@ -68,7 +68,7 @@ export default function BlogLanding() {
 
         <div className="flex items-center gap-3">
           <div className="hidden @sm:block">
-            <div className="flex items-center rounded-full border border-base-200 bg-base-100 px-2 py-1 gap-2 w-64">
+            <div className="flex items-center rounded-full border border-base-200 bg-base-100 px-2 py-1 gap-2 w-64 max-w-full">
               <Search className="w-4 h-4 text-base-content/60" />
               <input
                 className="w-full bg-transparent focus:outline-none text-sm"
@@ -105,24 +105,27 @@ export default function BlogLanding() {
             </div>
           </div>
 
-          <h2 className="text-text @md:text-3xl text-2xl font-bold mt-12 mb-6">
+          <h2 className="text-text @md:text-3xl text-2xl text-base-content font-bold mt-12 mb-6">
             Recent Articles
           </h2>
 
           <div className="grid grid-cols-1 @md:grid-cols-2 @lg:grid-cols-3 gap-8">
             {articles.map((a) => (
-              <article key={a.title} className="group bg-base-200 card p-2">
+              <article
+                key={a.title}
+                className="group bg-primary card p-2 min-w-0"
+              >
                 <div className="overflow-hidden rounded-box">
                   <div
-                    className="w-full aspect-video bg-center bg-cover rounded-box group-hover:scale-105 transition-transform duration-300"
+                    className="w-full aspect-video bg-center bg-cover rounded-box group-hover:scale-105 transition-all duration-300"
                     style={{ backgroundImage: `url(${a.image})` }}
                   />
                 </div>
                 <div className="mt-4">
-                  <h6 className="text-lg  text-base-content group-hover:text-accent-content transition-colors truncate">
+                  <h6 className="text-lg  text-primary-content group-hover:text-accent-content transition-colors truncate">
                     {a.title}
                   </h6>
-                  <p className="text-sm text-base-content/70 mt-2">
+                  <p className="text-sm text-primary-content/70 mt-2">
                     {a.excerpt}
                   </p>
                 </div>
@@ -131,8 +134,8 @@ export default function BlogLanding() {
           </div>
 
           {/* Personality + Features */}
-          <section className="mt-12">
-            <h2 className="text-2xl @md:text-3xl text-base-content font-bold mb-6">
+          <section className="mt-12 text-base-content">
+            <h2 className="text-2xl @md:text-3xl  font-bold mb-6">
               Why readers love Tech Insights
             </h2>
             <p className="text-base-content/70 max-w-3xl mb-6">
@@ -142,12 +145,14 @@ export default function BlogLanding() {
               you can apply today.
             </p>
 
-            <div className="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 gap-6 text-primary-content">
+            <div className="grid grid-cols-1 @sm:grid-cols-1 @md:grid-cols-2 @lg:grid-cols-3 gap-6 text-primary-content">
               <div className="card bg-base-100 shadow hover:shadow-lg transition p-4">
                 <div className="flex items-start gap-4">
                   <div className="text-3xl">🤖</div>
                   <div>
-                    <h3 className="font-semibold">AI-Powered Briefs</h3>
+                    <h3 className="font-semibold text-base-content">
+                      AI-Powered Briefs
+                    </h3>
                     <p className="text-sm text-base-content/70 mt-1">
                       Short summaries of complex topics so you can stay current
                       without the deep-dive drain.
@@ -158,12 +163,12 @@ export default function BlogLanding() {
 
               <div className="card bg-base-100 shadow hover:shadow-lg transition p-4">
                 <div className="flex items-start gap-4">
-                  <div className="text-3xl">🌐</div>
+                  <div className="text-3xl ">🌐</div>
                   <div>
-                    <h3 className="font-semibold text-primary-content">
+                    <h3 className="font-semibold text-base-contentt">
                       Remote Work Playbooks
                     </h3>
-                    <p className="text-sm text-base-content/70 mt-1">
+                    <p className="text-sm text-base-content mt-1">
                       Actionable strategies for distributed teams — meetings,
                       async writing, and better rituals.
                     </p>
@@ -210,13 +215,16 @@ export default function BlogLanding() {
                 <h3 className="text-xl font-semibold mb-4">Editor’s Picks</h3>
                 <div className="space-y-4">
                   {articles.slice(0, 3).map((a) => (
-                    <div key={a.title} className="flex items-start gap-4">
+                    <div
+                      key={a.title}
+                      className="flex items-start gap-4 min-w-0"
+                    >
                       <div
                         className="w-16 h-10 bg-base-200 rounded-md bg-center bg-cover"
                         style={{ backgroundImage: `url(${a.image})` }}
                       />
                       <div>
-                        <h6 className="truncate w-96 hover:text-primary transition-colors ">
+                        <h6 className="truncate max-w-full md:max-w-[24rem] hover:text-primary transition-colors">
                           {a.title}
                         </h6>
                         <p className="text-xs text-base-content/60">

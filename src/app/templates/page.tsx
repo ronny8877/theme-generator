@@ -7,12 +7,14 @@ import FloatingSelect from "@/components/ui/floating-select";
 import { useState } from "react";
 import { TEMPLATES } from "@/lib/constants/constants";
 import EditorToggle from "@/components/editor-toggle";
+// import ThemeInfo from "@/components/navs/theme-info";
 
-export default function () {
+export default function TemplatesPage() {
   const [selectedValue, setSelectedValue] = useState<string>("dashboard");
 
   return (
     <>
+      {/* <ThemeInfo /> */}
       <FloatingSelect
         sections={TEMPLATES}
         value={selectedValue}

@@ -17,7 +17,10 @@ function FloatingThemeSelector() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedTheme = localStorage.getItem("theme");
-      if (savedTheme && DAISY_UI_AVILABLE_THEMES.includes(savedTheme as any)) {
+      if (
+        savedTheme &&
+        DAISY_UI_AVILABLE_THEMES.includes(savedTheme as never)
+      ) {
         setTheme(savedTheme as (typeof DAISY_UI_AVILABLE_THEMES)[number]);
         document.documentElement.setAttribute("data-theme", savedTheme);
       } else {

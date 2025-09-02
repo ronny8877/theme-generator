@@ -392,7 +392,7 @@ export const TEMPLATES: SelectSection[] = [
     title: "Poster Templates",
     options: [
       {
-        theme_id: "test",
+        theme_id: "retro",
         id: "concert-poster",
         title: "Concert Poster",
         description:

@@ -17,6 +17,7 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import EditorFloatingWrapper from "./editor/editor-floating-wrapper";
 import Editor from "./editor/editor";
 import { FontInjector } from "./font-injector";
+import ThemeInfo from "./navs/theme-info";
 type ViewportSize = "desktop" | "tablet" | "mobile";
 
 const componentMap = {
@@ -92,8 +93,9 @@ function TemplatePreview() {
         }}
       >
         <div className="mockup-browser border-base-300 border w-full">
-          <div className="mockup-browser-toolbar">
-            <div className="input rounded-full">SITENAME</div>
+          <div className="mockup-browser-toolbar relative">
+            <ThemeInfo />
+            {/* <div className="input rounded-full">SITENAME</div> */}
           </div>
           <ScrollArea className="w-full h-[92vh]">
             <div
