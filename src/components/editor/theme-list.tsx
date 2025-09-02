@@ -48,7 +48,7 @@ export default function ThemeList() {
               backgroundColor: theme.colors?.["--color-base-200"],
             }}
             className={cn(
-              "hover:bg-base-200 border outline outline-white border-base-300 rounded-3xl p-4 cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-[1.02] group",
+              "hover:bg-base-200 border outline outline-white border-base-300 rounded-4xl p-3 cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-[1.02] group",
               templateStore.active_theme.id === theme.name
                 ? "bg-base-200 shadow-lg"
                 : "bg-base-100",
@@ -59,6 +59,7 @@ export default function ThemeList() {
               {(() => {
                 const themeKey = String(theme.name).toLowerCase();
                 const themeInfo: any = (THEME_INFO as any)[themeKey];
+
                 const colors = [
                   // base
                   theme.colors?.["--color-base-100"] ?? themeInfo?.colors?.[0],
@@ -76,7 +77,7 @@ export default function ThemeList() {
                     {colors.map((color, index) => (
                       <div
                         key={`color-${index}`}
-                        className="w-5 h-5 rounded-sm border border-white shadow-sm group-hover:scale-110 transition-transform duration-200"
+                        className="w-5 h-5 rounded-lg border border-white shadow-sm group-hover:scale-110 transition-transform duration-200"
                         style={{ backgroundColor: color }}
                         aria-hidden
                       />

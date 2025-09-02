@@ -1,12 +1,25 @@
 "use client";
 
 import React from "react";
+import { parse } from "culori";
 import {
   useActiveTheme,
   useProminentColors,
   useHeadingFont,
   useBodyFont,
 } from "@/store/hooks";
+
+// Minimal typed shape for culori parse result to avoid `any` in this file
+type ParsedColor = {
+  r?: number;
+  g?: number;
+  b?: number;
+  red?: number;
+  green?: number;
+  blue?: number;
+  alpha?: number;
+  a?: number;
+};
 
 export default function ThemeInfo() {
   const theme = useActiveTheme();
@@ -54,7 +67,7 @@ export default function ThemeInfo() {
                   style={{ background: colors.primary }}
                 />
                 <div className="text-xs text-base-content/70">
-                  {colors.primary}
+                  {toHex(colors.primary)}
                 </div>
               </div>
             </div>
@@ -68,7 +81,7 @@ export default function ThemeInfo() {
                   style={{ background: colors.base }}
                 />
                 <div className="text-xs text-base-content/70">
-                  {colors.base}
+                  {toHex(colors.base)}
                 </div>
               </div>
             </div>
@@ -81,7 +94,7 @@ export default function ThemeInfo() {
                   style={{ background: colors.accent }}
                 />
                 <div className="text-xs text-base-content/70">
-                  {colors.accent}
+                  {toHex(colors.accent)}
                 </div>
               </div>
             </div>
@@ -122,3 +135,43 @@ export default function ThemeInfo() {
     </div>
   );
 }
+
+// Convert a color string (oklch, named, rgb, etc.) to hex (#rrggbb or #rrggbbaa)
+const toHex = (value: string) => {
+  try {
+    const parsed = parse(value);
+    if (!parsed) return value;
+
+    // culori parses to srgb-like values in 0..1 for r/g/b and optional alpha
+    const p = parsed as ParsedColor;
+    const r = p.r ?? p.red ?? null;
+    const g = p.g ?? p.green ?? null;
+    const b = p.b ?? p.blue ?? null;
+    const a = p.alpha ?? p.a ?? null;
+
+    if (
+      typeof r === "number" &&
+      typeof g === "number" &&
+      typeof b === "number"
+    ) {
+      const R = Math.round(Math.max(0, Math.min(1, r)) * 255);
+      const G = Math.round(Math.max(0, Math.min(1, g)) * 255);
+      const B = Math.round(Math.max(0, Math.min(1, b)) * 255);
+
+      const hex =
+        "#" +
+        [R, G, B].map((v: number) => v.toString(16).padStart(2, "0")).join("");
+
+      if (typeof a === "number" && a < 1) {
+        const A = Math.round(Math.max(0, Math.min(1, a)) * 255);
+        return hex + A.toString(16).padStart(2, "0");
+      }
+
+      return hex;
+    }
+
+    return value;
+  } catch {
+    return value;
+  }
+};

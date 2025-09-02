@@ -42,7 +42,7 @@ export default function BlogLanding() {
 
   return (
     <div className="min-h-screen bg-base-100 @container">
-      <header className="flex items-center justify-between border-b border-base-200 bg-primary text-primary-content px-6 py-4 @md:sticky top-0 z-40 rounded-selector max-w-6xl mx-auto">
+      <header className="flex items-center justify-between border-b border-base-200 bg-primary text-primary-content px-6 py-4  top-0 z-40 rounded-selector max-w-6xl mx-auto">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3">
             <svg
