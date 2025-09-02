@@ -93,7 +93,7 @@ export interface TemplateState {
 }
 
 export interface HistoryEntry {
-  snapshot: any;
+  snapshot: never;
   timestamp: Date;
   action: string;
   description: string;
@@ -381,9 +381,9 @@ export function setActiveTemplateById(templateId: string) {
 export function updateTemplateTheme(
   templateId: string,
   themeUpdates: {
-    colors?: any;
-    radius?: any;
-    misc?: any;
+    colors?: never;
+    radius?: never;
+    misc?: never;
   },
 ) {
   if (themeUpdates.colors) updateColorScheme(themeUpdates.colors);

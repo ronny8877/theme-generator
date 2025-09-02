@@ -8,6 +8,7 @@ import {
   EcommerceSite,
   PersonalPortfolio,
   SaaSLanding,
+  CookbookLanding,
 } from "@/templates/website";
 import { AIChatUI } from "@/templates/app";
 import { ConcertPoster } from "@/templates/poster";
@@ -26,12 +27,13 @@ const componentMap = {
   "ecommerce-store": EcommerceSite,
   "personal-portfolio": PersonalPortfolio,
   "saas-landing": SaaSLanding,
+  "cookbook-landing": CookbookLanding,
   "ai-chat-ui": AIChatUI,
   "concert-poster": ConcertPoster,
 };
 
 function TemplatePreview() {
-  const [viewport, setViewPort] = useState<ViewportSize>("desktop");
+  const [viewport] = useState<ViewportSize>("desktop");
   const [parent] = useAutoAnimate<HTMLDivElement>();
   const [animationParent] = useAutoAnimate<HTMLDivElement>();
 

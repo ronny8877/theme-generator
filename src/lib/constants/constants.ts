@@ -266,6 +266,13 @@ export const TEMPLATES_ARRAY = [
     theme_id: "test",
   },
   {
+    id: "cookbook-landing",
+    title: "Cookbook Landing",
+    description:
+      "A recipe discovery landing page with search, popular recipes, and seasonal picks",
+    theme_id: "test",
+  },
+  {
     id: "ecommerce-store",
     title: "E-commerce Store",
     description:
@@ -338,6 +345,13 @@ export const TEMPLATES: SelectSection[] = [
         title: "Recipe Website",
         description:
           "A beautiful recipe platform with ingredients, instructions, nutrition facts, and related recipes",
+      },
+      {
+        theme_id: "test",
+        id: "cookbook-landing",
+        title: "Cookbook Landing",
+        description:
+          "A recipe discovery landing page with search and featured recipes",
       },
       {
         theme_id: "test",

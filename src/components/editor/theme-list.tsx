@@ -10,7 +10,7 @@ export default function ThemeList() {
   const [query, setQuery] = React.useState("");
   const [animationParent] = useAutoAnimate<HTMLDivElement>();
   const filteredThemes = THEMES.filter((theme) =>
-    theme.name.toLowerCase().includes(query.toLowerCase())
+    theme.name.toLowerCase().includes(query.toLowerCase()),
   );
   const templateStore = useTemplateStore();
   return (
@@ -33,20 +33,20 @@ export default function ThemeList() {
           <div className="text-sm text-base-content">No themes found</div>
         </>
       )}
-{ filteredThemes.length > 0 && (
-  <>
-    <h2 className="text-lg font-semibold">Daisy UI Themes</h2>
-    <span className="divider my-0" />
-  </>)
-  }
+      {filteredThemes.length > 0 && (
+        <>
+          <h2 className="text-lg font-semibold">Daisy UI Themes</h2>
+          <span className="divider my-0" />
+        </>
+      )}
       {filteredThemes.map((theme) => {
         return (
           <div
             onClick={() => setActiveTheme(theme.name)}
             key={theme.id}
-                    style={{
-                    backgroundColor: theme.colors?.["--color-base-200"],
-                  }}
+            style={{
+              backgroundColor: theme.colors?.["--color-base-200"],
+            }}
             className={cn(
               "hover:bg-base-200 border outline outline-white border-base-300 rounded-3xl p-4 cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-[1.02] group",
               templateStore.active_theme.id === theme.name
@@ -72,8 +72,7 @@ export default function ThemeList() {
                 ];
 
                 return (
-                  <div className="grid grid-cols-2 gap-2 p-2"
-          >
+                  <div className="grid grid-cols-2 gap-2 p-2">
                     {colors.map((color, index) => (
                       <div
                         key={`color-${index}`}
@@ -91,7 +90,8 @@ export default function ThemeList() {
                 style={{
                   color: theme.colors?.["--color-base-content"],
                 }}
-                className="text-sm font-medium capitalize tracking-wide">
+                className="text-sm font-medium capitalize tracking-wide"
+              >
                 {theme.name.toLocaleUpperCase()}
               </span>
             </div>
