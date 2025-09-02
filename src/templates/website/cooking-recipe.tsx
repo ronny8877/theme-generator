@@ -138,7 +138,7 @@ export default function CookingRecipe() {
       </header>
 
       <main className="px-4 py-10">
-        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+        <div className="max-w-4xl mx-auto bg-white rounded-selector shadow-lg overflow-hidden">
           <div
             className="w-full bg-cover bg-center min-h-[360px]"
             style={{ backgroundImage: `url(${heroImage})` }}
@@ -147,25 +147,25 @@ export default function CookingRecipe() {
           <div className="p-8">
             <div className="mb-6">
               <h1 className="text-4xl font-bold leading-tight">{title}</h1>
-              <p className="text-base-content/60 mt-2">{description}</p>
+              <p className="text-black/60 mt-2">{description}</p>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center border-y border-base-200 py-4 mb-8 gap-4">
               <div className="flex-1 text-center sm:text-left border-r sm:border-r border-base-200 pr-0 sm:pr-6">
-                <p className="text-sm text-base-content/60 font-medium">
+                <p className="text-sm text-black/60 font-medium">
                   Prep time
                 </p>
                 <p className="text-lg font-bold">15 minutes</p>
               </div>
               <div className="flex-1 text-center">
-                <p className="text-sm text-base-content/60 font-medium">
+                <p className="text-sm text-black/60 font-medium">
                   Servings
                 </p>
                 <p className="text-lg font-bold">2</p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="grid grid-cols-1 @md:grid-cols-3 gap-12">
               <aside className="md:col-span-1">
                 <h2 className="text-2xl font-bold mb-4">Ingredients</h2>
                 <div className="space-y-3">
@@ -186,12 +186,12 @@ export default function CookingRecipe() {
                 <div className="space-y-6">
                   {instructions.map((ins) => (
                     <div key={ins.step} className="flex gap-4">
-                      <div className="flex-shrink-0 h-8 w-8 rounded-full bg-red-500 text-white flex items-center justify-center font-bold">
+                      <div className="flex-shrink-0 h-8 w-8 rounded-full bg-error text-error-content flex items-center justify-center font-bold">
                         {ins.step}
                       </div>
                       <div>
                         <p className="text-base font-semibold">{ins.title}</p>
-                        <p className="text-base-content/70">{ins.body}</p>
+                        <p className="text-black/60">{ins.body}</p>
                       </div>
                     </div>
                   ))}
