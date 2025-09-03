@@ -11,6 +11,7 @@ import { useTemplateStore } from "@/store/hooks";
 import { THEMES } from "@/lib/constants";
 import { THEME_INFO } from "@/lib/constants/constants";
 import React from "react";
+import { Sparkles } from "lucide-react";
 import type { ThemeConfig } from "@/store/nano-store";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useStore } from "@nanostores/react";
@@ -35,7 +36,7 @@ export default function ThemeList() {
       {/* Randomize button */}
       <div className="flex items-center justify-between gap-2">
         <button
-          className="btn btn-sm btn-accent rounded-full"
+          className="btn btn-sm rounded-full px-4 shadow-md bg-gradient-to-r from-primary to-accent text-primary-content hover:opacity-90"
           onClick={() => {
             const allThemes: ThemeConfig[] = [...THEMES, ...userThemes];
             if (allThemes.length === 0) return;
@@ -44,7 +45,10 @@ export default function ThemeList() {
             setActiveThemeConfig(t);
           }}
         >
-          Randomize
+          <span className="inline-flex items-center gap-2">
+            <Sparkles className="w-4 h-4" />
+            Surprise me
+          </span>
         </button>
       </div>
       <input

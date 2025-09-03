@@ -14,6 +14,44 @@ import { AdvancedColorPicker } from "./color-picker";
 
 type ColorKey = keyof ReturnType<typeof useActiveColors>;
 
+// Simple fun name pools for default theme names
+const THEME_ADJECTIVES = [
+  "Neon",
+  "Solar",
+  "Velvet",
+  "Quantum",
+  "Crystal",
+  "Aurora",
+  "Midnight",
+  "Prismatic",
+  "Retro",
+  "Electric",
+  "Lunar",
+  "Pixel",
+];
+
+const THEME_NOUNS = [
+  "Falcon",
+  "Wave",
+  "Blossom",
+  "Pulse",
+  "Forge",
+  "Echo",
+  "Nova",
+  "Drift",
+  "Spectrum",
+  "Glide",
+  "Breeze",
+  "Matrix",
+];
+
+function defaultFakeName() {
+  const adj =
+    THEME_ADJECTIVES[Math.floor(Math.random() * THEME_ADJECTIVES.length)];
+  const noun = THEME_NOUNS[Math.floor(Math.random() * THEME_NOUNS.length)];
+  return `${adj} ${noun}`;
+}
+
 function useActiveColors() {
   const theme = useStore($activeTheme);
   // robust fallback so UI never crashes if a key is missing
@@ -73,8 +111,11 @@ function Swatch({
         active ? "border-primary ring-2 ring-primary/30" : "border-base-300"
       }`}
       style={{
-        background: bgColor ?? color,
-        color: showLetter ? color : undefined,
+        // If this is a text-content swatch (showLetter), fill the swatch with the text color itself
+        // so changes are reflected on the full tile, not just the letter.
+        background: showLetter ? color : (bgColor ?? color),
+        // Let the letter color inherit; it's decorative and shouldn't hide the swatch color
+        color: showLetter ? undefined : undefined,
       }}
       aria-label={label}
       title={label}
@@ -281,7 +322,7 @@ function MiscEditor() {
 }
 
 export function ThemeCreator() {
-  const [name, setName] = React.useState("");
+  const [name, setName] = React.useState(() => defaultFakeName());
   React.useEffect(() => {
     initUserThemes();
   }, []);

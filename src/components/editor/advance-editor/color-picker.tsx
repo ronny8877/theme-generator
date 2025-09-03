@@ -35,7 +35,7 @@ export function AdvancedColorPicker({
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerTrigger asChild />
       <DrawerContent>
-        <div className="mx-auto w-full max-w-4xl">
+        <div className="mx-auto w-full max-w-5xl">
           <DrawerHeader>
             <DrawerTitle>{title ?? "Pick color"}</DrawerTitle>
             <DrawerDescription>{description}</DrawerDescription>
