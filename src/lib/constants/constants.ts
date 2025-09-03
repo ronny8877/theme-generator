@@ -374,6 +374,13 @@ export const TEMPLATES: SelectSection[] = [
         description:
           "A modern SaaS landing page with features, pricing, testimonials, and call-to-action sections",
       },
+      {
+        theme_id: "test",
+        id: "anime-realm",
+        title: "Anime Realm",
+        description:
+          "A modern, glitch-inspired fan site celebrating Darling in the Franxx with character profiles, story highlights, wallpapers, merch links, and more.",
+      },
     ],
   },
   {

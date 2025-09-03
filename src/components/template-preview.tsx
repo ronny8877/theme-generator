@@ -18,6 +18,7 @@ import EditorFloatingWrapper from "./editor/editor-floating-wrapper";
 import Editor from "./editor/editor";
 import { FontInjector } from "./font-injector";
 import ThemeInfo from "./navs/theme-info";
+import AnimeRealm from "@/templates/website/anime-realm";
 type ViewportSize = "desktop" | "tablet" | "mobile";
 
 const componentMap = {
@@ -31,6 +32,7 @@ const componentMap = {
   "cookbook-landing": CookbookLanding,
   "ai-chat-ui": AIChatUI,
   "concert-poster": ConcertPoster,
+  "anime-realm": AnimeRealm,
 };
 
 function TemplatePreview() {
@@ -47,7 +49,7 @@ function TemplatePreview() {
   // Helper function to convert theme object to CSS custom properties
   const applyCSSVariables = (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    theme: Record<string, any>,
+    theme: Record<string, any>
   ): React.CSSProperties => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const cssVars: Record<string, any> = {};
