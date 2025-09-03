@@ -45,7 +45,8 @@ export default function Editor() {
           </TabsTrigger>
         </TabsList>
 
-        <ScrollArea className="h-[82vh]   ">
+        {/* Main scrollable area */}
+        <ScrollArea className="h-[74vh]">
           <TabsContent value="themes">
             <ThemeList />
           </TabsContent>
@@ -56,6 +57,16 @@ export default function Editor() {
             <FontEditor />
           </TabsContent>
         </ScrollArea>
+
+        {/* Footer actions under scroller, visible for all tabs */}
+        <div className="mt-3 flex items-center justify-between gap-2">
+          <button className="btn btn-secondary btn-sm rounded-full px-4">
+            Share
+          </button>
+          <button className="btn btn-outline btn-sm rounded-full px-4">
+            CSS
+          </button>
+        </div>
       </Tabs>
     </div>
   );

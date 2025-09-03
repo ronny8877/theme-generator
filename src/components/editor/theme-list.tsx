@@ -11,6 +11,7 @@ import { useTemplateStore } from "@/store/hooks";
 import { THEMES } from "@/lib/constants";
 import { THEME_INFO } from "@/lib/constants/constants";
 import React from "react";
+import type { ThemeConfig } from "@/store/nano-store";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useStore } from "@nanostores/react";
 
@@ -31,6 +32,21 @@ export default function ThemeList() {
   const templateStore = useTemplateStore();
   return (
     <div ref={animationParent} className="flex flex-col gap-3 h-full pr-2">
+      {/* Randomize button */}
+      <div className="flex items-center justify-between gap-2">
+        <button
+          className="btn btn-sm btn-accent rounded-full"
+          onClick={() => {
+            const allThemes: ThemeConfig[] = [...THEMES, ...userThemes];
+            if (allThemes.length === 0) return;
+            const idx = Math.floor(Math.random() * allThemes.length);
+            const t = allThemes[idx];
+            setActiveThemeConfig(t);
+          }}
+        >
+          Randomize
+        </button>
+      </div>
       <input
         type="text"
         placeholder="Search themes..."

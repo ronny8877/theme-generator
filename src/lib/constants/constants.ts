@@ -255,8 +255,8 @@ export const TEMPLATES_ARRAY = [
       "A complete blog homepage with featured posts, recent articles, trending content, and newsletter signup",
     theme_id: "winter",
     fonts: {
-      heading: { family: "Merriweather", weight: "700" },
-      body: { family: "Inter", weight: "400" },
+      heading: { family: "Fira Sans", weight: "700" },
+      body: { family: "Ubuntu", weight: "400" },
     },
   },
   {
@@ -367,8 +367,8 @@ export const TEMPLATES: SelectSection[] = [
         description:
           "A complete blog homepage with featured posts, recent articles, trending content, and newsletter signup",
         fonts: {
-          heading: { family: "Merriweather", weight: "700" },
-          body: { family: "Inter", weight: "400" },
+          heading: { family: "Fira Code", weight: "300" },
+          body: { family: "Ubuntu", weight: "400" },
         },
       },
     ],

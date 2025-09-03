@@ -78,6 +78,11 @@ export const GOOGLE_FONTS = [
     category: "sans-serif",
     weights: ["300", "400", "500", "600", "700", "800", "900"],
   },
+  {
+    family: "Fira Sans",
+    category: "sans-serif",
+    weights: ["300", "400", "500", "600", "700", "800", "900"],
+  },
 
   // Serif
   {
