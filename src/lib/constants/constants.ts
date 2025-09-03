@@ -242,63 +242,99 @@ export const TEMPLATES_ARRAY = [
     title: "Blog Post",
     description:
       "A detailed blog post layout with header, content, interactions, and suggested articles",
-    theme_id: "test",
+    theme_id: "lemonade",
+    fonts: {
+      heading: { family: "Playfair Display", weight: "600" },
+      body: { family: "Inter", weight: "400" },
+    },
   },
   {
     id: "simple-blog-landing",
     title: "Blog Landing Page",
     description:
       "A complete blog homepage with featured posts, recent articles, trending content, and newsletter signup",
-    theme_id: "test",
+    theme_id: "winter",
+    fonts: {
+      heading: { family: "Merriweather", weight: "700" },
+      body: { family: "Inter", weight: "400" },
+    },
   },
   {
     id: "twitter-like-social",
     title: "Twitter-like Social Platform",
     description:
       "A modern social media interface with posts, trending topics, user interactions, and responsive design",
-    theme_id: "test",
+    theme_id: "dark",
+    fonts: {
+      heading: { family: "Inter", weight: "600" },
+      body: { family: "Inter", weight: "400" },
+    },
   },
   {
     id: "cooking-recipe-site",
     title: "Cooking Recipe Website",
     description:
       "A beautiful recipe platform with ingredients, instructions, nutrition facts, and related recipes",
-    theme_id: "test",
+    theme_id: "garden",
+    fonts: {
+      heading: { family: "Playfair Display", weight: "600" },
+      body: { family: "Lora", weight: "400" },
+    },
   },
   {
     id: "cookbook-landing",
     title: "Cookbook Landing",
     description:
       "A recipe discovery landing page with search, popular recipes, and seasonal picks",
-    theme_id: "test",
+    theme_id: "mint",
+    fonts: {
+      heading: { family: "Playfair Display", weight: "600" },
+      body: { family: "Source Sans Pro", weight: "400" },
+    },
   },
   {
     id: "ecommerce-store",
     title: "E-commerce Store",
     description:
       "A full-featured online store with product listings, categories, shopping cart, and checkout flow",
-    theme_id: "test",
+    theme_id: "corporate",
+    fonts: {
+      heading: { family: "Outfit", weight: "600" },
+      body: { family: "Montserrat", weight: "400" },
+    },
   },
   {
     id: "personal-portfolio",
     title: "Personal Portfolio",
     description:
       "A professional portfolio website with projects, experience, skills, and contact information",
-    theme_id: "test",
+    theme_id: "winter",
+    fonts: {
+      heading: { family: "Poppins", weight: "600" },
+      body: { family: "Inter", weight: "400" },
+    },
   },
   {
     id: "saas-landing",
     title: "SaaS Landing Page",
     description:
       "A modern SaaS landing page with features, pricing, testimonials, and call-to-action sections",
-    theme_id: "test",
+    theme_id: "corporate",
+    fonts: {
+      heading: { family: "Outfit", weight: "700" },
+      body: { family: "Inter", weight: "400" },
+    },
   },
   {
     id: "ai-chat-ui",
     title: "AI Chat Interface",
     description:
       "A sleek AI chat interface with conversation history, message formatting, and user interactions",
-    theme_id: "test",
+    theme_id: "synthwave",
+    fonts: {
+      heading: { family: "Orbitron", weight: "600" },
+      body: { family: "Inter", weight: "400" },
+    },
   },
   {
     id: "concert-poster",
@@ -314,18 +350,26 @@ export const TEMPLATES: SelectSection[] = [
     title: "Blog Templates",
     options: [
       {
-        theme_id: "test",
+        theme_id: "lemonade",
         id: "simple-blog-post",
         title: "Blog Post",
         description:
           "A detailed blog post layout with header, content, interactions, and suggested articles",
+        fonts: {
+          heading: { family: "Playfair Display", weight: "600" },
+          body: { family: "Inter", weight: "400" },
+        },
       },
       {
-        theme_id: "test",
+        theme_id: "winter",
         id: "simple-blog-landing",
         title: "Blog Landing Page",
         description:
           "A complete blog homepage with featured posts, recent articles, trending content, and newsletter signup",
+        fonts: {
+          heading: { family: "Merriweather", weight: "700" },
+          body: { family: "Inter", weight: "400" },
+        },
       },
     ],
   },
@@ -333,53 +377,81 @@ export const TEMPLATES: SelectSection[] = [
     title: "Website Templates",
     options: [
       {
-        theme_id: "test",
+        theme_id: "dark",
         id: "twitter-like-social",
         title: "Social Media Platform",
         description:
           "A modern social media interface with posts, trending topics, user interactions, and responsive design",
+        fonts: {
+          heading: { family: "Inter", weight: "600" },
+          body: { family: "Inter", weight: "400" },
+        },
       },
       {
-        theme_id: "test",
+        theme_id: "garden",
         id: "cooking-recipe-site",
         title: "Recipe Website",
         description:
           "A beautiful recipe platform with ingredients, instructions, nutrition facts, and related recipes",
+        fonts: {
+          heading: { family: "Playfair Display", weight: "600" },
+          body: { family: "Lora", weight: "400" },
+        },
       },
       {
-        theme_id: "test",
+        theme_id: "mint",
         id: "cookbook-landing",
         title: "Cookbook Landing",
         description:
           "A recipe discovery landing page with search and featured recipes",
+        fonts: {
+          heading: { family: "Playfair Display", weight: "600" },
+          body: { family: "Source Sans Pro", weight: "400" },
+        },
       },
       {
-        theme_id: "test",
+        theme_id: "corporate",
         id: "ecommerce-store",
         title: "E-commerce Store",
         description:
           "A full-featured online store with product listings, categories, shopping cart, and checkout flow",
+        fonts: {
+          heading: { family: "Outfit", weight: "600" },
+          body: { family: "Montserrat", weight: "400" },
+        },
       },
       {
-        theme_id: "test",
+        theme_id: "winter",
         id: "personal-portfolio",
         title: "Personal Portfolio",
         description:
           "A professional portfolio website with projects, experience, skills, and contact information",
+        fonts: {
+          heading: { family: "Poppins", weight: "600" },
+          body: { family: "Inter", weight: "400" },
+        },
       },
       {
-        theme_id: "test",
+        theme_id: "corporate",
         id: "saas-landing",
         title: "SaaS Landing Page",
         description:
           "A modern SaaS landing page with features, pricing, testimonials, and call-to-action sections",
+        fonts: {
+          heading: { family: "Outfit", weight: "700" },
+          body: { family: "Inter", weight: "400" },
+        },
       },
       {
-        theme_id: "test",
+        theme_id: "cyberpunk",
         id: "anime-realm",
         title: "Anime Realm",
         description:
           "A modern, glitch-inspired fan site celebrating Darling in the Franxx with character profiles, story highlights, wallpapers, merch links, and more.",
+        fonts: {
+          heading: { family: "Orbitron", weight: "600" },
+          body: { family: "Outfit", weight: "400" },
+        },
       },
     ],
   },
@@ -387,11 +459,15 @@ export const TEMPLATES: SelectSection[] = [
     title: "App Templates",
     options: [
       {
-        theme_id: "test",
+        theme_id: "synthwave",
         id: "ai-chat-ui",
         title: "AI Chat Interface",
         description:
           "A sleek AI chat interface with conversation history, message formatting, and user interactions",
+        fonts: {
+          heading: { family: "Orbitron", weight: "600" },
+          body: { family: "Inter", weight: "400" },
+        },
       },
     ],
   },
@@ -404,6 +480,10 @@ export const TEMPLATES: SelectSection[] = [
         title: "Concert Poster",
         description:
           "An eye-catching concert poster design with neon effects, event details, and ticket information",
+        fonts: {
+          heading: { family: "Oswald", weight: "600" },
+          body: { family: "Montserrat", weight: "400" },
+        },
       },
     ],
   },

@@ -23,6 +23,7 @@ import {
   updateRadius,
   updateMiscConfig,
   switchTool,
+  setActiveTemplateById,
 } from "./nano-store";
 import {
   $fontStore,
@@ -87,6 +88,7 @@ export const useAppActions = () => {
 export const useTemplateActions = () => {
   return {
     setActiveTemplate,
+    setActiveTemplateById,
     updateColorScheme,
     updateRadius,
     updateMiscConfig,

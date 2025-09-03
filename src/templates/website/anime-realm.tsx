@@ -19,7 +19,7 @@ function GlitchText({
       className={clsx(
         "relative font-bold inline-block",
         variant === "shift" ? "glitch-shift" : "glitch-shaky",
-        className
+        className,
       )}
       data-text={text}
     >

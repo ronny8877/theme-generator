@@ -6,7 +6,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import { useStore } from "@nanostores/react";
 import { $app } from "../../store";
 import { useAppActions } from "../../store/hooks";
-import { TailwindColorSelect } from "./advance-editor/tailwind-color-picker";
+import { ThemeCreator } from "./advance-editor/theme-creator";
 
 export default function Editor() {
   const appStore = useStore($app);
@@ -50,7 +50,7 @@ export default function Editor() {
             <ThemeList />
           </TabsContent>
           <TabsContent value="advanced">
-            <TailwindColorSelect />
+            <ThemeCreator />
           </TabsContent>
           <TabsContent value="fonts" className="mt-4">
             <FontEditor />

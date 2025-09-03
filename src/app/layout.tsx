@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import { GoogleTagManager } from "@next/third-parties/google";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <GoogleTagManager gtmId="GTM-MTV3JK9Z" />
         <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
         {/* Early theme set to avoid FOUC */}
         <Script id="theme-init" strategy="beforeInteractive">

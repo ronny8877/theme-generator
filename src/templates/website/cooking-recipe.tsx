@@ -152,15 +152,11 @@ export default function CookingRecipe() {
 
             <div className="flex flex-col sm:flex-row items-center border-y border-base-200 py-4 mb-8 gap-4">
               <div className="flex-1 text-center sm:text-left border-r sm:border-r border-base-200 pr-0 sm:pr-6">
-                <p className="text-sm text-black/60 font-medium">
-                  Prep time
-                </p>
+                <p className="text-sm text-black/60 font-medium">Prep time</p>
                 <p className="text-lg font-bold">15 minutes</p>
               </div>
               <div className="flex-1 text-center">
-                <p className="text-sm text-black/60 font-medium">
-                  Servings
-                </p>
+                <p className="text-sm text-black/60 font-medium">Servings</p>
                 <p className="text-lg font-bold">2</p>
               </div>
             </div>

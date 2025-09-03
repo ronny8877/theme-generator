@@ -5,7 +5,12 @@ import {
   THEMES,
   TEMPLATES_ARRAY,
 } from "@/lib/constants";
-import { $fontCSSVariables } from "./font-store";
+import {
+  $fontCSSVariables,
+  updateHeadingFont,
+  updateBodyFont,
+  loadGoogleFont,
+} from "./font-store";
 
 // Types
 export type PreviewDevice = (typeof AVILABLE_PREVIEW_DEVICES)[number];
@@ -144,6 +149,10 @@ const initialUndoRedoState: UndoRedoState = {
 export const $app = atom<AppState>(initialAppState);
 export const $template = atom<TemplateState>(initialTemplateState);
 export const $undoRedo = atom<UndoRedoState>(initialUndoRedoState);
+// User-saved themes
+export const $userThemes = atom<ThemeConfig[]>([]);
+
+const USER_THEMES_KEY = "user-themes";
 
 // Computed values - App
 export const $availableThemes = computed($app, (app) => app.theme.options);
@@ -313,6 +322,15 @@ export function setActiveTheme(theme_id: string) {
   }
 }
 
+// Allow directly setting a ThemeConfig (used for user-saved themes)
+export function setActiveThemeConfig(theme: ThemeConfig) {
+  const currentTemplate = $template.get();
+  $template.set({
+    ...currentTemplate,
+    active_theme: theme,
+  });
+}
+
 export function updateColorScheme(colors: Partial<ColorScheme>) {
   const currentTemplate = $template.get();
   $template.set({
@@ -325,6 +343,67 @@ export function updateColorScheme(colors: Partial<ColorScheme>) {
       },
     },
   });
+}
+
+// Update a single color variable on the active theme, e.g. "--color-primary"
+export function updateThemeColor(key: keyof ColorScheme, value: string) {
+  const currentTemplate = $template.get();
+  const currentTheme = currentTemplate.active_theme;
+
+  // Guard: ensure colors object exists
+  const nextColors = {
+    ...currentTheme.colors,
+    [key]: value,
+  } as ColorScheme;
+
+  $template.set({
+    ...currentTemplate,
+    active_theme: {
+      ...currentTheme,
+      colors: nextColors,
+    },
+  });
+}
+
+// ---------- User themes persistence ----------
+export function initUserThemes() {
+  if (typeof window === "undefined") return;
+  try {
+    const raw = localStorage.getItem(USER_THEMES_KEY);
+    const list: ThemeConfig[] = raw ? JSON.parse(raw) : [];
+    if (Array.isArray(list)) $userThemes.set(list);
+  } catch {}
+}
+
+export function saveCurrentThemeAs(name?: string) {
+  if (typeof window === "undefined") return;
+  const currentTemplate = $template.get();
+  const active = currentTemplate.active_theme;
+
+  const slugify = (s: string) =>
+    s
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)+/g, "");
+
+  const finalName = name && name.trim() ? name.trim() : `${active.name} copy`;
+  const idBase = slugify(finalName);
+  const uniqueId = `${idBase}-${Date.now()}`;
+
+  const themeToSave: ThemeConfig = {
+    ...active,
+    id: uniqueId,
+    name: finalName,
+    // colors/radius/misc already present
+  };
+
+  const existing = $userThemes.get();
+  const next = [...existing, themeToSave];
+  $userThemes.set(next);
+  try {
+    localStorage.setItem(USER_THEMES_KEY, JSON.stringify(next));
+  } catch {}
 }
 
 export function updateRadius(radius: Partial<RadiusConfig>) {
@@ -370,12 +449,61 @@ export function switchTool(
 export function setActiveTemplateById(templateId: string) {
   // Find the template in template array
   const template = TEMPLATES_ARRAY.find((t) => t.id === templateId);
-  if (template) {
-    // Find the active theme for the template
-    setActiveTemplate(template.theme_id);
-  } else {
+  if (!template) {
     console.warn("Template not found:", templateId);
+    return;
   }
+
+  // 1) Set active template id
+  const currentTemplate = $template.get();
+  $template.set({
+    ...currentTemplate,
+    activeTemplateId: template.id,
+  });
+
+  // 2) Apply default theme by name
+  if (template.theme_id) {
+    setActiveTheme(template.theme_id);
+  }
+
+  // 3) Apply default fonts if provided
+  try {
+    type MaybeFonts = {
+      fonts?: {
+        heading?: { family?: string; weight?: string };
+        body?: { family?: string; weight?: string };
+      };
+    };
+    const withFonts = template as unknown as MaybeFonts;
+    const headingFamily = withFonts?.fonts?.heading?.family;
+    const headingWeight = withFonts?.fonts?.heading?.weight;
+    const bodyFamily = withFonts?.fonts?.body?.family;
+    const bodyWeight = withFonts?.fonts?.body?.weight;
+
+    if (headingFamily) {
+      loadGoogleFont(headingFamily).catch(() => {});
+      updateHeadingFont({
+        family: headingFamily,
+        weight: headingWeight ?? "400",
+      });
+    }
+    if (bodyFamily) {
+      loadGoogleFont(bodyFamily).catch(() => {});
+      updateBodyFont({ family: bodyFamily, weight: bodyWeight ?? "400" });
+    }
+  } catch (e) {
+    console.warn("Failed applying template fonts:", e);
+  }
+}
+
+export function deleteUserTheme(id: string) {
+  if (typeof window === "undefined") return;
+  const existing = $userThemes.get();
+  const next = existing.filter((t) => t.id !== id);
+  $userThemes.set(next);
+  try {
+    localStorage.setItem(USER_THEMES_KEY, JSON.stringify(next));
+  } catch {}
 }
 
 export function updateTemplateTheme(

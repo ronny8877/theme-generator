@@ -49,7 +49,7 @@ function TemplatePreview() {
   // Helper function to convert theme object to CSS custom properties
   const applyCSSVariables = (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    theme: Record<string, any>
+    theme: Record<string, any>,
   ): React.CSSProperties => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const cssVars: Record<string, any> = {};

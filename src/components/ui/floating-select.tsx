@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import * as React from "react";
 import { ChevronUp } from "lucide-react";
@@ -10,6 +11,10 @@ export interface SelectOption {
   image?: string;
   description?: string;
   theme_id?: string;
+  fonts?: {
+    heading?: { family?: string; weight?: string };
+    body?: { family?: string; weight?: string };
+  };
 }
 
 export interface SelectSection {
@@ -26,19 +31,16 @@ export interface FloatingSelectProps {
   className?: string;
 }
 const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
-  (
-    {
-      options = [],
-      sections = [],
-      value,
-      onValueChange,
-      placeholder = "Select an option",
-      className,
-    },
-    ref,
-  ) => {
-    const templateStore = useTemplateStore();
-    const { setActiveTemplate } = useTemplateActions();
+  ({
+    options = [],
+    sections = [],
+    value,
+    onValueChange,
+    placeholder = "Select an option",
+    className,
+  }) => {
+    useTemplateStore(); // subscribe for reactivity; not directly used
+    const { setActiveTemplateById } = useTemplateActions();
     const [isOpen, setIsOpen] = React.useState(false);
     const [selectedOption, setSelectedOption] =
       React.useState<SelectOption | null>(null);
@@ -75,7 +77,7 @@ const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
     }, []);
 
     const handleSelect = (option: SelectOption) => {
-      setActiveTemplate(option.id);
+      setActiveTemplateById(option.id);
       setSelectedOption(option);
       onValueChange?.(option.id);
       setIsOpen(false);
