@@ -1,6 +1,11 @@
 import { Component, Dices, Laptop, PaintRoller, Text } from "lucide-react";
 import React from "react";
-import { useTemplateActions, useRootActions, IThemeConfig, observer } from "@/store";
+import {
+  useTemplateActions,
+  useRootActions,
+  IThemeConfig,
+  observer,
+} from "@/store";
 import { Dock, DockIcon, DockItem, DockLabel } from "@/ui/dock";
 import { THEMES } from "@/lib/constants";
 
@@ -50,7 +55,11 @@ export const ToolSelect = observer(function ToolSelect() {
     if (tool === "randomize") {
       console.log("🎲 Randomize button clicked!");
       const allThemes: IThemeConfig[] = [...THEMES];
-      console.log("🎨 All themes:", allThemes.length, allThemes.map(t => t.name));
+      console.log(
+        "🎨 All themes:",
+        allThemes.length,
+        allThemes.map((t) => t.name)
+      );
       if (allThemes.length === 0) {
         console.error("❌ No themes available!");
         return;
