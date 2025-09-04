@@ -2,7 +2,7 @@
 import * as React from "react";
 import { ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useTemplateStore, useTemplateActions } from "@/store/hooks";
+import { useTemplateActions } from "@/store/hooks";
 
 export interface SelectOption {
   id: string;
@@ -41,7 +41,6 @@ const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
     },
     ref,
   ) => {
-    useTemplateStore(); // subscribe for reactivity; not directly used
     const { setActiveTemplateById } = useTemplateActions();
     const [isOpen, setIsOpen] = React.useState(false);
     const [selectedOption, setSelectedOption] =

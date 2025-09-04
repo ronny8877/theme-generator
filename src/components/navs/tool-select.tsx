@@ -39,22 +39,19 @@ const data = [
     icon: <Dices className="h-full w-full text-base-content" />,
     tool: "randomize" as const,
   },
-
 ];
 
 export const ToolSelect = React.memo(function ToolSelect() {
   const { switchTool } = useAppActions();
 
   const handleToolClick = (tool: (typeof data)[0]["tool"]) => {
-    if(tool === "randomize")  {
-            const allThemes: ThemeConfig[] = [...THEMES];
-            if (allThemes.length === 0) return;
-            const idx = Math.floor(Math.random() * allThemes.length);
-            const t = allThemes[idx];
-            setActiveThemeConfig(t);
-          
-    } else 
-    switchTool(tool);
+    if (tool === "randomize") {
+      const allThemes: ThemeConfig[] = [...THEMES];
+      if (allThemes.length === 0) return;
+      const idx = Math.floor(Math.random() * allThemes.length);
+      const t = allThemes[idx];
+      setActiveThemeConfig(t);
+    } else switchTool(tool);
   };
 
   return (

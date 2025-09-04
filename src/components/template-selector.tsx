@@ -1,7 +1,7 @@
 "use client";
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useTemplateStore, useTemplateActions } from "@/store/hooks";
+import { useActiveTemplateId, useTemplateActions } from "@/store/hooks";
 import { TEMPLATES } from "@/lib/constants/constants";
 
 interface TemplateModalProps {
@@ -11,7 +11,7 @@ interface TemplateModalProps {
   selectedTemplateId?: string;
 }
 
-function TemplateModal({
+const TemplateModal = React.memo(function TemplateModal({
   isOpen,
   onClose,
   onSelectTemplate,
@@ -35,7 +35,7 @@ function TemplateModal({
           template.title.toLowerCase().includes(query) ||
           template.description?.toLowerCase().includes(query) ||
           template.fonts?.heading?.family?.toLowerCase().includes(query) ||
-          template.fonts?.body?.family?.toLowerCase().includes(query)
+          template.fonts?.body?.family?.toLowerCase().includes(query),
       ) || []
     );
   }, [selectedCategory?.options, searchQuery]);
@@ -47,7 +47,7 @@ function TemplateModal({
         ...template,
         categoryTitle: category.title,
         categoryIndex,
-      }))
+      })),
     );
   }, []);
 
@@ -64,7 +64,7 @@ function TemplateModal({
         template.description?.toLowerCase().includes(query) ||
         template.categoryTitle.toLowerCase().includes(query) ||
         template.fonts?.heading?.family?.toLowerCase().includes(query) ||
-        template.fonts?.body?.family?.toLowerCase().includes(query)
+        template.fonts?.body?.family?.toLowerCase().includes(query),
     );
   }, [allTemplates, searchQuery]);
 
@@ -292,11 +292,11 @@ function TemplateModal({
       <div className="modal-backdrop" onClick={onClose}></div>
     </div>
   );
-}
+});
 
 export default function TemplateSelector() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const templateStore = useTemplateStore();
+  const activeTemplateId = useActiveTemplateId();
   const { setActiveTemplateById } = useTemplateActions();
 
   const handleSelectTemplate = (templateId: string) => {
@@ -335,7 +335,7 @@ export default function TemplateSelector() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSelectTemplate={handleSelectTemplate}
-        selectedTemplateId={templateStore.activeTemplateId || undefined}
+        selectedTemplateId={activeTemplateId || undefined}
       />
     </>
   );

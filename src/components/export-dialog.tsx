@@ -7,6 +7,7 @@ import { ScrollArea } from "@/ui/scroll-area";
 import { Copy, Palette, Code2, Check } from "lucide-react";
 import { useActiveTheme, useBodyFont, useHeadingFont } from "@/store/hooks";
 import { exportTheme, flattenColors } from "@/lib/exporter";
+import type { ExportPreset } from "@/lib/exporter";
 
 type Props = { open: boolean; onOpenChange: (v: boolean) => void };
 
@@ -15,6 +16,7 @@ export function ExportDialog({ open, onOpenChange }: Props) {
   const heading = useHeadingFont();
   const body = useBodyFont();
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const [preset, setPreset] = useState<ExportPreset>("daisyui");
 
   const bundles = useMemo(() => exportTheme(theme), [theme]);
   const colors = useMemo(() => flattenColors(theme), [theme]);
@@ -29,16 +31,16 @@ export function ExportDialog({ open, onOpenChange }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-3xl w-[min(96vw,900px)] p-0 overflow-hidden bg-base-200 border-base-300">
-        <DialogHeader className="p-4 border-b border-base-300 bg-base-100">
+      <DialogContent className="sm:max-w-3xl w-[min(96vw,900px)] p-0 bg-base-200 border-base-300 rounded-3xl">
+        <DialogHeader className="p-5 border-b border-base-300 bg-base-100 rounded-t-3xl">
           <DialogTitle className="flex items-center gap-2">
             <Code2 className="w-4 h-4" /> Export
           </DialogTitle>
         </DialogHeader>
 
         <Tabs defaultValue="css" className="w-full">
-          <div className="px-4 pt-3">
-            <TabsList className="bg-base-300 rounded-full h-10">
+          <div className="px-5 pt-4">
+            <TabsList className="bg-base-300 rounded-full h-11">
               <TabsTrigger
                 value="css"
                 className="rounded-full data-[state=active]:bg-base-100"
@@ -55,42 +57,69 @@ export function ExportDialog({ open, onOpenChange }: Props) {
           </div>
 
           <TabsContent value="css" className="mt-2">
-            <ScrollArea className="h-[60vh]">
-              <section className="p-4 grid gap-4">
-                {Object.entries(bundles).map(([k, v]) => (
-                  <article
-                    key={k}
-                    className="rounded-xl border border-base-300 bg-base-100"
-                  >
-                    <header className="flex items-center justify-between p-3 border-b border-base-300">
-                      <div className="font-medium uppercase tracking-wide text-xs opacity-70">
-                        {k}
-                      </div>
-                      <button
-                        className="btn btn-xs rounded-full"
-                        onClick={() => copy(v, k)}
-                      >
-                        {copiedKey === k ? (
-                          <Check className="w-3 h-3" />
-                        ) : (
-                          <Copy className="w-3 h-3" />
-                        )}{" "}
-                        Copy
-                      </button>
-                    </header>
-                    <pre className="p-3 text-xs overflow-x-auto">
-                      <code>{v}</code>
-                    </pre>
-                  </article>
-                ))}
+            <ScrollArea className="h-[65vh]">
+              <section className="p-5 grid gap-5">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="text-sm opacity-70">Target framework</div>
+                  <div className="flex items-center gap-2">
+                    <select
+                      className="select select-sm rounded-full bg-base-100 border-base-300"
+                      value={preset}
+                      onChange={(e) =>
+                        setPreset(e.target.value as ExportPreset)
+                      }
+                    >
+                      <option value="daisyui">daisyUI (default)</option>
+                      <option value="tailwind-v4">Tailwind v4 (@theme)</option>
+                      <option value="tailwind-v3">Tailwind v3 (config)</option>
+                      <option value="styled-components">
+                        styled-components
+                      </option>
+                      <option value="empty-components">Empty components</option>
+                    </select>
+                    <button
+                      className="btn btn-sm rounded-full"
+                      onClick={() => copy(bundles[preset], preset)}
+                    >
+                      {copiedKey === preset ? (
+                        <Check className="w-4 h-4" />
+                      ) : (
+                        <Copy className="w-4 h-4" />
+                      )}
+                      Copy
+                    </button>
+                  </div>
+                </div>
+
+                <article className="rounded-3xl border border-base-300 bg-base-100 shadow-sm">
+                  <header className="flex items-center justify-between p-4 border-b border-base-300">
+                    <div className="font-medium uppercase tracking-wide text-xs opacity-70">
+                      {preset}
+                    </div>
+                    <button
+                      className="btn btn-xs rounded-full"
+                      onClick={() => copy(bundles[preset], preset)}
+                    >
+                      {copiedKey === preset ? (
+                        <Check className="w-3 h-3" />
+                      ) : (
+                        <Copy className="w-3 h-3" />
+                      )}{" "}
+                      Copy
+                    </button>
+                  </header>
+                  <pre className="p-4 text-xs overflow-x-auto">
+                    <code>{bundles[preset]}</code>
+                  </pre>
+                </article>
               </section>
             </ScrollArea>
           </TabsContent>
 
           <TabsContent value="colors" className="mt-2">
-            <ScrollArea className="h-[60vh]">
-              <div className="p-4 grid gap-6">
-                <section className="rounded-xl border border-base-300 bg-base-100 p-4">
+            <ScrollArea className="h-[65vh]">
+              <div className="p-5 grid gap-6">
+                <section className="rounded-3xl border border-base-300 bg-base-100 p-5">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
                       <div className="text-sm opacity-70">Fonts</div>
@@ -122,22 +151,27 @@ export function ExportDialog({ open, onOpenChange }: Props) {
                   <div className="flex items-center gap-2 text-sm opacity-70">
                     <Palette className="w-4 h-4" /> Palette
                   </div>
-                  <div className="grid grid-cols-2 @md:grid-cols-3 @lg:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-2 @md:grid-cols-3 @lg:grid-cols-4 gap-4">
                     {Object.entries(colors).map(([key, value]) => (
                       <div
                         key={key}
-                        className="group rounded-xl overflow-hidden border border-base-300 bg-base-100"
+                        className="group rounded-3xl overflow-hidden border border-base-300 bg-base-100 shadow-sm"
                       >
                         <div
-                          className="h-16 w-full"
+                          className="h-20 w-full"
                           style={{ background: value }}
                         />
-                        <div className="flex items-center justify-between px-3 py-2">
-                          <div
-                            className="text-xs font-mono truncate"
-                            title={key}
-                          >
-                            {key.replace("--color-", "")}
+                        <div className="flex items-center justify-between px-4 py-3">
+                          <div className="min-w-0">
+                            <div
+                              className="text-xs font-mono truncate"
+                              title={key}
+                            >
+                              {key.replace("--color-", "")}
+                            </div>
+                            <div className="text-[10px] opacity-70 font-mono truncate">
+                              {value}
+                            </div>
                           </div>
                           <button
                             className="btn btn-ghost btn-xs rounded-full"
@@ -157,7 +191,7 @@ export function ExportDialog({ open, onOpenChange }: Props) {
 
                 <section className="grid gap-3">
                   <div className="text-sm opacity-70">Auto gradients</div>
-                  <div className="grid grid-cols-1 @md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 @md:grid-cols-2 gap-5">
                     <GradientCard
                       title="Base gradient"
                       from={theme.colors["--color-base-100"]}
@@ -194,12 +228,12 @@ function GradientCard({
 }) {
   const value = `linear-gradient(135deg, ${from}, ${to})`;
   return (
-    <article className="rounded-xl border border-base-300 bg-base-100 overflow-hidden">
+    <article className="rounded-3xl border border-base-300 bg-base-100 overflow-hidden shadow-sm">
       <div
-        className="h-28 w-full animate-[pulse_2.5s_ease-in-out_infinite]"
+        className="h-32 w-full animate-[pulse_2.5s_ease-in-out_infinite]"
         style={{ backgroundImage: value }}
       />
-      <div className="flex items-center justify-between p-3">
+      <div className="flex items-center justify-between p-4">
         <div className="text-sm font-medium">{title}</div>
         <div className="flex items-center gap-2">
           <button

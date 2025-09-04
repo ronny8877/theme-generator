@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { Palette, Check } from "lucide-react";
-import { useAppStore, useAppActions } from "@/store/hooks";
+import { useAppActions } from "@/store/hooks";
+import { useStore } from "@nanostores/react";
+import { $currentTheme } from "@/store";
 import {
   DAISY_UI_AVILABLE_THEMES,
   THEME_INFO,
@@ -10,28 +12,22 @@ import {
 
 function FloatingThemeSelector() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const appStore = useAppStore();
+  const currentTheme = useStore($currentTheme);
   const { setTheme } = useAppActions();
 
   // Initialize theme from localStorage on mount
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedTheme = localStorage.getItem("theme");
-      if (
-        savedTheme &&
-        DAISY_UI_AVILABLE_THEMES.includes(savedTheme as never)
-      ) {
-        setTheme(savedTheme as (typeof DAISY_UI_AVILABLE_THEMES)[number]);
-        document.documentElement.setAttribute("data-theme", savedTheme);
-      } else {
-        // Set default theme
-        document.documentElement.setAttribute(
-          "data-theme",
-          appStore.theme.current,
-        );
-      }
+    if (typeof window === "undefined") return;
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme && DAISY_UI_AVILABLE_THEMES.includes(savedTheme as never)) {
+      setTheme(savedTheme as (typeof DAISY_UI_AVILABLE_THEMES)[number]);
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    } else {
+      document.documentElement.setAttribute("data-theme", currentTheme);
     }
-  });
+    // run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleThemeChange = (
     theme: (typeof DAISY_UI_AVILABLE_THEMES)[number],
@@ -51,7 +47,7 @@ function FloatingThemeSelector() {
     setIsExpanded(false);
   };
 
-  const currentTheme = appStore.theme.current;
+  // currentTheme derived from selector above
 
   return (
     <div className="fixed bottom-6 right-6 z-50">

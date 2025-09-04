@@ -13,7 +13,9 @@ export function CSSVariablesInjector({ targetSelector, variables }: Props) {
     const el = document.querySelector<HTMLElement>(targetSelector);
     if (!el) return;
 
-    const entries = Object.entries(variables).filter(([k]) => k.startsWith("--"));
+    const entries = Object.entries(variables).filter(([k]) =>
+      k.startsWith("--"),
+    );
     const signature = JSON.stringify(entries);
     if (signature === lastVarsRef.current) return;
     lastVarsRef.current = signature;

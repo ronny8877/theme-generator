@@ -11,16 +11,11 @@ const EditorHeaderCmp = () => {
         className="btn rounded-3xl"
         onClick={() =>
           editEditorSettings({
-            ui_type:
-              uiType === "default" ? "floating" : "default",
+            ui_type: uiType === "default" ? "floating" : "default",
           })
         }
       >
-        {uiType === "default" ? (
-          <PictureInPicture />
-        ) : (
-          <ImageUpscale />
-        )}
+        {uiType === "default" ? <PictureInPicture /> : <ImageUpscale />}
       </button>
       <h2> Editor </h2>
       <button
