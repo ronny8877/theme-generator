@@ -8,19 +8,14 @@ import {
   Users,
   TrendingUp,
   Globe,
-  Clock,
   Award,
-  ChevronDown,
+
   Menu,
-  X,
   BarChart3,
-  Smartphone,
-  Lock,
   Headphones,
   Github,
   Twitter,
   Linkedin,
-  Mail,
 } from "lucide-react";
 
 export default function SaaSLanding() {
@@ -317,7 +312,7 @@ export default function SaaSLanding() {
                     ))}
                   </div>
                   <p className="text-base-content/80 mb-6 leading-relaxed">
-                    "{testimonial.content}"
+                    {testimonial.content}
                   </p>
                   <div className="flex items-center gap-4">
                     <div className="avatar">

@@ -16,7 +16,6 @@ import {
   Smile,
   Calendar,
   MapPin,
-  Link as LinkIcon,
 } from "lucide-react";
 
 export default function TwitterLike() {
@@ -388,7 +387,7 @@ export default function TwitterLike() {
           {/* Trending */}
           <div className="bg-base-100 rounded-2xl p-6 border border-base-300 shadow-sm">
             <h3 className="text-xl font-bold mb-6 text-base-content">
-              What's happening
+              Whats happening
             </h3>
             <div className="space-y-4">
               {trendingTopics.map((topic, index) => (

@@ -1,4 +1,4 @@
-import { Clock, ChefHat, Star } from "lucide-react";
+import { Star } from "lucide-react";
 
 type Ingredient = { label: string };
 type Instruction = { step: number; title: string; body: string };

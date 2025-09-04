@@ -8,16 +8,11 @@ import {
   ExternalLink,
   Download,
   Send,
-  Code,
-  Palette,
   Monitor,
-  Smartphone,
   Calendar,
-  Award,
   Users,
   Coffee,
   Menu,
-  X,
   ArrowRight,
   Star,
   Eye,
@@ -255,7 +250,7 @@ export default function PersonalPortfolio() {
                     👋 Available for freelance work
                   </div>
                   <h1 className="text-4xl @md:text-5xl @lg:text-6xl @xl:text-7xl font-bold leading-tight">
-                    Hi, I'm{" "}
+                    Hi, Im{" "}
                     <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                       Alex Smith
                     </span>
@@ -372,7 +367,7 @@ export default function PersonalPortfolio() {
               About Me
             </h2>
             <p className="text-sm @md:text-base @lg:text-lg text-base-content/70 max-w-3xl mx-auto">
-              I'm a passionate full-stack developer with over 3 years of
+              Im a passionate full-stack developer with over 3 years of
               experience creating digital solutions that make a difference.
             </p>
           </div>
@@ -383,12 +378,12 @@ export default function PersonalPortfolio() {
                 <h3 className="text-xl @lg:text-2xl font-bold">My Journey</h3>
                 <p className="text-sm @md:text-base text-base-content/80 leading-relaxed">
                   Started my journey in web development with a curiosity for how
-                  things work on the internet. Over the years, I've honed my
+                  things work on the internet. Over the years, Ive honed my
                   skills in both frontend and backend technologies, always
                   staying up-to-date with the latest industry trends.
                 </p>
                 <p className="text-sm @md:text-base text-base-content/80 leading-relaxed">
-                  When I'm not coding, you can find me exploring new
+                  When Im not coding, you can find me exploring new
                   technologies, contributing to open-source projects, or sharing
                   knowledge with the developer community.
                 </p>
@@ -588,7 +583,7 @@ export default function PersonalPortfolio() {
               What People Say
             </h2>
             <p className="text-sm @md:text-base @lg:text-lg text-base-content/70 max-w-3xl mx-auto">
-              Feedback from colleagues and clients I've had the pleasure to work
+              Feedback from colleagues and clients Ive had the pleasure to work
               with.
             </p>
           </div>
@@ -607,7 +602,7 @@ export default function PersonalPortfolio() {
                   </div>
 
                   <p className="text-sm @md:text-base text-base-content/80 italic mb-4 leading-relaxed">
-                    "{testimonial.content}"
+                    {testimonial.content}
                   </p>
 
                   <div className="flex items-center gap-3">
@@ -640,16 +635,16 @@ export default function PersonalPortfolio() {
               Get In Touch
             </h2>
             <p className="text-sm @md:text-base @lg:text-lg text-base-content/70 max-w-3xl mx-auto">
-              Have a project in mind or want to collaborate? I'd love to hear
+              Have a project in mind or want to collaborate? Id love to hear
               from you!
             </p>
           </div>
 
           <div className="grid @lg:grid-cols-2 gap-8 @lg:gap-12">
             <div className="space-y-6">
-              <h3 className="text-xl @lg:text-2xl font-bold">Let's Connect</h3>
+              <h3 className="text-xl @lg:text-2xl font-bold">Lets Connect</h3>
               <p className="text-sm @md:text-base text-base-content/80 leading-relaxed">
-                I'm always interested in hearing about new projects and
+                IIm always interested in hearing about new projects and
                 opportunities. Whether you have a question or just want to say
                 hi, feel free to reach out!
               </p>

@@ -8,17 +8,6 @@ import {
   Bookmark,
 } from "lucide-react";
 
-interface BlogPostProps {
-  colors?: {
-    primary: string;
-    secondary: string;
-    accent: string;
-    background: string;
-    surface: string;
-    text: string;
-    textSecondary: string;
-  };
-}
 
 export default function BlogPost() {
   // DaisyUI theme colors fallback

@@ -31,7 +31,7 @@ function FloatingThemeSelector() {
         );
       }
     }
-  }, []);
+  });
 
   const handleThemeChange = (
     theme: (typeof DAISY_UI_AVILABLE_THEMES)[number],

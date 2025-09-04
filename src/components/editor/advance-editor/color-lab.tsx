@@ -69,7 +69,7 @@ export default function ColorLab({
   const updatingFromPickerRef = React.useRef(false);
   const pickerInputRef = React.useRef<HTMLInputElement | null>(null);
   const pickerDebounceRef = React.useRef<number | null>(null);
-  const lastPickerRef = React.useRef<string>(initial.toLowerCase());
+
   const [editingHex, setEditingHex] = React.useState(false);
   const [h, setH] = React.useState(0);
   const [s, setS] = React.useState(1);

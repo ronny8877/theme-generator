@@ -3,11 +3,8 @@ import {
   Image,
   Laptop,
   PaintRoller,
-  SunMoon,
   Text,
 } from "lucide-react";
-import { useStore } from "@nanostores/react";
-import { $app } from "@/store/nano-store";
 import { useAppActions } from "@/store/hooks";
 import { Dock, DockIcon, DockItem, DockLabel } from "@/ui/dock";
 
@@ -24,6 +21,8 @@ const data = [
   },
   {
     title: "Poster",
+    //THIS IS NOT IMAGE DUMABSSAA>???>>> TF IS THIS LINTING
+    // eslint-disable-next-line jsx-a11y/alt-text
     icon: <Image className="h-full w-full text-base-content" />,
     tool: "poster" as const,
   },
@@ -40,7 +39,6 @@ const data = [
 ];
 
 export function ToolSelect() {
-  const appStore = useStore($app);
   const { switchTool } = useAppActions();
 
   const handleToolClick = (tool: (typeof data)[0]["tool"]) => {

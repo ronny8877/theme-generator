@@ -308,7 +308,7 @@ function GallerySection() {
 
         {/* Desktop: Grid */}
         <div className="hidden @md:grid @md:grid-cols-2 @lg:grid-cols-3 gap-6">
-          {episodes.map((ep, index) => (
+          {episodes.map((ep) => (
             <div key={ep.title} className="card bg-base-200 shadow-md">
               <figure className="h-48">
                 <img

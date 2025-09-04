@@ -11,7 +11,6 @@ import {
   RotateCcw,
   Zap,
   Sparkles,
-  MessageSquare,
   Search,
   Settings,
   Plus,
