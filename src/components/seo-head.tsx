@@ -8,7 +8,7 @@ interface SeoHeadProps {
 }
 
 export default function SeoHead({
-  title = "LiveTheme – Free Theme Editor & Preview Tool",
+  title = "LiveTheme – Free Theme Editor & Preview Tooldd",
   description = "Edit, preview, and export website themes in real time. Customize colors, fonts, and layouts, then share or export instantly. Free, no account needed.",
   url = "https://livetheme.app",
   image = "https://livetheme.app/preview.png",
