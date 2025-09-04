@@ -4,7 +4,7 @@ import ThemeList from "./theme-list";
 import { FontEditor } from "./fonts-editor";
 import { ScrollArea } from "../ui/scroll-area";
 import { useStore } from "@nanostores/react";
-import { $app } from "../../store";
+import { $activeEditorTab } from "@/store";
 import { useAppActions } from "../../store/hooks";
 import { ThemeCreator } from "./advance-editor/theme-creator";
 import { Share2, Code2 } from "lucide-react";
@@ -13,7 +13,7 @@ import { ExportDialog } from "@/components/export-dialog";
 
 export default function Editor() {
   const [exportOpen, setExportOpen] = useState(false);
-  const appStore = useStore($app);
+  const activeTab = useStore($activeEditorTab);
   const { setActiveEditorTab } = useAppActions();
 
   const handleTabChange = (value: string) => {
@@ -24,7 +24,7 @@ export default function Editor() {
     <div className="w-[400px] h-full rounded-4xl p-3 bg-base-300">
       <EditorHeader />
       <Tabs
-        value={appStore.activeEditorTab}
+        value={activeTab}
         onValueChange={handleTabChange}
         className="w-full mt-3"
       >

@@ -1,14 +1,18 @@
-import { useAppStore, useAppActions } from "@/store/hooks";
+import { useAppActions } from "@/store/hooks";
+import { useStore } from "@nanostores/react";
+import { $activePreviewDeviceSel, $activeToolSel } from "@/store";
+import React from "react";
 import { Smartphone, Tablet, Monitor } from "lucide-react";
 
-function DeviceSelect() {
-  const appStore = useAppStore();
+function DeviceSelectBase() {
+  const activePreviewDevice = useStore($activePreviewDeviceSel);
+  const activeTool = useStore($activeToolSel);
   const { setPreviewDevice } = useAppActions();
-  const activeDevice = appStore.activePreviewDevice;
+  const activeDevice = activePreviewDevice;
 
   // Get allowed devices based on active tool
   const getAllowedDevices = () => {
-    switch (appStore.activeTool) {
+  switch (activeTool) {
       case "app":
         return ["mobile", "tablet"];
       case "poster":
@@ -56,4 +60,5 @@ function DeviceSelect() {
   );
 }
 
+const DeviceSelect = React.memo(DeviceSelectBase);
 export default DeviceSelect;

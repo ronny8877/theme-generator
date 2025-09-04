@@ -197,6 +197,19 @@ export const $canRedo = computed(
 // Root store computed values
 export const $currentTheme = computed($app, (app) => app.theme.current);
 export const $activeTemplate = computed($template, (template) => template);
+// Fine-grained selectors to minimize re-renders
+export const $activeEditorTab = computed($app, (app) => app.activeEditorTab);
+export const $activePreviewDeviceSel = computed(
+  $app,
+  (app) => app.activePreviewDevice,
+);
+export const $activeToolSel = computed($app, (app) => app.activeTool);
+export const $editorUiType = computed($app, (app) => app.editor.ui_type);
+export const $isEditorOpen = computed($app, (app) => app.editor.is_open);
+export const $activeTemplateId = computed(
+  $template,
+  (template) => template.activeTemplateId,
+);
 
 // App Actions
 export function setTheme(theme: string) {
