@@ -8,8 +8,11 @@ import { $app } from "../../store";
 import { useAppActions } from "../../store/hooks";
 import { ThemeCreator } from "./advance-editor/theme-creator";
 import { Share2, Code2 } from "lucide-react";
+import { useState } from "react";
+import { ExportDialog } from "@/components/export-dialog";
 
 export default function Editor() {
+  const [exportOpen, setExportOpen] = useState(false);
   const appStore = useStore($app);
   const { setActiveEditorTab } = useAppActions();
 
@@ -60,21 +63,22 @@ export default function Editor() {
         </ScrollArea>
 
         {/* Footer actions under scroller, visible for all tabs */}
-        <div className="mt-3 flex items-center justify-between gap-2">
+  <div className="mt-3 flex items-center justify-between gap-2">
           <button className="btn btn-sm rounded-full px-4 bg-base-200 hover:bg-base-300 border border-base-300">
             <span className="inline-flex items-center gap-2">
               <Share2 className="w-4 h-4" />
               Share
             </span>
           </button>
-          <button className="btn btn-sm rounded-full px-4 btn-primary text-primary-content">
+    <button className="btn btn-sm rounded-full px-4 btn-primary text-primary-content" onClick={() => setExportOpen(true)}>
             <span className="inline-flex items-center gap-2">
               <Code2 className="w-4 h-4" />
-              CSS
+        Export
             </span>
           </button>
         </div>
       </Tabs>
+      <ExportDialog open={exportOpen} onOpenChange={setExportOpen} />
     </div>
   );
 }

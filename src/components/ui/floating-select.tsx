@@ -37,13 +37,19 @@ const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
     onValueChange,
     placeholder = "Select an option",
     className,
-  }) => {
+  }, ref) => {
     useTemplateStore(); // subscribe for reactivity; not directly used
     const { setActiveTemplateById } = useTemplateActions();
     const [isOpen, setIsOpen] = React.useState(false);
     const [selectedOption, setSelectedOption] =
       React.useState<SelectOption | null>(null);
     const containerRef = React.useRef<HTMLDivElement>(null);
+    // Merge forwarded ref with local ref
+    const setRefs = (node: HTMLDivElement | null) => {
+      containerRef.current = node;
+      if (typeof ref === "function") ref(node);
+      else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+    };
 
     // Flatten all options from sections and direct options
     const allOptions = React.useMemo(() => {
@@ -115,7 +121,7 @@ const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
 
     return (
       <div
-        ref={containerRef}
+        ref={setRefs}
         className={cn("fixed bottom-2 left-6 z-50 w-80", className)}
       >
         {/* Main trigger button */}
