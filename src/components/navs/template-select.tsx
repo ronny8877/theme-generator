@@ -1,6 +1,7 @@
 "use client";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
+import React from "react";
 
 const tempPlates = [
   {
@@ -31,7 +32,7 @@ const tempPlates = [
   },
 ];
 
-export default function TemplateSelect() {
+function TemplateSelectBase() {
   return (
     <div className="fixed left-5 top-1/2 -translate-y-1/2 w-16 z-50 hover:w-64 h-96 bg-base-100 rounded-3xl transition-all duration-300 ease-in-out group overflow-hidden shadow-lg">
       <div className="p-3 h-full flex flex-col">
@@ -88,3 +89,5 @@ export default function TemplateSelect() {
     </div>
   );
 }
+
+export default React.memo(TemplateSelectBase);

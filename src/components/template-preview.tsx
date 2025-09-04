@@ -12,13 +12,18 @@ import {
 } from "@/templates/website";
 import { AIChatUI } from "@/templates/app";
 import { ConcertPoster } from "@/templates/poster";
-import { useAppStore, useTemplateStore, useCssVariables } from "@/store/hooks";
+import { useCssVariables } from "@/store/hooks";
+import { useStore } from "@nanostores/react";
+import { $activePreviewDeviceSel, $editorUiType, $isEditorOpen } from "@/store";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import EditorFloatingWrapper from "./editor/editor-floating-wrapper";
 import Editor from "./editor/editor";
 import { FontInjector } from "./font-injector";
 import ThemeInfo from "./navs/theme-info";
 import AnimeRealm from "@/templates/website/anime-realm";
+import { CSSVariablesInjector } from "./css-variables-injector";
+import { useStore as useNano } from "@nanostores/react";
+import { $activeTemplateId as $activeTemplateIdSel } from "@/store";
 type ViewportSize = "desktop" | "tablet" | "mobile";
 
 const componentMap = {
@@ -35,35 +40,27 @@ const componentMap = {
   "anime-realm": AnimeRealm,
 };
 
+const TemplateRenderer = React.memo(function TemplateRenderer() {
+  const tid = useNano($activeTemplateIdSel) as keyof typeof componentMap;
+  const Cmp = componentMap[tid] || BlogLanding;
+  return <Cmp key={tid} />;
+});
+
 function TemplatePreview() {
   const [viewport] = useState<ViewportSize>("desktop");
   const [parent] = useAutoAnimate<HTMLDivElement>();
   const [animationParent] = useAutoAnimate<HTMLDivElement>();
 
-  const appStore = useAppStore();
-  const templateStore = useTemplateStore();
+  const previewDevice = useStore($activePreviewDeviceSel);
+  const editorUiType = useStore($editorUiType);
+  const isEditorOpen = useStore($isEditorOpen);
   const cssVariables = useCssVariables();
 
-  console.log("Active Theme CSS Variables:", templateStore.activeTemplateId);
 
-  // Helper function to convert theme object to CSS custom properties
-  const applyCSSVariables = (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    theme: Record<string, any>,
-  ): React.CSSProperties => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const cssVars: Record<string, any> = {};
-    Object.entries(theme).forEach(([key, value]) => {
-      // CSS custom properties should start with --
-      if (key.startsWith("--")) {
-        cssVars[key] = value;
-      }
-    });
-    return cssVars;
-  };
+  // CSSVariablesInjector will set CSS vars on the template root without rerendering children
 
   const getViewportClasses = () => {
-    switch (appStore.activePreviewDevice) {
+    switch (previewDevice) {
       case "mobile":
         return "max-w-[430px] h-[860px]";
       case "tablet":
@@ -73,9 +70,6 @@ function TemplatePreview() {
     }
   };
 
-  const activeComponentId =
-    templateStore.activeTemplateId as keyof typeof componentMap;
-  const ActiveComponent = componentMap[activeComponentId] || BlogLanding;
 
   return (
     <div
@@ -102,20 +96,23 @@ function TemplatePreview() {
           <ScrollArea className="w-full h-[92vh]">
             <div
               ref={parent}
+              id="template-root"
               className="smooth-theme-transition template-content relative"
-              style={applyCSSVariables(cssVariables)}
             >
+              <CSSVariablesInjector
+                targetSelector="#template-root"
+                variables={cssVariables as never}
+              />
               <FontInjector />
-              {/* Use key to force remount on template change */}
-              <ActiveComponent key={activeComponentId} />
+              <TemplateRenderer />
             </div>
           </ScrollArea>
         </div>
       </div>
-      {appStore.editor.is_open && appStore.editor.ui_type === "default" && (
+  {isEditorOpen && editorUiType === "default" && (
         <Editor />
       )}
-      {appStore.editor.is_open && appStore.editor.ui_type === "floating" && (
+  {isEditorOpen && editorUiType === "floating" && (
         <EditorFloatingWrapper />
       )}
     </div>

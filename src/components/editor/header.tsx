@@ -1,9 +1,10 @@
-import { editEditorSettings } from "@/store";
-import { useAppStore } from "@/store/hooks";
+import { editEditorSettings, $editorUiType } from "@/store";
+import { useStore } from "@nanostores/react";
 import { ImageUpscale, PictureInPicture, X } from "lucide-react";
+import React from "react";
 
-export const EditorHeader = () => {
-  const appStore = useAppStore();
+const EditorHeaderCmp = () => {
+  const uiType = useStore($editorUiType);
   return (
     <div className="flex items-center justify-between border-b border-base-300">
       <button
@@ -11,11 +12,11 @@ export const EditorHeader = () => {
         onClick={() =>
           editEditorSettings({
             ui_type:
-              appStore.editor.ui_type === "default" ? "floating" : "default",
+              uiType === "default" ? "floating" : "default",
           })
         }
       >
-        {appStore.editor.ui_type === "default" ? (
+        {uiType === "default" ? (
           <PictureInPicture />
         ) : (
           <ImageUpscale />
@@ -31,3 +32,6 @@ export const EditorHeader = () => {
     </div>
   );
 };
+
+export const EditorHeader = React.memo(EditorHeaderCmp);
+EditorHeader.displayName = "EditorHeader";

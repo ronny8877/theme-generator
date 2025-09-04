@@ -36,13 +36,7 @@ export default function ThemeList() {
       <div className="flex items-center justify-between gap-2">
         <button
           className="btn btn-sm rounded-full px-4 shadow-md bg-gradient-to-r from-primary to-accent text-primary-content hover:opacity-90"
-          onClick={() => {
-            const allThemes: ThemeConfig[] = [...THEMES, ...userThemes];
-            if (allThemes.length === 0) return;
-            const idx = Math.floor(Math.random() * allThemes.length);
-            const t = allThemes[idx];
-            setActiveThemeConfig(t);
-          }}
+          
         >
           <span className="inline-flex items-center gap-2">
             <Sparkles className="w-4 h-4" />

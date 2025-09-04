@@ -1,4 +1,5 @@
 import { Component, Dices, Laptop, PaintRoller, Text } from "lucide-react";
+import React from "react";
 import { useAppActions } from "@/store/hooks";
 import { Dock, DockIcon, DockItem, DockLabel } from "@/ui/dock";
 import { THEMES } from "@/lib/constants";
@@ -41,7 +42,7 @@ const data = [
 
 ];
 
-export function ToolSelect() {
+export const ToolSelect = React.memo(function ToolSelect() {
   const { switchTool } = useAppActions();
 
   const handleToolClick = (tool: (typeof data)[0]["tool"]) => {
@@ -72,4 +73,4 @@ export function ToolSelect() {
       </Dock>
     </div>
   );
-}
+});
