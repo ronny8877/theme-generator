@@ -28,12 +28,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <GoogleTagManager gtmId="GTM-MTV3JK9Z" />
-        {process.env.NODE_ENV === "development" && (
+        
           <script
             src="https://unpkg.com/react-scan/dist/auto.global.js"
             async
           />
-        )}
         {/* Early theme set to avoid FOUC */}
         <Script id="theme-init" strategy="beforeInteractive">
           {`
