@@ -1,10 +1,4 @@
-import {
-  Component,
-  Image,
-  Laptop,
-  PaintRoller,
-  Text,
-} from "lucide-react";
+import { Component, Image, Laptop, PaintRoller, Text } from "lucide-react";
 import { useAppActions } from "@/store/hooks";
 import { Dock, DockIcon, DockItem, DockLabel } from "@/ui/dock";
 

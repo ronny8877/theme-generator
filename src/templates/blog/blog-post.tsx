@@ -8,7 +8,6 @@ import {
   Bookmark,
 } from "lucide-react";
 
-
 export default function BlogPost() {
   // DaisyUI theme colors fallback
 

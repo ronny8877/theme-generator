@@ -30,14 +30,17 @@ export interface FloatingSelectProps {
   className?: string;
 }
 const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
-  ({
-    options = [],
-    sections = [],
-    value,
-    onValueChange,
-    placeholder = "Select an option",
-    className,
-  }, ref) => {
+  (
+    {
+      options = [],
+      sections = [],
+      value,
+      onValueChange,
+      placeholder = "Select an option",
+      className,
+    },
+    ref,
+  ) => {
     useTemplateStore(); // subscribe for reactivity; not directly used
     const { setActiveTemplateById } = useTemplateActions();
     const [isOpen, setIsOpen] = React.useState(false);
@@ -48,7 +51,8 @@ const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
     const setRefs = (node: HTMLDivElement | null) => {
       containerRef.current = node;
       if (typeof ref === "function") ref(node);
-      else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+      else if (ref)
+        (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
     };
 
     // Flatten all options from sections and direct options

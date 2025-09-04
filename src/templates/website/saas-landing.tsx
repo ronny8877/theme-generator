@@ -9,7 +9,6 @@ import {
   TrendingUp,
   Globe,
   Award,
-
   Menu,
   BarChart3,
   Headphones,
