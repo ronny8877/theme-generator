@@ -135,7 +135,7 @@ export default function RootLayout({
           ])}
         </Script>
         <GoogleTagManager gtmId="GTM-MTV3JK9Z" />
-  <Script src="https://unpkg.com/react-scan/dist/auto.global.js" strategy="afterInteractive" />
+  <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-base-100 text-base-content`}
