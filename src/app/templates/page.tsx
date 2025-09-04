@@ -29,7 +29,7 @@ export default function TemplatesPage() {
         </div>
       </div>
       <ToolSelect />
-      <FloatingThemeSelector />
+      {/* <FloatingThemeSelector /> */}
       <EditorToggle />
     </>
   );
