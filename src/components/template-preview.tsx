@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { ScrollArea } from "./ui/scroll-area";
 import { BlogPost, BlogLanding } from "@/templates/blog";
 import {
@@ -42,7 +42,7 @@ const componentMap = {
 
 const TemplateRenderer = React.memo(function TemplateRenderer() {
   const tid = useNano($activeTemplateIdSel) as keyof typeof componentMap;
-  const Cmp = componentMap[tid] || BlogLanding;
+  const Cmp = useMemo(() => componentMap[tid] || BlogLanding, [tid]);
   return <Cmp key={tid} />;
 });
 
@@ -55,6 +55,12 @@ function TemplatePreview() {
   const editorUiType = useStore($editorUiType);
   const isEditorOpen = useStore($isEditorOpen);
   const cssVariables = useCssVariables();
+  // Only pass CSS variables that actually changed (stable reference)
+  const cssVarEntries = useMemo(() => Object.entries(cssVariables), [cssVariables]);
+  const stableCssVars = useMemo(
+    () => Object.fromEntries(cssVarEntries),
+    [cssVarEntries]
+  );
 
 
   // CSSVariablesInjector will set CSS vars on the template root without rerendering children
@@ -101,7 +107,7 @@ function TemplatePreview() {
             >
               <CSSVariablesInjector
                 targetSelector="#template-root"
-                variables={cssVariables as never}
+                variables={stableCssVars as never}
               />
               <FontInjector />
               <TemplateRenderer />

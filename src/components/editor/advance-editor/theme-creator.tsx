@@ -210,8 +210,20 @@ function useMisc() {
   } as const;
 }
 
+function useDebouncedCallback<T extends unknown[]>(fn: (...args: T) => void, delay = 60) {
+  const timeoutRef = React.useRef<number | null>(null);
+  return React.useCallback(
+    (...args: T) => {
+      if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+      timeoutRef.current = window.setTimeout(() => fn(...args), delay);
+    },
+    [fn, delay],
+  );
+}
+
 function MiscEditor() {
   const misc = useMisc();
+  const debouncedUpdateMisc = useDebouncedCallback(updateMiscConfig, 60);
   // no save UI here; focused on misc options only
 
   return (
@@ -267,7 +279,7 @@ function MiscEditor() {
           step={1}
           value={misc.border}
           onChange={(e) =>
-            updateMiscConfig({ "--border": `${Number(e.target.value)}px` })
+            debouncedUpdateMisc({ "--border": `${Number(e.target.value)}px` })
           }
           className="range range-primary mt-3 w-full"
         />
@@ -289,7 +301,7 @@ function MiscEditor() {
           step={0.25}
           value={parseFloat(String(misc.sizeSelector).replace("rem", ""))}
           onChange={(e) =>
-            updateMiscConfig({
+            debouncedUpdateMisc({
               "--size-selector": `${Number(e.target.value)}rem`,
             })
           }
@@ -312,7 +324,7 @@ function MiscEditor() {
           step={0.25}
           value={parseFloat(String(misc.sizeField).replace("rem", ""))}
           onChange={(e) =>
-            updateMiscConfig({ "--size-field": `${Number(e.target.value)}rem` })
+            debouncedUpdateMisc({ "--size-field": `${Number(e.target.value)}rem` })
           }
           className="range range-primary mt-3 w-full"
         />
@@ -489,6 +501,7 @@ function RadiusSliders() {
     const n = parseFloat(String(v ?? "0").replace("rem", ""));
     return Number.isFinite(n) ? n : 0;
   };
+  const debouncedUpdateRadius = useDebouncedCallback(updateRadius, 60);
   return (
     <div className="grid grid-cols-1 gap-6">
       <div>
@@ -508,7 +521,7 @@ function RadiusSliders() {
           step={0.25}
           value={toNum(radii["--radius-box"])}
           onChange={(e) =>
-            updateRadius({ "--radius-box": `${Number(e.target.value)}rem` })
+            debouncedUpdateRadius({ "--radius-box": `${Number(e.target.value)}rem` })
           }
           className="range range-primary mt-3 w-full"
         />
@@ -531,7 +544,7 @@ function RadiusSliders() {
           step={0.25}
           value={toNum(radii["--radius-field"])}
           onChange={(e) =>
-            updateRadius({ "--radius-field": `${Number(e.target.value)}rem` })
+            debouncedUpdateRadius({ "--radius-field": `${Number(e.target.value)}rem` })
           }
           className="range range-primary mt-3 w-full"
         />
@@ -556,7 +569,7 @@ function RadiusSliders() {
           step={0.25}
           value={toNum(radii["--radius-selector"])}
           onChange={(e) =>
-            updateRadius({
+            debouncedUpdateRadius({
               "--radius-selector": `${Number(e.target.value)}rem`,
             })
           }
