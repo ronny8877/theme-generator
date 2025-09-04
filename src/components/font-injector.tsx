@@ -1,15 +1,14 @@
 "use client";
 
-import { useStore } from "@nanostores/react";
-import { $fontCSSVariables } from "@/store/font-store";
+import { useFontCSSVariables, observer } from "@/store";
 import { useEffect } from "react";
 
 /**
  * FontInjector component that applies font CSS variables to the document
  * This ensures that all templates automatically use the selected fonts
  */
-export const FontInjector = () => {
-  const fontCSSVariables = useStore($fontCSSVariables);
+export const FontInjector = observer(() => {
+  const fontCSSVariables = useFontCSSVariables();
 
   useEffect(() => {
     const root = document.documentElement;
@@ -28,4 +27,4 @@ export const FontInjector = () => {
   }, [fontCSSVariables]);
 
   return null; // This component doesn't render anything visible
-};
+});

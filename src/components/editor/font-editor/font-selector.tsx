@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import { ScrollArea } from "@/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { GOOGLE_FONTS, loadGoogleFont } from "@/store/font-store";
+import { GOOGLE_FONTS } from "@/store/font-constants";
+import { useFontActions } from "@/store";
 
 interface GoogleFont {
   family: string;
@@ -27,7 +28,7 @@ const fetchGoogleFonts = async (query: string): Promise<GoogleFont[]> => {
   }
 
   return GOOGLE_FONTS.filter((font) =>
-    font.family.toLowerCase().includes(query.toLowerCase()),
+    font.family.toLowerCase().includes(query.toLowerCase())
   );
 };
 
@@ -37,6 +38,7 @@ export const FontSelector = ({
   isOpen,
   onToggle,
 }: FontSelectorProps) => {
+  const { loadGoogleFont } = useFontActions();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredFonts, setFilteredFonts] =
     useState<GoogleFont[]>(GOOGLE_FONTS);
@@ -142,7 +144,7 @@ export const FontSelector = ({
                     onClick={() => handleFontSelect(font.family)}
                     className={cn(
                       "w-full text-left px-3 py-2 rounded-lg hover:bg-base-200 transition-colors",
-                      value === font.family && "bg-base-200",
+                      value === font.family && "bg-base-200"
                     )}
                     style={{ fontFamily: `"${font.family}", sans-serif` }}
                   >

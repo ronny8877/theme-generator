@@ -12,9 +12,13 @@ import {
 } from "@/templates/website";
 import { AIChatUI } from "@/templates/app";
 import { ConcertPoster } from "@/templates/poster";
-import { useCssVariables } from "@/store/hooks";
-import { useStore } from "@nanostores/react";
-import { $activePreviewDeviceSel, $editorUiType, $isEditorOpen } from "@/store";
+import {
+  useCssVariables,
+  useActivePreviewDevice,
+  useEditor,
+  useActiveTemplateId,
+  observer,
+} from "@/store";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import EditorFloatingWrapper from "./editor/editor-floating-wrapper";
 import Editor from "./editor/editor";
@@ -22,8 +26,6 @@ import { FontInjector } from "./font-injector";
 import ThemeInfo from "./navs/theme-info";
 import AnimeRealm from "@/templates/website/anime-realm";
 import { CSSVariablesInjector } from "./css-variables-injector";
-import { useStore as useNano } from "@nanostores/react";
-import { $activeTemplateId as $activeTemplateIdSel } from "@/store";
 type ViewportSize = "desktop" | "tablet" | "mobile";
 
 const componentMap = {
@@ -40,28 +42,31 @@ const componentMap = {
   "anime-realm": AnimeRealm,
 };
 
-const TemplateRenderer = React.memo(function TemplateRenderer() {
-  const tid = useNano($activeTemplateIdSel) as keyof typeof componentMap;
+const TemplateRenderer = observer(function TemplateRenderer() {
+  const activeTemplateId = useActiveTemplateId();
+  const tid = activeTemplateId as keyof typeof componentMap;
   const Cmp = useMemo(() => componentMap[tid] || BlogLanding, [tid]);
   return <Cmp key={tid} />;
 });
 
-function TemplatePreview() {
+const TemplatePreview = observer(function TemplatePreview() {
   const [viewport] = useState<ViewportSize>("desktop");
   const [parent] = useAutoAnimate<HTMLDivElement>();
   const [animationParent] = useAutoAnimate<HTMLDivElement>();
 
-  const previewDevice = useStore($activePreviewDeviceSel);
-  const editorUiType = useStore($editorUiType);
-  const isEditorOpen = useStore($isEditorOpen);
+  const previewDevice = useActivePreviewDevice();
+  const editor = useEditor();
   const cssVariables = useCssVariables();
+
   // Only pass CSS variables that actually changed (stable reference)
-  const cssVarEntries = useMemo(() => Object.entries(cssVariables), [cssVariables]);
+  const cssVarEntries = useMemo(
+    () => Object.entries(cssVariables),
+    [cssVariables]
+  );
   const stableCssVars = useMemo(
     () => Object.fromEntries(cssVarEntries),
     [cssVarEntries]
   );
-
 
   // CSSVariablesInjector will set CSS vars on the template root without rerendering children
 
@@ -75,7 +80,6 @@ function TemplatePreview() {
         return "max-w-full h-full";
     }
   };
-
 
   return (
     <div
@@ -115,14 +119,12 @@ function TemplatePreview() {
           </ScrollArea>
         </div>
       </div>
-  {isEditorOpen && editorUiType === "default" && (
-        <Editor />
-      )}
-  {isEditorOpen && editorUiType === "floating" && (
+      {editor.is_open && editor.ui_type === "default" && <Editor />}
+      {editor.is_open && editor.ui_type === "floating" && (
         <EditorFloatingWrapper />
       )}
     </div>
   );
-}
+});
 
 export default TemplatePreview;

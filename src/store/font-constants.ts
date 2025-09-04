@@ -1,30 +1,3 @@
-import { atom, computed } from "nanostores";
-
-// Types
-export interface FontConfig {
-  family: string;
-  weight: string;
-  size: string;
-  lineHeight: string;
-  letterSpacing: string;
-}
-
-export interface FontOverrides {
-  lineHeight: string;
-  letterSpacing: string;
-  headingMarginBottom: string;
-  bodyMarginBottom: string;
-  headingMinMargin: string;
-  bodyMinMargin: string;
-}
-
-export interface FontState {
-  heading: FontConfig;
-  body: FontConfig;
-  overrides: FontOverrides;
-  loadedFonts: Set<string>;
-}
-
 // Google Fonts list - popular fonts for web design
 export const GOOGLE_FONTS = [
   // Sans Serif
@@ -148,7 +121,6 @@ export const GOOGLE_FONTS = [
   { family: "TASA Explorer", category: "sans-serif", weights: ["400"] },
   { family: "Story Script", category: "handwriting", weights: ["400"] },
   { family: "Arimo", category: "sans-serif", weights: ["400", "700"] },
-  // Note: Nunito already included above, skipping duplicate
   {
     family: "Rubik",
     category: "sans-serif",
@@ -185,7 +157,6 @@ export const GOOGLE_FONTS = [
     category: "display",
     weights: ["200", "300", "400", "500", "600", "700", "800", "900"],
   },
-  // Pacifico already included earlier, skipping duplicate
   { family: "Oxygen", category: "sans-serif", weights: ["300", "400", "700"] },
   { family: "Abel", category: "sans-serif", weights: ["400"] },
   { family: "Comfortaa", category: "display", weights: ["300", "400", "700"] },
@@ -238,153 +209,6 @@ export const LETTER_SPACINGS = [
   { label: "Wider", value: "0.05em" },
   { label: "Widest", value: "0.1em" },
 ];
-
-// Initial state
-const initialFontState: FontState = {
-  heading: {
-    family: "Ubuntu",
-    weight: "400",
-    size: "24px",
-    lineHeight: "1.2",
-    letterSpacing: "-0.025em",
-  },
-  body: {
-    family: "Montserrat",
-    weight: "400",
-    size: "16px",
-    lineHeight: "1.625",
-    letterSpacing: "0.025em",
-  },
-  overrides: {
-    lineHeight: "1.5",
-    letterSpacing: "0em",
-    headingMarginBottom: "1rem",
-    bodyMarginBottom: "1rem",
-    headingMinMargin: "0.5rem",
-    bodyMinMargin: "0.25rem",
-  },
-  loadedFonts: new Set(["Ubuntu", "Montserrat"]), // Default fonts
-};
-
-// Store
-export const $fontStore = atom<FontState>(initialFontState);
-
-// Exportable defaults for other components to reference
-export const DEFAULT_FONT_OVERRIDES: FontOverrides = {
-  ...initialFontState.overrides,
-};
-
-// Computed values
-export const $headingFont = computed($fontStore, (store) => store.heading);
-export const $bodyFont = computed($fontStore, (store) => store.body);
-export const $fontOverrides = computed($fontStore, (store) => store.overrides);
-export const $loadedFonts = computed($fontStore, (store) => store.loadedFonts);
-
-// Actions
-export function updateHeadingFont(updates: Partial<FontConfig>) {
-  const current = $fontStore.get();
-  $fontStore.set({
-    ...current,
-    heading: {
-      ...current.heading,
-      ...updates,
-    },
-  });
-}
-
-export function updateBodyFont(updates: Partial<FontConfig>) {
-  const current = $fontStore.get();
-  $fontStore.set({
-    ...current,
-    body: {
-      ...current.body,
-      ...updates,
-    },
-  });
-}
-
-export function updateFontOverrides(updates: Partial<FontOverrides>) {
-  const current = $fontStore.get();
-  $fontStore.set({
-    ...current,
-    overrides: {
-      ...current.overrides,
-      ...updates,
-    },
-  });
-}
-
-export function loadGoogleFont(fontFamily: string) {
-  const current = $fontStore.get();
-
-  // Check if font is already loaded
-  if (current.loadedFonts.has(fontFamily)) {
-    return Promise.resolve();
-  }
-
-  return new Promise<void>((resolve, reject) => {
-    // Create link element for Google Fonts
-    const link = document.createElement("link");
-    link.href = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(" ", "+")}:wght@300;400;500;600;700;800;900&display=swap`;
-    link.rel = "stylesheet";
-
-    link.onload = () => {
-      // Add to loaded fonts set
-      const updated = $fontStore.get();
-      const newLoadedFonts = new Set(updated.loadedFonts);
-      newLoadedFonts.add(fontFamily);
-
-      $fontStore.set({
-        ...updated,
-        loadedFonts: newLoadedFonts,
-      });
-
-      resolve();
-    };
-
-    link.onerror = () => {
-      reject(new Error(`Failed to load font: ${fontFamily}`));
-    };
-
-    document.head.appendChild(link);
-  });
-}
-
-// CSS Variables computed
-export const $fontCSSVariables = computed($fontStore, (store) => {
-  // Determine if global overrides should be applied
-  const useGlobalLineHeight = store.overrides.lineHeight !== "1.5"; // default value
-  const useGlobalLetterSpacing = store.overrides.letterSpacing !== "0em"; // default value
-
-  return {
-    "--font-heading-family": `"${store.heading.family}", sans-serif`,
-    "--font-heading-weight": store.heading.weight,
-    "--font-heading-size": store.heading.size,
-    "--font-heading-line-height": useGlobalLineHeight
-      ? store.overrides.lineHeight
-      : store.heading.lineHeight,
-    "--font-heading-letter-spacing": useGlobalLetterSpacing
-      ? store.overrides.letterSpacing
-      : store.heading.letterSpacing,
-
-    "--font-body-family": `"${store.body.family}", sans-serif`,
-    "--font-body-weight": store.body.weight,
-    "--font-body-size": store.body.size,
-    "--font-body-line-height": useGlobalLineHeight
-      ? store.overrides.lineHeight
-      : store.body.lineHeight,
-    "--font-body-letter-spacing": useGlobalLetterSpacing
-      ? store.overrides.letterSpacing
-      : store.body.letterSpacing,
-
-    "--font-override-line-height": store.overrides.lineHeight,
-    "--font-override-letter-spacing": store.overrides.letterSpacing,
-    "--font-heading-margin-bottom": store.overrides.headingMarginBottom,
-    "--font-body-margin-bottom": store.overrides.bodyMarginBottom,
-    "--font-heading-min-margin": store.overrides.headingMinMargin,
-    "--font-body-min-margin": store.overrides.bodyMinMargin,
-  };
-});
 
 // Utility function to get font category
 export function getFontCategory(fontFamily: string) {

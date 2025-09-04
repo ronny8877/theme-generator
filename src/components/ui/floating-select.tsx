@@ -2,7 +2,7 @@
 import * as React from "react";
 import { ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useTemplateStore, useTemplateActions } from "@/store/hooks";
+import { useTemplateStore, useRootActions } from "@/store";
 
 export interface SelectOption {
   id: string;
@@ -39,10 +39,10 @@ const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
       placeholder = "Select an option",
       className,
     },
-    ref,
+    ref
   ) => {
     useTemplateStore(); // subscribe for reactivity; not directly used
-    const { setActiveTemplateById } = useTemplateActions();
+    const { setActiveTemplateById } = useRootActions();
     const [isOpen, setIsOpen] = React.useState(false);
     const [selectedOption, setSelectedOption] =
       React.useState<SelectOption | null>(null);
@@ -97,7 +97,7 @@ const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
         key={option.id}
         className={cn(
           "flex items-center gap-3 p-3 cursor-pointer transition-all duration-200 hover:bg-base-200",
-          isSelected && "bg-primary/10 border-l-2 border-primary",
+          isSelected && "bg-primary/10 border-l-2 border-primary"
         )}
         onClick={() => handleSelect(option)}
       >
@@ -132,7 +132,7 @@ const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
         <div
           className={cn(
             "bg-base-100 border border-base-300 shadow-lg cursor-pointer transition-all duration-300 hover:shadow-xl rounded-4xl justify-end",
-            isOpen && "shadow-2xl scale-[1.02]",
+            isOpen && "shadow-2xl scale-[1.02]"
           )}
           onClick={() => setIsOpen(!isOpen)}
         >
@@ -159,7 +159,7 @@ const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
             <div
               className={cn(
                 "transition-transform duration-300 text-base-content/60",
-                isOpen ? "rotate-180" : "rotate-0",
+                isOpen ? "rotate-180" : "rotate-0"
               )}
             >
               <ChevronUp className="w-4 h-4" />
@@ -173,7 +173,7 @@ const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
             "absolute bottom-full left-0 right-0 mb-2 bg-base-100 border border-base-300 rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 origin-bottom",
             isOpen
               ? "opacity-100 scale-100 translate-y-0"
-              : "opacity-0 scale-95 translate-y-2 pointer-events-none",
+              : "opacity-0 scale-95 translate-y-2 pointer-events-none"
           )}
         >
           <div className="max-h-[60vh] h-auto overflow-y-auto scrollbar-thin scrollbar-thumb-base-300 scrollbar-track-transparent">
@@ -190,7 +190,7 @@ const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
                   {section.title}
                 </div>
                 {section.options.map((option) =>
-                  renderOption(option, option.id === value),
+                  renderOption(option, option.id === value)
                 )}
               </div>
             ))}
@@ -198,7 +198,7 @@ const FloatingSelect = React.forwardRef<HTMLDivElement, FloatingSelectProps>(
         </div>
       </div>
     );
-  },
+  }
 );
 
 FloatingSelect.displayName = "FloatingSelect";

@@ -1,7 +1,7 @@
 "use client";
 import { useState, useMemo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useTemplateStore, useTemplateActions } from "@/store/hooks";
+import { useTemplateStore, useRootActions } from "@/store";
 import { TEMPLATES } from "@/lib/constants/constants";
 
 interface TemplateModalProps {
@@ -297,7 +297,7 @@ function TemplateModal({
 export default function TemplateSelector() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const templateStore = useTemplateStore();
-  const { setActiveTemplateById } = useTemplateActions();
+  const { setActiveTemplateById } = useRootActions();
 
   const handleSelectTemplate = (templateId: string) => {
     setActiveTemplateById(templateId);

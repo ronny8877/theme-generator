@@ -1,26 +1,21 @@
-import { editEditorSettings, $editorUiType } from "@/store";
-import { useStore } from "@nanostores/react";
+import { useEditor, useAppActions, observer } from "@/store";
 import { ImageUpscale, PictureInPicture, X } from "lucide-react";
 import React from "react";
 
-const EditorHeaderCmp = () => {
-  const uiType = useStore($editorUiType);
+const EditorHeaderCmp = observer(() => {
+  const editor = useEditor();
+  const { editEditorSettings } = useAppActions();
   return (
     <div className="flex items-center justify-between border-b border-base-300">
       <button
         className="btn rounded-3xl"
         onClick={() =>
           editEditorSettings({
-            ui_type:
-              uiType === "default" ? "floating" : "default",
+            ui_type: editor.ui_type === "default" ? "floating" : "default",
           })
         }
       >
-        {uiType === "default" ? (
-          <PictureInPicture />
-        ) : (
-          <ImageUpscale />
-        )}
+        {editor.ui_type === "default" ? <PictureInPicture /> : <ImageUpscale />}
       </button>
       <h2> Editor </h2>
       <button
@@ -31,7 +26,7 @@ const EditorHeaderCmp = () => {
       </button>
     </div>
   );
-};
+});
 
-export const EditorHeader = React.memo(EditorHeaderCmp);
+export const EditorHeader = EditorHeaderCmp;
 EditorHeader.displayName = "EditorHeader";

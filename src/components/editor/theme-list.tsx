@@ -1,43 +1,36 @@
 import {
-  setActiveTheme,
-  setActiveThemeConfig,
-  $userThemes,
-  initUserThemes,
-  deleteUserTheme,
-} from "@/store/nano-store";
+  useTemplateStore,
+  useTemplateActions,
+  useUserThemes,
+  IThemeConfig,
+  observer,
+} from "@/store";
 import { cn } from "@/lib/utils";
-import { useTemplateStore } from "@/store/hooks";
 import { THEMES } from "@/lib/constants";
 import { THEME_INFO } from "@/lib/constants/constants";
 import React from "react";
 import { Sparkles } from "lucide-react";
-import type { ThemeConfig } from "@/store/nano-store";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { useStore } from "@nanostores/react";
 
-export default function ThemeList() {
+export default observer(function ThemeList() {
   const [query, setQuery] = React.useState("");
   const [animationParent] = useAutoAnimate<HTMLDivElement>();
-  const userThemes = useStore($userThemes);
-  React.useEffect(() => {
-    initUserThemes();
-  }, []);
+  const userThemes = useUserThemes();
+  const { setActiveTheme, setActiveThemeConfig, deleteUserTheme } =
+    useTemplateActions();
 
-  const filteredUserThemes = userThemes.filter((t) =>
-    t.name.toLowerCase().includes(query.toLowerCase()),
+  const filteredUserThemes = userThemes.filter((t: IThemeConfig) =>
+    t.name.toLowerCase().includes(query.toLowerCase())
   );
   const filteredThemes = THEMES.filter((theme) =>
-    theme.name.toLowerCase().includes(query.toLowerCase()),
+    theme.name.toLowerCase().includes(query.toLowerCase())
   );
   const templateStore = useTemplateStore();
   return (
     <div ref={animationParent} className="flex flex-col gap-3 h-full pr-2">
       {/* Randomize button */}
       <div className="flex items-center justify-between gap-2">
-        <button
-          className="btn btn-sm rounded-full px-4 shadow-md bg-gradient-to-r from-primary to-accent text-primary-content hover:opacity-90"
-          
-        >
+        <button className="btn btn-sm rounded-full px-4 shadow-md bg-gradient-to-r from-primary to-accent text-primary-content hover:opacity-90">
           <span className="inline-flex items-center gap-2">
             <Sparkles className="w-4 h-4" />
             Surprise me
@@ -66,7 +59,7 @@ export default function ThemeList() {
         <>
           <h2 className="text-lg font-semibold">Your Themes</h2>
           <span className="divider my-0" />
-          {filteredUserThemes.map((theme) => (
+          {filteredUserThemes.map((theme: IThemeConfig) => (
             <div
               key={theme.id}
               onClick={() => setActiveThemeConfig(theme)}
@@ -77,7 +70,7 @@ export default function ThemeList() {
                 "relative hover:bg-base-200 border outline outline-white border-base-300 rounded-4xl p-3 cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-[1.02] group",
                 templateStore.active_theme.id === theme.id
                   ? "bg-base-200 shadow-lg"
-                  : "bg-base-100",
+                  : "bg-base-100"
               )}
             >
               {/* Delete button */}
@@ -144,7 +137,7 @@ export default function ThemeList() {
               "hover:bg-base-200 border outline outline-white border-base-300 rounded-4xl p-3 cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-[1.02] group",
               templateStore.active_theme.name === theme.name
                 ? "bg-base-200 shadow-lg"
-                : "bg-base-100",
+                : "bg-base-100"
             )}
           >
             <div className="flex flex-row justify-center items-center gap-3">
@@ -191,4 +184,4 @@ export default function ThemeList() {
       })}
     </div>
   );
-}
+});

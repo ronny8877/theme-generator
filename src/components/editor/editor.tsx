@@ -3,17 +3,16 @@ import { EditorHeader } from "./header";
 import ThemeList from "./theme-list";
 import { FontEditor } from "./fonts-editor";
 import { ScrollArea } from "../ui/scroll-area";
-import { useStore } from "@nanostores/react";
-import { $activeEditorTab } from "@/store";
-import { useAppActions } from "../../store/hooks";
+import { useActiveEditorTab, observer } from "@/store";
+import { useAppActions } from "../../store/mst-hooks";
 import { ThemeCreator } from "./advance-editor/theme-creator";
 import { Share2, Code2 } from "lucide-react";
 import { useState } from "react";
 import { ExportDialog } from "@/components/export-dialog";
 
-export default function Editor() {
+export default observer(function Editor() {
   const [exportOpen, setExportOpen] = useState(false);
-  const activeTab = useStore($activeEditorTab);
+  const activeTab = useActiveEditorTab();
   const { setActiveEditorTab } = useAppActions();
 
   const handleTabChange = (value: string) => {
@@ -84,4 +83,4 @@ export default function Editor() {
       <ExportDialog open={exportOpen} onOpenChange={setExportOpen} />
     </div>
   );
-}
+});

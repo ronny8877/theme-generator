@@ -1,4 +1,4 @@
-import type { ThemeConfig } from "@/store/nano-store";
+import type { IThemeConfig } from "@/store";
 
 export type ExportPreset =
   | "tailwind-v4"
@@ -15,7 +15,7 @@ function pick(obj: Record<string, string>, keys: string[]) {
   return out;
 }
 
-function toThemeTokens(theme: ThemeConfig) {
+function toThemeTokens(theme: IThemeConfig) {
   const c = theme.colors;
   return {
     primary: c["--color-primary"],
@@ -41,7 +41,7 @@ function toThemeTokens(theme: ThemeConfig) {
   };
 }
 
-export function exportTheme(theme: ThemeConfig): ExportBundle {
+export function exportTheme(theme: IThemeConfig): ExportBundle {
   const t = toThemeTokens(theme);
 
   const tailwindV3 = `/** tailwind.config.{js,ts} snippet */
@@ -162,7 +162,7 @@ export const myTheme = {
   } satisfies ExportBundle;
 }
 
-export function flattenColors(theme: ThemeConfig) {
+export function flattenColors(theme: IThemeConfig) {
   const keys = [
     "--color-base-100",
     "--color-base-200",

@@ -1,16 +1,21 @@
 "use client";
 
-import { useStore } from "@nanostores/react";
-import {
-  $fontOverrides,
-  updateFontOverrides,
-  DEFAULT_FONT_OVERRIDES,
-} from "@/store/font-store";
+import { useFontOverrides, useFontActions, observer } from "@/store";
 import { Input } from "./input";
 import { Globe2 } from "lucide-react";
 
-export const GlobalSettingsCard = () => {
-  const fontOverrides = useStore($fontOverrides);
+const DEFAULT_FONT_OVERRIDES = {
+  lineHeight: "1.5",
+  letterSpacing: "0em",
+  headingMarginBottom: "1rem",
+  bodyMarginBottom: "1rem",
+  headingMinMargin: "0.5rem",
+  bodyMinMargin: "0.25rem",
+};
+
+export const GlobalSettingsCard = observer(() => {
+  const fontOverrides = useFontOverrides();
+  const { updateFontOverrides } = useFontActions();
 
   return (
     <div className="bg-base-100 rounded-2xl p-5 border border-base-300 shadow-sm">
@@ -144,4 +149,4 @@ export const GlobalSettingsCard = () => {
       </div>
     </div>
   );
-};
+});

@@ -1,20 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { useStore } from "@nanostores/react";
+import { useHeadingFont, useFontActions, observer } from "@/store";
 import {
-  $headingFont,
-  updateHeadingFont,
   FONT_SIZES,
   LINE_HEIGHTS,
   LETTER_SPACINGS,
   getFontWeights,
-} from "@/store/font-store";
+} from "@/store/font-constants";
 import { FontSelector } from "./font-selector";
 import { Select } from "./select";
 
-export const HeadingFontCard = () => {
-  const headingFont = useStore($headingFont);
+export const HeadingFontCard = observer(() => {
+  const headingFont = useHeadingFont();
+  const { updateHeadingFont } = useFontActions();
   const [headingFontOpen, setHeadingFontOpen] = useState(false);
 
   const headingWeights = getFontWeights(headingFont.family).map((weight) => ({
@@ -130,4 +129,4 @@ export const HeadingFontCard = () => {
       </div>
     </div>
   );
-};
+});

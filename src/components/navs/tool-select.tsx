@@ -1,9 +1,8 @@
 import { Component, Dices, Laptop, PaintRoller, Text } from "lucide-react";
 import React from "react";
-import { useAppActions } from "@/store/hooks";
+import { useTemplateActions, useRootActions, IThemeConfig, observer } from "@/store";
 import { Dock, DockIcon, DockItem, DockLabel } from "@/ui/dock";
 import { THEMES } from "@/lib/constants";
-import { setActiveThemeConfig, ThemeConfig } from "@/store";
 
 const data = [
   {
@@ -38,23 +37,37 @@ const data = [
     title: "Randomize",
     icon: <Dices className="h-full w-full text-base-content" />,
     tool: "randomize" as const,
-  },
-
+  }, // Surprise me button
 ];
 
-export const ToolSelect = React.memo(function ToolSelect() {
-  const { switchTool } = useAppActions();
+export const ToolSelect = observer(function ToolSelect() {
+  console.log("🚀 ToolSelect component rendered");
+  const { switchTool } = useRootActions();
+  const { setActiveTheme } = useTemplateActions();
 
   const handleToolClick = (tool: (typeof data)[0]["tool"]) => {
-    if(tool === "randomize")  {
-            const allThemes: ThemeConfig[] = [...THEMES];
-            if (allThemes.length === 0) return;
-            const idx = Math.floor(Math.random() * allThemes.length);
-            const t = allThemes[idx];
-            setActiveThemeConfig(t);
-          
-    } else 
-    switchTool(tool);
+    console.log("🎯 Tool clicked:", tool);
+    if (tool === "randomize") {
+      console.log("🎲 Randomize button clicked!");
+      const allThemes: IThemeConfig[] = [...THEMES];
+      console.log("🎨 All themes:", allThemes.length, allThemes.map(t => t.name));
+      if (allThemes.length === 0) {
+        console.error("❌ No themes available!");
+        return;
+      }
+      const idx = Math.floor(Math.random() * allThemes.length);
+      const t = allThemes[idx];
+      console.log("✨ Selected random theme:", t.name, "at index:", idx);
+      try {
+        setActiveTheme(t.name); // Use name instead of the whole object
+        console.log("✅ Theme set successfully!");
+      } catch (error) {
+        console.error("💥 Error setting theme:", error);
+      }
+    } else {
+      console.log("🔧 Switching to tool:", tool);
+      switchTool(tool);
+    }
   };
 
   return (

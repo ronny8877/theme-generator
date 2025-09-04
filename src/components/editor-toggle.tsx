@@ -1,8 +1,9 @@
-import { editEditorSettings } from "@/store";
-import { useAppStore } from "@/store/hooks";
+import { useAppStore, useAppActions, observer } from "@/store";
 
-export default function EditorToggle() {
+export default observer(function EditorToggle() {
   const appStore = useAppStore();
+  const { editEditorSettings } = useAppActions();
+
   if (appStore.editor.is_open) return null;
 
   return (
@@ -17,4 +18,4 @@ export default function EditorToggle() {
       <h2>Editor Toggle</h2>
     </div>
   );
-}
+});

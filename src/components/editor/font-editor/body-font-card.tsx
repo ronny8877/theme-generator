@@ -1,21 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { useStore } from "@nanostores/react";
+import { useBodyFont, useFontActions, observer } from "@/store";
 import {
-  $bodyFont,
-  updateBodyFont,
   FONT_SIZES,
   LINE_HEIGHTS,
   LETTER_SPACINGS,
   getFontWeights,
-} from "@/store/font-store";
+} from "@/store/font-constants";
 import { FontSelector } from "./font-selector";
 import { Select } from "./select";
 import { Text } from "lucide-react";
 
-export const BodyFontCard = () => {
-  const bodyFont = useStore($bodyFont);
+export const BodyFontCard = observer(() => {
+  const bodyFont = useBodyFont();
+  const { updateBodyFont } = useFontActions();
   const [bodyFontOpen, setBodyFontOpen] = useState(false);
 
   const bodyWeights = getFontWeights(bodyFont.family).map((weight) => ({
@@ -121,4 +120,4 @@ export const BodyFontCard = () => {
       </div>
     </div>
   );
-};
+});

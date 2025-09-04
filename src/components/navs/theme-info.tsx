@@ -2,9 +2,13 @@
 
 import React from "react";
 import { parse } from "culori";
-import { useHeadingFont, useBodyFont } from "@/store/hooks";
-import { useStore } from "@nanostores/react";
-import { $activeTheme, $prominentColors } from "@/store";
+import {
+  useHeadingFont,
+  useBodyFont,
+  useActiveTheme,
+  useProminentColors,
+  observer,
+} from "@/store";
 
 // Minimal typed shape for culori parse result to avoid `any` in this file
 type ParsedColor = {
@@ -18,10 +22,9 @@ type ParsedColor = {
   a?: number;
 };
 
-function ThemeInfoBase() {
-  const theme = useStore($activeTheme);
-  const colors = useStore($prominentColors);
-
+const ThemeInfoBase = observer(function ThemeInfoBase() {
+  const theme = useActiveTheme();
+  const colors = useProminentColors();
   const heading = useHeadingFont();
   const body = useBodyFont();
 
@@ -131,10 +134,9 @@ function ThemeInfoBase() {
       </div>
     </div>
   );
-}
+});
 
-const ThemeInfo = React.memo(ThemeInfoBase);
-export default ThemeInfo;
+export default ThemeInfoBase;
 
 // Convert a color string (oklch, named, rgb, etc.) to hex (#rrggbb or #rrggbbaa)
 const toHex = (value: string) => {

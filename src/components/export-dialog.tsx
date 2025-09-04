@@ -1,16 +1,17 @@
-"use client";
-
 import { useState, useMemo } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 import { ScrollArea } from "@/ui/scroll-area";
 import { Copy, Palette, Code2, Check } from "lucide-react";
-import { useActiveTheme, useBodyFont, useHeadingFont } from "@/store/hooks";
+import { useActiveTheme, useBodyFont, useHeadingFont, observer } from "@/store";
 import { exportTheme, flattenColors } from "@/lib/exporter";
 
 type Props = { open: boolean; onOpenChange: (v: boolean) => void };
 
-export function ExportDialog({ open, onOpenChange }: Props) {
+export const ExportDialog = observer(function ExportDialog({
+  open,
+  onOpenChange,
+}: Props) {
   const theme = useActiveTheme();
   const heading = useHeadingFont();
   const body = useBodyFont();
@@ -179,7 +180,7 @@ export function ExportDialog({ open, onOpenChange }: Props) {
       </DialogContent>
     </Dialog>
   );
-}
+});
 
 function GradientCard({
   title,

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Palette, Check } from "lucide-react";
-import { useAppStore, useAppActions } from "@/store/hooks";
+import { useAppStore, useAppActions } from "@/store";
 import {
   DAISY_UI_AVILABLE_THEMES,
   THEME_INFO,
@@ -27,14 +27,14 @@ function FloatingThemeSelector() {
         // Set default theme
         document.documentElement.setAttribute(
           "data-theme",
-          appStore.theme.current,
+          appStore.theme.current
         );
       }
     }
   });
 
   const handleThemeChange = (
-    theme: (typeof DAISY_UI_AVILABLE_THEMES)[number],
+    theme: (typeof DAISY_UI_AVILABLE_THEMES)[number]
   ) => {
     setTheme(theme);
 
