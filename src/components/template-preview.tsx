@@ -24,6 +24,7 @@ import AnimeRealm from "@/templates/website/anime-realm";
 import { CSSVariablesInjector } from "./css-variables-injector";
 import { useStore as useNano } from "@nanostores/react";
 import { $activeTemplateId as $activeTemplateIdSel } from "@/store";
+import ExportDialogContainer from "@/components/export-dialog-container";
 type ViewportSize = "desktop" | "tablet" | "mobile";
 
 const componentMap = {
@@ -46,22 +47,17 @@ const TemplateRenderer = React.memo(function TemplateRenderer() {
   return <Cmp key={tid} />;
 });
 
-function TemplatePreview() {
+function TemplatePreviewBase() {
   const [viewport] = useState<ViewportSize>("desktop");
   const [parent] = useAutoAnimate<HTMLDivElement>();
-  const [animationParent] = useAutoAnimate<HTMLDivElement>();
+  // const [animationParent] = useAutoAnimate<HTMLDivElement>();
 
   const previewDevice = useStore($activePreviewDeviceSel);
   const editorUiType = useStore($editorUiType);
   const isEditorOpen = useStore($isEditorOpen);
   const cssVariables = useCssVariables();
   // Only pass CSS variables that actually changed (stable reference)
-  const cssVarEntries = useMemo(() => Object.entries(cssVariables), [cssVariables]);
-  const stableCssVars = useMemo(
-    () => Object.fromEntries(cssVarEntries),
-    [cssVarEntries]
-  );
-
+  const stableCssVars = useMemo(() => ({ ...cssVariables }), [cssVariables]);
 
   // CSSVariablesInjector will set CSS vars on the template root without rerendering children
 
@@ -76,12 +72,8 @@ function TemplatePreview() {
     }
   };
 
-
   return (
-    <div
-      ref={animationParent}
-      className="h-full flex items-center justify-center gap-5 transition-all duration-400 p-4 flex-nowrap"
-    >
+    <div className="h-full flex items-center justify-center gap-5 transition-all duration-400 p-4 flex-nowrap">
       <div
         className={`${getViewportClasses()} w-full @container bg-white rounded-4xl shadow-lg overflow-hidden transition-all duration-400`}
         style={{
@@ -115,14 +107,12 @@ function TemplatePreview() {
           </ScrollArea>
         </div>
       </div>
-  {isEditorOpen && editorUiType === "default" && (
-        <Editor />
-      )}
-  {isEditorOpen && editorUiType === "floating" && (
-        <EditorFloatingWrapper />
-      )}
+      {isEditorOpen && editorUiType === "default" && <Editor />}
+      {isEditorOpen && editorUiType === "floating" && <EditorFloatingWrapper />}
+      {/* Global export dialog, mounted once */}
+      <ExportDialogContainer />
     </div>
   );
 }
 
-export default TemplatePreview;
+export default React.memo(TemplatePreviewBase);

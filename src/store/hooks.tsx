@@ -9,6 +9,9 @@ import {
   $activeTheme,
   $prominentColors,
   $cssVariables,
+  $activeThemeId,
+  $activeThemeName,
+  $activeTemplateId,
   $canUndo,
   $canRedo,
   setTheme,
@@ -58,6 +61,9 @@ export const useActiveNotifications = () => useStore($activeNotifications);
 export const useHasActiveNotifications = () =>
   useStore($hasActiveNotifications);
 export const useActiveTheme = () => useStore($activeTheme);
+export const useActiveThemeId = () => useStore($activeThemeId);
+export const useActiveThemeName = () => useStore($activeThemeName);
+export const useActiveTemplateId = () => useStore($activeTemplateId);
 export const useProminentColors = () => useStore($prominentColors);
 export const useCssVariables = () => useStore($cssVariables);
 export const useCanUndo = () => useStore($canUndo);

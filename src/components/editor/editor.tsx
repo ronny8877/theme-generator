@@ -8,11 +8,11 @@ import { $activeEditorTab } from "@/store";
 import { useAppActions } from "../../store/hooks";
 import { ThemeCreator } from "./advance-editor/theme-creator";
 import { Share2, Code2 } from "lucide-react";
-import { useState } from "react";
-import { ExportDialog } from "@/components/export-dialog";
+import React from "react";
+import { openExport } from "@/store/ui-store";
 
-export default function Editor() {
-  const [exportOpen, setExportOpen] = useState(false);
+function EditorBase() {
+  // Export dialog handled globally to avoid re-rendering editor tree
   const activeTab = useStore($activeEditorTab);
   const { setActiveEditorTab } = useAppActions();
 
@@ -72,7 +72,7 @@ export default function Editor() {
           </button>
           <button
             className="btn btn-sm rounded-full px-4 btn-primary text-primary-content"
-            onClick={() => setExportOpen(true)}
+            onClick={() => openExport()}
           >
             <span className="inline-flex items-center gap-2">
               <Code2 className="w-4 h-4" />
@@ -81,7 +81,7 @@ export default function Editor() {
           </button>
         </div>
       </Tabs>
-      <ExportDialog open={exportOpen} onOpenChange={setExportOpen} />
     </div>
   );
 }
+export default React.memo(EditorBase);

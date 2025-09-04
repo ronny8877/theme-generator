@@ -12,7 +12,7 @@ function DeviceSelectBase() {
 
   // Get allowed devices based on active tool
   const getAllowedDevices = () => {
-  switch (activeTool) {
+    switch (activeTool) {
       case "app":
         return ["mobile", "tablet"];
       case "poster":

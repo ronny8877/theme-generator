@@ -152,6 +152,24 @@ export const $undoRedo = atom<UndoRedoState>(initialUndoRedoState);
 // User-saved themes
 export const $userThemes = atom<ThemeConfig[]>([]);
 
+// Fine-grained template atoms for minimal re-renders
+export const $themeMeta = atom<{ id: string; name: string }>({
+  id: initialTemplateState.active_theme.id,
+  name: initialTemplateState.active_theme.name,
+});
+export const $themeColors = atom<ColorScheme>(
+  initialTemplateState.active_theme.colors,
+);
+export const $themeRadius = atom<RadiusConfig>(
+  initialTemplateState.active_theme.radius,
+);
+export const $themeMisc = atom<MiscConfig>(
+  initialTemplateState.active_theme.misc,
+);
+export const $activeTemplateIdAtom = atom<string | null>(
+  initialTemplateState.activeTemplateId,
+);
+
 const USER_THEMES_KEY = "user-themes";
 
 // Computed values - App
@@ -166,9 +184,17 @@ export const $hasActiveNotifications = computed(
 
 // Computed values - Template
 export const $activeTheme = computed(
-  $template,
-  (template) => template.active_theme,
+  [$themeMeta, $themeColors, $themeRadius, $themeMisc],
+  (meta, colors, radius, misc) => ({
+    id: meta.id,
+    name: meta.name,
+    colors,
+    radius,
+    misc,
+  }),
 );
+export const $activeThemeId = computed($themeMeta, (m) => m.id);
+export const $activeThemeName = computed($themeMeta, (m) => m.name);
 export const $prominentColors = computed($activeTheme, (theme) => ({
   primary: theme.colors["--color-primary"],
   secondary: theme.colors["--color-secondary"],
@@ -176,12 +202,12 @@ export const $prominentColors = computed($activeTheme, (theme) => ({
   base: theme.colors["--color-base-100"],
 }));
 export const $cssVariables = computed(
-  [$activeTheme, $fontCSSVariables],
-  (theme, fontVars) => {
+  [$themeColors, $themeRadius, $themeMisc, $fontCSSVariables],
+  (colors, radius, misc, fontVars) => {
     return {
-      ...theme.colors,
-      ...theme.radius,
-      ...theme.misc,
+      ...colors,
+      ...radius,
+      ...misc,
       ...fontVars,
     };
   },
@@ -196,7 +222,10 @@ export const $canRedo = computed(
 
 // Root store computed values
 export const $currentTheme = computed($app, (app) => app.theme.current);
-export const $activeTemplate = computed($template, (template) => template);
+export const $activeTemplate = computed(
+  [$activeTheme, $activeTemplateIdAtom],
+  (theme, activeTemplateId) => ({ active_theme: theme, activeTemplateId }),
+);
 // Fine-grained selectors to minimize re-renders
 export const $activeEditorTab = computed($app, (app) => app.activeEditorTab);
 export const $activePreviewDeviceSel = computed(
@@ -206,14 +235,12 @@ export const $activePreviewDeviceSel = computed(
 export const $activeToolSel = computed($app, (app) => app.activeTool);
 export const $editorUiType = computed($app, (app) => app.editor.ui_type);
 export const $isEditorOpen = computed($app, (app) => app.editor.is_open);
-export const $activeTemplateId = computed(
-  $template,
-  (template) => template.activeTemplateId,
-);
+export const $activeTemplateId = computed($activeTemplateIdAtom, (id) => id);
 
 // App Actions
 export function setTheme(theme: string) {
   const currentApp = $app.get();
+  if (currentApp.theme.current === theme) return;
   $app.set({
     ...currentApp,
     theme: {
@@ -225,6 +252,7 @@ export function setTheme(theme: string) {
 
 export function setActiveTool(tool: ToolVariant) {
   const currentApp = $app.get();
+  if (currentApp.activeTool === tool) return;
   $app.set({
     ...currentApp,
     activeTool: tool,
@@ -234,6 +262,7 @@ export function setActiveTool(tool: ToolVariant) {
 
 export function setActiveEditorTab(tab: "themes" | "fonts" | "advanced") {
   const currentApp = $app.get();
+  if (currentApp.activeEditorTab === tab) return;
   $app.set({
     ...currentApp,
     activeEditorTab: tab,
@@ -242,6 +271,7 @@ export function setActiveEditorTab(tab: "themes" | "fonts" | "advanced") {
 
 export function setPreviewDevice(device: PreviewDevice) {
   const currentApp = $app.get();
+  if (currentApp.activePreviewDevice === device) return;
   $app.set({
     ...currentApp,
     activePreviewDevice: device,
@@ -261,6 +291,7 @@ export function toggleSidebar() {
 
 export function setActivePanel(panel: Panel) {
   const currentApp = $app.get();
+  if (currentApp.ui.activePanel === panel) return;
   $app.set({
     ...currentApp,
     ui: {
@@ -315,21 +346,28 @@ export function setLoading(isLoading: boolean) {
 
 // Template Actions
 export function setActiveTemplate(templateId: string | null) {
-  const currentTemplate = $template.get();
-  $template.set({
-    ...currentTemplate,
-    activeTemplateId: templateId,
-  });
+  const curr = $activeTemplateIdAtom.get();
+  if (curr === templateId) return;
+  $activeTemplateIdAtom.set(templateId);
+  // keep legacy store in sync for any old subscribers
+  const t = $template.get();
+  if (t.activeTemplateId !== templateId) {
+    $template.set({ ...t, activeTemplateId: templateId });
+  }
 }
 
 export function setActiveTheme(theme_id: string) {
   const theme = THEMES.find((t) => t.name === theme_id);
   if (theme) {
-    const currentTemplate = $template.get();
-    $template.set({
-      ...currentTemplate,
-      active_theme: theme,
-    });
+    const meta = $themeMeta.get();
+    if (meta.name === theme.name) return;
+    $themeMeta.set({ id: theme.id, name: theme.name });
+    $themeColors.set(theme.colors);
+    $themeRadius.set(theme.radius);
+    $themeMisc.set(theme.misc);
+    // sync legacy
+    const t = $template.get();
+    $template.set({ ...t, active_theme: theme });
   } else {
     console.warn("Theme not found:", theme_id);
   }
@@ -337,45 +375,37 @@ export function setActiveTheme(theme_id: string) {
 
 // Allow directly setting a ThemeConfig (used for user-saved themes)
 export function setActiveThemeConfig(theme: ThemeConfig) {
-  const currentTemplate = $template.get();
-  $template.set({
-    ...currentTemplate,
-    active_theme: theme,
-  });
+  $themeMeta.set({ id: theme.id, name: theme.name });
+  $themeColors.set(theme.colors);
+  $themeRadius.set(theme.radius);
+  $themeMisc.set(theme.misc);
+  // sync legacy
+  const t = $template.get();
+  $template.set({ ...t, active_theme: theme });
 }
 
 export function updateColorScheme(colors: Partial<ColorScheme>) {
-  const currentTemplate = $template.get();
+  const curr = $themeColors.get();
+  const next = { ...curr, ...colors } as ColorScheme;
+  if (JSON.stringify(next) === JSON.stringify(curr)) return;
+  $themeColors.set(next);
+  // sync legacy
+  const t = $template.get();
   $template.set({
-    ...currentTemplate,
-    active_theme: {
-      ...currentTemplate.active_theme,
-      colors: {
-        ...currentTemplate.active_theme.colors,
-        ...colors,
-      },
-    },
+    ...t,
+    active_theme: { ...t.active_theme, colors: next },
   });
 }
 
 // Update a single color variable on the active theme, e.g. "--color-primary"
 export function updateThemeColor(key: keyof ColorScheme, value: string) {
-  const currentTemplate = $template.get();
-  const currentTheme = currentTemplate.active_theme;
-
-  // Guard: ensure colors object exists
-  const nextColors = {
-    ...currentTheme.colors,
-    [key]: value,
-  } as ColorScheme;
-
-  $template.set({
-    ...currentTemplate,
-    active_theme: {
-      ...currentTheme,
-      colors: nextColors,
-    },
-  });
+  const curr = $themeColors.get();
+  if (curr[key] === value) return;
+  const next = { ...curr, [key]: value } as ColorScheme;
+  $themeColors.set(next);
+  // sync legacy
+  const t = $template.get();
+  $template.set({ ...t, active_theme: { ...t.active_theme, colors: next } });
 }
 
 // ---------- User themes persistence ----------
@@ -420,31 +450,27 @@ export function saveCurrentThemeAs(name?: string) {
 }
 
 export function updateRadius(radius: Partial<RadiusConfig>) {
-  const currentTemplate = $template.get();
-  $template.set({
-    ...currentTemplate,
-    active_theme: {
-      ...currentTemplate.active_theme,
-      radius: {
-        ...currentTemplate.active_theme.radius,
-        ...radius,
-      },
-    },
-  });
+  const curr = $themeRadius.get();
+  const keys = Object.keys(radius) as Array<keyof RadiusConfig>;
+  const changed = keys.some((k) => radius[k] !== curr[k]);
+  if (!changed) return;
+  const next = { ...curr, ...radius } as RadiusConfig;
+  $themeRadius.set(next);
+  // sync legacy
+  const t = $template.get();
+  $template.set({ ...t, active_theme: { ...t.active_theme, radius: next } });
 }
 
 export function updateMiscConfig(misc: Partial<MiscConfig>) {
-  const currentTemplate = $template.get();
-  $template.set({
-    ...currentTemplate,
-    active_theme: {
-      ...currentTemplate.active_theme,
-      misc: {
-        ...currentTemplate.active_theme.misc,
-        ...misc,
-      },
-    },
-  });
+  const curr = $themeMisc.get();
+  const keys = Object.keys(misc) as Array<keyof MiscConfig>;
+  const changed = keys.some((k) => misc[k] !== curr[k]);
+  if (!changed) return;
+  const next = { ...curr, ...misc } as MiscConfig;
+  $themeMisc.set(next);
+  // sync legacy
+  const t = $template.get();
+  $template.set({ ...t, active_theme: { ...t.active_theme, misc: next } });
 }
 
 // Root store actions
@@ -468,11 +494,7 @@ export function setActiveTemplateById(templateId: string) {
   }
 
   // 1) Set active template id
-  const currentTemplate = $template.get();
-  $template.set({
-    ...currentTemplate,
-    activeTemplateId: template.id,
-  });
+  setActiveTemplate(template.id);
 
   // 2) Apply default theme by name
   if (template.theme_id) {
@@ -549,11 +571,19 @@ export function editEditorSettings(settings: {
   ui_type?: "floating" | "default";
 }) {
   const currentApp = $app.get();
+  const next = {
+    ...currentApp.editor,
+    ...settings,
+  };
+  if (
+    next.is_open === currentApp.editor.is_open &&
+    next.ui_type === currentApp.editor.ui_type
+  )
+    return;
   $app.set({
     ...currentApp,
     editor: {
-      ...currentApp.editor,
-      ...settings,
+      ...next,
     },
   });
 }

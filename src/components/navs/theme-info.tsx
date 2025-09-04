@@ -2,9 +2,9 @@
 
 import React from "react";
 import { parse } from "culori";
-import { useHeadingFont, useBodyFont } from "@/store/hooks";
+import { useHeadingFont, useBodyFont, useActiveThemeName } from "@/store/hooks";
 import { useStore } from "@nanostores/react";
-import { $activeTheme, $prominentColors } from "@/store";
+import { $prominentColors } from "@/store";
 
 // Minimal typed shape for culori parse result to avoid `any` in this file
 type ParsedColor = {
@@ -19,7 +19,7 @@ type ParsedColor = {
 };
 
 function ThemeInfoBase() {
-  const theme = useStore($activeTheme);
+  const themeName = useActiveThemeName();
   const colors = useStore($prominentColors);
 
   const heading = useHeadingFont();
@@ -27,7 +27,7 @@ function ThemeInfoBase() {
 
   // local state to trigger small animations when theme changes
 
-  if (!theme) return null;
+  if (!themeName) return null;
 
   return (
     <div className="absolute left-1/2   -translate-x-1/2 z-50">
@@ -38,7 +38,7 @@ function ThemeInfoBase() {
           aria-hidden
         >
           <div className="text-sm font-medium capitalize text-base-content">
-            {theme.name}
+            {themeName}
           </div>
           <div className="text-xs text-base-content/60">•</div>
           <div className="text-xs text-base-content/60 truncate max-w-[8rem]">
@@ -50,7 +50,7 @@ function ThemeInfoBase() {
         <div className="absolute left-1/2 top-full -translate-x-1/2 mt-2 w-auto bg-base-100 border border-base-300 rounded-3xl shadow-lg p-5 opacity-0 scale-95 transform transition-all duration-150 group-hover:opacity-100 group-hover:scale-100 pointer-events-none group-hover:pointer-events-auto">
           <div className="flex items-center justify-between mb-2">
             <div className="text-sm font-semibold text-base-content capitalize">
-              {theme.name}
+              {themeName}
             </div>
             <div className="text-xs text-base-content/60">Theme</div>
           </div>

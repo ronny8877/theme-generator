@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
@@ -55,14 +55,10 @@ export const metadata: Metadata = {
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
     { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
   ],
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-  },
   robots: {
     index: true,
     follow: true,
-  
+
     googleBot: {
       index: true,
       follow: true,
@@ -80,6 +76,11 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -88,7 +89,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-
         <link rel="icon" href="/favicon.ico" />
         {/* Early theme set to avoid FOUC */}
         <Script id="theme-init" strategy="beforeInteractive">
@@ -104,36 +104,38 @@ export default function RootLayout({
         </Script>
 
         {/* JSON-LD schema (SoftwareApplication + WebSite) */}
-  <Script id="ld-json" type="application/ld+json" strategy="beforeInteractive">
+        <Script
+          id="ld-json"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+        >
           {JSON.stringify([
             {
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
-              "name": "LiveTheme",
-              "applicationCategory": "WebApplication",
-              "operatingSystem": "All",
-              "url": "https://livetheme.app",
-              "description":
+              name: "LiveTheme",
+              applicationCategory: "WebApplication",
+              operatingSystem: "All",
+              url: "https://livetheme.app",
+              description:
                 "Edit, preview, and export website themes in real time. Customize colors, fonts, and layouts, then share or export instantly. Free, no account needed.",
-              "image": "https://livetheme.app/preview.png",
+              image: "https://livetheme.app/preview.png",
             },
             {
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "name": "LiveTheme",
-              "url": "https://livetheme.app",
-              "potentialAction": {
+              name: "LiveTheme",
+              url: "https://livetheme.app",
+              potentialAction: {
                 "@type": "SearchAction",
-                "target": "https://livetheme.app/?q={search_term_string}",
-                "query-input": "required name=search_term_string"
-              }
-            }
+                target: "https://livetheme.app/?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+            },
           ])}
         </Script>
         <GoogleTagManager gtmId="GTM-MTV3JK9Z" />
-          <Script src="https://unpkg.com/react-scan/dist/auto.global.js" async />
-     
-
+  <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-base-100 text-base-content`}
@@ -143,4 +145,3 @@ export default function RootLayout({
     </html>
   );
 }
-

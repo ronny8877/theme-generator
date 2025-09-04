@@ -148,6 +148,20 @@ function ColorGroup({
 }) {
   const colors = useActiveColors();
   const [editing, setEditing] = React.useState<null | { key: ColorKey }>(null);
+  // Debounced color update to avoid flooding store during slider drags
+  const debouncedUpdate = React.useMemo(() => {
+    let t: number | null = null;
+    let lastKey: ColorKey | null = null;
+    let lastHex = "";
+    return (key: ColorKey, hex: string) => {
+      lastKey = key;
+      lastHex = hex;
+      if (t) window.clearTimeout(t);
+      t = window.setTimeout(() => {
+        if (lastKey) updateThemeColor(lastKey, lastHex);
+      }, 60);
+    };
+  }, []);
 
   const open = !!editing;
   const currentKey = editing?.key ?? (items[0]?.key as ColorKey);
@@ -174,7 +188,7 @@ function ColorGroup({
         open={open}
         onOpenChange={(v) => !v && setEditing(null)}
         value={current}
-        onChange={(hex) => updateThemeColor(currentKey, hex)}
+        onChange={(hex) => debouncedUpdate(currentKey, hex)}
         title={`Edit ${title}`}
         description={String(currentKey)}
       />
@@ -210,20 +224,10 @@ function useMisc() {
   } as const;
 }
 
-function useDebouncedCallback<T extends unknown[]>(fn: (...args: T) => void, delay = 60) {
-  const timeoutRef = React.useRef<number | null>(null);
-  return React.useCallback(
-    (...args: T) => {
-      if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
-      timeoutRef.current = window.setTimeout(() => fn(...args), delay);
-    },
-    [fn, delay],
-  );
-}
+// ...removed debounced helper to apply slider changes immediately
 
 function MiscEditor() {
   const misc = useMisc();
-  const debouncedUpdateMisc = useDebouncedCallback(updateMiscConfig, 60);
   // no save UI here; focused on misc options only
 
   return (
@@ -279,7 +283,7 @@ function MiscEditor() {
           step={1}
           value={misc.border}
           onChange={(e) =>
-            debouncedUpdateMisc({ "--border": `${Number(e.target.value)}px` })
+            updateMiscConfig({ "--border": `${Number(e.target.value)}px` })
           }
           className="range range-primary mt-3 w-full"
         />
@@ -301,7 +305,7 @@ function MiscEditor() {
           step={0.25}
           value={parseFloat(String(misc.sizeSelector).replace("rem", ""))}
           onChange={(e) =>
-            debouncedUpdateMisc({
+            updateMiscConfig({
               "--size-selector": `${Number(e.target.value)}rem`,
             })
           }
@@ -324,7 +328,7 @@ function MiscEditor() {
           step={0.25}
           value={parseFloat(String(misc.sizeField).replace("rem", ""))}
           onChange={(e) =>
-            debouncedUpdateMisc({ "--size-field": `${Number(e.target.value)}rem` })
+            updateMiscConfig({ "--size-field": `${Number(e.target.value)}rem` })
           }
           className="range range-primary mt-3 w-full"
         />
@@ -501,7 +505,7 @@ function RadiusSliders() {
     const n = parseFloat(String(v ?? "0").replace("rem", ""));
     return Number.isFinite(n) ? n : 0;
   };
-  const debouncedUpdateRadius = useDebouncedCallback(updateRadius, 60);
+  // apply radius updates immediately (no debounce)
   return (
     <div className="grid grid-cols-1 gap-6">
       <div>
@@ -521,7 +525,7 @@ function RadiusSliders() {
           step={0.25}
           value={toNum(radii["--radius-box"])}
           onChange={(e) =>
-            debouncedUpdateRadius({ "--radius-box": `${Number(e.target.value)}rem` })
+            updateRadius({ "--radius-box": `${Number(e.target.value)}rem` })
           }
           className="range range-primary mt-3 w-full"
         />
@@ -544,7 +548,7 @@ function RadiusSliders() {
           step={0.25}
           value={toNum(radii["--radius-field"])}
           onChange={(e) =>
-            debouncedUpdateRadius({ "--radius-field": `${Number(e.target.value)}rem` })
+            updateRadius({ "--radius-field": `${Number(e.target.value)}rem` })
           }
           className="range range-primary mt-3 w-full"
         />
@@ -569,7 +573,7 @@ function RadiusSliders() {
           step={0.25}
           value={toNum(radii["--radius-selector"])}
           onChange={(e) =>
-            debouncedUpdateRadius({
+            updateRadius({
               "--radius-selector": `${Number(e.target.value)}rem`,
             })
           }
