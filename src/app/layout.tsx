@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
@@ -55,10 +55,6 @@ export const metadata: Metadata = {
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
     { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
   ],
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-  },
   robots: {
     index: true,
     follow: true,
@@ -78,6 +74,11 @@ export const metadata: Metadata = {
       "Edit, preview, and export website themes in real time. Customize colors, fonts, and layouts, then share or export instantly. Free, no account needed.",
     images: ["https://livetheme.app/preview.png"],
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -134,7 +135,7 @@ export default function RootLayout({
           ])}
         </Script>
         <GoogleTagManager gtmId="GTM-MTV3JK9Z" />
-        <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
+  <Script src="https://unpkg.com/react-scan/dist/auto.global.js" strategy="afterInteractive" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-base-100 text-base-content`}
