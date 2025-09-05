@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import TemplatePreview from "@/components/template-preview";
 import { ToolSelect } from "@/components/navs/tool-select";
 import DeviceSelect from "@/components/navs/device-select";
@@ -83,10 +83,3 @@ export default function TemplatesPage() {
     </Suspense>
   );
 }
-
-export const metadata: Metadata = {
-  title: "Templates – LiveTheme",
-  description:
-    "Browse and edit free website, app, and poster templates. Customize colors and fonts and export instantly.",
-  alternates: { canonical: "/templates" },
-};
