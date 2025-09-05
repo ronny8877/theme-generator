@@ -333,7 +333,7 @@ function ThemeSwitcher() {
                   <div>
                     <h4 className="font-semibold">Choose Base Theme</h4>
                     <p className="text-sm text-muted-foreground">
-                      Select from 50+ pre-built themes or create custom
+                      Select from 20+ pre-built themes or create custom
                     </p>
                   </div>
                 </div>
@@ -351,27 +351,6 @@ function ThemeSwitcher() {
               </CardContent>
             </Card>
           </div>
-        </div>
-
-        {/* Call to Action */}
-        <div className="text-center">
-          <Card className="max-w-2xl mx-auto">
-            <CardContent className="pt-8 pb-8">
-              <h3 className="text-2xl font-bold mb-4">
-                Ready to Transform Your Website?
-              </h3>
-              <p className="text-muted-foreground mb-6">
-                Start building with our comprehensive DaisyUI theme system
-                today.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg">Get Started Now</Button>
-                <Button variant="outline" size="lg" className="bg-transparent">
-                  View Full Documentation
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </section>

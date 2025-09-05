@@ -99,55 +99,12 @@ export function ThemeShowcaseSection() {
   }
 
   function getThemeColors(colors: Record<string, string>): string[] {
-    const oklchToHex = (oklchValue: string): string => {
-      // Parse OKLCH values and convert to approximate hex colors
-      const match = oklchValue.match(
-        /oklch$$([\d.]+)%\s+([\d.]+)\s+([\d.]+)$$/
-      );
-      if (match) {
-        const [, lightness, chroma, hue] = match;
-        const l = Number.parseFloat(lightness) / 100;
-        const c = Number.parseFloat(chroma);
-        const h = Number.parseFloat(hue);
-
-        // Simple OKLCH to RGB approximation for display purposes
-        if (c < 0.02) {
-          // Low chroma = grayscale
-          const gray = Math.round(l * 255);
-          return `rgb(${gray}, ${gray}, ${gray})`;
-        }
-
-        // Convert hue to RGB approximation
-        const hueRad = (h * Math.PI) / 180;
-        const r = Math.max(
-          0,
-          Math.min(255, Math.round(255 * (l + c * Math.cos(hueRad))))
-        );
-        const g = Math.max(
-          0,
-          Math.min(
-            255,
-            Math.round(255 * (l + c * Math.cos(hueRad + (2 * Math.PI) / 3)))
-          )
-        );
-        const b = Math.max(
-          0,
-          Math.min(
-            255,
-            Math.round(255 * (l + c * Math.cos(hueRad + (4 * Math.PI) / 3)))
-          )
-        );
-
-        return `rgb(${r}, ${g}, ${b})`;
-      }
-      return "#6366f1";
-    };
-
+    // Return OKLCH values directly - modern browsers support this!
     return [
-      oklchToHex(colors["--color-primary"] || "oklch(58% 0.233 277.117)"),
-      oklchToHex(colors["--color-secondary"] || "oklch(65% 0.241 354.308)"),
-      oklchToHex(colors["--color-accent"] || "oklch(77% 0.152 181.912)"),
-      oklchToHex(colors["--color-neutral"] || "oklch(30% 0.075 108.6)"),
+      colors["--color-base-100"] || "oklch(100% 0 0)",
+      colors["--color-primary"] || "oklch(58% 0.2 277)",
+      colors["--color-secondary"] || "oklch(65% 0.2 354)",
+      colors["--color-accent"] || "oklch(77% 0.15 182)",
     ];
   }
 
@@ -191,7 +148,6 @@ export function ThemeShowcaseSection() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Theme Browser */}
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <h3 className="text-2xl font-bold">Browse Themes</h3>
@@ -217,14 +173,31 @@ export function ThemeShowcaseSection() {
                 </div>
               </div>
 
-              <div className="flex space-x-2 mb-6">
-                {themes[currentThemeIndex].colors.map((color, index) => (
-                  <div
-                    key={index}
-                    className="w-8 h-8 rounded-full border-2 border-gray-200"
-                    style={{ backgroundColor: color }}
-                  />
-                ))}
+              <div className="mb-6">
+                <h5 className="text-sm font-medium text-gray-700 mb-3">
+                  Color Palette
+                </h5>
+                <div className="flex space-x-3">
+                  {themes[currentThemeIndex].colors.map((color, index) => {
+                    const colorLabels = [
+                      "Base",
+                      "Primary",
+                      "Secondary",
+                      "Accent",
+                    ];
+                    return (
+                      <div key={index} className="flex flex-col items-center">
+                        <div
+                          className="w-10 h-10 rounded-full border-2 border-gray-200 shadow-sm"
+                          style={{ backgroundColor: color }}
+                        />
+                        <span className="text-xs text-gray-500 mt-1">
+                          {colorLabels[index]}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4 max-h-80 overflow-y-auto">

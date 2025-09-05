@@ -33,10 +33,16 @@ export const $previewTheme = computed(
   (state) => state.previewTheme
 );
 
-// Available themes
+// Available themes with limit function
 export const $availableHomepageThemes = computed($homepageTheme, () =>
   THEMES.map((theme) => theme.name)
 );
+
+// Function to get limited themes for scroll cycling
+export function getLimitedScrollThemes(limit: number = 6): DaisyUITheme[] {
+  const allThemes = THEMES.map((theme) => theme.name);
+  return limit >= allThemes.length ? allThemes : allThemes.slice(0, limit);
+}
 
 // Theme application function
 function applyThemeVariables(themeName: DaisyUITheme) {
@@ -140,14 +146,7 @@ export function initHomepageTheme() {
 }
 
 // Auto theme cycling for scroll-based theme changes
-const scrollThemes: DaisyUITheme[] = [
-  "lemonade",
-  "cyberpunk",
-  "autumn",
-  "business",
-  "retro",
-  "winter",
-];
+const scrollThemes: DaisyUITheme[] = getLimitedScrollThemes(6);
 
 export function applyScrollBasedTheme(sectionIndex: number) {
   const current = $homepageTheme.get();

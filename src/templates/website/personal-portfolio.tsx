@@ -107,7 +107,7 @@ export default function PersonalPortfolio() {
   ];
 
   const stats = [
-    { number: "50+", label: "Projects Completed", icon: Monitor },
+    { number: "20+", label: "Projects Completed", icon: Monitor },
     { number: "3+", label: "Years Experience", icon: Calendar },
     { number: "20+", label: "Happy Clients", icon: Users },
     { number: "500+", label: "Cups of Coffee", icon: Coffee },

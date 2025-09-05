@@ -14,8 +14,13 @@ export function AutoThemeToggle() {
         id="auto-theme"
         checked={isAutoThemeEnabled}
         onCheckedChange={toggleAutoTheme}
+        className="data-[state=checked]:bg-blue-600 data-[state=unchecked]:bg-gray-300 border border-gray-400"
+        style={{
+          backgroundColor: isAutoThemeEnabled ? '#2563eb' : '#d1d5db',
+          borderColor: '#9ca3af',
+        }}
       />
-      <Label htmlFor="auto-theme" className="text-sm">
+      <Label htmlFor="auto-theme" className="text-sm font-medium text-gray-700">
         Auto Theme
       </Label>
     </div>

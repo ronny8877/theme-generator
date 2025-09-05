@@ -40,7 +40,7 @@ export function PricingSection() {
       monthlyPrice: 29,
       yearlyPrice: 290,
       features: [
-        "50+ Built-in Themes",
+        "20+ Built-in Themes",
         "Advanced Theme Editor",
         "Real-time Preview",
         "Priority Support",

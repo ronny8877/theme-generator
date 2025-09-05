@@ -3,8 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Palette, Zap, Code } from "lucide-react";
+import { useStore } from "@nanostores/react";
+import { $currentTheme, $isAutoThemeEnabled } from "@/store/homepage-store";
 
 export function HeroSection() {
+  const currentTheme = useStore($currentTheme);
+  const isAutoThemeEnabled = useStore($isAutoThemeEnabled);
+
   return (
     <section
       id="hero"
@@ -20,6 +25,12 @@ export function HeroSection() {
             <Zap className="w-4 h-4 mr-2" />
             20+ Built-in DaisyUI Themes
           </Badge>
+
+          {/* Theme Debug Info */}
+          <div className="mb-4 text-sm text-muted-foreground">
+            Current: <strong>{currentTheme}</strong>{" "}
+            {isAutoThemeEnabled && "(Auto)"}
+          </div>
 
           {/* Main Headline */}
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-balance mb-8 leading-tight">

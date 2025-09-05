@@ -14,7 +14,7 @@ export function FeaturesSection() {
   const features = [
     {
       icon: Palette,
-      title: "50+ Built-in Themes",
+      title: "20+ Built-in Themes",
       description:
         "Choose from a vast collection of professionally designed themes, from minimal to vibrant.",
       badge: "Popular",

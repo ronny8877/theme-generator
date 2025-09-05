@@ -54,11 +54,14 @@ export function Navigation() {
           <div className="hidden md:flex items-center space-x-4">
             <AutoThemeToggle />
             <ThemeSelector />
-
-            <Button variant="outline" size="sm">
-              Sign In
+            <Button
+              size="sm"
+              onClick={() => {
+                window.location.href = "/templates";
+              }}
+            >
+              Get Started
             </Button>
-            <Button size="sm">Get Started</Button>
           </div>
 
           {/* Mobile menu button */}
