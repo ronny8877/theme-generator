@@ -12,7 +12,7 @@ import {
   useTemplateActions,
   useAppActions,
 } from "@/store/hooks";
-import { $themeColors } from "@/store/nano-store";
+import { $themeColors, editEditorSettings } from "@/store/nano-store";
 import {
   loadGoogleFont,
   updateBodyFont,
@@ -28,6 +28,9 @@ export default function TemplatesPage() {
   const activeTemplateId = useActiveTemplateId();
 
   useEffect(() => {
+    // Ensure the editor is open when entering edit mode
+    editEditorSettings({ is_open: true });
+
     if (!encoded) return;
     const state = decodeParamToState(encoded);
     if (!state) return;
