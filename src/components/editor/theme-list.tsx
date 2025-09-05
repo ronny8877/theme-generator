@@ -10,7 +10,6 @@ import { useActiveThemeId, useActiveThemeName } from "@/store/hooks";
 import { THEMES } from "@/lib/constants";
 import { THEME_INFO } from "@/lib/constants/constants";
 import React from "react";
-import { Sparkles } from "lucide-react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useStore } from "@nanostores/react";
 
@@ -32,15 +31,6 @@ function ThemeListBase() {
   const activeThemeName = useActiveThemeName();
   return (
     <div ref={animationParent} className="flex flex-col gap-3 h-full pr-2">
-      {/* Randomize button */}
-      <div className="flex items-center justify-between gap-2">
-        <button className="btn btn-sm rounded-full px-4 shadow-md bg-gradient-to-r from-primary to-accent text-primary-content hover:opacity-90">
-          <span className="inline-flex items-center gap-2">
-            <Sparkles className="w-4 h-4" />
-            Surprise me
-          </span>
-        </button>
-      </div>
       <input
         type="text"
         placeholder="Search themes..."

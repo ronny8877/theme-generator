@@ -129,6 +129,131 @@
   will-change: background-color, color, border-color;
 }
 
+/* Analog clock styling */
+.clock {
+  position: relative;
+  aspect-ratio: 1/1;
+  /* Use DaisyUI palette tokens */
+  --clock-face: var(--color-base-300);
+  --hand: var(--primary);
+  --hand-dark: color-mix(in oklab, var(--primary) 70%, black);
+  --orbit: 150px;
+  --sec-delay: 0s;
+}
+
+.clock svg {
+  position: absolute;
+  inset: 0;
+}
+
+.clock .bgLightTint {
+  fill: var(--clock-face);
+}
+
+/* .clock .centerPoint {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+} */
+
+.clock .sui {
+  --angle: 0deg;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: 50% 100%;
+  z-index: 1;
+}
+
+/* Hour hand: short and thick rounded */
+.clock #hour {
+  width: 16px;
+  height: 80px;
+  background: var(--hand-dark);
+  border-radius: 999px;
+  transform: translate(-50%, -100%) rotate(var(--angle));
+  transition: transform 0.25s linear;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Minute hand: tapered by using a pseudo element for the longer triangular style */
+.clock #minute {
+  width: 16px;
+  height: 150px;
+  background: transparent;
+  transform: translate(-50%, -100%) rotate(var(--angle));
+  transition: transform 0.1s linear;
+}
+
+.clock #minute::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 16px;
+  height: 100px;
+  background: var(--hand);
+  border-radius: 12px;
+  transform: translateX(-50%);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Second indicator: an orbiting dot rather than a long hand */
+.clock #second {
+  width: 10px;
+  height: 10px;
+  transform-origin: 50% 50%;
+  transform: translate(-50%, -50%);
+  animation: clock-rotate 60s linear infinite;
+  animation-delay: var(--sec-delay);
+}
+
+.clock #second::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  background: var(--hand);
+  border-radius: 50%;
+  /* Place the dot on the left orbit similar to screenshot */
+  transform: translate(calc(-1 * var(--orbit)), -50%);
+}
+
+/* Ensure seconds dot is under the center cap so it appears anchored */
+.clock #second {
+  z-index: 2;
+}
+.clock #hour,
+.clock #minute {
+  z-index: 1;
+}
+
+/* Center cap */
+/* .clock .centerPoint::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--hand);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08) inset;
+} */
+
+@keyframes clock-rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
 /* Font injection classes - Scoped to template content only */
 .template-content .font-heading {
   font-family: var(--font-heading-family);

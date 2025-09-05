@@ -135,7 +135,7 @@ const initialAppState: AppState = {
 
 const initialTemplateState: TemplateState = {
   active_theme: THEMES[0],
-  activeTemplateId: "simple-blog-landing",
+  activeTemplateId: "landing",
 };
 
 const initialUndoRedoState: UndoRedoState = {

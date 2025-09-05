@@ -1,5 +1,47 @@
 export const THEMES = [
   {
+    name: "fuschia",
+    id: "fuschia",
+    default: true,
+    colors: {
+      // daisyUI custom theme
+      "--color-primary": "oklch(57.95% 0.266 326.36)",
+      "--color-primary-content": "oklch(100% 0 0)",
+      "--color-secondary": "oklch(84.87% 0.199 146.36)",
+      "--color-secondary-content": "oklch(100% 0 0)",
+      "--color-accent": "oklch(74.22% 0.167 183.61)",
+      "--color-accent-content": "oklch(100% 0 0)",
+      "--color-neutral": "oklch(39.21% 0.132 326.36)",
+      "--color-neutral-content": "oklch(100% 0 0)",
+      "--color-base-100": "oklch(100% 0 0)",
+      "--color-base-200": "oklch(0.952 0.037 318.852)",
+      "--color-base-300": "oklch(0.903 0.076 319.62)",
+      "--color-base-content": "oklch(13.18% 0.041 326.36)",
+      "--color-info": "oklch(70.76% 0.129 231.6)",
+      "--color-info-content": "oklch(14.14% 0.026 231.6)",
+      "--color-success": "oklch(69.17% 0.132 162.48)",
+      "--color-success-content": "oklch(13.83% 0.026 162.48)",
+      "--color-warning": "oklch(84.25% 0.132 82.11)",
+      "--color-warning-content": "oklch(16.85% 0.026 82.11)",
+      "--color-error": "oklch(65.69% 0.199 27.33)",
+      "--color-error-content": "oklch(89.95% 0.008 27.33)",
+    },
+    // tailwind.config: daisyui: { themes: [myTheme] }
+    radius: {
+      "--radius-selector": "3rem",
+      "--radius-field": "3rem",
+      "--radius-box": "3rem",
+    },
+
+    misc: {
+      "--size-selector": "0.25rem",
+      "--size-field": "0.25rem",
+      "--border": "5px",
+      "--depth": 1,
+      "--noise": 1,
+    },
+  },
+  {
     name: "lemonade",
     id: "lemonade",
     default: true,

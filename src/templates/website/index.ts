@@ -4,3 +4,4 @@ export { default as EcommerceSite } from "./ecommerce";
 export { default as PersonalPortfolio } from "./personal-portfolio";
 export { default as SaaSLanding } from "./saas-landing";
 export { default as CookbookLanding } from "./cookbook-landing";
+export { default as Landing } from "./landing";

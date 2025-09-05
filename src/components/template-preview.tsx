@@ -9,6 +9,7 @@ import {
   PersonalPortfolio,
   SaaSLanding,
   CookbookLanding,
+  Landing,
 } from "@/templates/website";
 import { AIChatUI } from "@/templates/app";
 import { ConcertPoster } from "@/templates/poster";
@@ -39,6 +40,7 @@ const componentMap = {
   "ai-chat-ui": AIChatUI,
   "concert-poster": ConcertPoster,
   "anime-realm": AnimeRealm,
+  landing: Landing,
 };
 
 const TemplateRenderer = React.memo(function TemplateRenderer() {
@@ -64,7 +66,7 @@ function TemplatePreviewBase() {
   const getViewportClasses = () => {
     switch (previewDevice) {
       case "mobile":
-        return "max-w-[430px] h-[860px]";
+        return "max-w-[430px] h-[932px]";
       case "tablet":
         return "max-w-[768px] h-full";
       default:
@@ -91,7 +93,9 @@ function TemplatePreviewBase() {
             <ThemeInfo />
             {/* <div className="input rounded-full">SITENAME</div> */}
           </div>
-          <ScrollArea className="w-full h-[92vh]">
+          <ScrollArea
+            className={`w-full ${previewDevice === "mobile" ? "h-[932px]" : "h-[95vh]"}`}
+          >
             <div
               ref={parent}
               id="template-root"

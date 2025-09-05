@@ -326,6 +326,17 @@ export const TEMPLATES_ARRAY = [
     },
   },
   {
+    id: "landing",
+    title: "Landing",
+    description:
+      "A default landing template with a Material You inspired clock",
+    theme_id: "fuschia",
+    fonts: {
+      heading: { family: "Raleway", weight: "600" },
+      body: { family: "Figtree", weight: "400" },
+    },
+  },
+  {
     id: "ai-chat-ui",
     title: "AI Chat Interface",
     description:
@@ -439,6 +450,17 @@ export const TEMPLATES: SelectSection[] = [
           "A modern SaaS landing page with features, pricing, testimonials, and call-to-action sections",
         fonts: {
           heading: { family: "Outfit", weight: "700" },
+          body: { family: "Inter", weight: "400" },
+        },
+      },
+      {
+        theme_id: "minimal",
+        id: "landing",
+        title: "Landing",
+        description:
+          "Default landing template with Material You inspired clock",
+        fonts: {
+          heading: { family: "Poppins", weight: "600" },
           body: { family: "Inter", weight: "400" },
         },
       },
