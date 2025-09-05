@@ -26,6 +26,7 @@ import { CSSVariablesInjector } from "./css-variables-injector";
 import { useStore as useNano } from "@nanostores/react";
 import { $activeTemplateId as $activeTemplateIdSel } from "@/store";
 import ExportDialogContainer from "@/components/export-dialog-container";
+import ShareDialogContainer from "@/components/share-dialog-container";
 type ViewportSize = "desktop" | "tablet" | "mobile";
 
 const componentMap = {
@@ -115,6 +116,7 @@ function TemplatePreviewBase() {
       {isEditorOpen && editorUiType === "floating" && <EditorFloatingWrapper />}
       {/* Global export dialog, mounted once */}
       <ExportDialogContainer />
+      <ShareDialogContainer />
     </div>
   );
 }

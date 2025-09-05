@@ -20,7 +20,6 @@ import {
   Linkedin,
   GithubIcon,
 } from "lucide-react";
-import { toast } from "sonner";
 
 type IpInfo = {
   ip: string;
@@ -352,14 +351,9 @@ export default function Landing() {
   }, [allTemplates, deferredQuery]);
 
   const share = async () => {
-    const url = typeof window !== "undefined" ? window.location.href : "";
     try {
-      if (navigator.share) {
-        await navigator.share({ title: "Theme Generator", url });
-      } else {
-        await navigator.clipboard.writeText(url);
-      }
-      toast.success("Link ready to share", { description: url });
+      const { openShare } = await import("@/store/ui-store");
+      openShare();
     } catch {}
   };
 

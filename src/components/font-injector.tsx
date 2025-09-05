@@ -13,17 +13,25 @@ export const FontInjector = () => {
 
   useEffect(() => {
     const root = document.documentElement;
+    const templateRoot = document.querySelector<HTMLElement>("#template-root");
 
-    // Apply all font CSS variables to the root element
-    Object.entries(fontCSSVariables).forEach(([property, value]) => {
-      root.style.setProperty(property, value);
-    });
+    const apply = (el: HTMLElement) => {
+      Object.entries(fontCSSVariables).forEach(([property, value]) => {
+        el.style.setProperty(property, String(value));
+      });
+    };
+    const cleanup = (el: HTMLElement) => {
+      Object.keys(fontCSSVariables).forEach((property) => {
+        el.style.removeProperty(property);
+      });
+    };
+
+    apply(root);
+    if (templateRoot) apply(templateRoot);
 
     return () => {
-      // Cleanup function to remove font variables if component unmounts
-      Object.keys(fontCSSVariables).forEach((property) => {
-        root.style.removeProperty(property);
-      });
+      cleanup(root);
+      if (templateRoot) cleanup(templateRoot);
     };
   }, [fontCSSVariables]);
 
