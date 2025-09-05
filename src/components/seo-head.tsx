@@ -8,7 +8,7 @@ interface SeoHeadProps {
 }
 
 export default function SeoHead({
-  title = "LiveTheme – Free Theme Editor & Preview Tooldd",
+  title = "LiveTheme – Free Theme Editor & Preview Tool",
   description = "Edit, preview, and export website themes in real time. Customize colors, fonts, and layouts, then share or export instantly. Free, no account needed.",
   url = "https://livetheme.app",
   image = "https://livetheme.app/preview.png",
@@ -18,6 +18,7 @@ export default function SeoHead({
       {/* Primary Meta Tags */}
       <title>{title}</title>
       <meta name="description" content={description} />
+      {/* Prefer Next.js Metadata's canonical when available */}
       <link rel="canonical" href={url} />
 
       {/* Open Graph / Facebook */}

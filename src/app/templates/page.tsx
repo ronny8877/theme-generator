@@ -6,6 +6,7 @@ import TemplateSelector from "@/components/template-selector";
 import EditorToggle from "@/components/editor-toggle";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
+import type { Metadata } from "next";
 import { decodeParamToState, colorsFromCsv } from "@/lib/share-url";
 import {
   useActiveTemplateId,
@@ -82,3 +83,10 @@ export default function TemplatesPage() {
     </Suspense>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Templates – LiveTheme",
+  description:
+    "Browse and edit free website, app, and poster templates. Customize colors and fonts and export instantly.",
+  alternates: { canonical: "/templates" },
+};
