@@ -36,7 +36,7 @@ export const THEMES = [
     misc: {
       "--size-selector": "0.25rem",
       "--size-field": "0.25rem",
-      "--border": "5px",
+      "--border": "0px",
       "--depth": 1,
       "--noise": 1,
     },

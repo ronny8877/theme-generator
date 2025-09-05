@@ -2,9 +2,26 @@
 
 import React from "react";
 import { parse } from "culori";
-import { useHeadingFont, useBodyFont, useActiveThemeName } from "@/store/hooks";
+import {
+  useHeadingFont,
+  useBodyFont,
+  useActiveThemeName,
+  useIsThemeEdited,
+  usePendingTemplateThemeName,
+  useTemplateActions,
+} from "@/store/hooks";
 import { useStore } from "@nanostores/react";
 import { $prominentColors } from "@/store";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 // Minimal typed shape for culori parse result to avoid `any` in this file
 type ParsedColor = {
@@ -24,6 +41,10 @@ function ThemeInfoBase() {
 
   const heading = useHeadingFont();
   const body = useBodyFont();
+  const isEdited = useIsThemeEdited();
+  const pendingTemplateTheme = usePendingTemplateThemeName();
+  const { applyThemeAndResetBaseline, saveEditedTheme } = useTemplateActions();
+  const [open, setOpen] = React.useState(false);
 
   // local state to trigger small animations when theme changes
 
@@ -31,19 +52,69 @@ function ThemeInfoBase() {
 
   return (
     <div className="absolute left-1/2   -translate-x-1/2 z-50">
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Unsaved theme changes</AlertDialogTitle>
+            <AlertDialogDescription>
+              Save your edited theme or discard changes before applying the
+              template&apos;s theme?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                if (!pendingTemplateTheme) return;
+                applyThemeAndResetBaseline(pendingTemplateTheme);
+                setOpen(false);
+              }}
+            >
+              Discard & Apply
+            </AlertDialogAction>
+            <AlertDialogAction
+              onClick={() => {
+                if (!pendingTemplateTheme) return;
+                saveEditedTheme();
+                applyThemeAndResetBaseline(pendingTemplateTheme);
+                setOpen(false);
+              }}
+            >
+              Save & Apply
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
       <div className="group relative">
         {/* Pill */}
         <div
-          className={`px-5 cursor-pointer py-1.5 rounded-full bg-base-200 border border-base-300 shadow-sm flex items-center gap-5`}
+          className={`px-5 cursor-default py-1.5 rounded-full bg-base-200 border border-base-300 shadow-sm flex items-center gap-3`}
           aria-hidden
         >
           <div className="text-sm font-medium capitalize text-base-content">
             {themeName}
           </div>
-          <div className="text-xs text-base-content/60">•</div>
+          {isEdited && (
+            <div className="text-[10px] px-2 py-0.5 rounded-full bg-warning/20 text-warning border border-warning/30">
+              Edited
+            </div>
+          )}
+          <div className="text-xs text-base-content/40">•</div>
           <div className="text-xs text-base-content/60 truncate max-w-[8rem]">
             {heading.family}
           </div>
+          {pendingTemplateTheme && (
+            <button
+              className="ml-3 text-xs px-3 py-1 rounded-full border border-base-300 bg-base-100 hover:bg-base-200 transition-colors"
+              onClick={() => {
+                if (isEdited) setOpen(true);
+                else applyThemeAndResetBaseline(pendingTemplateTheme);
+              }}
+              title={`Apply template theme: ${pendingTemplateTheme}`}
+            >
+              Apply “{pendingTemplateTheme}”
+            </button>
+          )}
         </div>
 
         {/* Hover panel */}

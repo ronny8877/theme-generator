@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 import { ScrollArea } from "@/ui/scroll-area";
@@ -26,6 +27,7 @@ export function ExportDialog({ open, onOpenChange }: Props) {
       await navigator.clipboard.writeText(text);
       setCopiedKey(key ?? text.slice(0, 16));
       setTimeout(() => setCopiedKey(null), 1500);
+      toast.success("Copied to clipboard");
     } catch {}
   };
 

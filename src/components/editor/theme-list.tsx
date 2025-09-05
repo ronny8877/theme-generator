@@ -1,22 +1,50 @@
 import {
-  setActiveTheme,
-  setActiveThemeConfig,
   $userThemes,
   initUserThemes,
   deleteUserTheme,
+  type ThemeConfig,
 } from "@/store/nano-store";
 import { cn } from "@/lib/utils";
-import { useActiveThemeId, useActiveThemeName } from "@/store/hooks";
+import {
+  useActiveThemeId,
+  useActiveThemeName,
+  useIsThemeEdited,
+  useTemplateActions,
+} from "@/store/hooks";
 import { THEMES } from "@/lib/constants";
 import { THEME_INFO } from "@/lib/constants/constants";
 import React from "react";
+import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useStore } from "@nanostores/react";
 
 function ThemeListBase() {
   const [query, setQuery] = React.useState("");
+  const [confirmOpen, setConfirmOpen] = React.useState(false);
+  const [pendingApply, setPendingApply] = React.useState<
+    | null
+    | { type: "library"; name: string }
+    | { type: "user"; config: ThemeConfig }
+  >(null);
   const [animationParent] = useAutoAnimate<HTMLDivElement>();
   const userThemes = useStore($userThemes);
+  const isEdited = useIsThemeEdited();
+  const {
+    applyThemeAndResetBaseline,
+    applyThemeConfigAndResetBaseline,
+    saveEditedTheme,
+  } = useTemplateActions();
   React.useEffect(() => {
     initUserThemes();
   }, []);
@@ -29,8 +57,70 @@ function ThemeListBase() {
   );
   const activeThemeId = useActiveThemeId();
   const activeThemeName = useActiveThemeName();
+
+  const handleApplyLibraryTheme = (name: string) => {
+    if (!isEdited) {
+      applyThemeAndResetBaseline(name);
+      return;
+    }
+    setPendingApply({ type: "library", name });
+    setConfirmOpen(true);
+  };
+
+  const handleApplyUserTheme = (config: ThemeConfig) => {
+    if (!isEdited) {
+      applyThemeConfigAndResetBaseline(config);
+      return;
+    }
+    setPendingApply({ type: "user", config });
+    setConfirmOpen(true);
+  };
+
+  const onConfirmAction = (
+    action: "save-apply" | "discard-apply" | "cancel",
+  ) => {
+    if (action === "cancel") {
+      setConfirmOpen(false);
+      setPendingApply(null);
+      return;
+    }
+    if (!pendingApply) return;
+    if (action === "save-apply") {
+      saveEditedTheme();
+    }
+    if (pendingApply.type === "library") {
+      applyThemeAndResetBaseline(pendingApply.name);
+    } else if (pendingApply.type === "user") {
+      applyThemeConfigAndResetBaseline(pendingApply.config);
+    }
+    setConfirmOpen(false);
+    setPendingApply(null);
+  };
   return (
     <div ref={animationParent} className="flex flex-col gap-3 h-full pr-2">
+      {/* Unsaved changes dialog */}
+      <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Unsaved theme changes</AlertDialogTitle>
+            <AlertDialogDescription>
+              You have unsaved edits. Save your current theme or discard changes
+              before applying the new theme?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => onConfirmAction("cancel")}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={() => onConfirmAction("discard-apply")}>
+              Discard & Apply
+            </AlertDialogAction>
+            <AlertDialogAction onClick={() => onConfirmAction("save-apply")}>
+              Save & Apply
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
       <input
         type="text"
         placeholder="Search themes..."
@@ -56,7 +146,7 @@ function ThemeListBase() {
           {filteredUserThemes.map((theme) => (
             <div
               key={theme.id}
-              onClick={() => setActiveThemeConfig(theme)}
+              onClick={() => handleApplyUserTheme(theme)}
               style={{
                 backgroundColor: theme.colors?.["--color-base-200"],
               }}
@@ -67,17 +157,42 @@ function ThemeListBase() {
                   : "bg-base-100",
               )}
             >
-              {/* Delete button */}
-              <button
-                className="btn btn-xs btn-ghost absolute top-2 right-2 opacity-0 group-hover:opacity-100"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  deleteUserTheme(theme.id);
-                }}
-                title="Delete theme"
-              >
-                Delete
-              </button>
+              {/* Delete button with confirm */}
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <button
+                    className="btn btn-xs btn-ghost absolute top-2 right-2 opacity-0 group-hover:opacity-100"
+                    onClick={(e) => e.stopPropagation()}
+                    title="Delete theme"
+                  >
+                    Delete
+                  </button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete theme?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently remove
+                      your saved theme &quot;{theme.name}&quot; from this
+                      device.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteUserTheme(theme.id);
+                        toast.success("Theme deleted", {
+                          description: theme.name,
+                        });
+                      }}
+                    >
+                      Confirm
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
 
               <div className="flex flex-row justify-center items-center gap-3">
                 {(() => {
@@ -122,7 +237,7 @@ function ThemeListBase() {
       {filteredThemes.map((theme) => {
         return (
           <div
-            onClick={() => setActiveTheme(theme.name)}
+            onClick={() => handleApplyLibraryTheme(theme.name)}
             key={theme.id}
             style={{
               backgroundColor: theme.colors?.["--color-base-200"],

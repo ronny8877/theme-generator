@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { toast } from "sonner";
+import { useActiveThemeName } from "@/store/hooks";
 import { useStore } from "@nanostores/react";
 import {
   $activeTheme,
@@ -342,6 +344,7 @@ export function ThemeCreator() {
   React.useEffect(() => {
     initUserThemes();
   }, []);
+  const activeThemeName = useActiveThemeName();
 
   return (
     <div className="space-y-6">
@@ -357,7 +360,18 @@ export function ThemeCreator() {
           />
           <button
             className="btn btn-primary btn-sm rounded-full px-4"
-            onClick={() => saveCurrentThemeAs(name)}
+            onClick={() => {
+              const finalName =
+                name && name.trim()
+                  ? name.trim()
+                  : `${activeThemeName ?? "Theme"} copy`;
+              try {
+                saveCurrentThemeAs(name);
+                toast.success("Theme saved", { description: finalName });
+              } catch {
+                toast.error("Failed to save theme");
+              }
+            }}
             title="Save your current theme to local storage"
           >
             Save

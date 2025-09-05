@@ -12,6 +12,8 @@ import {
   $activeThemeId,
   $activeThemeName,
   $activeTemplateId,
+  $isThemeEdited,
+  $pendingTemplateThemeName,
   $canUndo,
   $canRedo,
   setTheme,
@@ -27,6 +29,10 @@ import {
   updateMiscConfig,
   switchTool,
   setActiveTemplateById,
+  resetBaselineToCurrent,
+  applyThemeAndResetBaseline,
+  applyThemeConfigAndResetBaseline,
+  saveEditedTheme,
 } from "./nano-store";
 import {
   $fontStore,
@@ -66,6 +72,9 @@ export const useActiveThemeName = () => useStore($activeThemeName);
 export const useActiveTemplateId = () => useStore($activeTemplateId);
 export const useProminentColors = () => useStore($prominentColors);
 export const useCssVariables = () => useStore($cssVariables);
+export const useIsThemeEdited = () => useStore($isThemeEdited);
+export const usePendingTemplateThemeName = () =>
+  useStore($pendingTemplateThemeName);
 export const useCanUndo = () => useStore($canUndo);
 export const useCanRedo = () => useStore($canRedo);
 
@@ -87,6 +96,7 @@ export const useAppActions = () => {
     addNotification,
     setActiveTool,
     setActiveEditorTab,
+    resetBaselineToCurrent,
   };
 };
 
@@ -98,6 +108,9 @@ export const useTemplateActions = () => {
     updateColorScheme,
     updateRadius,
     updateMiscConfig,
+    applyThemeAndResetBaseline,
+    applyThemeConfigAndResetBaseline,
+    saveEditedTheme,
   };
 };
 

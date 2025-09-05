@@ -10,6 +10,8 @@ import {
   updateHeadingFont,
   updateBodyFont,
   loadGoogleFont,
+  $headingFont,
+  $bodyFont,
 } from "./font-store";
 
 // Types
@@ -111,6 +113,29 @@ export interface UndoRedoState {
   isRecording: boolean;
 }
 
+// A snapshot to determine if the current theme has unsaved edits
+export interface ThemeBaselineSnapshot {
+  colors: ColorScheme;
+  radius: RadiusConfig;
+  misc: MiscConfig;
+  fonts: {
+    heading: {
+      family: string;
+      weight: string;
+      size: string;
+      lineHeight: string;
+      letterSpacing: string;
+    };
+    body: {
+      family: string;
+      weight: string;
+      size: string;
+      lineHeight: string;
+      letterSpacing: string;
+    };
+  };
+}
+
 // Initial states
 const initialAppState: AppState = {
   theme: {
@@ -151,6 +176,9 @@ export const $template = atom<TemplateState>(initialTemplateState);
 export const $undoRedo = atom<UndoRedoState>(initialUndoRedoState);
 // User-saved themes
 export const $userThemes = atom<ThemeConfig[]>([]);
+
+// Pending template theme (if user has unsaved edits, we don't auto-apply)
+export const $pendingTemplateThemeName = atom<string | null>(null);
 
 // Fine-grained template atoms for minimal re-renders
 export const $themeMeta = atom<{ id: string; name: string }>({
@@ -210,6 +238,40 @@ export const $cssVariables = computed(
       ...misc,
       ...fontVars,
     };
+  },
+);
+
+// Baseline snapshot used to detect unsaved edits
+const initialBaseline: ThemeBaselineSnapshot = {
+  colors: initialTemplateState.active_theme.colors,
+  radius: initialTemplateState.active_theme.radius,
+  misc: initialTemplateState.active_theme.misc,
+  fonts: {
+    heading: $headingFont.get(),
+    body: $bodyFont.get(),
+  },
+};
+
+export const $themeBaseline = atom<ThemeBaselineSnapshot>(initialBaseline);
+
+export const $isThemeEdited = computed(
+  [
+    $themeColors,
+    $themeRadius,
+    $themeMisc,
+    $headingFont,
+    $bodyFont,
+    $themeBaseline,
+  ],
+  (colors, radius, misc, heading, body, base) => {
+    const current = JSON.stringify({
+      colors,
+      radius,
+      misc,
+      fonts: { heading, body },
+    });
+    const baseline = JSON.stringify(base);
+    return current !== baseline;
   },
 );
 
@@ -496,12 +558,22 @@ export function setActiveTemplateById(templateId: string) {
   // 1) Set active template id
   setActiveTemplate(template.id);
 
-  // 2) Apply default theme by name
+  // 2) Apply default theme by name, unless there are unsaved edits
+  const isDirty = $isThemeEdited.get();
   if (template.theme_id) {
-    setActiveTheme(template.theme_id);
+    if (isDirty) {
+      // do not override current edited theme; remember template's desired theme
+      $pendingTemplateThemeName.set(template.theme_id);
+    } else {
+      setActiveTheme(template.theme_id);
+      $pendingTemplateThemeName.set(null);
+      resetBaselineToCurrent();
+    }
+  } else {
+    $pendingTemplateThemeName.set(null);
   }
 
-  // 3) Apply default fonts if provided
+  // 3) Apply default fonts if provided and not dirty; if dirty keep user's edited fonts
   try {
     type MaybeFonts = {
       fonts?: {
@@ -514,17 +586,19 @@ export function setActiveTemplateById(templateId: string) {
     const headingWeight = withFonts?.fonts?.heading?.weight;
     const bodyFamily = withFonts?.fonts?.body?.family;
     const bodyWeight = withFonts?.fonts?.body?.weight;
-
-    if (headingFamily) {
-      loadGoogleFont(headingFamily).catch(() => {});
-      updateHeadingFont({
-        family: headingFamily,
-        weight: headingWeight ?? "400",
-      });
-    }
-    if (bodyFamily) {
-      loadGoogleFont(bodyFamily).catch(() => {});
-      updateBodyFont({ family: bodyFamily, weight: bodyWeight ?? "400" });
+    if (!isDirty) {
+      if (headingFamily) {
+        loadGoogleFont(headingFamily).catch(() => {});
+        updateHeadingFont({
+          family: headingFamily,
+          weight: headingWeight ?? "400",
+        });
+      }
+      if (bodyFamily) {
+        loadGoogleFont(bodyFamily).catch(() => {});
+        updateBodyFont({ family: bodyFamily, weight: bodyWeight ?? "400" });
+      }
+      resetBaselineToCurrent();
     }
   } catch (e) {
     console.warn("Failed applying template fonts:", e);
@@ -552,6 +626,36 @@ export function updateTemplateTheme(
   if (themeUpdates.colors) updateColorScheme(themeUpdates.colors);
   if (themeUpdates.radius) updateRadius(themeUpdates.radius);
   if (themeUpdates.misc) updateMiscConfig(themeUpdates.misc);
+}
+
+// ---------- Unsaved edits helpers ----------
+export function resetBaselineToCurrent() {
+  $themeBaseline.set({
+    colors: $themeColors.get(),
+    radius: $themeRadius.get(),
+    misc: $themeMisc.get(),
+    fonts: {
+      heading: $headingFont.get(),
+      body: $bodyFont.get(),
+    },
+  });
+}
+
+export function applyThemeAndResetBaseline(theme_name: string) {
+  setActiveTheme(theme_name);
+  $pendingTemplateThemeName.set(null);
+  resetBaselineToCurrent();
+}
+
+export function applyThemeConfigAndResetBaseline(theme: ThemeConfig) {
+  setActiveThemeConfig(theme);
+  $pendingTemplateThemeName.set(null);
+  resetBaselineToCurrent();
+}
+
+export function saveEditedTheme(name?: string) {
+  saveCurrentThemeAs(name);
+  resetBaselineToCurrent();
 }
 
 // Helper function

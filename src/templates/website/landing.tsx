@@ -20,6 +20,7 @@ import {
   Linkedin,
   GithubIcon,
 } from "lucide-react";
+import { toast } from "sonner";
 
 type IpInfo = {
   ip: string;
@@ -241,7 +242,7 @@ const ThemeSearch = React.memo(function ThemeSearch({
   return (
     <div className="rounded-box bg-base-100 border border-base-300 shadow-sm p-5 relative">
       <form onSubmit={onSubmit} className="join w-full">
-        <div className="join-item flex-1 flex items-center gap-2 bg-base-100 border border-base-300 rounded-full px-4 py-3">
+        <div className="join-item flex-1 flex items-center gap-2 bg-base-100 border border-base-300 rounded-field px-4 py-3">
           <SearchIcon className="w-5 h-5 opacity-70" />
           <input
             className="input input-ghost flex-1 min-w-0 focus:outline-none placeholder:text-base-content"
@@ -358,6 +359,7 @@ export default function Landing() {
       } else {
         await navigator.clipboard.writeText(url);
       }
+      toast.success("Link ready to share", { description: url });
     } catch {}
   };
 
