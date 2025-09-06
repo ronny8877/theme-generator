@@ -10,7 +10,7 @@ export type TemplatePillsProps = {
 };
 
 export const TemplatePills: React.FC<TemplatePillsProps> = React.memo(
-  ({ activeId, onSelect, className = "", limit = 6 }) => {
+  ({ activeId, onSelect, className = "", limit = 4 }) => {
     const items = TEMPLATES_ARRAY.slice(0, limit);
     return (
       <div className={`flex flex-wrap gap-2 ${className}`}>

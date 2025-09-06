@@ -24,8 +24,8 @@ export default function Clock({
   className = "",
 }: ClockProps) {
   // If only width or only height is provided, mirror it so the clock stays square by default
-  const finalWidth: number | string = width ?? (height ?? size);
-  const finalHeight: number | string = height ?? (width ?? size);
+  const finalWidth: number | string = width ?? height ?? size;
+  const finalHeight: number | string = height ?? width ?? size;
   const thickScale = Math.max(0.5, Math.min(2.5, Number(thicknessFactor) || 1));
   const rootRef = useRef<HTMLDivElement | null>(null);
   const hourRef = useRef<HTMLDivElement | null>(null);
@@ -36,8 +36,8 @@ export default function Clock({
       const el = rootRef.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
-  const minSide = Math.min(rect.width, rect.height);
-  const r = Math.max(18, minSide * 0.34);
+      const minSide = Math.min(rect.width, rect.height);
+      const r = Math.max(18, minSide * 0.34);
       el.style.setProperty("--sizePx", `${Math.round(minSide)}px`);
       el.style.setProperty("--orbit", `${Math.round(r)}px`);
       // Scale clock parts relative to a design base of 260px
@@ -104,13 +104,15 @@ export default function Clock({
       ref={rootRef}
       style={{
         display: "block",
-  width: finalWidth,
-  height: finalHeight,
+        width: finalWidth,
+        height: finalHeight,
         position: "relative",
         // Expose thickness scale for CSS
         // CSS custom properties are allowed on style objects via index signature
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ...( { ["--thickScale" as unknown as string]: String(thickScale) } as any ),
+        ...({
+          ["--thickScale" as unknown as string]: String(thickScale),
+        } as any),
       }}
       aria-hidden={false}
     >

@@ -145,7 +145,11 @@
   --thickScale: var(--thickScale, 1);
   /* Derived thickness for hands, scales with actual size and optional factor */
   /* Keep a safe minimum so hands never vanish */
-  --thick: clamp(6px, calc(var(--sizePx, 260px) * 0.03 * var(--thickScale)), 34px);
+  --thick: clamp(
+    6px,
+    calc(var(--sizePx, 260px) * 0.03 * var(--thickScale)),
+    34px
+  );
   /* Convenience: radius from computed size */
   --radius: calc(var(--sizePx, 260px) * 0.5);
   /* Separate thickness per hand so hour can be bolder than minute */
@@ -186,14 +190,15 @@
   width: var(--thickHour);
   /* hour length = 60% of radius; cap to radius - half thickness */
   height: min(
-    calc(var(--radius) * 0.60),
+    calc(var(--radius) * 0.6),
     calc(var(--radius) - var(--thickHour) * 0.5)
   );
   background: var(--hand-dark);
   border-radius: 999px;
   transform: translate(-50%, -100%) rotate(var(--angle));
   transition: transform 0.25s linear;
-  box-shadow: 0 calc(var(--thickHour) * 0.4) calc(var(--thickHour) * 0.7) rgba(0, 0, 0, 0.06);
+  box-shadow: 0 calc(var(--thickHour) * 0.4) calc(var(--thickHour) * 0.7)
+    rgba(0, 0, 0, 0.06);
 }
 
 /* Minute hand: tapered by using a pseudo element for the longer triangular style */
@@ -217,13 +222,14 @@
   width: var(--thickMinute);
   /* minute visible length = 70% of radius; cap to radius */
   height: min(
-    calc(var(--radius) * 0.70),
+    calc(var(--radius) * 0.7),
     calc(var(--radius) - var(--thickMinute) * 0.5)
   );
   background: var(--hand);
   border-radius: calc(var(--thickMinute) * 0.75);
   transform: translateX(-50%);
-  box-shadow: 0 calc(var(--thickMinute) * 0.4) calc(var(--thickMinute) * 0.7) rgba(0, 0, 0, 0.06);
+  box-shadow: 0 calc(var(--thickMinute) * 0.4) calc(var(--thickMinute) * 0.7)
+    rgba(0, 0, 0, 0.06);
 }
 
 /* Second indicator: an orbiting dot rather than a long hand */

@@ -238,6 +238,17 @@ export const TOOL_VARIANTS = [
 
 export const TEMPLATES_ARRAY = [
   {
+    id: "landing",
+    title: "Widgets",
+    description:
+      "A default landing template with a Material You inspired clock",
+    theme_id: "fuschia",
+    fonts: {
+      heading: { family: "Raleway", weight: "600" },
+      body: { family: "Figtree", weight: "400" },
+    },
+  },
+  {
     id: "simple-blog-post",
     title: "Blog Post",
     description:
@@ -325,17 +336,7 @@ export const TEMPLATES_ARRAY = [
       body: { family: "Inter", weight: "400" },
     },
   },
-  {
-    id: "landing",
-    title: "Landing",
-    description:
-      "A default landing template with a Material You inspired clock",
-    theme_id: "fuschia",
-    fonts: {
-      heading: { family: "Raleway", weight: "600" },
-      body: { family: "Figtree", weight: "400" },
-    },
-  },
+
   {
     id: "ai-chat-ui",
     title: "AI Chat Interface",
