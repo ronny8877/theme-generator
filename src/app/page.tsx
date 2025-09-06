@@ -1,84 +1,165 @@
-"use client";
-import TemplatePreview from "@/components/template-preview";
-import { ToolSelect } from "@/components/navs/tool-select";
-import DeviceSelect from "@/components/navs/device-select";
-import TemplateSelector from "@/components/template-selector";
-import EditorToggle from "@/components/editor-toggle";
-import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect } from "react";
-import { decodeParamToState, colorsFromCsv } from "@/lib/share-url";
-import {
-  useActiveTemplateId,
-  useTemplateActions,
-  useAppActions,
-} from "@/store/hooks";
-import { $themeColors, editEditorSettings } from "@/store/nano-store";
-import {
-  loadGoogleFont,
-  updateBodyFont,
-  updateHeadingFont,
-} from "@/store/font-store";
-// import ThemeInfo from "@/components/navs/theme-info";
+import { Pacifico, Outfit } from "next/font/google";
+import Link from "next/link";
+import Showcase from "@/components/landing/Showcase";
+import NavThemeSelect from "@/components/navs/nav-theme-select";
+import TextPitch from "@/components/landing/TextPitch";
+import WorkflowSteps from "@/components/landing/WorkflowSteps";
+import TemplateGallery from "@/components/landing/TemplateGallery";
+import Faq from "@/components/landing/Faq";
+import Clock from "@/components/ui/clock";
 
-function TemplatesPageInner() {
-  const search = useSearchParams();
-  const encoded = search.get("theme") || "";
-  const { setActiveTemplateById, updateColorScheme } = useTemplateActions();
-  const { setActiveTool } = useAppActions();
-  const activeTemplateId = useActiveTemplateId();
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "500", "700", "900"],
+  variable: "--font-roboto",
+  display: "swap",
+});
 
-  useEffect(() => {
-    // Ensure the editor is open when entering edit mode
-    editEditorSettings({ is_open: true });
+const storyScript = Pacifico({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-pacifico",
+  display: "swap",
+});
 
-    if (!encoded) return;
-    const state = decodeParamToState(encoded);
-    if (!state) return;
-    if (state.tool) setActiveTool(state.tool);
-    if (state.templateId && state.templateId !== activeTemplateId) {
-      setActiveTemplateById(state.templateId);
-    }
-    const next = colorsFromCsv(state.colorsCsv, $themeColors.get());
-    if (next) updateColorScheme(next);
-    if (state.fonts.headingFamily) {
-      loadGoogleFont(state.fonts.headingFamily).catch(() => {});
-      updateHeadingFont({
-        family: state.fonts.headingFamily,
-        weight: state.fonts.headingWeight || "400",
-      });
-    }
-    if (state.fonts.bodyFamily) {
-      loadGoogleFont(state.fonts.bodyFamily).catch(() => {});
-      updateBodyFont({
-        family: state.fonts.bodyFamily,
-        weight: state.fonts.bodyWeight || "400",
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [encoded]);
-
+export default function Home() {
   return (
-    <>
-      {/* <ThemeInfo /> */}
-      <TemplateSelector />
-      <DeviceSelect />
-      <div className="h-screen flex">
-        {/* Template Preview */}
-        <div className="flex-1">
-          <TemplatePreview />
+    <main className={`container mx-auto p-4 bg-base-100 ${outfit.className}`}>
+      <nav className="navbar bg-base-100 shadow-sm rounded-3xl sticky top-3 z-40 backdrop-blur supports-[backdrop-filter]:bg-base-100/80">
+        <div className="flex-1 flex items-center gap-2">
+          <div className="avatar">
+            <div className="w-10 h-10 rounded">
+              <img
+              title="LiveTheme -  theme editor"
+                src="/logo-transparent.png"
+                alt="LiveTheme"
+                loading="eager"
+              />
+            </div>
+          </div>
+          <Link
+            href="/"
+            className={`hidden  md:text-3xl tracking-wide md:inline-block ${storyScript.className}`}
+          >
+            LiveTheme
+          </Link>
         </div>
-      </div>
-      <ToolSelect />
-      {/* <FloatingThemeSelector /> */}
-      <EditorToggle />
-    </>
-  );
-}
+        <div className="flex-none flex items-center gap-2">
+          <ul className="menu menu-horizontal px-1 flex items-center gap-2">
+            <li>
+              <Link href="/">Templates</Link>
+            </li>
+            <li>
+              <NavThemeSelect />
+            </li>
+          </ul>
+        </div>
+      </nav>
 
-export default function TemplatesPage() {
-  return (
-    <Suspense fallback={<div className="p-4 text-sm opacity-70">Loading…</div>}>
-      <TemplatesPageInner />
-    </Suspense>
+      {/* HERO section */}
+      <section className="hero min-h-[70vh] lg:min-h-[80vh]">
+        <div className="hero-content w-full grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {/* Left: value proposition */}
+          <div className="space-y-6 max-w-xl">
+            <div>
+              <h1 className="text-5xl lg:text-6xl font-extrabold leading-tight">
+                Live Theme Editor for DaisyUI & Tailwind
+              </h1>
+              <h2 className="mt-2 text-2xl lg:text-3xl text-base-content/70">
+                Tweak colors and fonts. Preview on real templates instantly.
+              </h2>
+            </div>
+            <ul className="list-disc list-inside text-base-content/70 space-y-1">
+              <li>Visual theme controls with DaisyUI variables</li>
+              <li>One-click share links and export for any framework</li>
+              <li>Dozens of templates for realistic previews</li>
+            </ul>
+            <div className="flex flex-wrap items-center gap-3">
+              <Link href="/templates" className="btn btn-primary">
+                Try the editor →
+              </Link>
+              <a href="#showcase" className="btn btn-outline">
+                See live preview
+              </a>
+            </div>
+          </div>
+          {/* Right: interactive hero preview */}
+          <div className="w-full flex items-center justify-center">
+            {/* Large responsive clock for hero only */}
+            <Clock size={`clamp(220px, 36vw, 520px)`} thicknessFactor={1.3} />
+          </div>
+        </div>
+      </section>
+
+      {/* Pitch section */}
+      <TextPitch />
+
+      {/* Landing preview + selectors */}
+      <div id="showcase">
+        <Showcase />
+      </div>
+
+      {/* Workflow section */}
+      <WorkflowSteps />
+
+      {/* FAQ for SEO */}
+      <Faq />
+
+      {/* Full template gallery for SEO */}
+      <TemplateGallery />
+
+      {/* Footer */}
+      <footer className="mt-16 border-t border-base-300 pt-10 pb-16">
+        <div className="grid md:grid-cols-3 gap-8">
+          <div>
+            <h3 className="text-lg font-semibold">LiveTheme</h3>
+            <p className="mt-2 text-sm opacity-70">
+              Free live theme editor for DaisyUI & Tailwind CSS. Build themes,
+              preview on templates, then export for any framework.
+            </p>
+          </div>
+          <div>
+            <h4 className="font-medium">Product</h4>
+            <ul className="mt-2 space-y-1 text-sm">
+              <li>
+                <Link href="/templates">Templates</Link>
+              </li>
+              <li>
+                <a href="#showcase">Theme generator</a>
+              </li>
+              <li>
+                <Link href="/">Docs</Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-medium">Community</h4>
+            <ul className="mt-2 space-y-1 text-sm">
+              <li>
+                <a
+                  href="https://discord.gg/daisyui"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Discord
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/" target="_blank" rel="noreferrer">
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <Link href="/">Changelog</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="mt-10 text-xs opacity-60">
+          © {new Date().getFullYear()} LiveTheme. Built on DaisyUI & Tailwind.
+          Exports for multiple frameworks.
+        </div>
+      </footer>
+    </main>
   );
 }

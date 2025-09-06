@@ -139,6 +139,24 @@
   --hand-dark: color-mix(in oklab, var(--primary) 70%, black);
   --orbit: 150px;
   --sec-delay: 0s;
+  /* Scale factor set by component based on rendered size */
+  --scale: 1;
+  /* Optional scale from component */
+  --thickScale: var(--thickScale, 1);
+  /* Derived thickness for hands, scales with actual size and optional factor */
+  /* Keep a safe minimum so hands never vanish */
+  --thick: clamp(
+    6px,
+    calc(var(--sizePx, 260px) * 0.03 * var(--thickScale)),
+    34px
+  );
+  /* Convenience: radius from computed size */
+  --radius: calc(var(--sizePx, 260px) * 0.5);
+  /* Separate thickness per hand so hour can be bolder than minute */
+  --thickHourScale: 1.15;
+  --thickMinuteScale: 0.85;
+  --thickHour: calc(var(--thick) * var(--thickHourScale));
+  --thickMinute: calc(var(--thick) * var(--thickMinuteScale));
 }
 
 .clock svg {
@@ -168,19 +186,29 @@
 
 /* Hour hand: short and thick rounded */
 .clock #hour {
-  width: 16px;
-  height: 80px;
+  /* thickness adapts with size but stays within a sensible range */
+  width: var(--thickHour);
+  /* hour length = 60% of radius; cap to radius - half thickness */
+  height: min(
+    calc(var(--radius) * 0.6),
+    calc(var(--radius) - var(--thickHour) * 0.5)
+  );
   background: var(--hand-dark);
   border-radius: 999px;
   transform: translate(-50%, -100%) rotate(var(--angle));
   transition: transform 0.25s linear;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 calc(var(--thickHour) * 0.4) calc(var(--thickHour) * 0.7)
+    rgba(0, 0, 0, 0.06);
 }
 
 /* Minute hand: tapered by using a pseudo element for the longer triangular style */
 .clock #minute {
-  width: 16px;
-  height: 150px;
+  width: var(--thickMinute);
+  /* container height slightly longer than visible part */
+  height: min(
+    calc(var(--radius) * 1.05),
+    calc(var(--radius) * 1.8 - var(--thickMinute))
+  );
   background: transparent;
   transform: translate(-50%, -100%) rotate(var(--angle));
   transition: transform 0.1s linear;
@@ -191,18 +219,23 @@
   position: absolute;
   left: 50%;
   bottom: 0;
-  width: 16px;
-  height: 100px;
+  width: var(--thickMinute);
+  /* minute visible length = 70% of radius; cap to radius */
+  height: min(
+    calc(var(--radius) * 0.7),
+    calc(var(--radius) - var(--thickMinute) * 0.5)
+  );
   background: var(--hand);
-  border-radius: 12px;
+  border-radius: calc(var(--thickMinute) * 0.75);
   transform: translateX(-50%);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 calc(var(--thickMinute) * 0.4) calc(var(--thickMinute) * 0.7)
+    rgba(0, 0, 0, 0.06);
 }
 
 /* Second indicator: an orbiting dot rather than a long hand */
 .clock #second {
-  width: 10px;
-  height: 10px;
+  width: clamp(6px, calc(var(--sizePx, 260px) * 0.02), 16px);
+  height: clamp(6px, calc(var(--sizePx, 260px) * 0.02), 16px);
   transform-origin: 50% 50%;
   transform: translate(-50%, -50%);
   animation: clock-rotate 60s linear infinite;
@@ -214,8 +247,8 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 18px;
-  height: 18px;
+  width: clamp(12px, calc(var(--sizePx, 260px) * 0.06), 32px);
+  height: clamp(12px, calc(var(--sizePx, 260px) * 0.06), 32px);
   background: var(--hand);
   border-radius: 50%;
   /* Place the dot on the left orbit similar to screenshot */
