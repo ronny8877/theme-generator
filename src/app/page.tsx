@@ -83,7 +83,7 @@ export default function Home() {
             </div>
           </div>
           {/* Right: interactive hero preview */}
-          <div className="w-full">
+          <div className="w-full flex items-center justify-center">
             {/* Large responsive clock for hero only */}
             <Clock size={`clamp(220px, 36vw, 520px)`} thicknessFactor={1.3} />
           </div>

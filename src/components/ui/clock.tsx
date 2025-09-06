@@ -112,7 +112,7 @@ export default function Clock({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ...({
           ["--thickScale" as unknown as string]: String(thickScale),
-        } as any),
+        }),
       }}
       aria-hidden={false}
     >
