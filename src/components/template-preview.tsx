@@ -29,6 +29,10 @@ import ExportDialogContainer from "@/components/export-dialog-container";
 import ShareDialogContainer from "@/components/share-dialog-container";
 type ViewportSize = "desktop" | "tablet" | "mobile";
 
+export type TemplatePreviewProps = {
+  hideEditor?: boolean;
+};
+
 const componentMap = {
   "simple-blog-post": BlogPost,
   "simple-blog-landing": BlogLanding,
@@ -50,7 +54,7 @@ const TemplateRenderer = React.memo(function TemplateRenderer() {
   return <Cmp key={tid} />;
 });
 
-function TemplatePreviewBase() {
+function TemplatePreviewBase({ hideEditor = false }: TemplatePreviewProps) {
   const [viewport] = useState<ViewportSize>("desktop");
   const [parent] = useAutoAnimate<HTMLDivElement>();
   // const [animationParent] = useAutoAnimate<HTMLDivElement>();
@@ -76,9 +80,9 @@ function TemplatePreviewBase() {
   };
 
   return (
-    <div className="h-full flex items-center justify-center gap-5 transition-all duration-400 p-4 flex-nowrap">
+  <div className="h-full flex items-center justify-center gap-5 transition-all duration-400 p-2 lg:p-4 flex-nowrap">
       <div
-        className={`${getViewportClasses()} w-full @container bg-white rounded-4xl shadow-lg overflow-hidden transition-all duration-400`}
+  className={`${getViewportClasses()} w-full @container bg-base-100 rounded-4xl shadow-lg overflow-hidden transition-all duration-400 max-h-[75vh]`}
         style={{
           transform:
             viewport === "mobile"
@@ -112,8 +116,8 @@ function TemplatePreviewBase() {
           </ScrollArea>
         </div>
       </div>
-      {isEditorOpen && editorUiType === "default" && <Editor />}
-      {isEditorOpen && editorUiType === "floating" && <EditorFloatingWrapper />}
+  {!hideEditor && isEditorOpen && editorUiType === "default" && <Editor />}
+  {!hideEditor && isEditorOpen && editorUiType === "floating" && <EditorFloatingWrapper />}
       {/* Global export dialog, mounted once */}
       <ExportDialogContainer />
       <ShareDialogContainer />
