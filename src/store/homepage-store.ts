@@ -46,15 +46,12 @@ export function getLimitedScrollThemes(limit: number = 6): DaisyUITheme[] {
 
 // Theme application function
 function applyThemeVariables(themeName: DaisyUITheme) {
-  console.log("[ThemeForge] Applying theme:", themeName);
   const theme = THEMES.find((t) => t.name === themeName);
   if (!theme) {
-    console.log("[ThemeForge] Theme not found:", themeName);
     return;
   }
 
   const root = document.documentElement;
-  console.log("[ThemeForge] Found theme object:", theme);
 
   // Apply DaisyUI theme data attribute
   root.setAttribute("data-theme", themeName);
@@ -62,7 +59,6 @@ function applyThemeVariables(themeName: DaisyUITheme) {
   // Apply custom CSS variables for components that need them
   Object.entries(theme.colors).forEach(([key, value]) => {
     root.style.setProperty(key, value);
-    console.log("[ThemeForge] Setting CSS var:", key, "=", value);
   });
 
   Object.entries(theme.radius).forEach(([key, value]) => {
@@ -72,13 +68,10 @@ function applyThemeVariables(themeName: DaisyUITheme) {
   Object.entries(theme.misc).forEach(([key, value]) => {
     root.style.setProperty(key, value.toString());
   });
-
-  console.log("[ThemeForge] Theme variables applied successfully");
 }
 
 // Actions
 export function setHomepageTheme(theme: DaisyUITheme) {
-  console.log("[ThemeForge] setTheme called with:", theme);
   const current = $homepageTheme.get();
 
   $homepageTheme.set({
@@ -157,7 +150,6 @@ export function applyScrollBasedTheme(sectionIndex: number) {
 
   // Only update if it's different from current theme
   if (theme !== current.currentTheme) {
-    console.log("[ThemeForge] Auto-applying scroll theme:", theme);
     applyThemeVariables(theme);
 
     // Update store without saving to localStorage (temporary for scroll)

@@ -161,7 +161,7 @@ export function ThemeShowcaseSection() {
               </div>
             </div>
 
-            <Card className="p-6 bg-white shadow-lg">
+            <Card className="p-6 bg-white shadow-lg border-none">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h4 className="text-xl font-semibold text-gray-900">

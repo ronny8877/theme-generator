@@ -3,25 +3,27 @@
 import { Button } from "@/components/ui/button";
 import { ThemeSelector } from "@/components/home-page/theme-selector";
 import { AutoThemeToggle } from "@/components/home-page/auto-theme-toggle";
-import { Menu, X } from "lucide-react";
+import { Menu, Palette, X } from "lucide-react";
 import { useState } from "react";
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
+
           <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <h1 className="text-2xl font-bold text-primary">ThemeForge</h1>
+            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+              <Palette className="w-5 h-5 text-primary" />
             </div>
+            <h1 className="text-2xl font-bold text-primary">LiveTheme</h1>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <div className="ml-10 flex items-baseline space-x-4">
               <a
                 href="#features"
@@ -36,10 +38,10 @@ export function Navigation() {
                 Showcase
               </a>
               <a
-                href="#documentation"
+                href="#template-showcase"
                 className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
               >
-                Docs
+                Templates
               </a>
               <a
                 href="#pricing"
@@ -50,8 +52,7 @@ export function Navigation() {
             </div>
           </div>
 
-          {/* Desktop Controls */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4 ">
             <AutoThemeToggle />
             <ThemeSelector />
             <Button

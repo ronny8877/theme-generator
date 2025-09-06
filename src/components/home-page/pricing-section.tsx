@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import { Check, Star, Zap, Crown } from "lucide-react";
 import { useState } from "react";
 
@@ -94,7 +93,13 @@ export function PricingSection() {
             >
               Monthly
             </span>
-            <Switch checked={isYearly} onCheckedChange={setIsYearly} />
+            <input
+              type="checkbox"
+              id="toggleB"
+              className="toggle toggle-primary"
+              checked={isYearly}
+              onChange={() => setIsYearly(!isYearly)}
+            />
             <span
               className={`text-sm ${isYearly ? "text-foreground font-medium" : "text-muted-foreground"}`}
             >
@@ -181,47 +186,6 @@ export function PricingSection() {
               </CardContent>
             </Card>
           ))}
-        </div>
-
-        {/* FAQ Section */}
-        <div className="mt-20 max-w-3xl mx-auto">
-          <h3 className="text-2xl font-bold text-center mb-8">
-            Frequently Asked Questions
-          </h3>
-          <div className="space-y-6">
-            <Card>
-              <CardContent className="pt-6">
-                <h4 className="font-semibold mb-2">
-                  Can I switch between plans?
-                </h4>
-                <p className="text-muted-foreground text-sm">
-                  Yes, you can upgrade or downgrade your plan at any time.
-                  Changes take effect immediately, and we&apos;ll prorate any
-                  billing differences.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6">
-                <h4 className="font-semibold mb-2">Do you offer refunds?</h4>
-                <p className="text-muted-foreground text-sm">
-                  We offer a 30-day money-back guarantee for all paid plans. If
-                  you&apos;re not satisfied, we&apos;ll provide a full refund.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6">
-                <h4 className="font-semibold mb-2">
-                  Can I use themes commercially?
-                </h4>
-                <p className="text-muted-foreground text-sm">
-                  Pro and Enterprise plans include commercial licenses. The
-                  Starter plan is for personal use only.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </div>
     </section>

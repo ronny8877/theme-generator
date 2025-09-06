@@ -5,12 +5,14 @@ import { HeroSection } from "@/components/home-page/hero-section";
 import { FeaturesSection } from "@/components/home-page/features-section";
 import { ThemeShowcaseSection } from "@/components/home-page/theme-showcase-section";
 import { DocumentationSection } from "@/components/home-page/documentation-section";
-import { ComponentsShowcaseSection } from "@/components/home-page/components-showcase-section";
 import { PricingSection } from "@/components/home-page/pricing-section";
 import { Footer } from "@/components/home-page/footer";
 import { ScrollThemeWrapper } from "@/components/home-page/scroll-theme-wrapper";
 import { useEffect } from "react";
 import { initHomepageTheme } from "@/store/homepage-store";
+import { HowItWorksSection } from "@/components/home-page/how-it-works";
+import { FAQSection } from "@/components/home-page/faq-section";
+import { TemplateShowCase } from "@/components/home-page/template-showcase";
 
 export default function Home() {
   // Initialize homepage theme on mount
@@ -32,14 +34,17 @@ export default function Home() {
           <section id="showcase">
             <ThemeShowcaseSection />
           </section>
-          <section id="documentation">
-            <DocumentationSection />
+          <section id="template-showcase">
+            <TemplateShowCase />
           </section>
-          <section id="components">
-            <ComponentsShowcaseSection />
+          <section id="howitworks">
+            <HowItWorksSection />
           </section>
           <section id="pricing">
             <PricingSection />
+          </section>
+          <section id="pricing">
+            <FAQSection />
           </section>
         </main>
         <Footer />

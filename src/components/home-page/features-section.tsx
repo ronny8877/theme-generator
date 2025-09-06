@@ -9,8 +9,24 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Palette, Zap, Code, Download, Layers, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function FeaturesSection() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   const features = [
     {
       icon: Palette,
@@ -28,10 +44,10 @@ export function FeaturesSection() {
     },
     {
       icon: Code,
-      title: "Component Library Included",
+      title: "Includes Color Palettes",
       description:
-        "Complete set of DaisyUI components that automatically adapt to your chosen theme.",
-      badge: "Complete",
+        "Export complete color palettes for each theme to use in your design tools.",
+      badge: "Design",
     },
     {
       icon: Layers,
@@ -49,55 +65,89 @@ export function FeaturesSection() {
     },
     {
       icon: Download,
-      title: "Export Theme Files",
+      title: "Export Theme",
       description:
-        "Generate and download custom theme configurations for use in any project.",
+        "Export your theme with tailwind, styled-components, or as standalone CSS.",
       badge: "Portable",
     },
   ];
 
   return (
     <section id="features" className="py-20 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4">
-            Features
-          </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-            Everything You Need for{" "}
-            <span className="text-primary">Dynamic Theming</span>
-          </h2>
-          <p className="text-xl text-muted-foreground text-balance max-w-3xl mx-auto">
-            Powerful features designed to make theme management effortless and
-            theme switching seamless.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <Card
-              key={index}
-              className="relative overflow-hidden group hover:shadow-lg transition-shadow"
+      <div className="container mx-auto px-6">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <Badge variant="secondary" className="mb-4">
+                Features
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
+                Everything You Need for{" "}
+                <span className="text-primary">Dynamic Theming</span>
+              </h2>
+              <p className="text-xl text-muted-foreground text-balance max-w-3xl mx-auto">
+                Powerful features designed to make theme management effortless
+                and theme switching seamless.
+              </p>
+            </div>
+            <motion.div
+              className="max-w-6xl mx-auto"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
             >
-              <CardHeader>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="p-2 bg-primary/10 rounded-lg">
-                    <feature.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <Badge variant="outline" className="text-xs">
-                    {feature.badge}
-                  </Badge>
-                </div>
-                <CardTitle className="text-xl">{feature.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  {feature.description}
-                </CardDescription>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {features.map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    variants={itemVariants}
+                    className="relative"
+                    transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+                    whileHover={{
+                      scale: 1.02,
+                      transition: {
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20,
+                      },
+                    }}
+                  >
+                    <Card
+                      key={index}
+                      className="relative overflow-hidden group hover:shadow-lg transition-shadow border-none"
+                    >
+                      <CardHeader>
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="p-2 bg-primary/10 rounded-lg">
+                            <feature.icon className="h-6 w-6 text-primary" />
+                          </div>
+                          <Badge variant="outline" className="text-xs">
+                            {feature.badge}
+                          </Badge>
+                        </div>
+                        <CardTitle className="text-xl">
+                          {feature.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <CardDescription className="text-base">
+                          {feature.description}
+                        </CardDescription>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

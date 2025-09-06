@@ -87,6 +87,7 @@
     /* set default border and outline colors from CSS variables; individual components add styles as needed */
     border-color: var(--border);
     outline-color: var(--ring);
+    scroll-behavior: smooth;
   }
   body {
     background-color: var(--background);

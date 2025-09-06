@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Palette, Zap, Code } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 import { useStore } from "@nanostores/react";
 import { $currentTheme, $isAutoThemeEnabled } from "@/store/homepage-store";
 
@@ -28,7 +28,7 @@ export function HeroSection() {
 
           {/* Theme Debug Info */}
           <div className="mb-4 text-sm text-muted-foreground">
-            Current: <strong>{currentTheme}</strong>{" "}
+            Current Theme: <strong>{currentTheme}</strong>{" "}
             {isAutoThemeEnabled && "(Auto)"}
           </div>
 
@@ -61,7 +61,7 @@ export function HeroSection() {
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-4xl mx-auto mb-20">
-            <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="bg-base-200 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
               <div className="text-4xl md:text-5xl font-bold text-primary mb-3">
                 20+
               </div>
@@ -69,7 +69,7 @@ export function HeroSection() {
                 Built-in Themes
               </div>
             </div>
-            <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="bg-base-200 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
               <div className="text-4xl md:text-5xl font-bold text-primary mb-3">
                 ∞
               </div>
@@ -77,7 +77,7 @@ export function HeroSection() {
                 Customization Options
               </div>
             </div>
-            <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="bg-base-200 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
               <div className="text-4xl md:text-5xl font-bold text-primary mb-3">
                 0ms
               </div>
