@@ -12,21 +12,27 @@ import { $currentTheme } from "@/store";
 const NavThemeSelect: React.FC<{ className?: string }> = ({ className }) => {
   const current = useStore($currentTheme);
   const { setTheme } = useAppActions();
+  // Map legacy values to new defaults on first render
+  const effectiveCurrent =
+    current === "light" ? "autumn" : current === "dark" ? "business" : current;
 
   function onSelect(theme: string) {
-    setTheme(theme);
+    // normalize legacy choices if any custom callers pass them
+    const normalized =
+      theme === "light" ? "autumn" : theme === "dark" ? "business" : theme;
+    setTheme(normalized);
     if (typeof document !== "undefined") {
-      document.documentElement.setAttribute("data-theme", theme);
+      document.documentElement.setAttribute("data-theme", normalized);
     }
     if (typeof window !== "undefined") {
-      localStorage.setItem("theme", theme);
+      localStorage.setItem("theme", normalized);
     }
   }
 
   return (
     <DaisyThemeSelect
       className={className}
-      value={current}
+      value={effectiveCurrent}
       onSelect={onSelect}
       size="sm"
       label="Theme"

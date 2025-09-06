@@ -96,10 +96,13 @@ export default function RootLayout({
           {`
             try {
               const storageKey = 'theme';
-              const stored = localStorage.getItem(storageKey);
-              const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-              const theme = stored || system;
-              document.documentElement.setAttribute('data-theme', theme);
+      let stored = localStorage.getItem(storageKey);
+      const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      // Migrate old values if necessary
+      if (stored === 'light') stored = 'autumn';
+      if (stored === 'dark') stored = 'business';
+      const theme = stored || (isSystemDark ? 'business' : 'autumn');
+      document.documentElement.setAttribute('data-theme', theme);
             } catch {}
           `}
         </Script>

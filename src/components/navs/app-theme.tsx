@@ -18,7 +18,9 @@ function FloatingThemeSelector() {
   // Initialize theme from localStorage on mount
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const savedTheme = localStorage.getItem("theme");
+    let savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") savedTheme = "autumn";
+    if (savedTheme === "dark") savedTheme = "business";
     if (savedTheme && DAISY_UI_AVILABLE_THEMES.includes(savedTheme as never)) {
       setTheme(savedTheme as (typeof DAISY_UI_AVILABLE_THEMES)[number]);
       document.documentElement.setAttribute("data-theme", savedTheme);

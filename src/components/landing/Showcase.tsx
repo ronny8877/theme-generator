@@ -21,7 +21,7 @@ const Showcase: React.FC<ShowcaseProps> = ({
   className = "",
   onThemeChange,
 }) => {
-  const [theme, setTheme] = useState<string>("winter");
+  const [theme, setTheme] = useState<string>("autumn");
   const [templateId, setTemplateId] = useState<string>("landing");
   const [headingFont, setHeadingFont] = useState<string>("Poppins");
   const [bodyFont, setBodyFont] = useState<string>("Inter");

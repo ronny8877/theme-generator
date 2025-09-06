@@ -30,7 +30,7 @@ export default function Home() {
           <div className="avatar">
             <div className="w-10 h-10 rounded">
               <img
-              title="LiveTheme -  theme editor"
+                title="LiveTheme -  theme editor"
                 src="/logo-transparent.png"
                 alt="LiveTheme"
                 loading="eager"

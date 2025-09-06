@@ -15,7 +15,7 @@ const pretty = (t: string) =>
 
 export const DaisyThemeSelect: React.FC<DaisyThemeSelectProps> = React.memo(
   ({
-    value = "light",
+    value = "autumn",
     onSelect,
     className = "",
     size = "md",

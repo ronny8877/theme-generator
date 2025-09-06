@@ -139,8 +139,16 @@ export interface ThemeBaselineSnapshot {
 // Initial states
 const initialAppState: AppState = {
   theme: {
-    current: "light",
-    options: ["light", "dark", "cupcake", "bumblebee", "emerald"],
+    current: "autumn",
+    options: [
+      "autumn",
+      "business",
+      "light",
+      "dark",
+      "cupcake",
+      "bumblebee",
+      "emerald",
+    ],
   },
   activePreviewDevice: "desktop",
   activeTool: "website",
@@ -301,6 +309,8 @@ export const $activeTemplateId = computed($activeTemplateIdAtom, (id) => id);
 
 // App Actions
 export function setTheme(theme: string) {
+  // Normalize legacy theme names
+  theme = theme === "light" ? "autumn" : theme === "dark" ? "business" : theme;
   const currentApp = $app.get();
   if (currentApp.theme.current === theme) return;
   $app.set({

@@ -110,9 +110,9 @@ export default function Clock({
         // Expose thickness scale for CSS
         // CSS custom properties are allowed on style objects via index signature
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ...({
+        ...{
           ["--thickScale" as unknown as string]: String(thickScale),
-        }),
+        },
       }}
       aria-hidden={false}
     >

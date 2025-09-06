@@ -43,15 +43,15 @@ export default function TemplateGallery() {
 
   return (
     <section className="py-10 lg:py-14">
-      <div className="flex items-center mb-6 px-4 lg:px-0 relative">
-        <h2 className="text-3xl lg:text-4xl font-extrabold tracking-tight mb-6">
+      <div className="flex items-center justify-between mb-6 px-4 lg:px-0 relative">
+        <h2 className=" text-base md:text-3xl lg:text-4xl font-extrabold tracking-tight">
           Browse all templates
         </h2>
         <TemplateSelect
           value={active}
           onSelect={(id) => setActive(id)}
           size="sm"
-          className=" ml-5 bg-base-200 rounded-box"
+          className=" ml-5 bg-base-200 rounded-box inline-block"
           label="Template"
         />
       </div>

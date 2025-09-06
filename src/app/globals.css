@@ -6,10 +6,7 @@
   themes: "all";
 }
 
-/* Removed shadcn (shadcn-ui) color variable blocks to keep the stylesheet concise.
-   Provide minimal fallback CSS variables here so templates and components that
-   reference the variables (e.g. --background, --foreground, --primary) don't break.
-   Adjust these values or wire them to your theme provider if you use a global theme system. */
+/* Minimal fallback CSS variables (used by some UI pieces). Primary coloring comes from DaisyUI themes via data-theme. */
 
 :root {
   --radius: 0.625rem;
@@ -135,8 +132,8 @@
   aspect-ratio: 1/1;
   /* Use DaisyUI palette tokens */
   --clock-face: var(--color-base-300);
-  --hand: var(--primary);
-  --hand-dark: color-mix(in oklab, var(--primary) 70%, black);
+  --hand: var(--color-primary);
+  --hand-dark: color-mix(in oklab, var(--color-primary) 70%, black);
   --orbit: 150px;
   --sec-delay: 0s;
   /* Scale factor set by component based on rendered size */
