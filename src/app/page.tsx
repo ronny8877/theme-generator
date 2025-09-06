@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import TemplatePreview from "@/components/template-preview";
 import { ToolSelect } from "@/components/navs/tool-select";
 import DeviceSelect from "@/components/navs/device-select";
@@ -6,7 +6,6 @@ import TemplateSelector from "@/components/template-selector";
 import EditorToggle from "@/components/editor-toggle";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
-import type { Metadata } from "next";
 import { decodeParamToState, colorsFromCsv } from "@/lib/share-url";
 import {
   useActiveTemplateId,
@@ -78,8 +77,7 @@ function TemplatesPageInner() {
 
 export default function TemplatesPage() {
   return (
-    <Suspense fallback={
-    <div className="p-4 text-sm opacity-70">Loading…</div>}>
+    <Suspense fallback={<div className="p-4 text-sm opacity-70">Loading…</div>}>
       <TemplatesPageInner />
     </Suspense>
   );

@@ -18,7 +18,9 @@ const routes: string[] = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://livetheme.app");
+  const base = new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://livetheme.app",
+  );
   const now = new Date();
   return routes.map((p) => ({
     url: new URL(p, base).toString(),
