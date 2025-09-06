@@ -11,7 +11,7 @@ export default function TextPitch() {
           live site—no setup.
         </p>
         <div className="mt-6 flex items-center justify-center gap-3">
-          <a className="btn btn-primary rounded-box" href="#showcase">
+          <a className="btn btn-primary rounded-box" href="/templates">
             {" "}
             GOTO Theme generator
           </a>

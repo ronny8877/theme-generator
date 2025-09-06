@@ -75,10 +75,10 @@ export default function Home() {
               <li>Dozens of templates for realistic previews</li>
             </ul>
             <div className="flex flex-wrap items-center gap-3">
-              <Link href="/templates" className="btn btn-primary">
+              <Link href="/templates" className="btn btn-primary rounded-box">
                 Try the editor →
               </Link>
-              <a href="#showcase" className="btn btn-outline">
+              <a href="#showcase" className="btn btn-outline rounded-box">
                 See live preview
               </a>
             </div>

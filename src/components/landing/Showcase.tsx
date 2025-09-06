@@ -101,7 +101,7 @@ const Showcase: React.FC<ShowcaseProps> = ({
         </div>
 
         {/* Stacked controls for mobile */}
-        <div className="lg:hidden grid grid-cols-1 gap-2 w-full max-w-xl">
+        <div className="lg:hidden glass rounded-box grid grid-cols-1 gap-2 w-full max-w-xl">
           <DaisyThemeSelect
             label="Theme"
             value={theme}
