@@ -11,29 +11,52 @@ export type FontSelectProps = {
 };
 
 export const FontSelect: React.FC<FontSelectProps> = React.memo(
-  ({ value = "Inter", onSelect, className = "", size = "md", label = "Font" }) => {
+  ({
+    value = "Inter",
+    onSelect,
+    className = "",
+    size = "md",
+    label = "Font",
+  }) => {
     return (
-      <div className={`dropdown ${className}`}>
-        <div tabIndex={0} role="button" className={`btn btn-${size} btn-ghost gap-2`}>
+      <div className={`dropdown ${className} w-full`}>
+        <div
+          tabIndex={0}
+          role="button"
+          className={`btn btn-${size} btn-ghost gap-2 rounded-box`}
+        >
           <span className="opacity-70">{label}:</span>
-          <span className="font-medium" style={{ fontFamily: value }}>{value}</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-60"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
+          <span className="font-medium" style={{ fontFamily: value }}>
+            {value}
+          </span>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            className="opacity-60"
+          >
+            <path fill="currentColor" d="M7 10l5 5 5-5z" />
+          </svg>
         </div>
-        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-72 max-h-80 overflow-y-auto theme-scroll">
+        <div
+          tabIndex={0}
+          className="dropdown-content z-[1] shadow bg-base-100 rounded-box w-72 max-h-80 overflow-y-auto theme-scroll p-2"
+        >
           {GOOGLE_FONTS.map((f) => (
-            <li key={f.family}>
-              <button
-                type="button"
-                className={`justify-between ${f.family === value ? "active" : ""}`}
-                onClick={() => onSelect?.(f.family)}
-                style={{ fontFamily: f.family }}
-              >
-                {f.family}
-                {f.family === value && <span className="badge badge-primary badge-sm">Selected</span>}
-              </button>
-            </li>
+            <button
+              key={f.family}
+              type="button"
+              className={`btn btn-ghost btn-sm justify-between w-full rounded-box ${f.family === value ? "bg-primary/10" : ""}`}
+              onClick={() => onSelect?.(f.family)}
+              style={{ fontFamily: f.family }}
+            >
+              {f.family}
+              {f.family === value && (
+                <span className="badge badge-primary badge-sm">Selected</span>
+              )}
+            </button>
           ))}
-        </ul>
+        </div>
       </div>
     );
   },

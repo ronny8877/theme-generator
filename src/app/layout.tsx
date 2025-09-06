@@ -141,7 +141,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-base-100 text-base-content`}
       >
-      {children}
+        {children}
         <Toaster />
       </body>
     </html>

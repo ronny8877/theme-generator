@@ -31,6 +31,8 @@ type ViewportSize = "desktop" | "tablet" | "mobile";
 
 export type TemplatePreviewProps = {
   hideEditor?: boolean;
+  /** Whether to include global export/share containers (default true). */
+  includeGlobals?: boolean;
 };
 
 const componentMap = {
@@ -54,7 +56,10 @@ const TemplateRenderer = React.memo(function TemplateRenderer() {
   return <Cmp key={tid} />;
 });
 
-function TemplatePreviewBase({ hideEditor = false }: TemplatePreviewProps) {
+function TemplatePreviewBase({
+  hideEditor = false,
+  includeGlobals = true,
+}: TemplatePreviewProps) {
   const [viewport] = useState<ViewportSize>("desktop");
   const [parent] = useAutoAnimate<HTMLDivElement>();
   // const [animationParent] = useAutoAnimate<HTMLDivElement>();
@@ -80,9 +85,9 @@ function TemplatePreviewBase({ hideEditor = false }: TemplatePreviewProps) {
   };
 
   return (
-  <div className="h-full flex items-center justify-center gap-5 transition-all duration-400 p-2 lg:p-4 flex-nowrap">
+    <div className="h-full flex items-center justify-center gap-5 transition-all duration-400 flex-nowrap">
       <div
-  className={`${getViewportClasses()} w-full @container bg-base-100 rounded-4xl shadow-lg overflow-hidden transition-all duration-400 max-h-[75vh]`}
+        className={`${getViewportClasses()} w-full @container bg-base-100 rounded-4xl shadow-lg overflow-hidden transition-all duration-400 max-h-[75vh]`}
         style={{
           transform:
             viewport === "mobile"
@@ -116,11 +121,13 @@ function TemplatePreviewBase({ hideEditor = false }: TemplatePreviewProps) {
           </ScrollArea>
         </div>
       </div>
-  {!hideEditor && isEditorOpen && editorUiType === "default" && <Editor />}
-  {!hideEditor && isEditorOpen && editorUiType === "floating" && <EditorFloatingWrapper />}
-      {/* Global export dialog, mounted once */}
-      <ExportDialogContainer />
-      <ShareDialogContainer />
+      {!hideEditor && isEditorOpen && editorUiType === "default" && <Editor />}
+      {!hideEditor && isEditorOpen && editorUiType === "floating" && (
+        <EditorFloatingWrapper />
+      )}
+      {/* Global export/share dialogs (optional) */}
+      {includeGlobals && <ExportDialogContainer />}
+      {includeGlobals && <ShareDialogContainer />}
     </div>
   );
 }

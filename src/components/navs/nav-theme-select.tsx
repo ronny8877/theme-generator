@@ -24,7 +24,13 @@ const NavThemeSelect: React.FC<{ className?: string }> = ({ className }) => {
   }
 
   return (
-    <DaisyThemeSelect className={className} value={current} onSelect={onSelect} size="sm" label="Theme" />
+    <DaisyThemeSelect
+      className={className}
+      value={current}
+      onSelect={onSelect}
+      size="sm"
+      label="Theme"
+    />
   );
 };
 

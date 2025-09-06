@@ -5,6 +5,7 @@ import TemplatePreview from "@/components/template-preview";
 export type PreviewFrameProps = {
   theme: string; // daisyUI theme name
   className?: string;
+  includeGlobals?: boolean;
 };
 
 /**
@@ -12,7 +13,11 @@ export type PreviewFrameProps = {
  * theme changes do not affect the whole app. It simply sets the attribute
  * on the container while allowing TemplatePreview to render normally.
  */
-const PreviewFrame: React.FC<PreviewFrameProps> = ({ theme, className = "" }) => {
+const PreviewFrame: React.FC<PreviewFrameProps> = ({
+  theme,
+  className = "",
+  includeGlobals = false,
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!ref.current) return;
@@ -21,8 +26,8 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ theme, className = "" }) =>
 
   return (
     <div ref={ref} className={className}>
-      <div className="scale-[0.95] origin-top">
-        <TemplatePreview hideEditor />
+      <div className=" origin-top">
+        <TemplatePreview hideEditor includeGlobals={includeGlobals} />
       </div>
     </div>
   );
