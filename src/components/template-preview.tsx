@@ -87,7 +87,7 @@ function TemplatePreviewBase({
   return (
     <div className="h-full flex items-center justify-center gap-5 transition-all duration-400 flex-nowrap">
       <div
-        className={`${getViewportClasses()} w-full @container bg-base-100 rounded-4xl shadow-lg overflow-hidden transition-all duration-400 max-h-[75vh]`}
+        className={`${getViewportClasses()} w-full @container bg-base-100 rounded-4xl shadow-lg overflow-hidden transition-all duration-400`}
         style={{
           transform:
             viewport === "mobile"

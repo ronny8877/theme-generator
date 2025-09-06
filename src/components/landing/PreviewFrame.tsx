@@ -26,7 +26,7 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({
 
   return (
     <div ref={ref} className={className}>
-      <div className=" origin-top">
+      <div className=" origin-top h-[80vh]">
         <TemplatePreview hideEditor includeGlobals={includeGlobals} />
       </div>
     </div>

@@ -2,11 +2,31 @@
 import React, { useEffect, useRef } from "react";
 
 type ClockProps = {
+  /**
+   * Overall square size for the clock. If provided, both width and height use this value.
+   * Can be a number (pixels) or any CSS length/expression (e.g. "clamp(240px, 40vw, 560px)").
+   */
   size?: number | string;
+  /** Optional explicit width; overrides size for width only */
+  width?: number | string;
+  /** Optional explicit height; overrides size for height only */
+  height?: number | string;
+  /** Optional multiplier to make hands thicker/thinner without affecting layout */
+  thicknessFactor?: number;
   className?: string;
 };
 
-export default function Clock({ size = 200, className = "" }: ClockProps) {
+export default function Clock({
+  size = 200,
+  width,
+  height,
+  thicknessFactor = 1,
+  className = "",
+}: ClockProps) {
+  // If only width or only height is provided, mirror it so the clock stays square by default
+  const finalWidth: number | string = width ?? (height ?? size);
+  const finalHeight: number | string = height ?? (width ?? size);
+  const thickScale = Math.max(0.5, Math.min(2.5, Number(thicknessFactor) || 1));
   const rootRef = useRef<HTMLDivElement | null>(null);
   const hourRef = useRef<HTMLDivElement | null>(null);
   const minuteRef = useRef<HTMLDivElement | null>(null);
@@ -16,8 +36,14 @@ export default function Clock({ size = 200, className = "" }: ClockProps) {
       const el = rootRef.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
-      const r = Math.max(20, Math.min(rect.width, rect.height) * 0.32);
+  const minSide = Math.min(rect.width, rect.height);
+  const r = Math.max(18, minSide * 0.34);
+      el.style.setProperty("--sizePx", `${Math.round(minSide)}px`);
       el.style.setProperty("--orbit", `${Math.round(r)}px`);
+      // Scale clock parts relative to a design base of 260px
+      const base = 260; // matches previous default visual size
+      const scale = Math.max(0.5, Math.min(4, minSide / base));
+      el.style.setProperty("--scale", String(scale));
     };
 
     const syncSecondDelay = () => {
@@ -78,9 +104,13 @@ export default function Clock({ size = 200, className = "" }: ClockProps) {
       ref={rootRef}
       style={{
         display: "block",
-        width: size,
-        height: size,
+  width: finalWidth,
+  height: finalHeight,
         position: "relative",
+        // Expose thickness scale for CSS
+        // CSS custom properties are allowed on style objects via index signature
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ...( { ["--thickScale" as unknown as string]: String(thickScale) } as any ),
       }}
       aria-hidden={false}
     >

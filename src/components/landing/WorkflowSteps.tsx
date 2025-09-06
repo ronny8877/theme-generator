@@ -37,7 +37,7 @@ export default function WorkflowSteps() {
           {steps.map((s, i) => (
             <div
               key={s.title}
-              className="card bg-base-100 border border-base-300 shadow-sm"
+              className="card rounded-4xl bg-base-100 border border-base-300 shadow-sm"
             >
               <div className="card-body">
                 <div className="w-8 h-8 rounded-full bg-base-200 flex items-center justify-center font-semibold">
