@@ -30,6 +30,7 @@ export default function Home() {
           <div className="avatar">
             <div className="w-10 h-10 rounded">
               <img
+              title="LiveTheme -  theme editor"
                 src="/logo-transparent.png"
                 alt="LiveTheme"
                 loading="eager"
@@ -38,7 +39,7 @@ export default function Home() {
           </div>
           <Link
             href="/"
-            className={`text-3xl tracking-wide inline-block ${storyScript.className}`}
+            className={`hidden  md:text-3xl tracking-wide md:inline-block ${storyScript.className}`}
           >
             LiveTheme
           </Link>
