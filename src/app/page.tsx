@@ -145,6 +145,15 @@ export default function Home() {
                   GitHub
                 </a>
               </li>
+              <li>
+                <a
+                  href="mailto:contact@livetheme.app"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  contact@livetheme.app
+                </a>
+              </li>
               {/* <li>
                 <Link href="/">Changelog</Link>
               </li> */}
