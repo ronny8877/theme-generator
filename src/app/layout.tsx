@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { Toaster } from "@/components/ui/sonner";
+import OneTimeNotice from "@/components/one-time-notice";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -189,6 +190,7 @@ export default function RootLayout({
         className={`${outfit.className} antialiased min-h-screen bg-base-100 text-base-content`}
       >
         {children}
+        <OneTimeNotice />
         <Toaster />
       </body>
     </html>
