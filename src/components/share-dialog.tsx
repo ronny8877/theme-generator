@@ -68,7 +68,7 @@ export default function ShareDialog({ open, onOpenChange }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-2xl w-[min(96vw,760px)] p-0 bg-base-100 border-base-300 rounded-3xl">
+      <DialogContent className=" max-w-lg md:max-w-2xl w-[min(96vw,760px)] p-0 bg-base-100 border-base-300 rounded-3xl">
         <DialogHeader className="p-5 border-b border-base-300 bg-base-100 rounded-t-3xl">
           <DialogTitle className="flex items-center gap-2">
             <Share2 className="w-4 h-4" /> Share
@@ -84,7 +84,7 @@ export default function ShareDialog({ open, onOpenChange }: Props) {
             <div className="flex flex-col gap-3 p-5">
               <h3
                 title={url}
-                className="input text-3xl truncate input-bordered sm:max-w-xl w-[min(90vw,760px)]  font-mono whitespace-nowrap overflow-hidden"
+                className="input text-3xl truncate input-bordered max-w-xs md:max-w-xl w-[min(90vw,760px)]  font-mono whitespace-nowrap overflow-hidden"
                 aria-label="Shareable link"
               >
                 {" "}

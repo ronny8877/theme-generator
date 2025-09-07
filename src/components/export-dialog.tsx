@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 import { ScrollArea } from "@/ui/scroll-area";
-import { Copy, Palette, Code2, Check } from "lucide-react";
+import { Copy, Palette, Code2, Check, Download } from "lucide-react";
 import { useActiveTheme, useBodyFont, useHeadingFont } from "@/store/hooks";
 import { exportTheme, flattenColors } from "@/lib/exporter";
 import type { ExportPreset } from "@/lib/exporter";
@@ -17,7 +17,16 @@ export function ExportDialog({ open, onOpenChange }: Props) {
   const heading = useHeadingFont();
   const body = useBodyFont();
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
-  const [preset, setPreset] = useState<ExportPreset>("daisyui");
+  const [preset, setPreset] = useState<ExportPreset>("tailwind-v4");
+  const PRESET_OPTIONS: { value: ExportPreset; label: string }[] = [
+    { value: "tailwind-v4", label: "Tailwind v4 (@theme)" },
+    { value: "tailwind-v3", label: "Tailwind v3 (config)" },
+    { value: "daisyui", label: "daisyUI theme plugin" },
+    { value: "shadcn", label: "shadcn/ui variables" },
+    { value: "styled-components", label: "styled-components" },
+  ];
+  const currentLabel =
+    PRESET_OPTIONS.find((o) => o.value === preset)?.label ?? preset;
 
   const bundles = useMemo(() => exportTheme(theme), [theme]);
   const colors = useMemo(() => flattenColors(theme), [theme]);
@@ -33,7 +42,7 @@ export function ExportDialog({ open, onOpenChange }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-3xl w-[min(96vw,900px)] p-0 bg-base-200 border-base-300 rounded-3xl">
+      <DialogContent className="sm:max-w-3xl w-[min(96vw,900px)] p-0 bg-base-200 border-base-300 rounded-3xl overflow-auto">
         <DialogHeader className="p-5 border-b border-base-300 bg-base-100 rounded-t-3xl">
           <DialogTitle className="flex items-center gap-2">
             <Code2 className="w-4 h-4" /> Export
@@ -63,22 +72,32 @@ export function ExportDialog({ open, onOpenChange }: Props) {
               <section className="p-5 grid gap-5">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div className="text-sm opacity-70">Target framework</div>
-                  <div className="flex items-center gap-2">
-                    <select
-                      className="select select-sm rounded-full bg-base-100 border-base-300"
-                      value={preset}
-                      onChange={(e) =>
-                        setPreset(e.target.value as ExportPreset)
-                      }
-                    >
-                      <option value="daisyui">daisyUI (default)</option>
-                      <option value="tailwind-v4">Tailwind v4 (@theme)</option>
-                      <option value="tailwind-v3">Tailwind v3 (config)</option>
-                      <option value="styled-components">
-                        styled-components
-                      </option>
-                      <option value="empty-components">Empty components</option>
-                    </select>
+                  <div className="flex items-center gap-2 relative z-20">
+                    <div className="dropdown dropdown-end">
+                      <button
+                        tabIndex={0}
+                        className="btn btn-sm rounded-full min-w-[14rem] justify-between"
+                      >
+                        <span className="truncate text-left">
+                          {currentLabel}
+                        </span>
+                      </button>
+                      <ul
+                        tabIndex={0}
+                        className="dropdown-content z-[60] menu p-2 shadow bg-base-100 rounded-box w-72 mt-2"
+                      >
+                        {PRESET_OPTIONS.map((opt) => (
+                          <li key={opt.value}>
+                            <button
+                              className={opt.value === preset ? "active" : ""}
+                              onClick={() => setPreset(opt.value)}
+                            >
+                              {opt.label}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                     <button
                       className="btn btn-sm rounded-full"
                       onClick={() => copy(bundles[preset], preset)}
@@ -90,10 +109,34 @@ export function ExportDialog({ open, onOpenChange }: Props) {
                       )}
                       Copy
                     </button>
+                    <button
+                      className="btn btn-sm rounded-full"
+                      onClick={() => {
+                        const content = bundles[preset];
+                        const blob = new Blob([content], {
+                          type: "text/plain;charset=utf-8",
+                        });
+                        const a = document.createElement("a");
+                        const ext =
+                          preset === "tailwind-v3" ||
+                          preset === "styled-components"
+                            ? "ts"
+                            : "css";
+                        a.href = URL.createObjectURL(blob);
+                        a.download = `theme-export-${preset}.${ext}`;
+                        a.click();
+                        setTimeout(() => URL.revokeObjectURL(a.href), 0);
+                        toast.success("File downloaded");
+                      }}
+                      title="Download as file"
+                    >
+                      <Download className="w-4 h-4" />
+                      Export
+                    </button>
                   </div>
                 </div>
 
-                <article className="rounded-3xl border border-base-300 bg-base-100 shadow-sm">
+                <article className="rounded-3xl border border-base-300 bg-base-100 shadow-sm overflow-hidden">
                   <header className="flex items-center justify-between p-4 border-b border-base-300">
                     <div className="font-medium uppercase tracking-wide text-xs opacity-70">
                       {preset}
@@ -106,13 +149,23 @@ export function ExportDialog({ open, onOpenChange }: Props) {
                         <Check className="w-3 h-3" />
                       ) : (
                         <Copy className="w-3 h-3" />
-                      )}{" "}
+                      )}
                       Copy
                     </button>
                   </header>
-                  <pre className="p-4 text-xs overflow-x-auto">
-                    <code>{bundles[preset]}</code>
-                  </pre>
+                  <div className="p-4">
+                    <div className="mockup-code w-full max-h-[55vh] overflow-auto">
+                      {bundles[preset].split("\n").map((line, i) => (
+                        <pre
+                          key={i}
+                          data-prefix={i === 0 ? "$" : ">"}
+                          className="whitespace-pre-wrap break-words"
+                        >
+                          <code>{line || " "}</code>
+                        </pre>
+                      ))}
+                    </div>
+                  </div>
                 </article>
               </section>
             </ScrollArea>

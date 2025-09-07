@@ -187,7 +187,7 @@ const TemplateModal = React.memo(function TemplateModal({
               </p>
             </div>
 
-            <ScrollArea className="h-[calc(100%-5rem)]">
+            <ScrollArea className=" h-80 md:h-[calc(100%-6rem)]">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pr-4">
                 {templatesToShow.map((template) => (
                   <div
@@ -257,7 +257,7 @@ const TemplateModal = React.memo(function TemplateModal({
                         </a>
 
                         <button
-                          className={`btn btn-sm ${
+                          className={`btn btn-sm rounded-box ${
                             selectedTemplateId === template.id
                               ? "btn-primary"
                               : "btn-outline btn-primary"

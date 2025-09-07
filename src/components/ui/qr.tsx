@@ -53,7 +53,7 @@ export default function QR({ url }: { url: string }) {
       >
         <QRCode
           value={url}
-          size={400}
+          size={320}
           id={qrId}
           eyeRadius={2}
           qrStyle="dots"
