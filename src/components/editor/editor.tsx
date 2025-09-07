@@ -21,7 +21,7 @@ function EditorBase() {
   };
 
   return (
-    <div className="w-[400px] h-full rounded-4xl p-3 bg-base-300">
+    <div className="w-[400px] h-full md:h-[95%] lg:h-[98%] 2xl:h-full rounded-4xl p-3 bg-base-300">
       <EditorHeader />
       <Tabs
         value={activeTab}
@@ -50,7 +50,7 @@ function EditorBase() {
         </TabsList>
 
         {/* Main scrollable area */}
-        <ScrollArea className="h-[74vh] md:h-[75vh] 2xl:h-[80vh]">
+        <ScrollArea className="h-[80vh]  md:h-[75vh] 2xl:h-[80vh]">
           <TabsContent value="themes">
             <ThemeList />
           </TabsContent>
