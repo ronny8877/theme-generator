@@ -17,7 +17,7 @@ import {
 // Types
 export type PreviewDevice = (typeof AVILABLE_PREVIEW_DEVICES)[number];
 export type ToolVariant = (typeof TOOL_VARIANTS)[number];
-export type PrimaryTool = "website" | "app" | "poster";
+export type PrimaryTool = "website" | "app";
 export type AuxTool = "typography" | "gradient" | null;
 export type NotificationType = "success" | "error" | "warning" | "info";
 export type Panel = "templates" | "editor" | "preview" | "settings";

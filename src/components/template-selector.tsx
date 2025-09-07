@@ -311,7 +311,7 @@ export default function TemplateSelector() {
   return (
     <>
       {/* Floating Button */}
-      <div className="fixed left-5 bottom-5 z-50">
+      <div className="fixed bottom-20 left-2 md:left-5 md:bottom-5 z-50">
         <button
           className="btn btn-primary btn-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
           onClick={() => setIsModalOpen(true)}

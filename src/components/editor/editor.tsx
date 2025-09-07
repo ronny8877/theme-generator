@@ -50,7 +50,7 @@ function EditorBase() {
         </TabsList>
 
         {/* Main scrollable area */}
-        <ScrollArea className="h-[74vh] md:h-[75vh]">
+        <ScrollArea className="h-[74vh] md:h-[75vh] 2xl:h-[80vh]">
           <TabsContent value="themes">
             <ThemeList />
           </TabsContent>

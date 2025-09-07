@@ -13,7 +13,7 @@ export default function EditorToggle() {
           is_open: true,
         })
       }
-      className="fixed bottom-5 z-50 right-20  rounded-full bg-primary p-2 shadow-lg hover:cursor-pointer hover:bg-primary/80 active:scale-95 transition-all"
+      className="fixed bottom-20 md:bottom-5 z-50 right-5 md:right-20  rounded-full bg-primary p-2 shadow-lg hover:cursor-pointer hover:bg-primary/80 active:scale-95 transition-all"
     >
       <Palette className="m-3 h-6 w-6 text-base-content" />
     </div>

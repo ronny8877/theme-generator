@@ -83,10 +83,6 @@ const dynamicComponentMap = {
     ssr: false,
     loading: LoadingSkeleton,
   }),
-  "concert-poster": dynamic(() => import("@/templates/poster/concert-poster"), {
-    ssr: false,
-    loading: LoadingSkeleton,
-  }),
   "anime-realm": dynamic(() => import("@/templates/website/anime-realm"), {
     ssr: false,
     loading: LoadingSkeleton,

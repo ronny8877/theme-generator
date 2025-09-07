@@ -231,7 +231,6 @@ export const AVILABLE_PREVIEW_DEVICES = [
 export const TOOL_VARIANTS = [
   "website",
   "app",
-  "poster",
   "typography",
   "gradient",
 ] as const;
@@ -347,13 +346,6 @@ export const TEMPLATES_ARRAY = [
       heading: { family: "Orbitron", weight: "600" },
       body: { family: "Inter", weight: "400" },
     },
-  },
-  {
-    id: "concert-poster",
-    title: "Concert Poster",
-    description:
-      "An eye-catching concert poster design with neon effects, event details, and ticket information",
-    theme_id: "test",
   },
 ];
 
@@ -490,22 +482,6 @@ export const TEMPLATES: SelectSection[] = [
         fonts: {
           heading: { family: "Orbitron", weight: "600" },
           body: { family: "Inter", weight: "400" },
-        },
-      },
-    ],
-  },
-  {
-    title: "Poster Templates",
-    options: [
-      {
-        theme_id: "retro",
-        id: "concert-poster",
-        title: "Concert Poster",
-        description:
-          "An eye-catching concert poster design with neon effects, event details, and ticket information",
-        fonts: {
-          heading: { family: "Oswald", weight: "600" },
-          body: { family: "Montserrat", weight: "400" },
         },
       },
     ],

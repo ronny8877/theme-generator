@@ -95,10 +95,6 @@ const AIChatUI = dynamic(() => import("@/templates/app/ai-chat-ui"), {
   ssr: false,
   loading: LoadingTemplate,
 });
-const ConcertPoster = dynamic(
-  () => import("@/templates/poster/concert-poster"),
-  { ssr: false, loading: LoadingTemplate },
-);
 const AnimeRealm = dynamic(() => import("@/templates/website/anime-realm"), {
   ssr: false,
   loading: LoadingTemplate,
@@ -141,7 +137,6 @@ const componentMap = {
   "saas-landing": SaaSLanding,
   "cookbook-landing": CookbookLanding,
   "ai-chat-ui": AIChatUI,
-  "concert-poster": ConcertPoster,
   "anime-realm": AnimeRealm,
   landing: Landing,
 } as const;

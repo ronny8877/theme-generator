@@ -13,8 +13,6 @@ function DeviceSelectBase() {
   // Get allowed devices based on active tool
   const getAllowedDevices = () => {
     switch (activeTool) {
-      case "poster":
-        return ["tablet", "desktop"];
       default:
         return ["desktop", "tablet", "mobile"];
     }
@@ -23,7 +21,7 @@ function DeviceSelectBase() {
   const allowedDevices = getAllowedDevices();
 
   return (
-    <div className="fixed left-4 top-1/2 -translate-y-1/2 z-50">
+    <div className="fixed left-4 top-1/2 hidden md:block -translate-y-1/2 z-50">
       {/* Vertical pill container */}
       <div className="flex flex-col items-center bg-base-100 border border-base-300 rounded-full shadow-md p-2 gap-2">
         {allowedDevices.map((device) => {
