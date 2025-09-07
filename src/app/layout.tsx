@@ -52,6 +52,8 @@ export const metadata: Metadata = {
     "Website colors",
     "Website fonts",
     "Web design",
+    "Palette Visualizer",
+    "Realtime colors"
   ],
   authors: [{ name: "LiveTheme" }],
   creator: "LiveTheme",
