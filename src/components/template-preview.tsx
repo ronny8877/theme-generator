@@ -8,6 +8,8 @@ import { $activePreviewDeviceSel, $editorUiType, $isEditorOpen } from "@/store";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import EditorFloatingWrapper from "./editor/editor-floating-wrapper";
 import Editor from "./editor/editor";
+import GradientToolFloating from "./gradient-tool-floating";
+import TypographyToolFloating from "./typography-tool-floating";
 import { FontInjector } from "./font-injector";
 import ThemeInfo from "./navs/theme-info";
 import { CSSVariablesInjector } from "./css-variables-injector";
@@ -61,18 +63,18 @@ const dynamicComponentMap = {
     () => import("@/templates/website/cooking-recipe"),
     { ssr: false, loading: LoadingSkeleton },
   ),
-  "ecommerce-store": dynamic(
-    () => import("@/templates/website/ecommerce"),
-    { ssr: false, loading: LoadingSkeleton },
-  ),
+  "ecommerce-store": dynamic(() => import("@/templates/website/ecommerce"), {
+    ssr: false,
+    loading: LoadingSkeleton,
+  }),
   "personal-portfolio": dynamic(
     () => import("@/templates/website/personal-portfolio"),
     { ssr: false, loading: LoadingSkeleton },
   ),
-  "saas-landing": dynamic(
-    () => import("@/templates/website/saas-landing"),
-    { ssr: false, loading: LoadingSkeleton },
-  ),
+  "saas-landing": dynamic(() => import("@/templates/website/saas-landing"), {
+    ssr: false,
+    loading: LoadingSkeleton,
+  }),
   "cookbook-landing": dynamic(
     () => import("@/templates/website/cookbook-landing"),
     { ssr: false, loading: LoadingSkeleton },
@@ -81,14 +83,14 @@ const dynamicComponentMap = {
     ssr: false,
     loading: LoadingSkeleton,
   }),
-  "concert-poster": dynamic(
-    () => import("@/templates/poster/concert-poster"),
-    { ssr: false, loading: LoadingSkeleton },
-  ),
-  "anime-realm": dynamic(
-    () => import("@/templates/website/anime-realm"),
-    { ssr: false, loading: LoadingSkeleton },
-  ),
+  "concert-poster": dynamic(() => import("@/templates/poster/concert-poster"), {
+    ssr: false,
+    loading: LoadingSkeleton,
+  }),
+  "anime-realm": dynamic(() => import("@/templates/website/anime-realm"), {
+    ssr: false,
+    loading: LoadingSkeleton,
+  }),
   landing: dynamic(() => import("@/templates/website/landing"), {
     ssr: false,
     loading: LoadingSkeleton,
@@ -106,7 +108,9 @@ const TemplateRenderer = React.memo(function TemplateRenderer({
 }) {
   const tidFromStore = useNano($activeTemplateIdSel) as TemplateId | undefined;
   // Decide which template id to use: explicit prop > store > default landing
-  const effectiveId: TemplateId = (forcedTemplateId || tidFromStore || "landing") as TemplateId;
+  const effectiveId: TemplateId = (forcedTemplateId ||
+    tidFromStore ||
+    "landing") as TemplateId;
 
   const Cmp = useMemo(() => {
     if (overrideComponent) return overrideComponent;
@@ -179,7 +183,10 @@ function TemplatePreviewBase({
               />
               <FontInjector />
               {/* Start with loading state; dynamic() will swap in the template when ready */}
-              <TemplateRenderer overrideComponent={component} forcedTemplateId={templateId} />
+              <TemplateRenderer
+                overrideComponent={component}
+                forcedTemplateId={templateId}
+              />
             </div>
           </ScrollArea>
         </div>
@@ -188,6 +195,11 @@ function TemplatePreviewBase({
       {!hideEditor && isEditorOpen && editorUiType === "floating" && (
         <EditorFloatingWrapper />
       )}
+
+      {/* Floating Tool Panels */}
+      <GradientToolFloating />
+      <TypographyToolFloating />
+
       {/* Global export/share dialogs (optional) */}
       {includeGlobals && <ExportDialogContainer />}
       {includeGlobals && <ShareDialogContainer />}

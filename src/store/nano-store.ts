@@ -328,7 +328,6 @@ export function setActiveTool(tool: ToolVariant) {
   $app.set({
     ...currentApp,
     activeTool: tool,
-    activePreviewDevice: getDefaultDeviceForTool(tool),
   });
 }
 
@@ -549,12 +548,17 @@ export function updateMiscConfig(misc: Partial<MiscConfig>) {
 export function switchTool(
   tool: "website" | "app" | "poster" | "typography" | "gradient",
 ) {
-  setActiveTool(tool);
-  // Open the floating editor when a tool is selected
-  editEditorSettings({
-    is_open: true,
-    ui_type: "floating",
-  });
+  const currentApp = $app.get();
+
+  // If clicking the same tool (gradient or typography), toggle it off by setting to website
+  if (
+    currentApp.activeTool === tool &&
+    (tool === "gradient" || tool === "typography")
+  ) {
+    setActiveTool("website");
+  } else {
+    setActiveTool(tool);
+  }
 }
 
 export function setActiveTemplateById(templateId: string) {
@@ -666,18 +670,6 @@ export function applyThemeConfigAndResetBaseline(theme: ThemeConfig) {
 export function saveEditedTheme(name?: string) {
   saveCurrentThemeAs(name);
   resetBaselineToCurrent();
-}
-
-// Helper function
-function getDefaultDeviceForTool(tool: ToolVariant): PreviewDevice {
-  switch (tool) {
-    case "app":
-      return "mobile";
-    case "poster":
-      return "tablet";
-    default:
-      return "desktop";
-  }
 }
 
 export function editEditorSettings(settings: {

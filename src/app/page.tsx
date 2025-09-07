@@ -8,8 +8,6 @@ import BrowseAllTemplates from "@/components/landing/BrowseAllTemplates";
 import Faq from "@/components/landing/Faq";
 import Clock from "@/components/ui/clock";
 
-
-
 const storyScript = Pacifico({
   subsets: ["latin"],
   weight: ["400"],

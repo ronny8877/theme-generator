@@ -22,8 +22,15 @@ export const TemplatePills: React.FC<TemplatePillsProps> = React.memo(
             className={`btn btn-sm rounded-full ${
               activeId === t.id ? "btn-primary" : "btn-ghost"
             }`}
-          > <a onClick={(e)=>{e.preventDefault()}} href={`/preview/${t.id}`}>
-            {t.title}
+          >
+            {" "}
+            <a
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+              href={`/preview/${t.id}`}
+            >
+              {t.title}
             </a>
           </button>
         ))}

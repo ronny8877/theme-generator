@@ -1,8 +1,8 @@
 "use client";
-import TemplatePreview from "@/components/template-preview";
 import { ToolSelect } from "@/components/navs/tool-select";
 import DeviceSelect from "@/components/navs/device-select";
-import TemplateSelector from "@/components/template-selector";
+import ConditionalContent from "@/components/conditional-content";
+import MainContentArea from "@/components/main-content-area";
 import EditorToggle from "@/components/editor-toggle";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
@@ -60,12 +60,12 @@ function TemplatesPageInner() {
   return (
     <>
       {/* <ThemeInfo /> */}
-      <TemplateSelector />
+      <ConditionalContent />
       <DeviceSelect />
       <div className="h-screen flex">
-        {/* Template Preview */}
+        {/* Main Content Area - Template Preview or Full-Screen Tools */}
         <div className="flex-1">
-          <TemplatePreview />
+          <MainContentArea className="h-full" />
         </div>
       </div>
       <ToolSelect />
