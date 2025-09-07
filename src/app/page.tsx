@@ -1,4 +1,4 @@
-import { Pacifico, Outfit } from "next/font/google";
+import { Pacifico } from "next/font/google";
 import Link from "next/link";
 import Showcase from "@/components/landing/Showcase";
 import NavThemeSelect from "@/components/navs/nav-theme-select";
@@ -8,12 +8,7 @@ import BrowseAllTemplates from "@/components/landing/BrowseAllTemplates";
 import Faq from "@/components/landing/Faq";
 import Clock from "@/components/ui/clock";
 
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "500", "700", "900"],
-  variable: "--font-roboto",
-  display: "swap",
-});
+
 
 const storyScript = Pacifico({
   subsets: ["latin"],
@@ -24,7 +19,7 @@ const storyScript = Pacifico({
 
 export default function Home() {
   return (
-    <main className={`container mx-auto p-4 bg-base-100 ${outfit.className}`}>
+    <main className={`container mx-auto p-4 bg-base-100`}>
       <nav className="navbar bg-base-100 shadow-sm rounded-3xl sticky top-3 z-40 backdrop-blur supports-[backdrop-filter]:bg-base-100/80">
         <div className="flex-1 flex items-center gap-2">
           <div className="avatar">
