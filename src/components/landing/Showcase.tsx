@@ -96,6 +96,7 @@ const Showcase: React.FC<ShowcaseProps> = ({
             <PreviewFrame
               theme={theme}
               className="rounded-3xl overflow-hidden"
+              templateId={templateId}
             />
             {/* SEO-friendly anchor to the real preview page. Present for crawlers; clicks are prevented for JS users so UX doesn't change. */}
             <a

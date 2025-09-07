@@ -1,18 +1,7 @@
 "use client";
 import React, { useMemo, useState } from "react";
 import { ScrollArea } from "./ui/scroll-area";
-import { BlogPost, BlogLanding } from "@/templates/blog";
-import {
-  TwitterLike,
-  CookingRecipe,
-  EcommerceSite,
-  PersonalPortfolio,
-  SaaSLanding,
-  CookbookLanding,
-  Landing,
-} from "@/templates/website";
-import { AIChatUI } from "@/templates/app";
-import { ConcertPoster } from "@/templates/poster";
+import dynamic from "next/dynamic";
 import { useCssVariables } from "@/store/hooks";
 import { useStore } from "@nanostores/react";
 import { $activePreviewDeviceSel, $editorUiType, $isEditorOpen } from "@/store";
@@ -21,7 +10,6 @@ import EditorFloatingWrapper from "./editor/editor-floating-wrapper";
 import Editor from "./editor/editor";
 import { FontInjector } from "./font-injector";
 import ThemeInfo from "./navs/theme-info";
-import AnimeRealm from "@/templates/website/anime-realm";
 import { CSSVariablesInjector } from "./css-variables-injector";
 import { useStore as useNano } from "@nanostores/react";
 import { $activeTemplateId as $activeTemplateIdSel } from "@/store";
@@ -33,32 +21,106 @@ export type TemplatePreviewProps = {
   hideEditor?: boolean;
   /** Whether to include global export/share containers (default true). */
   includeGlobals?: boolean;
+  /** Optional: explicitly set which template id to render (overrides store). */
+  templateId?: keyof typeof dynamicComponentMap;
+  /** Optional: provide a React component to render instead of a template id. */
+  component?: React.ComponentType;
 };
 
-const componentMap = {
-  "simple-blog-post": BlogPost,
-  "simple-blog-landing": BlogLanding,
-  "twitter-like-social": TwitterLike,
-  "cooking-recipe-site": CookingRecipe,
-  "ecommerce-store": EcommerceSite,
-  "personal-portfolio": PersonalPortfolio,
-  "saas-landing": SaaSLanding,
-  "cookbook-landing": CookbookLanding,
-  "ai-chat-ui": AIChatUI,
-  "concert-poster": ConcertPoster,
-  "anime-realm": AnimeRealm,
-  landing: Landing,
-};
+// A simple shimmering skeleton to show while templates load
+function LoadingSkeleton() {
+  return (
+    <div className="animate-pulse p-6 space-y-4">
+      <div className="h-10 w-1/3 rounded-md bg-base-300/60" />
+      <div className="h-4 w-2/3 rounded bg-base-300/60" />
+      <div className="h-4 w-1/2 rounded bg-base-300/60" />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+        <div className="h-48 rounded-xl bg-base-300/60" />
+        <div className="h-48 rounded-xl bg-base-300/60" />
+        <div className="h-48 rounded-xl bg-base-300/60" />
+        <div className="h-48 rounded-xl bg-base-300/60" />
+      </div>
+    </div>
+  );
+}
 
-const TemplateRenderer = React.memo(function TemplateRenderer() {
-  const tid = useNano($activeTemplateIdSel) as keyof typeof componentMap;
-  const Cmp = useMemo(() => componentMap[tid] || BlogLanding, [tid]);
-  return <Cmp key={tid} />;
+const dynamicComponentMap = {
+  "simple-blog-post": dynamic(() => import("@/templates/blog/blog-post"), {
+    ssr: false,
+    loading: LoadingSkeleton,
+  }),
+  "simple-blog-landing": dynamic(
+    () => import("@/templates/blog/blog-landing"),
+    { ssr: false, loading: LoadingSkeleton },
+  ),
+  "twitter-like-social": dynamic(
+    () => import("@/templates/website/twitter-like"),
+    { ssr: false, loading: LoadingSkeleton },
+  ),
+  "cooking-recipe-site": dynamic(
+    () => import("@/templates/website/cooking-recipe"),
+    { ssr: false, loading: LoadingSkeleton },
+  ),
+  "ecommerce-store": dynamic(
+    () => import("@/templates/website/ecommerce"),
+    { ssr: false, loading: LoadingSkeleton },
+  ),
+  "personal-portfolio": dynamic(
+    () => import("@/templates/website/personal-portfolio"),
+    { ssr: false, loading: LoadingSkeleton },
+  ),
+  "saas-landing": dynamic(
+    () => import("@/templates/website/saas-landing"),
+    { ssr: false, loading: LoadingSkeleton },
+  ),
+  "cookbook-landing": dynamic(
+    () => import("@/templates/website/cookbook-landing"),
+    { ssr: false, loading: LoadingSkeleton },
+  ),
+  "ai-chat-ui": dynamic(() => import("@/templates/app/ai-chat-ui"), {
+    ssr: false,
+    loading: LoadingSkeleton,
+  }),
+  "concert-poster": dynamic(
+    () => import("@/templates/poster/concert-poster"),
+    { ssr: false, loading: LoadingSkeleton },
+  ),
+  "anime-realm": dynamic(
+    () => import("@/templates/website/anime-realm"),
+    { ssr: false, loading: LoadingSkeleton },
+  ),
+  landing: dynamic(() => import("@/templates/website/landing"), {
+    ssr: false,
+    loading: LoadingSkeleton,
+  }),
+} as const;
+
+type TemplateId = keyof typeof dynamicComponentMap;
+
+const TemplateRenderer = React.memo(function TemplateRenderer({
+  overrideComponent,
+  forcedTemplateId,
+}: {
+  overrideComponent?: React.ComponentType;
+  forcedTemplateId?: TemplateId | undefined;
+}) {
+  const tidFromStore = useNano($activeTemplateIdSel) as TemplateId | undefined;
+  // Decide which template id to use: explicit prop > store > default landing
+  const effectiveId: TemplateId = (forcedTemplateId || tidFromStore || "landing") as TemplateId;
+
+  const Cmp = useMemo(() => {
+    if (overrideComponent) return overrideComponent;
+    return dynamicComponentMap[effectiveId] || dynamicComponentMap["landing"];
+  }, [overrideComponent, effectiveId]);
+
+  return <Cmp key={(overrideComponent ? "override" : effectiveId) as string} />;
 });
 
 function TemplatePreviewBase({
   hideEditor = false,
   includeGlobals = true,
+  templateId,
+  component,
 }: TemplatePreviewProps) {
   const [viewport] = useState<ViewportSize>("desktop");
   const [parent] = useAutoAnimate<HTMLDivElement>();
@@ -116,7 +178,8 @@ function TemplatePreviewBase({
                 variables={stableCssVars as never}
               />
               <FontInjector />
-              <TemplateRenderer />
+              {/* Start with loading state; dynamic() will swap in the template when ready */}
+              <TemplateRenderer overrideComponent={component} forcedTemplateId={templateId} />
             </div>
           </ScrollArea>
         </div>

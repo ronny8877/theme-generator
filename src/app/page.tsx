@@ -42,7 +42,7 @@ export default function Home() {
         <div className="flex-none flex items-center gap-2">
           <ul className="menu menu-horizontal px-1 flex items-center gap-2">
             <li>
-              <Link href="/">Templates</Link>
+              <Link href="/templates">Templates</Link>
             </li>
             <li>
               <NavThemeSelect />

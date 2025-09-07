@@ -78,6 +78,35 @@ function TemplatesPageInner() {
 export default function TemplatesPage() {
   return (
     <Suspense fallback={<div className="p-4 text-sm opacity-70">Loading…</div>}>
+      {/* Structured data for template list */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            itemListElement: [
+              "landing",
+              "simple-blog-post",
+              "simple-blog-landing",
+              "twitter-like-social",
+              "cooking-recipe-site",
+              "ecommerce-store",
+              "personal-portfolio",
+              "saas-landing",
+              "cookbook-landing",
+              "ai-chat-ui",
+              "concert-poster",
+              "anime-realm",
+            ].map((id, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              url: `https://livetheme.app/preview/${id}`,
+              name: id,
+            })),
+          }),
+        }}
+      />
       <TemplatesPageInner />
     </Suspense>
   );

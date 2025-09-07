@@ -6,6 +6,10 @@ export type PreviewFrameProps = {
   theme: string; // daisyUI theme name
   className?: string;
   includeGlobals?: boolean;
+  /** Optional: force a template id for this frame instead of store. */
+  templateId?: string;
+  /** Optional: render a specific component. Overrides templateId/store. */
+  component?: React.ComponentType;
 };
 
 /**
@@ -17,6 +21,8 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({
   theme,
   className = "",
   includeGlobals = false,
+  templateId,
+  component,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -27,7 +33,12 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({
   return (
     <div ref={ref} className={className}>
       <div className=" origin-top h-screen md:h-[80vh] ">
-        <TemplatePreview hideEditor includeGlobals={includeGlobals} />
+        <TemplatePreview
+          hideEditor
+          includeGlobals={includeGlobals}
+          templateId={templateId as never}
+          component={component}
+        />
       </div>
     </div>
   );
