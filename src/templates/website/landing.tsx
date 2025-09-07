@@ -359,7 +359,7 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-base-200 relative @container grid place-items-center w-full">
-      <div className="grid gap-6 grid-cols-1 @md:grid-cols-1 @3xl:grid-cols-2 items-start">
+      <div className="grid gap-6 grid-cols-1 @2xl:grid-cols-1 @5xl:grid-cols-2 items-start">
         <ClockCard
           city={ip?.city}
           timezone={ip?.timezone}

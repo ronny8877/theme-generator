@@ -42,6 +42,22 @@
       "args": [],
       "isBackground": false,
       "group": "build"
+    },
+    {
+      "label": "Typecheck",
+      "type": "shell",
+      "command": "npm run -s lint",
+      "args": [],
+      "isBackground": false,
+      "group": "build"
+    },
+    {
+      "label": "Typecheck",
+      "type": "shell",
+      "command": "npm run -s lint",
+      "args": [],
+      "isBackground": false,
+      "group": "build"
     }
   ]
 }

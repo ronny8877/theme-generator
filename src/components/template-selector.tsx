@@ -75,7 +75,7 @@ const TemplateModal = React.memo(function TemplateModal({
 
   return (
     <div className={`modal ${isOpen ? "modal-open" : ""}`}>
-      <div className="modal-box w-11/12 max-w-5xl h-[80vh] p-0">
+      <div className="modal-box w-11/12 max-w-6xl rounded-3xl h-[80vh] p-0 overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-base-300">
           <div>
@@ -121,11 +121,10 @@ const TemplateModal = React.memo(function TemplateModal({
             </div>
           )}
         </div>
-
         <div className="flex h-[calc(80vh-9rem)]">
-          {/* Categories Sidebar - Hide when searching globally */}
+          {/* Categories Sidebar (desktop) - Hide when searching globally or on small screens */}
           {!isGlobalSearch && (
-            <div className="w-64 border-r border-base-300 p-4">
+            <div className="hidden md:block w-64 border-r border-base-300 p-4">
               <h4 className="font-semibold text-base-content mb-4">
                 Categories
               </h4>
@@ -133,7 +132,7 @@ const TemplateModal = React.memo(function TemplateModal({
                 {TEMPLATES.map((category, index) => (
                   <button
                     key={category.title}
-                    className={`w-full text-left p-3 rounded-lg transition-all ${
+                    className={`w-full text-left p-3 rounded-2xl transition-all ${
                       selectedCategoryIndex === index
                         ? "bg-primary text-primary-content"
                         : "hover:bg-base-200 text-base-content"
@@ -154,23 +153,29 @@ const TemplateModal = React.memo(function TemplateModal({
                   </button>
                 ))}
               </div>
-
-              {/* Ad Space Placeholder */}
-              <div className="mt-8 p-4 bg-base-200 rounded-lg text-center">
-                <div className="text-xs text-base-content/50 mb-2">
-                  Advertisement
-                </div>
-                <div className="h-32 bg-base-300 rounded flex items-center justify-center">
-                  <span className="text-base-content/40 text-sm">
-                    Google Ads
-                  </span>
-                </div>
-              </div>
             </div>
           )}
 
           {/* Templates Grid */}
           <div className={`flex-1 p-6 ${isGlobalSearch ? "w-full" : ""}`}>
+            {/* Category pills for small screens */}
+            {!isGlobalSearch && (
+              <div className="mb-4 md:hidden flex flex-wrap gap-2">
+                {TEMPLATES.map((category, idx) => (
+                  <button
+                    key={category.title}
+                    onClick={() => setSelectedCategoryIndex(idx)}
+                    className={`px-3 py-1 rounded-full text-sm transition-all ${
+                      selectedCategoryIndex === idx
+                        ? "bg-primary text-primary-content"
+                        : "bg-base-200 text-base-content/80"
+                    }`}
+                  >
+                    {category.title}
+                  </button>
+                ))}
+              </div>
+            )}
             <div className="mb-6">
               <h4 className="text-xl font-semibold text-base-content">
                 {isGlobalSearch ? "Search Results" : selectedCategory?.title}
@@ -187,7 +192,7 @@ const TemplateModal = React.memo(function TemplateModal({
                 {templatesToShow.map((template) => (
                   <div
                     key={template.id}
-                    className={`card bg-base-100 border-2 transition-all cursor-pointer hover:shadow-lg ${
+                    className={`card bg-base-100 border-2 transition-all cursor-pointer hover:shadow-lg rounded-3xl ${
                       selectedTemplateId === template.id
                         ? "border-primary shadow-lg ring-2 ring-primary/20"
                         : "border-base-300 hover:border-base-400"
@@ -214,13 +219,13 @@ const TemplateModal = React.memo(function TemplateModal({
                       </div>
 
                       {/* Template Preview Area */}
-                      <div className="w-full h-24 bg-base-200 rounded-lg mb-3 flex items-center justify-center">
+                      <div className="w-full h-24 bg-base-200 rounded-2xl mb-3 flex items-center justify-center overflow-hidden">
                         <span className="text-base-content/40 text-sm">
                           {template.image ? (
                             <img
                               src={template.image}
                               alt={template.title}
-                              className="w-full h-full object-cover rounded-lg"
+                              className="w-full h-full object-cover rounded-2xl"
                             />
                           ) : (
                             "No Preview Available"
@@ -282,19 +287,7 @@ const TemplateModal = React.memo(function TemplateModal({
                   </p>
                 </div>
               )}
-
-              {!isGlobalSearch && (
-                <div className="mt-8 p-4 bg-base-200 rounded-lg text-center">
-                  <div className="text-xs text-base-content/50 mb-2">
-                    Sponsored
-                  </div>
-                  <div className="h-24 bg-base-300 rounded flex items-center justify-center">
-                    <span className="text-base-content/40 text-sm">
-                      Google Ads Banner
-                    </span>
-                  </div>
-                </div>
-              )}
+              {/* no sponsored/ad placeholders on this UI per request */}
             </ScrollArea>
           </div>
         </div>

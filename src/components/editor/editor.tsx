@@ -50,7 +50,7 @@ function EditorBase() {
         </TabsList>
 
         {/* Main scrollable area */}
-        <ScrollArea className="h-[74vh]">
+        <ScrollArea className="h-[74vh] md:h-[75vh]">
           <TabsContent value="themes">
             <ThemeList />
           </TabsContent>
@@ -63,9 +63,9 @@ function EditorBase() {
         </ScrollArea>
 
         {/* Footer actions under scroller, visible for all tabs */}
-        <div className="mt-3 flex items-center justify-between gap-2">
+        <div className="flex items-center  justify-between gap-2">
           <button
-            className="btn btn-sm rounded-full px-4 bg-base-200 hover:bg-base-300 border border-base-300"
+            className="btn btn-lg w-1/2 rounded-full px-4 bg-base-200 hover:bg-base-300 border border-base-300"
             onClick={async () => {
               const { openShare } = await import("@/store/ui-store");
               openShare();
@@ -77,7 +77,7 @@ function EditorBase() {
             </span>
           </button>
           <button
-            className="btn btn-sm rounded-full px-4 btn-primary text-primary-content"
+            className="btn btn-lg w-1/2 rounded-full px-4 btn-primary text-primary-content"
             onClick={() => openExport()}
           >
             <span className="inline-flex items-center gap-2">

@@ -142,9 +142,9 @@ function TemplatePreviewBase({
   const getViewportClasses = () => {
     switch (previewDevice) {
       case "mobile":
-        return "max-w-[430px] h-[932px]";
+        return "max-w-[430px] h-[760px] 2xl:h-[932px]";
       case "tablet":
-        return "max-w-[768px] h-full";
+        return "max-w-[768px] h-full h-[760px] 2xl:h-[932px]";
       default:
         return "max-w-full h-full";
     }
@@ -170,7 +170,7 @@ function TemplatePreviewBase({
             {/* <div className="input rounded-full">SITENAME</div> */}
           </div>
           <ScrollArea
-            className={`w-full ${previewDevice === "mobile" ? "h-[932px]" : "h-[95vh]"}`}
+            className={`w-full ${previewDevice === "mobile" ? "h-[760px] 2xl:h-[932px]" : "h-[95vh]"}`}
           >
             <div
               ref={parent}
