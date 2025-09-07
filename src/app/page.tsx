@@ -4,7 +4,7 @@ import Showcase from "@/components/landing/Showcase";
 import NavThemeSelect from "@/components/navs/nav-theme-select";
 import TextPitch from "@/components/landing/TextPitch";
 import WorkflowSteps from "@/components/landing/WorkflowSteps";
-import TemplateGallery from "@/components/landing/TemplateGallery";
+import BrowseAllTemplates from "@/components/landing/BrowseAllTemplates";
 import Faq from "@/components/landing/Faq";
 import Clock from "@/components/ui/clock";
 
@@ -70,9 +70,9 @@ export default function Home() {
               </h2>
             </div>
             <ul className="list-disc list-inside text-base-content/70 space-y-1">
-              <li>Visual theme controls with DaisyUI variables</li>
-              <li>One-click share links and export for any framework</li>
-              <li>Dozens of templates for realistic previews</li>
+              <li>DaisyUI & Tailwind editor</li>
+              <li>Phone • Tablet • Desktop preview</li>
+              <li>Export & share (CSS vars / JSON)</li>
             </ul>
             <div className="flex flex-wrap items-center gap-3">
               <Link href="/templates" className="btn btn-primary rounded-box">
@@ -102,11 +102,11 @@ export default function Home() {
       {/* Workflow section */}
       <WorkflowSteps />
 
-      {/* FAQ for SEO */}
+      {/* FAQ at the end */}
       <Faq />
 
-      {/* Full template gallery for SEO */}
-      <TemplateGallery />
+      {/* Browse all templates */}
+      <BrowseAllTemplates />
 
       {/* Footer */}
       <footer className="mt-16 border-t border-base-300 pt-10 pb-16">
@@ -125,10 +125,7 @@ export default function Home() {
                 <Link href="/templates">Templates</Link>
               </li>
               <li>
-                <a href="#showcase">Theme generator</a>
-              </li>
-              <li>
-                <Link href="/">Docs</Link>
+                <a href="#showcase">Showcase</a>
               </li>
             </ul>
           </div>
@@ -137,21 +134,25 @@ export default function Home() {
             <ul className="mt-2 space-y-1 text-sm">
               <li>
                 <a
-                  href="https://discord.gg/daisyui"
+                  href="https://x.com/its_me_roni3"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Discord
+                  Twitter
                 </a>
               </li>
               <li>
-                <a href="https://github.com/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://github.com/ronny8877/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   GitHub
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/">Changelog</Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

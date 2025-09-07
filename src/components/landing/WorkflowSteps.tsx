@@ -9,11 +9,11 @@ export default function WorkflowSteps() {
     },
     {
       title: "Customize Colors & Fonts",
-      desc: "Use live preview to tweak DaisyUI variables and typography. See changes in real time.",
+      desc: "Tweak DaisyUI variables with live, multi-device preview. Fine-tune gradients and typography in real time.",
       bullets: [
-        "Realtime preview",
-        "Advanced color controls",
-        "Typography controls",
+        "Realtime preview (phone/tablet/desktop)",
+        "Advanced color & gradient controls",
+        "Typography tools",
       ],
     },
     {
