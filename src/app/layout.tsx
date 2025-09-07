@@ -139,7 +139,8 @@ export default function RootLayout({
           ])}
         </Script>
         <GoogleTagManager gtmId="GTM-MTV3JK9Z" />
-        <script src="https://unpkg.com/react-scan/dist/auto.global.js" async />
+        <meta name="google-adsense-account" content="ca-pub-6428755652534745"></meta>
+        {/* <script src="https://unpkg.com/react-scan/dist/auto.global.js" async /> */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-base-100 text-base-content`}
