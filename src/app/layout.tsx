@@ -29,7 +29,21 @@ export const metadata: Metadata = {
     "UI theme generator",
     "Tailwind theme",
     "DaisyUI theme",
+    "theme builder",
+    "design system",
+    "web design tool",
+    "CSS themes",
+    "website themes",
+    "website inpirations",
+    "blog theme",
+    "blog template",
+    "responsive design",
     "export CSS variables",
+    "template preview",
+    "export themes",
+    "share theme",
+    "responsive preview",
+    "theme templates",
   ],
   authors: [{ name: "LiveTheme" }],
   creator: "LiveTheme",
@@ -37,6 +51,12 @@ export const metadata: Metadata = {
   category: "Design",
   alternates: {
     canonical: "/",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/logo.png",
+    other: [{ rel: "apple-touch-icon", url: "/logo.png", sizes: "180x180" }],
   },
   openGraph: {
     type: "website",
@@ -52,10 +72,6 @@ export const metadata: Metadata = {
     ],
   },
   applicationName: "LiveTheme",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
-  ],
   robots: {
     index: true,
     follow: true,
@@ -91,6 +107,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/logo.png" />
         {/* Early theme set to avoid FOUC */}
         <Script id="theme-init" strategy="beforeInteractive">
           {`
@@ -139,7 +156,10 @@ export default function RootLayout({
           ])}
         </Script>
         <GoogleTagManager gtmId="GTM-MTV3JK9Z" />
-        <meta name="google-adsense-account" content="ca-pub-6428755652534745"></meta>
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-6428755652534745"
+        ></meta>
         {/* <script src="https://unpkg.com/react-scan/dist/auto.global.js" async /> */}
       </head>
       <body

@@ -97,6 +97,15 @@ const Showcase: React.FC<ShowcaseProps> = ({
               theme={theme}
               className="rounded-3xl overflow-hidden"
             />
+            {/* SEO-friendly anchor to the real preview page. Present for crawlers; clicks are prevented for JS users so UX doesn't change. */}
+            <a
+              href={`/preview/${encodeURIComponent(templateId)}`}
+              onClick={(e) => e.preventDefault()}
+              aria-hidden="true"
+              className="sr-only"
+            >
+              Preview {templateId}
+            </a>
           </div>
         </div>
 

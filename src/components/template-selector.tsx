@@ -241,6 +241,16 @@ const TemplateModal = React.memo(function TemplateModal({
                       )}
 
                       <div className="card-actions justify-end">
+                        {/* SEO anchor so crawlers see a real URL for each template preview. Prevent navigation for users; selection still works via button. */}
+                        <a
+                          href={`/preview/${encodeURIComponent(template.id)}`}
+                          onClick={(e) => e.preventDefault()}
+                          aria-hidden="true"
+                          className="sr-only"
+                        >
+                          Preview {template.title}
+                        </a>
+
                         <button
                           className={`btn btn-sm ${
                             selectedTemplateId === template.id

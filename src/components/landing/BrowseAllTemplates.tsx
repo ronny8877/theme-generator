@@ -93,6 +93,15 @@ const BrowseAllTemplates: React.FC<BrowseAllTemplatesProps> = ({
               theme={theme}
               className="rounded-3xl overflow-hidden"
             />
+            {/* SEO-friendly anchor for crawlers to index template preview pages. Clicks are prevented to keep SPA behavior. */}
+            <a
+              href={`/preview/${encodeURIComponent(templateId)}`}
+              onClick={(e) => e.preventDefault()}
+              aria-hidden="true"
+              className="sr-only"
+            >
+              Preview {templateId}
+            </a>
           </div>
         </div>
 
