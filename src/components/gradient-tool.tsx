@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { THEMES } from "@/lib/constants/theme";
-import { Copy, Check, Palette, Wand2 } from "lucide-react";
+import { Copy, Check, Palette } from "lucide-react";
 import { toast } from "sonner";
 import { useTemplateActions } from "@/store/hooks";
 import { useStore } from "@nanostores/react";
@@ -11,23 +10,14 @@ interface GradientToolProps {
   className?: string;
 }
 
-interface GradientData {
-  id: string;
-  name: string;
-  gradient: string;
-  colors: {
-    primary: string;
-    secondary: string;
-    accent?: string;
-  };
-  cssGradient: string;
-}
+// (types trimmed to reduce bundle; inline shapes used where necessary)
 
 export const GradientTool: React.FC<GradientToolProps> = ({
   className = "",
 }) => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const { updateColorScheme } = useTemplateActions();
+  // Keep only actions we actually use to avoid pulling in extra code
+  useTemplateActions();
   const activeTheme = useStore($activeTheme);
 
   // Generate gradients from the current active theme only
@@ -367,24 +357,8 @@ export const GradientTool: React.FC<GradientToolProps> = ({
     }
   };
 
-  const applyColors = (
-    colors: GradientData["colors"],
-    gradientName: string,
-  ) => {
-    // Find the theme this gradient came from and apply its colors
-    const sourceTheme = THEMES.find(
-      (theme) =>
-        theme.colors["--color-primary"] === colors.primary &&
-        theme.colors["--color-secondary"] === colors.secondary,
-    );
-
-    if (sourceTheme) {
-      updateColorScheme(sourceTheme.colors);
-      toast.success(`Applied ${gradientName} colors to current theme!`);
-    } else {
-      toast.error("Could not apply gradient colors");
-    }
-  };
+  // Note: previously there was an applyColors helper referencing all THEMES.
+  // It isn't used and pulled a large constants file; removed for performance.
 
   return (
     <div className={`h-full flex flex-col ${className}`}>
@@ -411,11 +385,11 @@ export const GradientTool: React.FC<GradientToolProps> = ({
               {gradients.map((gradient) => (
                 <div
                   key={gradient.id}
-                  className="group relative overflow-hidden transition-all duration-200 hover:scale-[1.01] rounded-xl bg-base-100 border border-base-300 shadow-sm hover:shadow-md"
+                  className="group relative overflow-hidden transition-all duration-200 hover:scale-[1.01] rounded-3xl bg-base-100 border border-base-300 shadow-sm hover:shadow-md"
                 >
                   {/* Gradient Preview */}
                   <div
-                    className="h-16 w-full relative rounded-t-xl"
+                    className="h-44 w-full relative rounded-t-2xl"
                     style={{ background: gradient.gradient }}
                   >
                     {/* Gradient Overlay for better readability */}
@@ -470,16 +444,6 @@ export const GradientTool: React.FC<GradientToolProps> = ({
                           ) : (
                             <Copy className="w-3 h-3" />
                           )}
-                        </button>
-
-                        <button
-                          onClick={() =>
-                            applyColors(gradient.colors, gradient.name)
-                          }
-                          className="w-7 h-7 rounded-md bg-base-200 hover:bg-accent hover:text-accent-content flex items-center justify-center transition-colors text-xs"
-                          title="Apply to current theme"
-                        >
-                          <Wand2 className="w-3 h-3" />
                         </button>
                       </div>
                     </div>

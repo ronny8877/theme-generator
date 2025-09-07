@@ -57,11 +57,11 @@ export default function ShareDialog({ open, onOpenChange }: Props) {
     if (typeof window === "undefined") return "";
     // Reference signature to satisfy exhaustive-deps and rerun on edits
     void themeSig;
-    const state = captureCurrentState(templateId, app.activeTool);
+    const state = captureCurrentState(templateId, app.activePrimaryTool);
     return buildPreviewUrl(window.location.origin, state);
     // Depend on dialog open state and theme signature so a fresh link is created
     // whenever the user has edited the theme or fonts.
-  }, [templateId, app.activeTool, themeSig]);
+  }, [templateId, app.activePrimaryTool, themeSig]);
 
   const copy = async () => {
     try {

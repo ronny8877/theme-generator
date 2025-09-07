@@ -1,22 +1,22 @@
 "use client";
 import React from "react";
 import { useStore } from "@nanostores/react";
-import { $activeToolSel } from "@/store/nano-store";
+import { $activeAuxToolSel } from "@/store/nano-store";
 import { useAppActions } from "@/store/hooks";
 import GradientTool from "./gradient-tool";
 import { X } from "lucide-react";
 
 export default function GradientToolFloating() {
-  const activeTool = useStore($activeToolSel);
+  const aux = useStore($activeAuxToolSel);
   const { switchTool } = useAppActions();
-  const isOpen = activeTool === "gradient";
+  const isOpen = aux === "gradient";
 
   if (!isOpen) {
     return null;
   }
 
   const handleClose = () => {
-    switchTool("website");
+    switchTool("gradient"); // toggles off
   };
 
   return (

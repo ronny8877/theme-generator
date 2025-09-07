@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams, useParams, useRouter } from "next/navigation";
 import { decodeParamToState, colorsFromCsv } from "@/lib/share-url";
 import {
@@ -18,20 +18,91 @@ import {
   loadGoogleFont,
 } from "@/store/font-store";
 import { useActiveTemplateId } from "@/store/hooks";
-import { BlogPost, BlogLanding } from "@/templates/blog";
-import {
-  TwitterLike,
-  CookingRecipe,
-  EcommerceSite,
-  PersonalPortfolio,
-  SaaSLanding,
-  CookbookLanding,
-  Landing,
-} from "@/templates/website";
-import { AIChatUI } from "@/templates/app";
-import { ConcertPoster } from "@/templates/poster";
-import AnimeRealm from "@/templates/website/anime-realm";
+import dynamic from "next/dynamic";
 import { editEditorSettings } from "@/store/nano-store";
+
+// Lightweight loader for template chunks
+function LoadingTemplate() {
+  return (
+    <div className="w-full h-[60vh] grid place-items-center">
+      <div className="flex flex-col items-center gap-4">
+        {/* Animated spinner */}
+        <div className="relative">
+          <div className="w-12 h-12 border-4 border-base-300 rounded-full animate-spin"></div>
+          <div className="absolute inset-0 w-12 h-12 border-4 border-transparent border-t-primary rounded-full animate-spin"></div>
+        </div>
+        {/* Loading text with subtle animation */}
+        <div className="flex items-center gap-1 text-base-content/70">
+          <span>Loading template</span>
+          <div className="flex gap-1">
+            <div
+              className="w-1 h-1 bg-current rounded-full animate-pulse"
+              style={{ animationDelay: "0ms" }}
+            ></div>
+            <div
+              className="w-1 h-1 bg-current rounded-full animate-pulse"
+              style={{ animationDelay: "150ms" }}
+            ></div>
+            <div
+              className="w-1 h-1 bg-current rounded-full animate-pulse"
+              style={{ animationDelay: "300ms" }}
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Code-split each template to optimize preview page load
+const BlogPost = dynamic(() => import("@/templates/blog/blog-post"), {
+  ssr: false,
+  loading: LoadingTemplate,
+});
+const BlogLanding = dynamic(() => import("@/templates/blog/blog-landing"), {
+  ssr: false,
+  loading: LoadingTemplate,
+});
+const TwitterLike = dynamic(() => import("@/templates/website/twitter-like"), {
+  ssr: false,
+  loading: LoadingTemplate,
+});
+const CookingRecipe = dynamic(
+  () => import("@/templates/website/cooking-recipe"),
+  { ssr: false, loading: LoadingTemplate },
+);
+const EcommerceSite = dynamic(() => import("@/templates/website/ecommerce"), {
+  ssr: false,
+  loading: LoadingTemplate,
+});
+const PersonalPortfolio = dynamic(
+  () => import("@/templates/website/personal-portfolio"),
+  { ssr: false, loading: LoadingTemplate },
+);
+const SaaSLanding = dynamic(() => import("@/templates/website/saas-landing"), {
+  ssr: false,
+  loading: LoadingTemplate,
+});
+const CookbookLanding = dynamic(
+  () => import("@/templates/website/cookbook-landing"),
+  { ssr: false, loading: LoadingTemplate },
+);
+const Landing = dynamic(() => import("@/templates/website/landing"), {
+  ssr: false,
+  loading: LoadingTemplate,
+});
+const AIChatUI = dynamic(() => import("@/templates/app/ai-chat-ui"), {
+  ssr: false,
+  loading: LoadingTemplate,
+});
+const ConcertPoster = dynamic(
+  () => import("@/templates/poster/concert-poster"),
+  { ssr: false, loading: LoadingTemplate },
+);
+const AnimeRealm = dynamic(() => import("@/templates/website/anime-realm"), {
+  ssr: false,
+  loading: LoadingTemplate,
+});
 
 function FloatingActions({ encoded }: { encoded: string }) {
   const router = useRouter();
@@ -83,20 +154,49 @@ export default function ClientPreview() {
   const { setActiveTemplateById, updateColorScheme } = useTemplateActions();
   const { setActiveTool } = useAppActions();
   const activeTemplateId = useActiveTemplateId();
+  const router = useRouter();
+
+  // Decode theme param synchronously to compute the target template id immediately
+  const decodedState = useMemo(
+    () => (encoded ? decodeParamToState(encoded) : null),
+    [encoded],
+  );
+  const targetTemplateId = useMemo(() => {
+    // Prefer encoded state, then URL param, then store, finally fallback
+    return (
+      decodedState?.templateId ||
+      params?.template ||
+      activeTemplateId ||
+      "landing"
+    );
+  }, [decodedState?.templateId, params?.template, activeTemplateId]);
+
+  // For UX: show small loading state while we apply URL state/actions on first paint
+  const [applying, setApplying] = useState(true);
+  // Failsafe: show not-found if template id is unknown after a grace period
+  const isKnownTemplate = (id: string) => id in componentMap;
+  const [notFound, setNotFound] = useState(false);
 
   // apply from URL once
   // Intentionally run when URL changes only; actions are stable across renders
   useEffect(() => {
     // Ensure editor is hidden for dedicated preview
     editEditorSettings({ is_open: false });
-    if (params?.template && activeTemplateId !== params.template) {
-      setActiveTemplateById(params.template);
+    // Always reflect the target template in global store so other UI stays consistent
+    if (targetTemplateId && activeTemplateId !== targetTemplateId) {
+      setActiveTemplateById(targetTemplateId);
     }
-    if (!encoded) return;
+    if (!encoded) {
+      setApplying(false);
+      return;
+    }
     const state = decodeParamToState(encoded);
-    if (!state) return;
+    if (!state) {
+      setApplying(false);
+      return;
+    }
     if (state.tool) setActiveTool(state.tool);
-    if (state.templateId && state.templateId !== params.template) {
+    if (state.templateId && state.templateId !== activeTemplateId) {
       setActiveTemplateById(state.templateId);
     }
     // colors
@@ -117,15 +217,25 @@ export default function ClientPreview() {
         weight: state.fonts.bodyWeight || "400",
       });
     }
+    setApplying(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [encoded, params?.template]);
+  }, [encoded, targetTemplateId]);
+
+  // Failsafe timer for unknown templates
+  useEffect(() => {
+    if (!targetTemplateId) return;
+    if (isKnownTemplate(targetTemplateId)) {
+      setNotFound(false);
+      return;
+    }
+    const t = setTimeout(() => setNotFound(true), 1200);
+    return () => clearTimeout(t);
+  }, [targetTemplateId]);
 
   const stableCssVars = useMemo(() => ({ ...cssVariables }), [cssVariables]);
-
-  const TID = (activeTemplateId ||
-    params?.template ||
-    "landing") as keyof typeof componentMap;
-  const Cmp = componentMap[TID] || BlogLanding;
+  type TemplateId = keyof typeof componentMap;
+  const templateId = (targetTemplateId || "landing") as TemplateId;
+  const Cmp = componentMap[templateId];
 
   return (
     <div className="min-h-screen bg-base-100 text-base-content">
@@ -138,7 +248,63 @@ export default function ClientPreview() {
           variables={stableCssVars as never}
         />
         <FontInjector />
-        <Cmp />
+        {notFound ? (
+          <div className="w-full h-[70vh] grid place-items-center p-6 text-center">
+            <div className="max-w-md">
+              <h2 className="text-2xl font-semibold mb-2">
+                Template not found
+              </h2>
+              <p className="text-base-content/70 mb-6">
+                The shared link references a template that doesn’t exist. Try
+                again or load the default template.
+              </p>
+              <div className="flex items-center justify-center gap-3">
+                <button
+                  className="btn btn-outline"
+                  onClick={() => router.refresh()}
+                >
+                  Try again
+                </button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => router.push("/preview/landing")}
+                >
+                  Load default
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : !Cmp || applying ? (
+          <div className="w-full h-[70vh] grid place-items-center">
+            <div className="flex flex-col items-center gap-4">
+              {/* Animated spinner */}
+              <div className="relative">
+                <div className="w-12 h-12 border-4 border-base-300 rounded-full animate-spin"></div>
+                <div className="absolute inset-0 w-12 h-12 border-4 border-transparent border-t-primary rounded-full animate-spin"></div>
+              </div>
+              {/* Loading text with subtle animation */}
+              <div className="flex items-center gap-1 text-base-content/70">
+                <span>Loading template</span>
+                <div className="flex gap-1">
+                  <div
+                    className="w-1 h-1 bg-current rounded-full animate-pulse"
+                    style={{ animationDelay: "0ms" }}
+                  ></div>
+                  <div
+                    className="w-1 h-1 bg-current rounded-full animate-pulse"
+                    style={{ animationDelay: "150ms" }}
+                  ></div>
+                  <div
+                    className="w-1 h-1 bg-current rounded-full animate-pulse"
+                    style={{ animationDelay: "300ms" }}
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <Cmp />
+        )}
       </div>
       <FloatingActions encoded={encoded} />
       <ExportDialogContainer />

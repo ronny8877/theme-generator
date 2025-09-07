@@ -243,7 +243,7 @@ function ThemeListBase() {
               backgroundColor: theme.colors?.["--color-base-200"],
             }}
             className={cn(
-              "hover:bg-base-200 border outline outline-white border-base-300 rounded-4xl p-3 cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-[1.02] group",
+              "hover:bg-base-200 w-72 mx-auto border outline outline-white border-base-300 rounded-4xl p-3 cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-[1.02] group",
               activeThemeName === theme.name
                 ? "bg-base-200 shadow-lg"
                 : "bg-base-100",

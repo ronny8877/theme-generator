@@ -1,22 +1,22 @@
 "use client";
 import React from "react";
 import { useStore } from "@nanostores/react";
-import { $activeToolSel } from "@/store/nano-store";
+import { $activeAuxToolSel } from "@/store/nano-store";
 import { useAppActions } from "@/store/hooks";
 import TypographyTool from "./typography-tool";
 import { X } from "lucide-react";
 
 export default function TypographyToolFloating() {
-  const activeTool = useStore($activeToolSel);
+  const aux = useStore($activeAuxToolSel);
   const { switchTool } = useAppActions();
-  const isOpen = activeTool === "typography";
+  const isOpen = aux === "typography";
 
   if (!isOpen) {
     return null;
   }
 
   const handleClose = () => {
-    switchTool("website");
+    switchTool("typography"); // toggles off
   };
 
   return (

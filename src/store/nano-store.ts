@@ -17,6 +17,8 @@ import {
 // Types
 export type PreviewDevice = (typeof AVILABLE_PREVIEW_DEVICES)[number];
 export type ToolVariant = (typeof TOOL_VARIANTS)[number];
+export type PrimaryTool = "website" | "app" | "poster";
+export type AuxTool = "typography" | "gradient" | null;
 export type NotificationType = "success" | "error" | "warning" | "info";
 export type Panel = "templates" | "editor" | "preview" | "settings";
 
@@ -79,7 +81,8 @@ export interface AppState {
     options: string[];
   };
   activePreviewDevice: PreviewDevice | null;
-  activeTool: ToolVariant;
+  activePrimaryTool: PrimaryTool;
+  activeAuxTool: AuxTool;
   activeEditorTab: "themes" | "fonts" | "advanced";
   editor: {
     is_open: boolean;
@@ -151,7 +154,8 @@ const initialAppState: AppState = {
     ],
   },
   activePreviewDevice: "desktop",
-  activeTool: "website",
+  activePrimaryTool: "website",
+  activeAuxTool: null,
   activeEditorTab: "themes",
   ui: {
     sidebarCollapsed: false,
@@ -302,7 +306,13 @@ export const $activePreviewDeviceSel = computed(
   $app,
   (app) => app.activePreviewDevice,
 );
-export const $activeToolSel = computed($app, (app) => app.activeTool);
+export const $activePrimaryToolSel = computed(
+  $app,
+  (app) => app.activePrimaryTool,
+);
+export const $activeAuxToolSel = computed($app, (app) => app.activeAuxTool);
+// Back-compat: some components still read $activeToolSel; map to primary
+export const $activeToolSel = $activePrimaryToolSel;
 export const $editorUiType = computed($app, (app) => app.editor.ui_type);
 export const $isEditorOpen = computed($app, (app) => app.editor.is_open);
 export const $activeTemplateId = computed($activeTemplateIdAtom, (id) => id);
@@ -324,11 +334,22 @@ export function setTheme(theme: string) {
 
 export function setActiveTool(tool: ToolVariant) {
   const currentApp = $app.get();
-  if (currentApp.activeTool === tool) return;
-  $app.set({
-    ...currentApp,
-    activeTool: tool,
-  });
+  if (tool === "gradient" || tool === "typography") {
+    // Set aux tool directly
+    const nextAux: AuxTool = tool;
+    if (currentApp.activeAuxTool === nextAux) return;
+    $app.set({ ...currentApp, activeAuxTool: nextAux });
+    return;
+  }
+  // Set primary tool
+  if (currentApp.activePrimaryTool === tool) return;
+  $app.set({ ...currentApp, activePrimaryTool: tool as PrimaryTool });
+}
+
+export function clearAuxTool() {
+  const currentApp = $app.get();
+  if (currentApp.activeAuxTool === null) return;
+  $app.set({ ...currentApp, activeAuxTool: null });
 }
 
 export function setActiveEditorTab(tab: "themes" | "fonts" | "advanced") {
@@ -549,16 +570,18 @@ export function switchTool(
   tool: "website" | "app" | "poster" | "typography" | "gradient",
 ) {
   const currentApp = $app.get();
-
-  // If clicking the same tool (gradient or typography), toggle it off by setting to website
-  if (
-    currentApp.activeTool === tool &&
-    (tool === "gradient" || tool === "typography")
-  ) {
-    setActiveTool("website");
-  } else {
-    setActiveTool(tool);
+  if (tool === "gradient" || tool === "typography") {
+    // Toggle aux: only one of typography/gradient can be active at once
+    const isSame = currentApp.activeAuxTool === tool;
+    $app.set({
+      ...currentApp,
+      activeAuxTool: isSame ? null : (tool as AuxTool),
+    });
+    return;
   }
+  // Primary switch does not affect aux
+  if (currentApp.activePrimaryTool === tool) return;
+  $app.set({ ...currentApp, activePrimaryTool: tool as PrimaryTool });
 }
 
 export function setActiveTemplateById(templateId: string) {
