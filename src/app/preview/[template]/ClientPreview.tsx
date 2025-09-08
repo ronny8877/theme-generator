@@ -20,6 +20,7 @@ import {
 import { useActiveTemplateId } from "@/store/hooks";
 import dynamic from "next/dynamic";
 import { editEditorSettings } from "@/store/nano-store";
+import { dynamicComponentMap } from "@/components/template-preview";
 
 // Lightweight loader for template chunks
 function LoadingTemplate() {
@@ -54,52 +55,6 @@ function LoadingTemplate() {
   );
 }
 
-// Code-split each template to optimize preview page load
-const BlogPost = dynamic(() => import("@/templates/blog/blog-post"), {
-  ssr: false,
-  loading: LoadingTemplate,
-});
-const BlogLanding = dynamic(() => import("@/templates/blog/blog-landing"), {
-  ssr: false,
-  loading: LoadingTemplate,
-});
-const TwitterLike = dynamic(() => import("@/templates/website/twitter-like"), {
-  ssr: false,
-  loading: LoadingTemplate,
-});
-const CookingRecipe = dynamic(
-  () => import("@/templates/website/cooking-recipe"),
-  { ssr: false, loading: LoadingTemplate },
-);
-const EcommerceSite = dynamic(() => import("@/templates/website/ecommerce"), {
-  ssr: false,
-  loading: LoadingTemplate,
-});
-const PersonalPortfolio = dynamic(
-  () => import("@/templates/website/personal-portfolio"),
-  { ssr: false, loading: LoadingTemplate },
-);
-const SaaSLanding = dynamic(() => import("@/templates/website/saas-landing"), {
-  ssr: false,
-  loading: LoadingTemplate,
-});
-const CookbookLanding = dynamic(
-  () => import("@/templates/website/cookbook-landing"),
-  { ssr: false, loading: LoadingTemplate },
-);
-const Landing = dynamic(() => import("@/templates/website/landing"), {
-  ssr: false,
-  loading: LoadingTemplate,
-});
-const AIChatUI = dynamic(() => import("@/templates/app/ai-chat-ui"), {
-  ssr: false,
-  loading: LoadingTemplate,
-});
-const AnimeRealm = dynamic(() => import("@/templates/website/anime-realm"), {
-  ssr: false,
-  loading: LoadingTemplate,
-});
-
 function FloatingActions({ encoded }: { encoded: string }) {
   const router = useRouter();
   return (
@@ -127,19 +82,7 @@ function FloatingActions({ encoded }: { encoded: string }) {
   );
 }
 
-const componentMap = {
-  "simple-blog-post": BlogPost,
-  "simple-blog-landing": BlogLanding,
-  "twitter-like-social": TwitterLike,
-  "cooking-recipe-site": CookingRecipe,
-  "ecommerce-store": EcommerceSite,
-  "personal-portfolio": PersonalPortfolio,
-  "saas-landing": SaaSLanding,
-  "cookbook-landing": CookbookLanding,
-  "ai-chat-ui": AIChatUI,
-  "anime-realm": AnimeRealm,
-  landing: Landing,
-} as const;
+
 
 export default function ClientPreview() {
   const params = useParams<{ template: string }>();
@@ -169,7 +112,7 @@ export default function ClientPreview() {
   // For UX: show small loading state while we apply URL state/actions on first paint
   const [applying, setApplying] = useState(true);
   // Failsafe: show not-found if template id is unknown after a grace period
-  const isKnownTemplate = (id: string) => id in componentMap;
+  const isKnownTemplate = (id: string) => id in dynamicComponentMap;
   const [notFound, setNotFound] = useState(false);
 
   // apply from URL once
@@ -228,9 +171,9 @@ export default function ClientPreview() {
   }, [targetTemplateId]);
 
   const stableCssVars = useMemo(() => ({ ...cssVariables }), [cssVariables]);
-  type TemplateId = keyof typeof componentMap;
+  type TemplateId = keyof typeof dynamicComponentMap;
   const templateId = (targetTemplateId || "landing") as TemplateId;
-  const Cmp = componentMap[templateId];
+  const Cmp = dynamicComponentMap[templateId];
 
   return (
     <div className="min-h-screen bg-base-100 text-base-content">

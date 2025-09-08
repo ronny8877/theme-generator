@@ -46,7 +46,7 @@ function LoadingSkeleton() {
   );
 }
 
-const dynamicComponentMap = {
+export const dynamicComponentMap = {
   "simple-blog-post": dynamic(() => import("@/templates/blog/blog-post"), {
     ssr: false,
     loading: LoadingSkeleton,
