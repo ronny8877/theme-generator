@@ -51,6 +51,10 @@ const dynamicComponentMap = {
     ssr: false,
     loading: LoadingSkeleton,
   }),
+  "techcore-blog": dynamic(() => import("@/templates/blog/techcore-blog"), {
+    ssr: false,
+    loading: LoadingSkeleton,
+  }),
   "simple-blog-landing": dynamic(
     () => import("@/templates/blog/blog-landing"),
     { ssr: false, loading: LoadingSkeleton },

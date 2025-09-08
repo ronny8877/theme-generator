@@ -259,6 +259,17 @@ export const TEMPLATES_ARRAY = [
     },
   },
   {
+    id: "techcore-blog",
+    title: "TechCore Blog",
+    description:
+      "A modern tech blog landing with hero, recent posts, suggested posts and comments",
+    theme_id: "corporate",
+    fonts: {
+      heading: { family: "Poppins", weight: "600" },
+      body: { family: "Inter", weight: "400" },
+    },
+  },
+  {
     id: "simple-blog-landing",
     title: "Blog Landing Page",
     description:
@@ -361,6 +372,17 @@ export const TEMPLATES: SelectSection[] = [
           "A detailed blog post layout with header, content, interactions, and suggested articles",
         fonts: {
           heading: { family: "Playfair Display", weight: "600" },
+          body: { family: "Inter", weight: "400" },
+        },
+      },
+      {
+        theme_id: "corporate",
+        id: "techcore-blog",
+        title: "TechCore Blog",
+        description:
+          "A modern tech blog landing with hero, recent posts, suggested posts and comments",
+        fonts: {
+          heading: { family: "Poppins", weight: "600" },
           body: { family: "Inter", weight: "400" },
         },
       },
