@@ -18,42 +18,9 @@ import {
   loadGoogleFont,
 } from "@/store/font-store";
 import { useActiveTemplateId } from "@/store/hooks";
-import dynamic from "next/dynamic";
 import { editEditorSettings } from "@/store/nano-store";
 import { dynamicComponentMap } from "@/components/template-preview";
 
-// Lightweight loader for template chunks
-function LoadingTemplate() {
-  return (
-    <div className="w-full h-[60vh] grid place-items-center">
-      <div className="flex flex-col items-center gap-4">
-        {/* Animated spinner */}
-        <div className="relative">
-          <div className="w-12 h-12 border-4 border-base-300 rounded-full animate-spin"></div>
-          <div className="absolute inset-0 w-12 h-12 border-4 border-transparent border-t-primary rounded-full animate-spin"></div>
-        </div>
-        {/* Loading text with subtle animation */}
-        <div className="flex items-center gap-1 text-base-content/70">
-          <span>Loading template</span>
-          <div className="flex gap-1">
-            <div
-              className="w-1 h-1 bg-current rounded-full animate-pulse"
-              style={{ animationDelay: "0ms" }}
-            ></div>
-            <div
-              className="w-1 h-1 bg-current rounded-full animate-pulse"
-              style={{ animationDelay: "150ms" }}
-            ></div>
-            <div
-              className="w-1 h-1 bg-current rounded-full animate-pulse"
-              style={{ animationDelay: "300ms" }}
-            ></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function FloatingActions({ encoded }: { encoded: string }) {
   const router = useRouter();
