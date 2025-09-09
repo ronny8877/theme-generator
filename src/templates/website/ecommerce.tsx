@@ -8,7 +8,7 @@ import {
 export default function EcommerceSite() {
   return (
     <div className="relative flex min-h-screen flex-col bg-base-100 group/design-root overflow-x-hidden @container">
-      <header className="navbar border-b border-base-300 px-10 max-w-7xl mx-auto py-4 bg-primary text-primary-content">
+      <header className="navbar border-b border-base-300 px-10 w-full mx-auto py-4 bg-primary text-primary-content">
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-3 text-gray-900">
             <span
