@@ -23,20 +23,18 @@ export default function TwitterLike() {
     {
       id: 1,
       user: {
-        name: "Sarah Chen",
-        username: "sarahchen",
-        avatar:
-          "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
+        name: "Livetheme",
+        username: "livetheme",
+        avatar: "/logo.png",
         verified: true,
       },
       content:
-        "Just shipped a new feature that I'm really excited about! Container queries are game-changers for responsive design 🚀",
+        "I hope you are enjoying the Editor. There are more and nicer changes coming soon!",
       timestamp: "2h",
       likes: 42,
       retweets: 12,
       replies: 8,
-      image:
-        "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=500&h=300&fit=crop",
+      image: "/preview.png",
     },
     {
       id: 2,
@@ -76,8 +74,6 @@ export default function TwitterLike() {
     { tag: "#WebDev", posts: "12.3K" },
     { tag: "#TypeScript", posts: "8.7K" },
     { tag: "#React", posts: "15.2K" },
-    { tag: "#CSS", posts: "6.9K" },
-    { tag: "#NextJS", posts: "4.5K" },
   ];
 
   const suggestedUsers = [
@@ -88,20 +84,13 @@ export default function TwitterLike() {
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
       bio: "Frontend Developer • React enthusiast",
     },
-    {
-      name: "Michael Kim",
-      username: "michaelkim",
-      avatar:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
-      bio: "Full-stack engineer at TechCorp",
-    },
   ];
 
   return (
-    <div className="min-h-screen bg-base-100 @container">
+    <div className=" bg-base-100 @container  md:h-[93vh] @4xl:h-[95vh] overflow-hidden">
       <div className="flex max-w-7xl mx-auto">
         {/* Sidebar - Hidden on mobile, shown on larger screens */}
-        <div className="hidden @lg:flex @lg:w-64 @xl:w-80 flex-col h-screen sticky top-0 p-6 border-r border-base-300 bg-base-50">
+        <div className="hidden @lg:flex w-64 @4xl:w-80 flex-col  md:h-[93vh] @4xl:h-[95vh] sticky top-0 p-6 border-r border-base-300 bg-base-50">
           <div className="mb-8">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
@@ -118,7 +107,7 @@ export default function TwitterLike() {
           <nav className="space-y-1 flex-1">
             <a
               href="#"
-              className="flex items-center gap-4 p-4 rounded-2xl bg-primary text-primary-content font-medium transition-all duration-200 hover:bg-primary-focus"
+              className="flex items-center gap-4 p-4 rounded-box bg-primary text-primary-content font-medium transition-all duration-200 hover:bg-primary-focus"
             >
               <Home className="w-6 h-6 @xl:w-7 @xl:h-7" />
               <span className="text-base @xl:text-lg">Home</span>
@@ -180,7 +169,7 @@ export default function TwitterLike() {
           </nav>
 
           <div className="mt-auto space-y-4">
-            <button className="btn btn-primary w-full @xl:btn-lg rounded-full font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-200">
+            <button className="btn btn-primary w-full @xl:btn-lg rounded-box font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-200">
               <span className="text-base @xl:text-lg">Post</span>
             </button>
 
@@ -199,7 +188,7 @@ export default function TwitterLike() {
                   </div>
                 </div>
                 <div className="flex-1 text-left">
-                  <p className="font-semibold text-base">John Doe</p>
+                  <p className="font-semibold text-base-content">John Doe</p>
                   <p className="text-sm text-base-content/60">@johndoe</p>
                 </div>
                 <MoreHorizontal className="w-5 h-5 text-base-content/60" />
@@ -217,9 +206,9 @@ export default function TwitterLike() {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 max-w-2xl border-r border-base-300 bg-base-100">
+        <div className="flex-1 w-96 @4xlmax-w-2xl border-r border-base-300 overflow-scroll theme-scroll md:h-[93vh] @4xl:h-[95vh] bg-base-100">
           {/* Header */}
-          <div className="sticky top-0 bg-base-100/95 backdrop-blur-md border-b border-base-300 p-6 z-10">
+          <div className=" bg-base-100/95 backdrop-blur-md border-b border-base-300 p-6 z-10">
             <div className="flex items-center justify-between">
               <h2 className="text-xl @md:text-2xl font-bold text-base-content">
                 Home
@@ -236,7 +225,7 @@ export default function TwitterLike() {
           <div className="border-b border-base-300 p-6 bg-base-50">
             <div className="flex gap-4">
               <div className="avatar">
-                <div className="w-12 h-12 @md:w-14 @md:h-14 rounded-full ring-2 ring-primary ring-offset-2">
+                <div className="w-12 h-12 @md:w-14 @lg:h-14 rounded-field border ring-2 ring-primary ring-offset-2">
                   <img
                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
                     alt="Your avatar"
@@ -264,7 +253,7 @@ export default function TwitterLike() {
                       <MapPin className="w-5 h-5" />
                     </button>
                   </div>
-                  <button className="btn btn-primary @md:btn-md rounded-full font-medium px-8 shadow-lg hover:shadow-xl transition-all duration-200">
+                  <button className="btn btn-primary @md:btn-md rounded-box font-medium px-8 shadow-lg hover:shadow-xl transition-all duration-200">
                     Post
                   </button>
                 </div>
@@ -281,7 +270,7 @@ export default function TwitterLike() {
               >
                 <div className="flex gap-4">
                   <div className="avatar">
-                    <div className="w-12 h-12 @md:w-14 @md:h-14 rounded-full ring-2 ring-transparent group-hover:ring-primary/20 transition-all duration-200">
+                    <div className="w-12 h-12 @md:w-14 @md:h-14 rounded-box ring-2 ring-transparent group-hover:ring-primary/20 transition-all duration-200">
                       <img src={post.user.avatar} alt={post.user.name} />
                     </div>
                   </div>
@@ -291,7 +280,7 @@ export default function TwitterLike() {
                         {post.user.name}
                       </h3>
                       {post.user.verified && (
-                        <div className="w-5 h-5 bg-primary rounded-full flex items-center justify-center">
+                        <div className="w-5 h-5 bg-primary rounded-box flex items-center justify-center">
                           <span className="text-primary-content text-xs font-bold">
                             ✓
                           </span>
@@ -305,7 +294,7 @@ export default function TwitterLike() {
                         {post.timestamp}
                       </span>
                       <div className="ml-auto">
-                        <div className="dropdown dropdown-end">
+                        <div className="dropdown dropdown-end bg-base-100 text-base-content">
                           <div
                             tabIndex={0}
                             role="button"
@@ -333,7 +322,7 @@ export default function TwitterLike() {
                     </p>
 
                     {post.image && (
-                      <div className="mb-4 rounded-2xl overflow-hidden border border-base-300 shadow-sm hover:shadow-md transition-shadow duration-200">
+                      <div className="mb-4 rounded-box overflow-hidden border border-base-300 shadow-sm hover:shadow-md transition-shadow duration-200">
                         <img
                           src={post.image}
                           alt="Post image"
@@ -373,7 +362,7 @@ export default function TwitterLike() {
         </div>
 
         {/* Right Sidebar - Hidden on mobile and tablet */}
-        <div className="hidden @xl:flex @xl:w-80 flex-col p-6 space-y-6 bg-base-50">
+        <div className="hidden @4xl:flex @xl:w-80 flex-col p-6 space-y-6 bg-base-50">
           {/* Search */}
           <div className="relative">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-base-content/50" />
@@ -386,21 +375,21 @@ export default function TwitterLike() {
 
           {/* Trending */}
           <div className="bg-base-100 rounded-2xl p-6 border border-base-300 shadow-sm">
-            <h3 className="text-xl font-bold mb-6 text-base-content">
+            <h3 className="@2xl:text-xl font-bold mb-6 text-base-content">
               Whats happening
             </h3>
-            <div className="space-y-4">
+            <div className="spa">
               {trendingTopics.map((topic, index) => (
                 <div
                   key={index}
-                  className="hover:bg-base-200 p-3 rounded-xl transition-all duration-200 cursor-pointer group"
+                  className="hover:bg-base-200 px-3 py-1 rounded-box transition-all duration-200 cursor-pointer group"
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-bold text-base text-primary group-hover:text-primary-focus">
+                      <p className="font-bold text-base text-primary p-0 m-0 group-hover:text-primary-focus">
                         {topic.tag}
                       </p>
-                      <p className="text-sm text-base-content/60 mt-1">
+                      <p className="text-sm text-base-content/60 p-0 m-0">
                         {topic.posts} posts
                       </p>
                     </div>
@@ -416,7 +405,7 @@ export default function TwitterLike() {
 
           {/* Who to follow */}
           <div className="bg-base-100 rounded-2xl p-6 border border-base-300 shadow-sm">
-            <h3 className="text-xl font-bold mb-6 text-base-content">
+            <h3 className="@md:text-xl font-bold mb-6 text-base-content">
               Who to follow
             </h3>
             <div className="space-y-4">
@@ -443,9 +432,9 @@ export default function TwitterLike() {
                       </p>
                     </div>
                   </div>
-                  <button className="btn btn-outline btn-sm rounded-full border-base-300 hover:bg-base-content hover:text-base-100 hover:border-base-content transition-all duration-200">
+                  {/* <button className="btn btn-outline btn-sm rounded-full border-base-300 hover:bg-base-content hover:text-base-100 hover:border-base-content transition-all duration-200">
                     Follow
-                  </button>
+                  </button> */}
                 </div>
               ))}
             </div>
@@ -482,7 +471,7 @@ export default function TwitterLike() {
       </div>
 
       {/* Mobile Bottom Navigation */}
-      <div className="@lg:hidden fixed bottom-0 left-0 right-0 bg-base-100/95 backdrop-blur-md border-t border-base-300 p-4 z-50">
+      <div className="@lg:hidden text-primary-content bg-primary fixed bottom-0 left-0 right-0 backdrop-blur-md border-t border-base-300 p-4 z-50">
         <div className="flex justify-around max-w-sm mx-auto">
           <button className="btn btn-ghost btn-circle bg-primary text-primary-content">
             <Home className="w-6 h-6" />
@@ -491,13 +480,13 @@ export default function TwitterLike() {
             <Search className="w-6 h-6" />
           </button>
           <button className="btn btn-ghost btn-circle hover:bg-base-200 indicator">
-            <span className="indicator-item badge badge-primary badge-xs">
+            <span className="indicator-item badge badge-accent badge-xs">
               3
             </span>
             <Bell className="w-6 h-6" />
           </button>
           <button className="btn btn-ghost btn-circle hover:bg-base-200 indicator">
-            <span className="indicator-item badge badge-primary badge-xs">
+            <span className="indicator-item badge badge-accent badge-xs">
               2
             </span>
             <Mail className="w-6 h-6" />

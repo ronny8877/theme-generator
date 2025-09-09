@@ -4,16 +4,16 @@ import Image from "next/image";
 export default function CookbookLanding() {
   return (
     <div className="min-h-screen bg-base-100 @container">
-      <header className="flex items-center justify-between whitespace-nowrap border-b border-base-200 px-6 py-4 bg-white shadow-sm">
+      <header className="flex items-center justify-between whitespace-nowrap border-b border-base-200 px-6 py-4 bg-accent text-accent-content shadow-sm">
         <div className="flex items-center gap-6">
           <a className="flex items-center gap-3 text-base-content" href="#">
-            <span className="text-primary text-3xl">🍳</span>
-            <h1 className="text-xl font-bold tracking-tight">
+            <span className=" text-3xl">🍳</span>
+            <h1 className="text-xl font-bold tracking-tight text-accent-content">
               Culinary Canvas
             </h1>
           </a>
 
-          <nav className="hidden @md:flex items-center gap-6 text-sm text-base-content/70">
+          <nav className="hidden @md:flex items-center gap-6 text-sm ">
             <a className="hover:text-primary transition-colors">Home</a>
             <a className="hover:text-primary transition-colors">Recipes</a>
             <a className="hover:text-primary transition-colors">Ingredients</a>
@@ -37,7 +37,7 @@ export default function CookbookLanding() {
         </div>
       </header>
 
-      <main className="flex flex-1 justify-center py-10 px-4 sm:px-6 lg:px-8">
+      <main className="flex flex-1 justify-center py-10 px-4 sm:px-6 lg:px-8 text-base-content">
         <div className="w-full max-w-6xl flex flex-col gap-8">
           <div className="text-center">
             <h2 className="text-4xl font-bold tracking-tight @sm:text-5xl">

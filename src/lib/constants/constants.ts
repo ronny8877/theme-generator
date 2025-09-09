@@ -237,6 +237,17 @@ export const TOOL_VARIANTS = [
 
 export const TEMPLATES_ARRAY = [
   {
+    id: "anime-realm",
+    title: "Anime Realm",
+    description:
+      "A modern, glitch-inspired fan site celebrating Darling in the Franxx with character profiles, story highlights, wallpapers, merch links, and more.",
+    theme_id: "cyberpunk",
+    fonts: {
+      heading: { family: "Orbitron", weight: "600" },
+      body: { family: "Outfit", weight: "400" },
+    },
+  },
+  {
     id: "landing",
     title: "Widgets",
     description:
@@ -352,10 +363,10 @@ export const TEMPLATES_ARRAY = [
     title: "AI Chat Interface",
     description:
       "A sleek AI chat interface with conversation history, message formatting, and user interactions",
-    theme_id: "synthwave",
+    theme_id: "lofi",
     fonts: {
-      heading: { family: "Orbitron", weight: "600" },
-      body: { family: "Inter", weight: "400" },
+      heading: { family: "Nunito", weight: "400" },
+      body: { family: "Roboto", weight: "400" },
     },
   },
 ];

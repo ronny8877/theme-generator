@@ -82,8 +82,6 @@ function FloatingActions({ encoded }: { encoded: string }) {
   );
 }
 
-
-
 export default function ClientPreview() {
   const params = useParams<{ template: string }>();
   const search = useSearchParams();

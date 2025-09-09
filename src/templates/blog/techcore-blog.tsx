@@ -1,4 +1,16 @@
-import { Home, FileText, Star, BookOpen, Lightbulb, Menu, Search, User, ChevronLeft, ChevronRight, MessageSquare } from 'lucide-react'
+import {
+  Home,
+  FileText,
+  Star,
+  BookOpen,
+  Lightbulb,
+  Menu,
+  Search,
+  User,
+  ChevronLeft,
+  ChevronRight,
+  MessageSquare,
+} from "lucide-react";
 
 export default function TechCoreBlog() {
   return (
@@ -29,23 +41,38 @@ export default function TechCoreBlog() {
 
           {/* Desktop nav - visible on md+ using container queries */}
           <nav className="hidden items-center gap-6 @md:flex">
-            <a className="flex items-center gap-2 text-sm font-medium leading-normal text-base-content" href="#">
+            <a
+              className="flex items-center gap-2 text-sm font-medium leading-normal text-base-content"
+              href="#"
+            >
               <Home className="h-5 w-5 text-primary " />
               <span className="sr-only @md:not-sr-only">Home</span>
             </a>
-            <a className="flex items-center gap-2 text-sm font-medium leading-normal text-base-content" href="#">
+            <a
+              className="flex items-center gap-2 text-sm font-medium leading-normal text-base-content"
+              href="#"
+            >
               <FileText className="h-5 w-5 text-primary " />
               <span className="sr-only @md:not-sr-only">News</span>
             </a>
-            <a className="flex items-center gap-2 text-sm font-medium leading-normal text-base-content" href="#">
+            <a
+              className="flex items-center gap-2 text-sm font-medium leading-normal text-base-content"
+              href="#"
+            >
               <Star className="h-5 w-5 text-primary " />
               <span className="sr-only @md:not-sr-only">Reviews</span>
             </a>
-            <a className="flex items-center gap-2 text-sm font-medium leading-normal text-base-content" href="#">
+            <a
+              className="flex items-center gap-2 text-sm font-medium leading-normal text-base-content"
+              href="#"
+            >
               <BookOpen className="h-5 w-5 text-primary " />
               <span className="sr-only @md:not-sr-only">Guides</span>
             </a>
-            <a className="flex items-center gap-2 text-sm font-medium leading-normal text-base-content" href="#">
+            <a
+              className="flex items-center gap-2 text-sm font-medium leading-normal text-base-content"
+              href="#"
+            >
               <Lightbulb className="h-5 w-5 text-primary    " />
               <span className="sr-only @md:not-sr-only">Tips</span>
             </a>
@@ -61,40 +88,51 @@ export default function TechCoreBlog() {
                 className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
                 href="#"
               >
-                <Home className="h-5 w-5" />Home
+                <Home className="h-5 w-5" />
+                Home
               </a>
               <a
                 className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
                 href="#"
               >
-                <FileText className="h-5 w-5" />News
+                <FileText className="h-5 w-5" />
+                News
               </a>
               <a
                 className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
                 href="#"
               >
-                <Star className="h-5 w-5" />Reviews
+                <Star className="h-5 w-5" />
+                Reviews
               </a>
               <a
                 className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
                 href="#"
               >
-                <BookOpen className="h-5 w-5" />Guides
+                <BookOpen className="h-5 w-5" />
+                Guides
               </a>
               <a
                 className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
                 href="#"
               >
-                <Lightbulb className="h-5 w-5" />Tips
+                <Lightbulb className="h-5 w-5" />
+                Tips
               </a>
             </div>
           </details>
 
           <div className="flex items-center gap-3">
-            <button aria-label="Search" className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 hover:bg-neutral-200">
+            <button
+              aria-label="Search"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+            >
               <Search className="h-5 w-5" />
             </button>
-            <button aria-label="Account" className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 hover:bg-neutral-200">
+            <button
+              aria-label="Account"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+            >
               <User className="h-5 w-5" />
             </button>
             <div
@@ -121,7 +159,7 @@ export default function TechCoreBlog() {
           </div>
           <div className="relative z-10 flex flex-col items-center gap-6">
             <div className="flex flex-col gap-4 text-primary">
-              <h1 className="text-3xl font-bold leading-tight tracking-tight @sm:text-4xl @md:text-5xl @lg:text-6xl">
+              <h1 className="text-3xl text-primary-content font-bold leading-tight tracking-tight @sm:text-4xl @md:text-5xl @lg:text-6xl">
                 The Future of Tech is Here
               </h1>
               <h2 className="mx-auto max-w-2xl text-sm @sm:text-base font-normal leading-normal text-primary-content">
@@ -217,9 +255,7 @@ export default function TechCoreBlog() {
                       <div className="flex flex-col">
                         <div className="flex items-center gap-2">
                           <p className="text-sm font-semibold">User {c}</p>
-                          <p className="text-xs0">
-                            {c} days ago
-                          </p>
+                          <p className="text-xs0">{c} days ago</p>
                         </div>
                         <p className="text-sm text-base-content">
                           A short comment about the article or topic.
@@ -233,7 +269,10 @@ export default function TechCoreBlog() {
           </aside>
         </div>
         <div className="mt-8 flex items-center justify-center p-4">
-          <a className="flex h-10 w-10 items-center justify-center rounded-full text-neutral-500 hover:bg-neutral-100" href="#">
+          <a
+            className="flex h-10 w-10 items-center justify-center rounded-full text-neutral-500 hover:bg-neutral-100"
+            href="#"
+          >
             <ChevronLeft className="h-5 w-5" />
           </a>
           <a
@@ -254,7 +293,10 @@ export default function TechCoreBlog() {
           >
             3
           </a>
-          <a className="ml-2 flex h-10 w-10 items-center justify-center rounded-full text-neutral-500 hover:bg-neutral-100" href="#">
+          <a
+            className="ml-2 flex h-10 w-10 items-center justify-center rounded-full text-neutral-500 hover:bg-neutral-100"
+            href="#"
+          >
             <ChevronRight className="h-5 w-5" />
           </a>
         </div>

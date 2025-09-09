@@ -142,7 +142,7 @@ function TemplatePreviewBase({
   const getViewportClasses = () => {
     switch (previewDevice) {
       case "mobile":
-        return "max-w-[430px] h-[760px] 2xl:h-[932px]";
+        return "max-w-[430px] w-[430px] h-full 2xl:max-h-[932px]";
       case "tablet":
         return "max-w-[768px] h-full h-[760px] 2xl:h-[932px]";
       default:

@@ -7,8 +7,8 @@ import {
 
 export default function EcommerceSite() {
   return (
-    <div className="relative @container flex min-h-screen flex-col bg-base-100 group/design-root overflow-x-hidden @container">
-      <header className="navbar border-b border-base-300 px-10 max-w-7xl mx-auto py-4">
+    <div className="relative flex min-h-screen flex-col bg-base-100 group/design-root overflow-x-hidden @container">
+      <header className="navbar border-b border-base-300 px-10 max-w-7xl mx-auto py-4 bg-primary text-primary-content">
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-3 text-gray-900">
             <span
@@ -54,7 +54,7 @@ export default function EcommerceSite() {
         </div>
       </header>
 
-      <div className="flex flex-1 flex-col bg-gray-50">
+      <div className="flex flex-1 flex-col text-base-content">
         <section className="relative w-full h-96">
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -74,7 +74,7 @@ export default function EcommerceSite() {
               Shop the latest trends in fashion, electronics, and toys. Quality
               products at unbeatable prices.
             </p>
-            <button className="btn btn-primary btn-lg font-bold">
+            <button className="btn btn-primary rounded-box btn-lg font-bold">
               Shop Now
             </button>
           </div>
@@ -122,7 +122,7 @@ export default function EcommerceSite() {
               ].map((it, idx) => (
                 <div
                   key={idx}
-                  className="card card-compact bg-base-100 shadow group"
+                  className="card card-compact bg-base-300 shadow group"
                 >
                   <figure className="relative">
                     <img
@@ -140,7 +140,7 @@ export default function EcommerceSite() {
                     <h3 className="text-base-content font-semibold leading-normal text-sm @md:text-base">
                       {it.title}
                     </h3>
-                    <p className="text-neutral text-sm mt-1">{it.price}</p>
+                    <p className=" text-sm mt-1">{it.price}</p>
                     <div className="card-actions mt-2">
                       <button className="btn btn-primary btn-block font-bold rounded-field">
                         Add to Cart
@@ -159,7 +159,7 @@ export default function EcommerceSite() {
               {[0, 1, 2, 3].map((n) => (
                 <div
                   key={n}
-                  className="card card-compact bg-base-100 shadow group"
+                  className="card card-compact bg-base-200 shadow group"
                 >
                   <figure className="relative">
                     <img
@@ -177,7 +177,7 @@ export default function EcommerceSite() {
                     <h3 className="text-base-content text-base font-semibold leading-normal">
                       Item {n + 1}
                     </h3>
-                    <p className="text-neutral text-sm mt-1">$49.00</p>
+                    <p className=" text-sm mt-1">$49.00</p>
                     <div className="card-actions mt-2">
                       <button className="btn btn-primary btn-block font-bold  rounded-field">
                         Add to Cart
@@ -197,7 +197,7 @@ export default function EcommerceSite() {
               {[0, 1, 2, 3].map((n) => (
                 <div
                   key={n}
-                  className="card card-compact bg-base-100 shadow group"
+                  className="card card-compact bg-base-300 shadow group"
                 >
                   <figure className="relative">
                     <img
@@ -213,7 +213,7 @@ export default function EcommerceSite() {
                     <h3 className="text-base-content text-base font-semibold leading-normal">
                       Device {n + 1}
                     </h3>
-                    <p className="text-neutral text-sm mt-1">$199.00</p>
+                    <p className=" text-sm mt-1">$199.00</p>
                     <div className="card-actions mt-2">
                       <button className="btn btn-primary btn-block font-bold  rounded-field">
                         Add to Cart

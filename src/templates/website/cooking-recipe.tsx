@@ -195,7 +195,7 @@ export default function CookingRecipe() {
               </section>
             </div>
 
-            <div className="mt-12 pt-8 border-t border-base-200">
+            <div className="mt-12 pt-8 border-t border-base-200 text-black">
               <h2 className="text-2xl font-bold mb-6">User Reviews</h2>
               <div className="space-y-8">
                 {reviews.map((r, idx) => (
@@ -207,7 +207,7 @@ export default function CookingRecipe() {
                       />
                       <div>
                         <p className="font-semibold">{r.name}</p>
-                        <p className="text-sm text-base-content/60">{r.ago}</p>
+                        <p className="text-sm ">{r.ago}</p>
                       </div>
                     </div>
 
@@ -224,9 +224,9 @@ export default function CookingRecipe() {
                       ))}
                     </div>
 
-                    <p className="text-base-content/70">{r.text}</p>
+                    <p className="text-gray-600">{r.text}</p>
 
-                    <div className="flex gap-4 text-base-content/60">
+                    <div className="flex gap-4">
                       <button className="flex items-center gap-2 hover:text-red-600 transition-colors">
                         <svg
                           className="w-5 h-5"
