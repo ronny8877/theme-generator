@@ -351,10 +351,10 @@ export const TEMPLATES_ARRAY = [
     title: "SaaS Landing Page",
     description:
       "A modern SaaS landing page with features, pricing, testimonials, and call-to-action sections",
-    theme_id: "corporate",
+    theme_id: "halloween",
     fonts: {
       heading: { family: "Outfit", weight: "700" },
-      body: { family: "Inter", weight: "400" },
+      body: { family: "Nunito", weight: "400" },
     },
   },
 

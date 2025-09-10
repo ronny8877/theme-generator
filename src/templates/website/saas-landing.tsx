@@ -1,119 +1,118 @@
 import {
   ArrowRight,
   Check,
-  Star,
-  Play,
-  Shield,
-  Zap,
   Users,
-  TrendingUp,
-  Globe,
-  Award,
   Menu,
-  BarChart3,
   Headphones,
   Github,
   Twitter,
   Linkedin,
+  Palette,
+  Sparkles,
+  Layout,
+  Code,
+  Download,
+  Eye,
+  Settings,
 } from "lucide-react";
 
 export default function SaaSLanding() {
   const features = [
     {
-      icon: Zap,
-      title: "Lightning Fast",
+      icon: Palette,
+      title: "Beautiful Themes",
       description:
-        "Deploy your applications in seconds, not minutes. Our optimized infrastructure ensures blazing fast performance.",
+        "Create stunning, professional themes with our intuitive design tools and extensive customization options.",
     },
     {
-      icon: Shield,
-      title: "Enterprise Security",
+      icon: Code,
+      title: "Export Ready Code",
       description:
-        "Bank-grade security with end-to-end encryption, SOC 2 compliance, and advanced threat protection.",
+        "Generate clean, production-ready code that you can use in any project. No vendor lock-in.",
     },
     {
-      icon: Users,
-      title: "Team Collaboration",
+      icon: Sparkles,
+      title: "AI-Powered Design",
       description:
-        "Real-time collaboration tools that keep your team in sync across projects and deployments.",
+        "Let AI help you create beautiful color palettes and typography combinations that work perfectly together.",
     },
     {
-      icon: TrendingUp,
-      title: "Auto Scaling",
+      icon: Layout,
+      title: "Pre-built Components",
       description:
-        "Automatically scale your applications based on demand without manual intervention.",
+        "Access hundreds of pre-designed components and templates to speed up your development process.",
     },
     {
-      icon: Globe,
-      title: "Global CDN",
+      icon: Eye,
+      title: "Live Preview",
       description:
-        "Worldwide content delivery network ensures your users get the best performance everywhere.",
+        "See your changes in real-time with our interactive preview system. What you see is what you get.",
     },
     {
-      icon: BarChart3,
-      title: "Advanced Analytics",
+      icon: Download,
+      title: "Multiple Formats",
       description:
-        "Deep insights into your application performance with real-time monitoring and alerts.",
+        "Export your themes in CSS, SCSS, Tailwind, or any format you need for your project.",
     },
   ];
 
   const testimonials = [
     {
       name: "Sarah Chen",
-      role: "CTO at TechFlow",
+      role: "UI Designer at DesignCorp",
       avatar:
         "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
       content:
-        "CloudDeploy has revolutionized our deployment process. We've reduced our time-to-market by 70% and our team couldn't be happier.",
+        "LiveTheme has completely transformed my design workflow. I can create beautiful, consistent themes in minutes instead of hours.",
       rating: 5,
     },
     {
       name: "Marcus Rodriguez",
-      role: "Lead Developer at StartupXYZ",
+      role: "Frontend Developer at StartupXYZ",
       avatar:
         "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
       content:
-        "The ease of use is incredible. What used to take hours now takes minutes. The analytics dashboard gives us insights we never had before.",
+        "The code export feature is incredible. Clean, well-structured CSS that integrates perfectly with our existing projects.",
       rating: 5,
     },
     {
       name: "Emily Watson",
-      role: "Product Manager at InnovateCorp",
+      role: "Product Designer at TechFlow",
       avatar:
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
       content:
-        "Outstanding platform with exceptional support. The auto-scaling feature has saved us thousands in infrastructure costs.",
+        "The AI suggestions are spot-on. It's like having a design expert helping me create perfect color combinations every time.",
       rating: 5,
     },
   ];
 
   const pricingPlans = [
     {
-      name: "Starter",
-      price: "$29",
+      name: "Free",
+      price: "$0",
       period: "/month",
-      description: "Perfect for small teams and side projects",
+      description: "Perfect for trying out and personal projects",
       features: [
-        "Up to 5 projects",
-        "10GB storage",
-        "Basic analytics",
-        "Email support",
-        "99.9% uptime SLA",
+        "3 theme projects",
+        "Basic color palettes",
+        "Standard templates",
+        "Community support",
+        "CSS export",
       ],
       popular: false,
     },
     {
-      name: "Professional",
-      price: "$99",
+      name: "Pro",
+      price: "$19",
       period: "/month",
-      description: "Ideal for growing businesses and teams",
+      description: "Ideal for designers and small teams",
       features: [
         "Unlimited projects",
-        "100GB storage",
-        "Advanced analytics",
+        "Advanced AI suggestions",
+        "Premium templates",
         "Priority support",
-        "99.99% uptime SLA",
-        "Custom domains",
+        "All export formats",
+        "Custom components",
         "Team collaboration",
       ],
       popular: true,
@@ -122,39 +121,34 @@ export default function SaaSLanding() {
       name: "Enterprise",
       price: "Custom",
       period: "",
-      description: "For large organizations with specific needs",
+      description: "For agencies and large organizations",
       features: [
-        "Everything in Professional",
-        "Unlimited storage",
+        "Everything in Pro",
         "White-label solution",
-        "Dedicated support",
         "Custom integrations",
-        "Advanced security",
+        "Dedicated support",
+        "Advanced analytics",
+        "Brand guidelines",
         "SLA guarantees",
       ],
       popular: false,
     },
   ];
 
-  const stats = [
-    { number: "500K+", label: "Deployments" },
-    { number: "99.99%", label: "Uptime" },
-    { number: "150+", label: "Countries" },
-    { number: "24/7", label: "Support" },
-  ];
-
   return (
-    <div className="min-h-screen bg-base-100 @container">
+    <div className="min-h-screen bg-base-100 font-sans @container">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-base-100/95 backdrop-blur-md border-b border-base-300">
+      <div className="navbar sticky top-0 z-50 bg-base-100/95 backdrop-blur-md border-b border-base-300">
         <div className="container mx-auto px-4 @sm:px-6 @lg:px-8">
           <div className="flex items-center justify-between h-16 @md:h-20">
             <div className="flex items-center gap-8">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 @md:w-10 @md:h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center">
-                  <Zap className="w-5 h-5 @md:w-6 @md:h-6 text-primary-content" />
+                  <Palette className="w-5 h-5 @md:w-6 @md:h-6 text-primary-content" />
                 </div>
-                <h1 className="text-xl @md:text-2xl font-bold">CloudDeploy</h1>
+                <h1 className="text-xl @md:text-2xl font-bold text-base-content">
+                  LiveTheme
+                </h1>
               </div>
 
               <div className="hidden @lg:flex items-center gap-8">
@@ -165,16 +159,16 @@ export default function SaaSLanding() {
                   Features
                 </a>
                 <a
+                  href="#templates"
+                  className="text-base-content hover:text-primary transition-colors"
+                >
+                  Templates
+                </a>
+                <a
                   href="#pricing"
                   className="text-base-content hover:text-primary transition-colors"
                 >
                   Pricing
-                </a>
-                <a
-                  href="#testimonials"
-                  className="text-base-content hover:text-primary transition-colors"
-                >
-                  Testimonials
                 </a>
                 <a
                   href="#docs"
@@ -186,64 +180,159 @@ export default function SaaSLanding() {
             </div>
 
             <div className="flex items-center gap-4">
-              <button className="hidden @md:inline-flex btn btn-ghost btn-sm">
+              <button className="hidden @md:inline-flex btn btn-outline text-base-content btn-sm rounded-box">
                 Sign In
               </button>
-              <button className="btn btn-primary btn-sm @md:btn-md">
-                Start Free Trial
+              <button className="btn btn-primary btn-sm @md:btn-md rounded-box">
+                Start Creating
               </button>
-              <button className="btn btn-ghost btn-sm btn-circle @lg:hidden">
+              <button className="btn btn-ghost btn-sm btn-circle @lg:hidden rounded-box">
                 <Menu className="w-5 h-5" />
               </button>
             </div>
           </div>
         </div>
-      </nav>
+      </div>
 
-      {/* Hero Section */}
-      <section className="relative py-20 @md:py-32 bg-gradient-to-br from-base-100 via-base-200 to-base-300 overflow-hidden">
-        <div className="container mx-auto px-4 @sm:px-6 @lg:px-8">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-8">
-              <Award className="w-4 h-4" />
-              Trusted by 50,000+ developers worldwide
-            </div>
+      {/* Hero Section - Bento Style */}
+      <section className="hero min-h-screen bg-gradient-to-br from-base-100 via-base-200 to-base-300">
+        <div className="hero-content text-center">
+          <div className="max-w-7xl mx-auto px-4 @sm:px-6 @lg:px-8">
+            {/* Main Hero Content */}
+            <div className="text-center max-w-4xl mx-auto mb-16">
+              <div className="badge badge-primary badge-lg gap-2 mb-8 h-auto">
+                <Sparkles className="w-4 h-4" />
+                Streamline your workflow with our software!
+              </div>
 
-            <h1 className="text-4xl @md:text-6xl @lg:text-7xl font-bold mb-6 leading-tight">
-              Deploy Your Apps{" "}
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              <h1 className="text-4xl @md:text-6xl @lg:text-7xl font-bold mb-6 leading-tight text-base-content">
+                Create Beautiful{" "}
+                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                  Themes
+                </span>{" "}
                 Instantly
-              </span>
-            </h1>
+              </h1>
 
-            <p className="text-xl @md:text-2xl text-base-content/70 mb-10 leading-relaxed">
-              The fastest way to deploy, scale, and monitor your applications.
-              Zero configuration, maximum performance.
-            </p>
+              <p className="text-xl @md:text-2xl text-base-content/70 mb-10 leading-relaxed">
+                Experience seamless integration and user-friendly features.
+                Design, customize, and export professional themes in minutes.
+              </p>
 
-            <div className="flex flex-col @sm:flex-row items-center justify-center gap-4 mb-16">
-              <button className="btn btn-primary btn-lg @md:btn-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200">
-                Start Free Trial
-                <ArrowRight className="w-5 h-5 @md:w-6 @md:h-6" />
-              </button>
-              <button className="btn btn-outline btn-lg @md:btn-xl">
-                <Play className="w-5 h-5 @md:w-6 @md:h-6" />
-                Watch Demo
-              </button>
+              <div className="flex flex-col @sm:flex-row items-center justify-center gap-4 mb-12">
+                <button className="btn btn-primary btn-lg shadow-xl hover:shadow-2xl rounded-box">
+                  Try free
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+                <button className="btn btn-outline btn-lg rounded-box">
+                  Schedule demo
+                </button>
+              </div>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 @md:grid-cols-4 gap-8 max-w-2xl mx-auto">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-2xl @md:text-3xl font-bold text-primary mb-2">
-                    {stat.number}
+            {/* Bento Grid */}
+            <div className="grid grid-cols-1 @md:grid-cols-3 @lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+              {/* Large Card - Happy Clients */}
+              <div className="@md:col-span-2 @lg:col-span-2 card bg-base-100 shadow-xl">
+                <div className="card-body">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="text-4xl @md:text-5xl font-bold text-primary">
+                      500K+
+                    </div>
+                    <div className="avatar-group -space-x-2">
+                      <div className="avatar">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-400 to-blue-600"></div>
+                      </div>
+                      <div className="avatar">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-green-400 to-green-600"></div>
+                      </div>
+                      <div className="avatar">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-400 to-purple-600"></div>
+                      </div>
+                      <div className="avatar">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-pink-400 to-pink-600"></div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-sm @md:text-base text-base-content/60">
-                    {stat.label}
+                  <h3 className="card-title text-base-content">
+                    Happy clients
+                  </h3>
+                  <p className="text-base-content/60">
+                    Trusted by designers and developers worldwide
+                  </p>
+                </div>
+              </div>
+
+              {/* Medium Card - Projects */}
+              <div className="card bg-base-100 shadow-xl">
+                <div className="card-body">
+                  <div className="text-3xl font-bold text-primary mb-2">
+                    10K+
+                  </div>
+                  <h3 className="card-title text-lg text-base-content">
+                    Projects managed
+                  </h3>
+                  <div className="w-full bg-base-200 rounded-full h-2">
+                    <div className="bg-gradient-to-r from-primary to-secondary h-2 rounded-full w-3/4"></div>
                   </div>
                 </div>
-              ))}
+              </div>
+
+              {/* Medium Card - Users */}
+              <div className="card bg-base-100 shadow-xl">
+                <div className="card-body">
+                  <div className="text-3xl font-bold text-primary mb-2">
+                    200K+
+                  </div>
+                  <h3 className="card-title text-lg text-base-content">
+                    Users engaged
+                  </h3>
+                  <div className="flex items-center gap-2">
+                    <Users className="w-5 h-5 text-primary" />
+                    <span className="text-sm text-base-content/60">
+                      Active community
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Large Card - Contact */}
+              <div className="@md:col-span-3 @lg:col-span-2 card bg-gradient-to-r from-primary to-secondary text-primary-content shadow-xl">
+                <div className="card-body">
+                  <h3 className="card-title text-2xl text-primary-content">
+                    Contact us
+                  </h3>
+                  <p className="opacity-90 text-primary-content">
+                    Ready to transform your design workflow? Get in touch with
+                    our team.
+                  </p>
+                  <div className="card-actions">
+                    <button className="btn btn-secondary rounded-box">
+                      Inquiries
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Small Card - Upgrade */}
+              <div className="@lg:col-span-2 card bg-base-100 shadow-xl">
+                <div className="card-body">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="avatar placeholder">
+                      <div className="bg-warning/20 text-warning rounded-xl w-10">
+                        <Settings className="w-5 h-5" />
+                      </div>
+                    </div>
+                    <div className="badge badge-warning">UPGRADE PLAN</div>
+                  </div>
+                  <h3 className="card-title text-lg text-base-content">
+                    Unlock premium features
+                  </h3>
+                  <p className="text-sm text-base-content/60">
+                    Get access to advanced tools and templates
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -253,29 +342,32 @@ export default function SaaSLanding() {
       <section id="features" className="py-20 @md:py-32">
         <div className="container mx-auto px-4 @sm:px-6 @lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl @md:text-5xl font-bold mb-6">
-              Everything You Need to <span className="text-primary">Scale</span>
+            <h2 className="text-3xl @md:text-5xl font-bold mb-6 text-base-content">
+              Everything You Need to{" "}
+              <span className="text-primary">Design</span>
             </h2>
             <p className="text-xl text-base-content/70 max-w-3xl mx-auto">
-              Built for modern development teams who demand speed, reliability,
-              and scalability.
+              Built for modern designers and developers who demand beautiful,
+              functional, and customizable themes.
             </p>
           </div>
 
-          <div className="grid @md:grid-cols-2 @lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 @md:grid-cols-2 @lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-base-300"
+                className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300"
               >
-                <div className="card-body p-8">
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-                    <feature.icon className="w-6 h-6 text-primary" />
+                <div className="card-body">
+                  <div className="avatar placeholder mb-6">
+                    <div className="bg-primary/10 text-primary flex items-center  justify-center  rounded-xl w-12">
+                      <feature.icon className="w-6 h-6 block mt-2 mx-auto" />
+                    </div>
                   </div>
-                  <h3 className="card-title text-xl mb-4">{feature.title}</h3>
-                  <p className="text-base-content/70 leading-relaxed">
-                    {feature.description}
-                  </p>
+                  <h3 className="card-title text-base-content">
+                    {feature.title}
+                  </h3>
+                  <p className="text-base-content/70">{feature.description}</p>
                 </div>
               </div>
             ))}
@@ -287,40 +379,45 @@ export default function SaaSLanding() {
       <section id="testimonials" className="py-20 @md:py-32 bg-base-200">
         <div className="container mx-auto px-4 @sm:px-6 @lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl @md:text-5xl font-bold mb-6">
-              Loved by <span className="text-primary">Developers</span>
+            <h2 className="text-3xl @md:text-5xl font-bold mb-6 text-base-content">
+              Loved by <span className="text-primary">Designers</span>
             </h2>
             <p className="text-xl text-base-content/70">
-              See what our customers are saying about CloudDeploy
+              See what our customers are saying about LiveTheme
             </p>
           </div>
 
-          <div className="grid @md:grid-cols-2 @lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 @md:grid-cols-2 @lg:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="card bg-base-100 shadow-xl border border-base-300"
+                className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300"
               >
-                <div className="card-body p-8">
-                  <div className="flex items-center gap-1 mb-6">
+                <div className="card-body">
+                  <div className="rating rating-sm mb-6">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star
+                      <input
                         key={i}
-                        className="w-5 h-5 text-warning fill-current"
+                        type="radio"
+                        className="mask mask-star-2 bg-warning"
+                        defaultChecked
+                        disabled
                       />
                     ))}
                   </div>
-                  <p className="text-base-content/80 mb-6 leading-relaxed">
+                  <p className="text-base-content/80 mb-6">
                     {testimonial.content}
                   </p>
                   <div className="flex items-center gap-4">
                     <div className="avatar">
-                      <div className="w-12 h-12 rounded-full">
+                      <div className="w-12 rounded-full">
                         <img src={testimonial.avatar} alt={testimonial.name} />
                       </div>
                     </div>
                     <div>
-                      <div className="font-semibold">{testimonial.name}</div>
+                      <div className="font-semibold text-base-content">
+                        {testimonial.name}
+                      </div>
                       <div className="text-sm text-base-content/60">
                         {testimonial.role}
                       </div>
@@ -337,7 +434,7 @@ export default function SaaSLanding() {
       <section id="pricing" className="py-20 @md:py-32">
         <div className="container mx-auto px-4 @sm:px-6 @lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl @md:text-5xl font-bold mb-6">
+            <h2 className="text-3xl @md:text-5xl font-bold mb-6 text-base-content">
               Simple, <span className="text-primary">Transparent</span> Pricing
             </h2>
             <p className="text-xl text-base-content/70">
@@ -345,26 +442,30 @@ export default function SaaSLanding() {
             </p>
           </div>
 
-          <div className="grid @md:grid-cols-2 @lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 @md:grid-cols-2 @lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {pricingPlans.map((plan, index) => (
               <div
                 key={index}
-                className={`card shadow-xl transition-all duration-300 transform hover:-translate-y-2 ${
+                className={`card shadow-xl transition-all duration-300 hover:shadow-2xl ${
                   plan.popular
-                    ? "bg-primary text-primary-content ring-4 ring-primary/20 scale-105"
-                    : "bg-base-100 border border-base-300"
+                    ? "bg-primary text-primary-content scale-105 ring-4 ring-primary/20"
+                    : "bg-base-100"
                 }`}
               >
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <div className="bg-secondary text-secondary-content px-4 py-2 rounded-full text-sm font-semibold">
-                      Most Popular
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                    <div className="badge badge-secondary gap-1">
+                      ⭐ Most Popular
                     </div>
                   </div>
                 )}
 
-                <div className="card-body p-8 text-center">
-                  <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+                <div className="card-body text-center">
+                  <h3
+                    className={`card-title justify-center text-2xl ${plan.popular ? "text-primary-content" : "text-base-content"}`}
+                  >
+                    {plan.name}
+                  </h3>
                   <p
                     className={`mb-6 ${plan.popular ? "text-primary-content/80" : "text-base-content/60"}`}
                   >
@@ -372,7 +473,9 @@ export default function SaaSLanding() {
                   </p>
 
                   <div className="mb-8">
-                    <span className="text-4xl @md:text-5xl font-bold">
+                    <span
+                      className={`text-4xl @md:text-5xl font-bold ${plan.popular ? "text-primary-content" : "text-base-content"}`}
+                    >
                       {plan.price}
                     </span>
                     <span
@@ -395,15 +498,15 @@ export default function SaaSLanding() {
                     ))}
                   </ul>
 
-                  <button
-                    className={`btn w-full ${
-                      plan.popular ? "btn-secondary" : "btn-primary"
-                    }`}
-                  >
-                    {plan.name === "Enterprise"
-                      ? "Contact Sales"
-                      : "Start Free Trial"}
-                  </button>
+                  <div className="card-actions justify-center">
+                    <button
+                      className={`btn w-full rounded-box ${plan.popular ? "btn-secondary" : "btn-primary"}`}
+                    >
+                      {plan.name === "Enterprise"
+                        ? "Contact Sales"
+                        : "Start Creating"}
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -412,138 +515,93 @@ export default function SaaSLanding() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 @md:py-32 bg-gradient-to-r from-primary to-secondary">
-        <div className="container mx-auto px-4 @sm:px-6 @lg:px-8 text-center">
-          <h2 className="text-3xl @md:text-5xl font-bold text-primary-content mb-6">
-            Ready to Get Started?
-          </h2>
-          <p className="text-xl text-primary-content/90 mb-10 max-w-2xl mx-auto">
-            Join thousands of developers who trust CloudDeploy for their
-            deployment needs.
-          </p>
-          <div className="flex flex-col @sm:flex-row items-center justify-center gap-4">
-            <button className="btn btn-secondary btn-lg @md:btn-xl shadow-xl">
-              Start Free Trial
-              <ArrowRight className="w-5 h-5 @md:w-6 @md:h-6" />
-            </button>
-            <button className="btn btn-outline btn-lg @md:btn-xl text-primary-content border-primary-content hover:bg-primary-content hover:text-primary">
-              <Headphones className="w-5 h-5 @md:w-6 @md:h-6" />
-              Talk to Sales
-            </button>
+      <section className="hero py-20 @md:py-32 bg-gradient-to-r from-primary to-secondary text-primary-content">
+        <div className="hero-content text-center">
+          <div className="max-w-2xl">
+            <h2 className="text-3xl @md:text-5xl font-bold mb-6 text-primary-content">
+              Ready to Create Amazing Themes?
+            </h2>
+            <p className="text-xl opacity-90 mb-10 text-primary-content">
+              Join thousands of designers who trust LiveTheme for their creative
+              projects.
+            </p>
+            <div className="flex flex-col @sm:flex-row items-center justify-center gap-4">
+              <button className="btn btn-secondary btn-lg shadow-xl rounded-box">
+                Start Creating
+                <ArrowRight className="w-5 h-5" />
+              </button>
+              <button className="btn btn-outline btn-lg text-primary-content border-primary-content hover:bg-primary-content hover:text-primary rounded-box">
+                <Headphones className="w-5 h-5" />
+                Get Support
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-base-300 py-16">
+      <footer className="footer footer-center p-10 bg-base-300 text-base-content">
         <div className="container mx-auto px-4 @sm:px-6 @lg:px-8">
-          <div className="grid @md:grid-cols-2 @lg:grid-cols-4 gap-8">
-            <div className="col-span-2 @md:col-span-1">
+          <div className="footer items-start grid grid-cols-1 @md:grid-cols-2 @lg:grid-cols-4 gap-8">
+            <div className="col-span-1 @md:col-span-2 @lg:col-span-1">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center">
-                  <Zap className="w-5 h-5 text-primary-content" />
+                <div className="avatar placeholder">
+                  <div className="bg-gradient-to-br from-primary to-secondary text-primary-content rounded-xl w-8">
+                    <Palette className="w-5 h-5" />
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold">CloudDeploy</h3>
+                <h3 className="text-xl font-bold text-base-content">
+                  LiveTheme
+                </h3>
               </div>
-              <p className="text-base-content/70 mb-6 leading-relaxed">
-                The fastest way to deploy, scale, and monitor your applications
-                worldwide.
+              <p className="text-base-content/70 mb-6 text-left">
+                The fastest way to create, customize, and export beautiful
+                themes for your projects.
               </p>
               <div className="flex gap-3">
-                <button className="btn btn-ghost btn-circle btn-sm">
+                <button className="btn btn-ghost btn-circle btn-sm rounded-box">
                   <Twitter className="w-4 h-4" />
                 </button>
-                <button className="btn btn-ghost btn-circle btn-sm">
+                <button className="btn btn-ghost btn-circle btn-sm rounded-box">
                   <Github className="w-4 h-4" />
                 </button>
-                <button className="btn btn-ghost btn-circle btn-sm">
+                <button className="btn btn-ghost btn-circle btn-sm rounded-box">
                   <Linkedin className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Product</h4>
-              <ul className="space-y-2 text-base-content/70">
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    Features
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    Pricing
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    Security
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    Integrations
-                  </a>
-                </li>
-              </ul>
+              <span className="footer-title text-base-content">Product</span>
+              <a className="link link-hover text-base-content">Theme Builder</a>
+              <a className="link link-hover text-base-content">Templates</a>
+              <a className="link link-hover text-base-content">Color Tools</a>
+              <a className="link link-hover text-base-content">
+                Export Options
+              </a>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-base-content/70">
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    Documentation
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    API Reference
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    Status
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    Contact
-                  </a>
-                </li>
-              </ul>
+              <span className="footer-title text-base-content">Resources</span>
+              <a className="link link-hover text-base-content">Documentation</a>
+              <a className="link link-hover text-base-content">Tutorials</a>
+              <a className="link link-hover text-base-content">Design Guide</a>
+              <a className="link link-hover text-base-content">Community</a>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-base-content/70">
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    Blog
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    Careers
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-primary transition-colors">
-                    Press
-                  </a>
-                </li>
-              </ul>
+              <span className="footer-title text-base-content">Company</span>
+              <a className="link link-hover text-base-content">About</a>
+              <a className="link link-hover text-base-content">Blog</a>
+              <a className="link link-hover text-base-content">Careers</a>
+              <a className="link link-hover text-base-content">Contact</a>
             </div>
           </div>
 
-          <div className="border-t border-base-content/20 mt-12 pt-8 text-center">
+          <div className="divider"></div>
+          <div className="text-center">
             <p className="text-base-content/60">
-              © 2025 CloudDeploy. All rights reserved.
+              © 2025 LiveTheme. All rights reserved.
             </p>
           </div>
         </div>

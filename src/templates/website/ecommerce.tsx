@@ -8,54 +8,51 @@ import {
 export default function EcommerceSite() {
   return (
     <div className="relative flex min-h-screen flex-col bg-base-100 group/design-root overflow-x-hidden @container">
-      <header className="navbar border-b border-base-300 px-10 w-full mx-auto py-4 bg-primary text-primary-content">
-        <div className="flex items-center gap-8">
-          <div className="flex items-center gap-3 text-gray-900">
+      <header className="navbar border-b border-base-300 px-4 @sm:px-6 @md:px-10 w-full mx-auto py-4 bg-primary text-primary-content">
+        <div className="flex items-center gap-4 @sm:gap-6 @md:gap-8">
+          <div className="flex items-center gap-2 @sm:gap-3">
             <span
-              className="material-symbols-outlined text-3xl"
+              className="material-symbols-outlined text-2xl @sm:text-3xl"
               style={{ color: "var(--primary-color)" }}
             >
               store
             </span>
-            <h2 className="text-base-content text-xl font-bold leading-tight tracking-[-0.015em]">
+            <h2 className="text-primary-content text-lg @sm:text-xl font-bold leading-tight tracking-[-0.015em]">
               Fashion Hub
             </h2>
           </div>
 
-          <div className="hidden @sm:flex items-center gap-6">
-            <a className="link link-hover">New Arrivals</a>
-            <a className="link link-hover">Men</a>
-            <a className="link link-hover">Women</a>
-            <a className="link link-hover">Accessories</a>
-            <a className="link link-hover">Sale</a>
+          <div className="hidden @md:flex items-center gap-4 @lg:gap-6">
+            <a className="link link-hover text-primary-content">New Arrivals</a>
+            <a className="link link-hover text-primary-content">Men</a>
+            <a className="link link-hover text-primary-content">Women</a>
+            <a className="link link-hover text-primary-content">Accessories</a>
+            <a className="link link-hover text-primary-content">Sale</a>
           </div>
         </div>
 
-        <div className="flex flex-1 justify-end items-center gap-4">
-          <button className="btn btn-ghost btn-circle">
-            <span className="material-symbols-outlined">search</span>
+        <div className="flex flex-1 justify-end items-center gap-2 @sm:gap-4">
+          <button className="btn btn-ghost btn-circle btn-sm @sm:btn-md">
+            <span className="material-symbols-outlined text-lg @sm:text-xl">
+              search
+            </span>
           </button>
-          <button className="btn btn-ghost btn-circle">
-            <Heart />
+          <button className="btn btn-ghost btn-circle btn-sm @sm:btn-md">
+            <Heart className="w-4 h-4 @sm:w-5 @sm:h-5" />
           </button>
-          <button className="btn btn-ghost btn-circle">
-            <ShoppingBag />
+          <button className="btn btn-ghost btn-circle btn-sm @sm:btn-md">
+            <ShoppingBag className="w-4 h-4 @sm:w-5 @sm:h-5" />
           </button>
           <div className="avatar">
-            <div className="w-10 rounded-full overflow-hidden">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3bf_K7ts0BGr0-Ez05fpSnNQTsGqOmLFIUTdbCVYlZKk2VmCpxhO2I28RWoiGaQhvuJqvpCARSDVpkj3mfwlxeKk0VxyHJSEG0pyfpwaO8LBUTn4CdYUPeLYWsUcFq4ZVcPzUYyj1KumHbrsFJoHbGRR-rtihnnGceZ7AlZIdjFVEpsx30X4azbHtPLr9nyim8lme8JxZLNC22cpn7H2uQ_qHBKnMbetoTWCoeHMXE1tVv7TMjQImg7t6AXw3kQViGwNcqnbkv8H1"
-                alt="avatar"
-                width={40}
-                height={40}
-              />
+            <div className="w-8 @sm:w-10 rounded-full overflow-hidden">
+              <img src="/logo.png" alt="avatar" width={40} height={40} />
             </div>
           </div>
         </div>
       </header>
 
       <div className="flex flex-1 flex-col text-base-content">
-        <section className="relative w-full h-96">
+        <section className="relative w-full h-64 @sm:h-80 @md:h-96">
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
@@ -66,37 +63,39 @@ export default function EcommerceSite() {
             <div className="absolute inset-0 bg-black bg-opacity-40" />
           </div>
 
-          <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4">
-            <h1 className="text-4xl @md:text-5xl font-bold mb-4">
+          <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4 @sm:px-6 @md:px-8">
+            <h1 className="text-2xl @sm:text-3xl @md:text-4xl @lg:text-5xl font-bold mb-2 @sm:mb-4">
               Discover Your Style
             </h1>
-            <p className="text-lg @md:text-xl max-w-2xl mb-8">
+            <p className="text-sm @sm:text-base @md:text-lg @lg:text-xl max-w-2xl mb-4 @sm:mb-6 @md:mb-8">
               Shop the latest trends in fashion, electronics, and toys. Quality
               products at unbeatable prices.
             </p>
-            <button className="btn btn-primary rounded-box btn-lg font-bold">
+            <button className="btn btn-primary rounded-box btn-sm @sm:btn-md @md:btn-lg font-bold">
               Shop Now
             </button>
           </div>
 
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-            <button className="h-2 w-2 rounded-full bg-white" />
-            <button className="h-2 w-2 rounded-full bg-white/50" />
-            <button className="h-2 w-2 rounded-full bg-white/50" />
+          <div className="absolute bottom-2 @sm:bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+            <button className="h-1.5 w-1.5 @sm:h-2 @sm:w-2 rounded-full bg-white" />
+            <button className="h-1.5 w-1.5 @sm:h-2 @sm:w-2 rounded-full bg-white/50" />
+            <button className="h-1.5 w-1.5 @sm:h-2 @sm:w-2 rounded-full bg-white/50" />
           </div>
 
-          <button className="absolute left-4 top-1/2 -translate-y-1/2 btn btn-ghost btn-circle">
-            <ArrowLeftCircle />
+          <button className="absolute left-2 @sm:left-4 top-1/2 -translate-y-1/2 btn btn-ghost btn-circle btn-sm @sm:btn-md">
+            <ArrowLeftCircle className="w-4 h-4 @sm:w-5 @sm:h-5" />
           </button>
-          <button className="absolute right-4 top-1/2 -translate-y-1/2 btn btn-ghost btn-circle">
-            <ArrowRightCircle />
+          <button className="absolute right-2 @sm:right-4 top-1/2 -translate-y-1/2 btn btn-ghost btn-circle btn-sm @sm:btn-md">
+            <ArrowRightCircle className="w-4 h-4 @sm:w-5 @sm:h-5" />
           </button>
         </section>
 
-        <section className="px-4 lg:px-20 py-10">
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Fashion</h2>
-            <div className="grid grid-cols-1 @sm:grid-cols-1 @md:grid-cols-3 @lg:grid-cols-4 gap-8">
+        <section className="px-4 @sm:px-6 @md:px-10 @lg:px-20 py-6 @sm:py-8 @md:py-10">
+          <div className="mb-8 @sm:mb-10 @md:mb-12">
+            <h2 className="text-2xl @sm:text-3xl font-bold text-base-content mb-4 @sm:mb-6">
+              Fashion
+            </h2>
+            <div className="grid grid-cols-2 @sm:grid-cols-2 @md:grid-cols-3 @lg:grid-cols-4 gap-4 @sm:gap-6 @md:gap-8">
               {/* four example cards */}
               {[
                 {
@@ -122,27 +121,29 @@ export default function EcommerceSite() {
               ].map((it, idx) => (
                 <div
                   key={idx}
-                  className="card card-compact bg-base-300 shadow group"
+                  className="card card-compact bg-base-100 shadow-lg hover:shadow-xl transition-shadow duration-300 group"
                 >
-                  <figure className="relative">
+                  <figure className="relative overflow-hidden">
                     <img
                       src={it.img}
                       alt={it.title}
                       width={600}
                       height={600}
-                      className="w-full aspect-square object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
+                      className="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <button className="absolute top-2 right-2 btn btn-ghost btn-circle opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Heart />
+                    <button className="absolute top-2 right-2 btn btn-ghost btn-circle btn-sm opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 hover:bg-white">
+                      <Heart className="w-4 h-4" />
                     </button>
                   </figure>
-                  <div className="card-body p-3">
-                    <h3 className="text-base-content font-semibold leading-normal text-sm @md:text-base">
+                  <div className="card-body p-3 @sm:p-4">
+                    <h3 className="text-base-content font-semibold leading-normal text-xs @sm:text-sm @md:text-base line-clamp-2">
                       {it.title}
                     </h3>
-                    <p className=" text-sm mt-1">{it.price}</p>
-                    <div className="card-actions mt-2">
-                      <button className="btn btn-primary btn-block font-bold rounded-field">
+                    <p className="text-primary font-bold text-sm @sm:text-base mt-1">
+                      {it.price}
+                    </p>
+                    <div className="card-actions mt-2 @sm:mt-3">
+                      <button className="btn btn-primary btn-block font-bold rounded-box btn-sm @sm:btn-md text-xs @sm:text-sm">
                         Add to Cart
                       </button>
                     </div>
@@ -152,34 +153,38 @@ export default function EcommerceSite() {
             </div>
           </div>
 
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Toys</h2>
-          <div className="grid grid-cols-1 @sm:grid-cols-1 @md:grid-cols-3 @lg:grid-cols-4 gap-8">
+          <div className="mb-8 @sm:mb-10 @md:mb-12">
+            <h2 className="text-2xl @sm:text-3xl font-bold text-base-content mb-4 @sm:mb-6">
+              Toys
+            </h2>
+            <div className="grid grid-cols-2 @sm:grid-cols-2 @md:grid-cols-3 @lg:grid-cols-4 gap-4 @sm:gap-6 @md:gap-8">
               {/* reuse same items for demo */}
               {[0, 1, 2, 3].map((n) => (
                 <div
                   key={n}
-                  className="card card-compact bg-base-200 shadow group"
+                  className="card card-compact bg-base-100 shadow-lg hover:shadow-xl transition-shadow duration-300 group"
                 >
-                  <figure className="relative">
+                  <figure className="relative overflow-hidden">
                     <img
                       src={`https://lh3.googleusercontent.com/aida-public/AB6AXuAjAE5-rzqmGvtzB7_N_Re649o4MjDTd-v5fwVPP777rabPX6tItTjAW3lsAb36Vo-ysoPDEyIYW9_vGNrEmJHm8WRd4-pNj8JVGF5rNBbcJnJB-w8AUGHRHEN6xdaL9Nxdrq8wPhjhQed9HW82PnehpcE28vGjpdMhQ6a6m64yU1GMXmY3YTpdKe7FnjF_67IhZFB1GW6HplDYds8eaZB-HSTpnQt7hDxjjmDDLGnO0G3Se3IvNXbcM82THRMnIhIKiFOawZrZLr0e`}
                       alt={`Item ${n + 1}`}
                       width={600}
                       height={600}
-                      className="w-full aspect-square object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
+                      className="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <button className="absolute top-2 right-2 btn btn-ghost btn-circle opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Heart />
+                    <button className="absolute top-2 right-2 btn btn-ghost btn-circle btn-sm opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 hover:bg-white">
+                      <Heart className="w-4 h-4" />
                     </button>
                   </figure>
-                  <div className="card-body p-3">
-                    <h3 className="text-base-content text-base font-semibold leading-normal">
+                  <div className="card-body p-3 @sm:p-4">
+                    <h3 className="text-base-content font-semibold leading-normal text-xs @sm:text-sm @md:text-base">
                       Item {n + 1}
                     </h3>
-                    <p className=" text-sm mt-1">$49.00</p>
-                    <div className="card-actions mt-2">
-                      <button className="btn btn-primary btn-block font-bold  rounded-field">
+                    <p className="text-primary font-bold text-sm @sm:text-base mt-1">
+                      $49.00
+                    </p>
+                    <div className="card-actions mt-2 @sm:mt-3">
+                      <button className="btn btn-primary btn-block font-bold rounded-box btn-sm @sm:btn-md text-xs @sm:text-sm">
                         Add to Cart
                       </button>
                     </div>
@@ -190,32 +195,34 @@ export default function EcommerceSite() {
           </div>
 
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
+            <h2 className="text-2xl @sm:text-3xl font-bold text-base-content mb-4 @sm:mb-6">
               Electronics
             </h2>
-           <div className="grid grid-cols-1 @sm:grid-cols-1 @md:grid-cols-3 @lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 @sm:grid-cols-2 @md:grid-cols-3 @lg:grid-cols-4 gap-4 @sm:gap-6 @md:gap-8">
               {[0, 1, 2, 3].map((n) => (
                 <div
                   key={n}
-                  className="card card-compact bg-base-300 shadow group"
+                  className="card card-compact bg-base-100 shadow-lg hover:shadow-xl transition-shadow duration-300 group"
                 >
-                  <figure className="relative">
+                  <figure className="relative overflow-hidden">
                     <img
                       src={`https://lh3.googleusercontent.com/aida-public/AB6AXuAjAE5-rzqmGvtzB7_N_Re649o4MjDTd-v5fwVPP777rabPX6tItTjAW3lsAb36Vo-ysoPDEyIYW9_vGNrEmJHm8WRd4-pNj8JVGF5rNBbcJnJB-w8AUGHRHEN6xdaL9Nxdrq8wPhjhQed9HW82PnehpcE28vGjpdMhQ6a6m64yU1GMXmY3YTpdKe7FnjF_67IhZFB1GW6HplDYds8eaZB-HSTpnQt7hDxjjmDDLGnO0G3Se3IvNXbcM82THRMnIhIKiFOawZrZLr0e`}
                       alt={`Device ${n + 1}`}
-                      className="w-full aspect-square object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
+                      className="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <button className="absolute top-2 right-2 btn btn-ghost btn-circle opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Heart />
+                    <button className="absolute top-2 right-2 btn btn-ghost btn-circle btn-sm opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 hover:bg-white">
+                      <Heart className="w-4 h-4" />
                     </button>
                   </figure>
-                  <div className="card-body p-3">
-                    <h3 className="text-base-content text-base font-semibold leading-normal">
+                  <div className="card-body p-3 @sm:p-4">
+                    <h3 className="text-base-content font-semibold leading-normal text-xs @sm:text-sm @md:text-base">
                       Device {n + 1}
                     </h3>
-                    <p className=" text-sm mt-1">$199.00</p>
-                    <div className="card-actions mt-2">
-                      <button className="btn btn-primary btn-block font-bold  rounded-field">
+                    <p className="text-primary font-bold text-sm @sm:text-base mt-1">
+                      $199.00
+                    </p>
+                    <div className="card-actions mt-2 @sm:mt-3">
+                      <button className="btn btn-primary btn-block font-bold rounded-box btn-sm @sm:btn-md text-xs @sm:text-sm">
                         Add to Cart
                       </button>
                     </div>

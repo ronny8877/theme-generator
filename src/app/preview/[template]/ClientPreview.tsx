@@ -21,7 +21,6 @@ import { useActiveTemplateId } from "@/store/hooks";
 import { editEditorSettings } from "@/store/nano-store";
 import { dynamicComponentMap } from "@/components/template-preview";
 
-
 function FloatingActions({ encoded }: { encoded: string }) {
   const router = useRouter();
   return (
