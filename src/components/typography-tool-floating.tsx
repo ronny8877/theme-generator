@@ -20,7 +20,7 @@ export default function TypographyToolFloating() {
   };
 
   return (
-    <div className="fixed left-5 top-5 z-50 h-[95vh] w-[400px] animate-in slide-in-from-left-5 duration-300 ease-out">
+    <div className="fixed left-5 top-5 z-50 h-[95vh] w-[90vw] mx-auto md:w-[400px] animate-in slide-in-from-left-5 duration-300 ease-out">
       <div className="h-full bg-base-100 rounded-3xl border border-base-300 shadow-xl backdrop-blur-sm relative">
         {/* Close button */}
         <button

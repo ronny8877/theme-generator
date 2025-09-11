@@ -68,7 +68,7 @@ export default function AIChatUI() {
 
   return (
     <div
-      className="@container flex bg-base-100 text-base-content h-[10vh] md:h-[93vh] @4xl:h-[95vh]"
+      className="@container flex bg-base-100 text-base-content @sm:h-screen md:h-[93vh] @4xl:h-[95vh]"
       data-theme="figtree"
       // style={{ minHeight: "var(--app-height, 100vh)" }}
     >
@@ -81,7 +81,7 @@ export default function AIChatUI() {
           <h1 className="text-sm @md:text-lg font-semibold">AI Assistant</h1>
         </div>
 
-        <button className="btn btn-primary mb-4 w-full gap-2 roF@md:-unded-lg">
+        <button className="btn btn-primary mb-4 w-full gap-2 roF@md:-rounded-box">
           <Plus className="w-4 h-4" />
           New Chat
         </button>
@@ -90,7 +90,7 @@ export default function AIChatUI() {
           {conversations.map((c) => (
             <a
               key={c.id}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors truncate ${
+              className={`flex items-center gap-3 rounded-box px-3 py-2 text-sm font-medium transition-colors truncate ${
                 c.isActive
                   ? "bg-primary text-primary-content"
                   : "text-base-content hover:bg-base-300"
@@ -105,14 +105,14 @@ export default function AIChatUI() {
 
         <div className="mt-auto space-y-1">
           <a
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-base-content hover:bg-base-300"
+            className="flex items-center gap-3 rounded-box px-3 py-2 text-sm font-medium text-base-content hover:bg-base-300"
             href="#"
           >
             <Settings className="w-4 h-4" />
             Settings
           </a>
           <a
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-base-content hover:bg-base-300"
+            className="flex items-center gap-3 rounded-box px-3 py-2 text-sm font-medium text-base-content hover:bg-base-300"
             href="#"
           >
             <User className="w-4 h-4" />

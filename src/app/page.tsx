@@ -95,7 +95,6 @@ export default function Home() {
       {/* Workflow section */}
       <WorkflowSteps />
 
-
       {/* Browse all templates */}
       <BrowseAllTemplates />
 
@@ -117,7 +116,7 @@ export default function Home() {
               <li>
                 <Link href="/templates">Templates</Link>
               </li>
-               <li>
+              <li>
                 <Link href="/faq">FAQ</Link>
               </li>
               <li>

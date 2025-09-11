@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Free Website Templates | Customizable Templates | LiveTheme",
-  description: "Discover 12+ free, customizable website templates including blog templates, portfolio designs, e-commerce stores, SaaS landing pages, and more. Edit colors, fonts, and layouts in real-time.",
+  description:
+    "Discover 12+ free, customizable website templates including blog templates, portfolio designs, e-commerce stores, SaaS landing pages, and more. Edit colors, fonts, and layouts in real-time.",
   keywords: [
     "free website templates",
-    "customizable templates", 
+    "customizable templates",
     "blog templates",
     "portfolio templates",
     "ecommerce templates",
@@ -25,26 +26,28 @@ export const metadata: Metadata = {
     "social media templates",
     "ai chat templates",
     "anime website templates",
-    "tech blog templates"
+    "tech blog templates",
   ],
   alternates: { canonical: "/templates" },
   openGraph: {
     title: "Free Website Templates | Customizable Templates | LiveTheme",
-    description: "Discover 12+ free, customizable website templates. Edit colors, fonts, and layouts in real-time. Perfect for blogs, portfolios, e-commerce, and more.",
+    description:
+      "Discover 12+ free, customizable website templates. Edit colors, fonts, and layouts in real-time. Perfect for blogs, portfolios, e-commerce, and more.",
     url: "https://livetheme.app/templates",
     type: "website",
     images: [
       {
         url: "https://livetheme.app/preview.png",
-        alt: "LiveTheme customizable website templates gallery"
-      }
-    ]
+        alt: "LiveTheme customizable website templates gallery",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Website Templates | Customizable Templates | LiveTheme", 
-    description: "Discover 12+ free, customizable website templates. Edit colors, fonts, and layouts in real-time.",
-    images: ["https://livetheme.app/preview.png"]
+    title: "Free Website Templates | Customizable Templates | LiveTheme",
+    description:
+      "Discover 12+ free, customizable website templates. Edit colors, fonts, and layouts in real-time.",
+    images: ["https://livetheme.app/preview.png"],
   },
 };
 

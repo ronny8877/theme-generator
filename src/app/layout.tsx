@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     "no code website builder",
     "website theme creator",
     "custom website themes",
-    "website styling tool"
+    "website styling tool",
   ],
   authors: [{ name: "LiveTheme" }],
   creator: "LiveTheme",

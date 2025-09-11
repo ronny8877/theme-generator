@@ -8,6 +8,7 @@ import { $activePreviewDeviceSel, $editorUiType, $isEditorOpen } from "@/store";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import EditorFloatingWrapper from "./editor/editor-floating-wrapper";
 import Editor from "./editor/editor";
+import EditorMobileDrawer from "./editor/editor-mobile-drawer";
 import GradientToolFloating from "./gradient-tool-floating";
 import TypographyToolFloating from "./typography-tool-floating";
 import { FontInjector } from "./font-injector";
@@ -17,6 +18,7 @@ import { useStore as useNano } from "@nanostores/react";
 import { $activeTemplateId as $activeTemplateIdSel } from "@/store";
 import ExportDialogContainer from "@/components/export-dialog-container";
 import ShareDialogContainer from "@/components/share-dialog-container";
+import { useIsDesktop } from "@/hooks/useIsDesktop";
 type ViewportSize = "desktop" | "tablet" | "mobile";
 
 export type TemplatePreviewProps = {
@@ -133,6 +135,7 @@ function TemplatePreviewBase({
   const previewDevice = useStore($activePreviewDeviceSel);
   const editorUiType = useStore($editorUiType);
   const isEditorOpen = useStore($isEditorOpen);
+  const isDesktop = useIsDesktop();
   const cssVariables = useCssVariables();
   // Only pass CSS variables that actually changed (stable reference)
   const stableCssVars = useMemo(() => ({ ...cssVariables }), [cssVariables]);
@@ -142,7 +145,7 @@ function TemplatePreviewBase({
   const getViewportClasses = () => {
     switch (previewDevice) {
       case "mobile":
-        return "max-w-[430px] w-[430px] h-full 2xl:max-h-[932px]";
+        return "max-w-[430px] w-[430px] 2xl:max-h-[932px]";
       case "tablet":
         return "max-w-[768px] h-full h-[760px] 2xl:h-[932px]";
       default:
@@ -151,9 +154,9 @@ function TemplatePreviewBase({
   };
 
   return (
-    <div className="h-full flex items-center justify-center gap-5 transition-all duration-400 flex-nowrap">
+    <div className="h-full flex items-center justify-center gap-2 md:gap-5 transition-all duration-400 flex-nowrap px-2 md:px-0">
       <div
-        className={`${getViewportClasses()} w-full @container bg-base-100 rounded-4xl shadow-lg overflow-hidden transition-all duration-400`}
+        className={`${getViewportClasses()} w-full @container bg-base-100 rounded-2xl md:rounded-4xl shadow-lg overflow-hidden transition-all duration-400`}
         style={{
           transform:
             viewport === "mobile"
@@ -170,12 +173,12 @@ function TemplatePreviewBase({
             {/* <div className="input rounded-full">SITENAME</div> */}
           </div>
           <ScrollArea
-            className={`w-full ${previewDevice === "mobile" ? "h-[760px] 2xl:h-[932px]" : "h-[95vh]"}`}
+            className={`w-full ${previewDevice === "mobile" ? "h-[60vh] md:h-[760px] 2xl:h-[932px]" : "h-[75vh] md:h-[95vh]"}`}
           >
             <div
               ref={parent}
               id="template-root"
-              className="smooth-theme-transition template-content relative"
+              className="smooth-theme-transition @container template-content relative"
             >
               <CSSVariablesInjector
                 targetSelector="#template-root"
@@ -191,10 +194,20 @@ function TemplatePreviewBase({
           </ScrollArea>
         </div>
       </div>
-      {!hideEditor && isEditorOpen && editorUiType === "default" && <Editor />}
+      {/* Desktop Editor - only show on desktop with default UI type */}
+      {!hideEditor &&
+        isEditorOpen &&
+        editorUiType === "default" &&
+        isDesktop && <Editor />}
       {!hideEditor && isEditorOpen && editorUiType === "floating" && (
         <EditorFloatingWrapper />
       )}
+
+      {/* Mobile Editor Drawer - only show on mobile with default UI type */}
+      {!hideEditor &&
+        isEditorOpen &&
+        editorUiType === "default" &&
+        !isDesktop && <EditorMobileDrawer />}
 
       {/* Floating Tool Panels */}
       <GradientToolFloating />

@@ -88,10 +88,10 @@ function ThemeInfoBase() {
       <div className="group relative">
         {/* Pill */}
         <div
-          className={`px-5 cursor-default py-1.5 rounded-full bg-base-200 border border-base-300 shadow-sm flex items-center gap-3`}
+          className={`px-3 md:px-5 cursor-default py-1.5 rounded-full bg-base-200 border border-base-300 shadow-sm flex items-center gap-2 md:gap-3 text-xs md:text-sm`}
           aria-hidden
         >
-          <div className="text-sm font-medium capitalize text-base-content">
+          <div className="text-sm font-medium capitalize text-base-content max-w-[6rem] md:max-w-none truncate">
             {themeName}
           </div>
           {isEdited && (
@@ -99,8 +99,8 @@ function ThemeInfoBase() {
               Edited
             </div>
           )}
-          <div className="text-xs text-base-content/40">•</div>
-          <div className="text-xs text-base-content/60 truncate max-w-[8rem]">
+          <div className="hidden md:block text-xs text-base-content/40">•</div>
+          <div className="hidden md:block text-xs text-base-content/60 truncate max-w-[8rem]">
             {heading.family}
           </div>
           {pendingTemplateTheme && (

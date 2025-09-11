@@ -3,10 +3,11 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Free Blog Templates | Blog Website Designs | LiveTheme",
-  description: "Discover professional blog templates including blog post layouts, blog landing pages, and tech blog designs. Fully customizable with real-time editing. Perfect for content creators, writers, and bloggers.",
+  description:
+    "Discover professional blog templates including blog post layouts, blog landing pages, and tech blog designs. Fully customizable with real-time editing. Perfect for content creators, writers, and bloggers.",
   keywords: [
     "blog templates",
-    "blog website templates", 
+    "blog website templates",
     "blog design templates",
     "free blog templates",
     "blog post template",
@@ -24,51 +25,74 @@ export const metadata: Metadata = {
     "writing template",
     "content management templates",
     "blog website design",
-    "blog inspiration"
+    "blog inspiration",
   ],
   alternates: { canonical: "/templates/blog" },
   openGraph: {
     title: "Free Blog Templates | Blog Website Designs | LiveTheme",
-    description: "Professional blog templates for content creators. Customize colors, fonts, and layouts in real-time.",
+    description:
+      "Professional blog templates for content creators. Customize colors, fonts, and layouts in real-time.",
     url: "https://livetheme.app/templates/blog",
     type: "website",
     images: [
       {
         url: "https://livetheme.app/preview.png",
-        alt: "Blog template gallery - LiveTheme"
-      }
-    ]
+        alt: "Blog template gallery - LiveTheme",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Free Blog Templates | Blog Website Designs | LiveTheme",
-    description: "Professional blog templates for content creators. Customize colors, fonts, and layouts in real-time.",
-    images: ["https://livetheme.app/preview.png"]
-  }
+    description:
+      "Professional blog templates for content creators. Customize colors, fonts, and layouts in real-time.",
+    images: ["https://livetheme.app/preview.png"],
+  },
 };
 
 const blogTemplates = [
   {
     id: "simple-blog-post",
     title: "Blog Post Template",
-    description: "Professional blog post layout with clean typography, comment sections, and related articles. Perfect for individual blog posts and article pages.",
-    features: ["Clean typography", "Comment sections", "Related articles", "Responsive design", "SEO optimized"],
-    category: "Blog Post"
+    description:
+      "Professional blog post layout with clean typography, comment sections, and related articles. Perfect for individual blog posts and article pages.",
+    features: [
+      "Clean typography",
+      "Comment sections",
+      "Related articles",
+      "Responsive design",
+      "SEO optimized",
+    ],
+    category: "Blog Post",
   },
   {
-    id: "simple-blog-landing", 
+    id: "simple-blog-landing",
     title: "Blog Landing Page",
-    description: "Complete blog homepage with featured posts, recent articles, trending content, and newsletter signup. Ideal for blog main pages.",
-    features: ["Featured posts", "Recent articles", "Newsletter signup", "Trending content", "Social media links"],
-    category: "Blog Homepage"
+    description:
+      "Complete blog homepage with featured posts, recent articles, trending content, and newsletter signup. Ideal for blog main pages.",
+    features: [
+      "Featured posts",
+      "Recent articles",
+      "Newsletter signup",
+      "Trending content",
+      "Social media links",
+    ],
+    category: "Blog Homepage",
   },
   {
     id: "techcore-blog",
-    title: "Tech Blog Template", 
-    description: "Modern technology blog with developer-focused design, code highlighting, and tech news sections. Perfect for technology publications.",
-    features: ["Code highlighting", "Tech news sections", "Developer focused", "Modern design", "Technical content"],
-    category: "Tech Blog"
-  }
+    title: "Tech Blog Template",
+    description:
+      "Modern technology blog with developer-focused design, code highlighting, and tech news sections. Perfect for technology publications.",
+    features: [
+      "Code highlighting",
+      "Tech news sections",
+      "Developer focused",
+      "Modern design",
+      "Technical content",
+    ],
+    category: "Tech Blog",
+  },
 ];
 
 export default function BlogTemplatesPage() {
@@ -82,7 +106,8 @@ export default function BlogTemplatesPage() {
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             name: "Blog Templates Collection",
-            description: "Professional blog templates for content creators and writers",
+            description:
+              "Professional blog templates for content creators and writers",
             url: "https://livetheme.app/templates/blog",
             mainEntity: {
               "@type": "ItemList",
@@ -97,20 +122,24 @@ export default function BlogTemplatesPage() {
                   name: template.title,
                   description: template.description,
                   url: `https://livetheme.app/preview/${template.id}`,
-                  category: template.category
-                }
-              }))
-            }
-          })
+                  category: template.category,
+                },
+              })),
+            },
+          }),
         }}
       />
-      
+
       <div className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <nav className="mb-8 text-sm">
-          <Link href="/" className="text-primary hover:underline">Home</Link>
+          <Link href="/" className="text-primary hover:underline">
+            Home
+          </Link>
           <span className="mx-2">/</span>
-          <Link href="/templates" className="text-primary hover:underline">Templates</Link>
+          <Link href="/templates" className="text-primary hover:underline">
+            Templates
+          </Link>
           <span className="mx-2">/</span>
           <span className="text-base-content/70">Blog Templates</span>
         </nav>
@@ -119,8 +148,9 @@ export default function BlogTemplatesPage() {
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold mb-4">Free Blog Templates</h1>
           <p className="text-xl text-base-content/80 max-w-3xl mx-auto">
-            Professional blog templates designed for content creators, writers, and bloggers. 
-            Customize colors, fonts, and layouts in real-time to create the perfect blog for your audience.
+            Professional blog templates designed for content creators, writers,
+            and bloggers. Customize colors, fonts, and layouts in real-time to
+            create the perfect blog for your audience.
           </p>
         </div>
 
@@ -129,10 +159,14 @@ export default function BlogTemplatesPage() {
           {blogTemplates.map((template) => (
             <div key={template.id} className="card bg-base-200 shadow-xl">
               <div className="card-body">
-                <div className="badge badge-primary mb-2">{template.category}</div>
+                <div className="badge badge-primary mb-2">
+                  {template.category}
+                </div>
                 <h2 className="card-title">{template.title}</h2>
-                <p className="text-base-content/80 mb-4">{template.description}</p>
-                
+                <p className="text-base-content/80 mb-4">
+                  {template.description}
+                </p>
+
                 <div className="mb-4">
                   <h3 className="font-semibold mb-2">Features:</h3>
                   <ul className="text-sm space-y-1">
@@ -146,7 +180,7 @@ export default function BlogTemplatesPage() {
                 </div>
 
                 <div className="card-actions justify-end">
-                  <Link 
+                  <Link
                     href={`/preview/${template.id}`}
                     className="btn btn-primary"
                   >
@@ -160,10 +194,13 @@ export default function BlogTemplatesPage() {
 
         {/* Call to Action */}
         <div className="text-center bg-base-200 rounded-lg p-8">
-          <h2 className="text-2xl font-bold mb-4">Ready to Create Your Blog?</h2>
+          <h2 className="text-2xl font-bold mb-4">
+            Ready to Create Your Blog?
+          </h2>
           <p className="text-base-content/80 mb-6">
-            Choose a template above and start customizing your blog theme in real-time. 
-            No account required - just click, edit, and export when you&apos;re ready.
+            Choose a template above and start customizing your blog theme in
+            real-time. No account required - just click, edit, and export when
+            you&apos;re ready.
           </p>
           <Link href="/templates" className="btn btn-primary btn-lg">
             Browse All Templates
