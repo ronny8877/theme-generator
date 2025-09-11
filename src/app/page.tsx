@@ -95,12 +95,12 @@ export default function Home() {
       {/* Workflow section */}
       <WorkflowSteps />
 
-      {/* FAQ at the end */}
-      <Faq />
 
       {/* Browse all templates */}
       <BrowseAllTemplates />
 
+      {/* FAQ at the end */}
+      <Faq />
       {/* Footer */}
       <footer className="mt-16 border-t border-base-300 pt-10 pb-16">
         <div className="grid md:grid-cols-3 gap-8">
@@ -116,6 +116,9 @@ export default function Home() {
             <ul className="mt-2 space-y-1 text-sm">
               <li>
                 <Link href="/templates">Templates</Link>
+              </li>
+               <li>
+                <Link href="/faq">FAQ</Link>
               </li>
               <li>
                 <a href="#showcase">Showcase</a>
