@@ -22,19 +22,19 @@ function DeviceSelectBase() {
 
   return (
     <>
-      {/* Desktop Device Selector */}
-      <div className="fixed left-4 top-1/2 hidden md:block -translate-y-1/2 z-50">
+      {/* Desktop Device Selector - Only show on larger screens */}
+      <div className="fixed left-4 top-1/2 hidden lg:block -translate-y-1/2 z-50">
         {/* Vertical pill container */}
-        <div className="flex flex-col items-center bg-base-100 border border-base-300 rounded-full shadow-md p-2 gap-2">
+        <div className="flex flex-col items-center bg-base-100/90 backdrop-blur-sm border border-base-300 rounded-3xl shadow-lg p-2 gap-2">
           {allowedDevices.map((device) => {
             const isActive = activeDevice === device;
             const icon =
               device === "mobile" ? (
-                <Smartphone className="h-4 w-4" />
+                <Smartphone className="w-4 h-4" />
               ) : device === "tablet" ? (
-                <Tablet className="h-4 w-4" />
+                <Tablet className="w-4 h-4" />
               ) : (
-                <Monitor className="h-4 w-4" />
+                <Monitor className="w-4 h-4" />
               );
 
             return (
@@ -43,10 +43,10 @@ function DeviceSelectBase() {
                 key={device}
                 onClick={() => setPreviewDevice(device as never)}
                 aria-pressed={isActive}
-                className={`w-10 h-10 btn btn-sm rounded-full p-0 flex items-center justify-center transition-transform duration-150 ease-out transform ${
+                className={`w-10 h-10 btn btn-sm rounded-box p-0 flex items-center justify-center transition-all duration-200 ${
                   isActive
                     ? "btn-primary shadow-lg scale-105"
-                    : "btn-ghost hover:scale-110"
+                    : "btn-ghost hover:btn-outline hover:scale-110"
                 }`}
               >
                 {icon}
@@ -56,18 +56,19 @@ function DeviceSelectBase() {
         </div>
       </div>
 
-      {/* Mobile Device Selector */}
-      <div className="fixed top-4 right-4 md:hidden z-50">
-        <div className="flex items-center bg-base-100 border border-base-300 rounded-full shadow-md p-1 gap-1">
+      {/* Mobile Device Selector - Hidden on all screen sizes for now since we want to hide on smaller screens */}
+      {/* You can uncomment this if you want device selection on tablets/mobile 
+      <div className="fixed top-4 right-4 md:hidden lg:hidden z-50">
+        <div className="flex items-center bg-base-100/90 backdrop-blur-sm border border-base-300 rounded-box shadow-lg p-1 gap-1">
           {allowedDevices.map((device) => {
             const isActive = activeDevice === device;
             const icon =
               device === "mobile" ? (
-                <Smartphone className="h-3 w-3" />
+                <Smartphone className="w-3 h-3" />
               ) : device === "tablet" ? (
-                <Tablet className="h-3 w-3" />
+                <Tablet className="w-3 h-3" />
               ) : (
-                <Monitor className="h-3 w-3" />
+                <Monitor className="w-3 h-3" />
               );
 
             return (
@@ -76,8 +77,8 @@ function DeviceSelectBase() {
                 key={device}
                 onClick={() => setPreviewDevice(device as never)}
                 aria-pressed={isActive}
-                className={`w-8 h-8 btn btn-xs rounded-full p-0 flex items-center justify-center transition-all duration-150 ${
-                  isActive ? "btn-primary shadow-md" : "btn-ghost"
+                className={`w-8 h-8 btn btn-xs rounded-box p-0 flex items-center justify-center transition-all duration-200 ${
+                  isActive ? "btn-primary shadow-md" : "btn-ghost hover:btn-outline"
                 }`}
               >
                 {icon}
@@ -86,6 +87,7 @@ function DeviceSelectBase() {
           })}
         </div>
       </div>
+      */}
     </>
   );
 }

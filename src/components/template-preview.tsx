@@ -149,12 +149,12 @@ function TemplatePreviewBase({
       case "tablet":
         return "max-w-[768px] h-full h-[760px] 2xl:h-[932px]";
       default:
-        return "max-w-full h-full";
+        return "container  h-[95vh]";
     }
   };
 
   return (
-    <div className="h-full flex items-center justify-center gap-2 md:gap-5 transition-all duration-400 flex-nowrap px-2 md:px-0">
+    <div className="h-full flex items-center justify-center gap-2 md:gap-5 transition-all duration-400 flex-nowrap ">
       <div
         className={`${getViewportClasses()} w-full @container bg-base-100 rounded-2xl md:rounded-4xl shadow-lg overflow-hidden transition-all duration-400`}
         style={{
@@ -173,7 +173,7 @@ function TemplatePreviewBase({
             {/* <div className="input rounded-full">SITENAME</div> */}
           </div>
           <ScrollArea
-            className={`w-full ${previewDevice === "mobile" ? "h-[60vh] md:h-[760px] 2xl:h-[932px]" : "h-[75vh] md:h-[95vh]"}`}
+            className={`w-full ${previewDevice === "mobile" ? "h-[94vh] md:h-[760px] 2xl:h-[932px]" : "h-[94vh] md:h-[95vh]"}`}
           >
             <div
               ref={parent}

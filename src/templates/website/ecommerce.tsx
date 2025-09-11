@@ -8,43 +8,60 @@ import {
 export default function EcommerceSite() {
   return (
     <div className="relative flex min-h-screen flex-col bg-base-100 group/design-root overflow-x-hidden @container">
-      <header className="navbar border-b border-base-300 px-4 @sm:px-6 @md:px-10 w-full mx-auto py-4 bg-primary text-primary-content">
-        <div className="flex items-center gap-4 @sm:gap-6 @md:gap-8">
+      <header className="navbar bg-primary text-primary-content border-b border-primary-content/20 px-4 @sm:px-6 @md:px-8 @lg:px-12 py-3 @md:py-4">
+        <div className="flex items-center gap-3 @sm:gap-4 @md:gap-6">
           <div className="flex items-center gap-2 @sm:gap-3">
-            <span
-              className="material-symbols-outlined text-2xl @sm:text-3xl"
-              style={{ color: "var(--primary-color)" }}
-            >
-              store
-            </span>
-            <h2 className="text-primary-content text-lg @sm:text-xl font-bold leading-tight tracking-[-0.015em]">
+            <div className="w-6 h-6 @sm:w-8 @sm:h-8 rounded-box bg-primary-content text-primary flex items-center justify-center">
+              <span className="text-sm @sm:text-lg font-bold">S</span>
+            </div>
+            <h2 className="text-primary-content text-base @sm:text-lg @md:text-xl font-bold leading-tight tracking-[-0.015em]">
               Fashion Hub
             </h2>
           </div>
 
-          <div className="hidden @md:flex items-center gap-4 @lg:gap-6">
-            <a className="link link-hover text-primary-content">New Arrivals</a>
-            <a className="link link-hover text-primary-content">Men</a>
-            <a className="link link-hover text-primary-content">Women</a>
-            <a className="link link-hover text-primary-content">Accessories</a>
-            <a className="link link-hover text-primary-content">Sale</a>
+          <div className="hidden @lg:flex items-center gap-4 @xl:gap-6">
+            <a className="link link-hover text-primary-content text-sm @xl:text-base">
+              New Arrivals
+            </a>
+            <a className="link link-hover text-primary-content text-sm @xl:text-base">
+              Men
+            </a>
+            <a className="link link-hover text-primary-content text-sm @xl:text-base">
+              Women
+            </a>
+            <a className="link link-hover text-primary-content text-sm @xl:text-base">
+              Accessories
+            </a>
+            <a className="link link-hover text-primary-content text-sm @xl:text-base">
+              Sale
+            </a>
           </div>
         </div>
 
-        <div className="flex flex-1 justify-end items-center gap-2 @sm:gap-4">
-          <button className="btn btn-ghost btn-circle btn-sm @sm:btn-md">
-            <span className="material-symbols-outlined text-lg @sm:text-xl">
-              search
-            </span>
+        <div className="flex flex-1 justify-end items-center gap-1 @sm:gap-2 @md:gap-3">
+          <button className="btn btn-ghost btn-circle btn-sm @md:btn-md">
+            <svg
+              className="w-4 h-4 @md:w-5 @md:h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
           </button>
-          <button className="btn btn-ghost btn-circle btn-sm @sm:btn-md">
-            <Heart className="w-4 h-4 @sm:w-5 @sm:h-5" />
+          <button className="btn btn-ghost btn-circle btn-sm @md:btn-md">
+            <Heart className="w-4 h-4 @md:w-5 @md:h-5" />
           </button>
-          <button className="btn btn-ghost btn-circle btn-sm @sm:btn-md">
-            <ShoppingBag className="w-4 h-4 @sm:w-5 @sm:h-5" />
+          <button className="btn btn-ghost btn-circle btn-sm @md:btn-md">
+            <ShoppingBag className="w-4 h-4 @md:w-5 @md:h-5" />
           </button>
           <div className="avatar">
-            <div className="w-8 @sm:w-10 rounded-full overflow-hidden">
+            <div className="w-6 @sm:w-8 @md:w-10 rounded-full ring ring-primary-content ring-offset-base-100 ring-offset-1">
               <img src="/logo.png" alt="avatar" width={40} height={40} />
             </div>
           </div>
