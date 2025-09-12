@@ -22,3 +22,20 @@ export function openShare() {
 export function closeShare() {
   $shareOpen.set(false);
 }
+
+// Settings modal state
+export const $settingsOpen = atom(false);
+export const $settingsActiveTab = atom<'color-lab' | 'palette' | 'gradient' | 'about'>('color-lab');
+
+export function setSettingsOpen(v: boolean) {
+  $settingsOpen.set(v);
+}
+export function openSettings() {
+  $settingsOpen.set(true);
+}
+export function closeSettings() {
+  $settingsOpen.set(false);
+}
+export function setSettingsActiveTab(tab: 'color-lab' | 'palette' | 'gradient' | 'about') {
+  $settingsActiveTab.set(tab);
+}

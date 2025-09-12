@@ -1,4 +1,4 @@
-import { Component, Dices, Laptop, PaintRoller, Text } from "lucide-react";
+import { Component, Dices, Laptop, PaintRoller, Settings2, Text } from "lucide-react";
 import React from "react";
 import { useAppActions } from "@/store/hooks";
 import { Dock, DockIcon, DockItem, DockLabel } from "@/ui/dock";
@@ -16,13 +16,6 @@ const data = [
     icon: <Component className="h-full w-full text-base-content" />,
     tool: "app" as const,
   },
-  // {
-  //   title: "Poster",
-  //   //THIS IS NOT IMAGE DUMABSSAA>???>>> TF IS THIS LINTING
-  //   // eslint-disable-next-line jsx-a11y/alt-text
-  //   icon: <Image className="h-full w-full text-base-content" />,
-  //   tool: "poster" as const,
-  // },
   {
     title: "Typography",
     icon: <Text className="h-full w-full text-base-content" />,
@@ -33,7 +26,12 @@ const data = [
     icon: <PaintRoller className="h-full w-full text-base-content" />,
     tool: "gradient" as const,
   },
-
+  
+  {
+    title: "Settings",
+    icon: <Settings2 className="h-full w-full text-base-content" />,
+    tool: "poster" as const,
+  },
   {
     title: "Randomize",
     icon: <Dices className="h-full w-full text-base-content" />,
