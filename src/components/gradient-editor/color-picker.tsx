@@ -64,10 +64,7 @@ export const ColorPickerModal: React.FC<ColorPickerModalProps> = ({
 
         {/* Color Lab */}
         <div className="p-4">
-          <ColorLab
-            initial={initialColor}
-            onChange={handleColorChange}
-          />
+          <ColorLab initial={initialColor} onChange={handleColorChange} />
         </div>
 
         {/* Footer */}
@@ -80,16 +77,10 @@ export const ColorPickerModal: React.FC<ColorPickerModalProps> = ({
             <span className="font-mono text-sm">{currentColor}</span>
           </div>
           <div className="flex gap-2">
-            <button
-              onClick={handleCancel}
-              className="btn btn-ghost"
-            >
+            <button onClick={handleCancel} className="btn btn-ghost">
               Cancel
             </button>
-            <button
-              onClick={handleApply}
-              className="btn btn-primary"
-            >
+            <button onClick={handleApply} className="btn btn-primary">
               Apply
             </button>
           </div>
@@ -105,11 +96,9 @@ interface GradientStopColorPickerProps {
   disabled?: boolean;
 }
 
-export const GradientStopColorPicker: React.FC<GradientStopColorPickerProps> = ({
-  color,
-  onColorChange,
-  disabled = false,
-}) => {
+export const GradientStopColorPicker: React.FC<
+  GradientStopColorPickerProps
+> = ({ color, onColorChange, disabled = false }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (

@@ -2,15 +2,15 @@
 
 import React, { useState, useCallback, useMemo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { 
-  Plus, 
-  Trash2, 
-  Copy, 
-  Check, 
-  Palette, 
+import {
+  Plus,
+  Trash2,
+  Copy,
+  Check,
+  Palette,
   RotateCcw,
   Download,
-  Settings
+  Settings,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -22,7 +22,7 @@ import {
   removeGradientStop,
   updateGradientStop,
   reverseGradient,
-  generateRandomGradient
+  generateRandomGradient,
 } from "@/lib/gradient-utils";
 import GradientDirectionControls from "./gradient-direction-controls";
 import { GradientStopColorPicker } from "./color-picker";
@@ -33,24 +33,24 @@ interface InteractiveGradientEditorProps {
   onGradientChange?: (gradient: GradientConfig) => void;
 }
 
-export const InteractiveGradientEditor: React.FC<InteractiveGradientEditorProps> = ({
-  className = "",
-  initialGradient,
-  onGradientChange,
-}) => {
+export const InteractiveGradientEditor: React.FC<
+  InteractiveGradientEditorProps
+> = ({ className = "", initialGradient, onGradientChange }) => {
   // Initialize with a default gradient or use provided one
-  const defaultGradient: GradientConfig = useMemo(() => 
-    initialGradient || {
-      id: `gradient-${Date.now()}`,
-      name: "New Gradient",
-      type: "linear",
-      direction: 90,
-      stops: [
-        createGradientStop("#3B82F6", 0),   // Blue
-        createGradientStop("#EF4444", 100), // Red
-      ],
-      createdAt: new Date(),
-    }, [initialGradient]
+  const defaultGradient: GradientConfig = useMemo(
+    () =>
+      initialGradient || {
+        id: `gradient-${Date.now()}`,
+        name: "New Gradient",
+        type: "linear",
+        direction: 90,
+        stops: [
+          createGradientStop("#3B82F6", 0), // Blue
+          createGradientStop("#EF4444", 100), // Red
+        ],
+        createdAt: new Date(),
+      },
+    [initialGradient],
   );
 
   const [gradient, setGradient] = useState<GradientConfig>(defaultGradient);
@@ -58,10 +58,13 @@ export const InteractiveGradientEditor: React.FC<InteractiveGradientEditorProps>
   const [copiedText, setCopiedText] = useState<string | null>(null);
 
   // Handle gradient updates
-  const updateGradient = useCallback((newGradient: GradientConfig) => {
-    setGradient(newGradient);
-    onGradientChange?.(newGradient);
-  }, [onGradientChange]);
+  const updateGradient = useCallback(
+    (newGradient: GradientConfig) => {
+      setGradient(newGradient);
+      onGradientChange?.(newGradient);
+    },
+    [onGradientChange],
+  );
 
   // Generate CSS for preview
   const gradientCSS = useMemo(() => generateGradientCSS(gradient), [gradient]);
@@ -81,49 +84,70 @@ export const InteractiveGradientEditor: React.FC<InteractiveGradientEditorProps>
 
   // Add new color stop
   const handleAddStop = useCallback(() => {
-    const newPosition = gradient.stops.length > 0 
-      ? Math.max(0, Math.min(100, (gradient.stops.reduce((sum, stop) => sum + stop.position, 0) / gradient.stops.length)))
-      : 50;
-    
+    const newPosition =
+      gradient.stops.length > 0
+        ? Math.max(
+            0,
+            Math.min(
+              100,
+              gradient.stops.reduce((sum, stop) => sum + stop.position, 0) /
+                gradient.stops.length,
+            ),
+          )
+        : 50;
+
     const newGradient = addGradientStop(gradient, "#6366F1", newPosition);
     updateGradient(newGradient);
   }, [gradient, updateGradient]);
 
   // Remove color stop
-  const handleRemoveStop = useCallback((stopId: string) => {
-    if (gradient.stops.length <= 2) {
-      toast.error("Gradient must have at least 2 color stops");
-      return;
-    }
-    
-    const newGradient = removeGradientStop(gradient, stopId);
-    updateGradient(newGradient);
-    
-    if (selectedStopId === stopId) {
-      setSelectedStopId(null);
-    }
-  }, [gradient, updateGradient, selectedStopId]);
+  const handleRemoveStop = useCallback(
+    (stopId: string) => {
+      if (gradient.stops.length <= 2) {
+        toast.error("Gradient must have at least 2 color stops");
+        return;
+      }
+
+      const newGradient = removeGradientStop(gradient, stopId);
+      updateGradient(newGradient);
+
+      if (selectedStopId === stopId) {
+        setSelectedStopId(null);
+      }
+    },
+    [gradient, updateGradient, selectedStopId],
+  );
 
   // Update stop color
-  const handleStopColorChange = useCallback((stopId: string, color: string) => {
-    const newGradient = updateGradientStop(gradient, stopId, { color });
-    updateGradient(newGradient);
-  }, [gradient, updateGradient]);
+  const handleStopColorChange = useCallback(
+    (stopId: string, color: string) => {
+      const newGradient = updateGradientStop(gradient, stopId, { color });
+      updateGradient(newGradient);
+    },
+    [gradient, updateGradient],
+  );
 
   // Update stop position
-  const handleStopPositionChange = useCallback((stopId: string, position: number) => {
-    const newGradient = updateGradientStop(gradient, stopId, { position });
-    updateGradient(newGradient);
-  }, [gradient, updateGradient]);
+  const handleStopPositionChange = useCallback(
+    (stopId: string, position: number) => {
+      const newGradient = updateGradientStop(gradient, stopId, { position });
+      updateGradient(newGradient);
+    },
+    [gradient, updateGradient],
+  );
 
   // Change gradient type
-  const handleTypeChange = useCallback((type: GradientType) => {
-    const newGradient = { ...gradient, type };
-    if (type === "linear") {
-      newGradient.direction = typeof gradient.direction === "number" ? gradient.direction : 90;
-    }
-    updateGradient(newGradient);
-  }, [gradient, updateGradient]);
+  const handleTypeChange = useCallback(
+    (type: GradientType) => {
+      const newGradient = { ...gradient, type };
+      if (type === "linear") {
+        newGradient.direction =
+          typeof gradient.direction === "number" ? gradient.direction : 90;
+      }
+      updateGradient(newGradient);
+    },
+    [gradient, updateGradient],
+  );
 
   // Reverse gradient
   const handleReverse = useCallback(() => {
@@ -155,7 +179,7 @@ export const InteractiveGradientEditor: React.FC<InteractiveGradientEditorProps>
               </p>
             </div>
           </div>
-          
+
           {/* Quick Actions */}
           <div className="flex items-center gap-2">
             <button
@@ -203,13 +227,15 @@ export const InteractiveGradientEditor: React.FC<InteractiveGradientEditorProps>
                   className="w-full h-40 rounded-lg border border-base-300 shadow-inner"
                   style={{ background: gradientCSS }}
                 />
-                
+
                 {/* CSS Output */}
                 <div className="mt-4">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-medium">CSS Code</span>
                     <button
-                      onClick={() => copyToClipboard(`background: ${gradientCSS};`)}
+                      onClick={() =>
+                        copyToClipboard(`background: ${gradientCSS};`)
+                      }
                       className="btn btn-ghost btn-xs"
                     >
                       {copiedText === `background: ${gradientCSS};` ? (
@@ -232,7 +258,9 @@ export const InteractiveGradientEditor: React.FC<InteractiveGradientEditorProps>
             {/* Direction Controls */}
             <div className="card bg-base-100 border border-base-300 shadow-sm">
               <div className="card-body p-4">
-                <h3 className="card-title text-base mb-3">Direction & Settings</h3>
+                <h3 className="card-title text-base mb-3">
+                  Direction & Settings
+                </h3>
                 <GradientDirectionControls
                   gradient={gradient}
                   onUpdate={updateGradient}
@@ -261,20 +289,20 @@ export const InteractiveGradientEditor: React.FC<InteractiveGradientEditorProps>
                       className="w-full h-full"
                       style={{ background: gradientCSS }}
                     />
-                    
+
                     {/* Stop Indicators */}
                     {gradient.stops.map((stop) => (
                       <button
                         key={stop.id}
                         onClick={() => setSelectedStopId(stop.id)}
                         className={`absolute top-0 w-4 h-full transform -translate-x-1/2 border-2 rounded-sm cursor-pointer transition-all hover:scale-110 ${
-                          selectedStopId === stop.id 
-                            ? "border-primary shadow-lg z-10" 
+                          selectedStopId === stop.id
+                            ? "border-primary shadow-lg z-10"
                             : "border-base-content/30 hover:border-base-content/60"
                         }`}
-                        style={{ 
+                        style={{
                           left: `${stop.position}%`,
-                          backgroundColor: stop.color
+                          backgroundColor: stop.color,
                         }}
                         title={`Stop at ${stop.position}%: ${stop.color}`}
                       />
@@ -287,61 +315,72 @@ export const InteractiveGradientEditor: React.FC<InteractiveGradientEditorProps>
                   {gradient.stops
                     .sort((a, b) => a.position - b.position)
                     .map((stop) => (
-                    <div
-                      key={stop.id}
-                      className={`p-3 rounded-lg border transition-all ${
-                        selectedStopId === stop.id
-                          ? "border-primary bg-primary/5"
-                          : "border-base-300 hover:border-base-content/30"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        {/* Color Preview */}
-                        <div
-                          className="w-8 h-8 rounded-lg border border-base-300 shadow-sm cursor-pointer"
-                          style={{ backgroundColor: stop.color }}
-                          onClick={() => setSelectedStopId(stop.id)}
-                        />
+                      <div
+                        key={stop.id}
+                        className={`p-3 rounded-lg border transition-all ${
+                          selectedStopId === stop.id
+                            ? "border-primary bg-primary/5"
+                            : "border-base-300 hover:border-base-content/30"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          {/* Color Preview */}
+                          <div
+                            className="w-8 h-8 rounded-lg border border-base-300 shadow-sm cursor-pointer"
+                            style={{ backgroundColor: stop.color }}
+                            onClick={() => setSelectedStopId(stop.id)}
+                          />
 
-                        {/* Stop Controls */}
-                        <div className="flex-1 grid grid-cols-2 gap-3">
-                          <div className="form-control">
-                            <label className="label py-1">
-                              <span className="label-text text-xs">Color</span>
-                            </label>
-                            <GradientStopColorPicker
-                              color={stop.color}
-                              onColorChange={(color) => handleStopColorChange(stop.id, color)}
-                            />
+                          {/* Stop Controls */}
+                          <div className="flex-1 grid grid-cols-2 gap-3">
+                            <div className="form-control">
+                              <label className="label py-1">
+                                <span className="label-text text-xs">
+                                  Color
+                                </span>
+                              </label>
+                              <GradientStopColorPicker
+                                color={stop.color}
+                                onColorChange={(color) =>
+                                  handleStopColorChange(stop.id, color)
+                                }
+                              />
+                            </div>
+
+                            <div className="form-control">
+                              <label className="label py-1">
+                                <span className="label-text text-xs">
+                                  Position: {stop.position}%
+                                </span>
+                              </label>
+                              <input
+                                type="range"
+                                min={0}
+                                max={100}
+                                value={stop.position}
+                                onChange={(e) =>
+                                  handleStopPositionChange(
+                                    stop.id,
+                                    Number(e.target.value),
+                                  )
+                                }
+                                className="range range-xs range-primary mt-2"
+                              />
+                            </div>
                           </div>
 
-                          <div className="form-control">
-                            <label className="label py-1">
-                              <span className="label-text text-xs">Position: {stop.position}%</span>
-                            </label>
-                            <input
-                              type="range"
-                              min={0}
-                              max={100}
-                              value={stop.position}
-                              onChange={(e) => handleStopPositionChange(stop.id, Number(e.target.value))}
-                              className="range range-xs range-primary mt-2"
-                            />
-                          </div>
+                          {/* Remove Button */}
+                          <button
+                            onClick={() => handleRemoveStop(stop.id)}
+                            disabled={gradient.stops.length <= 2}
+                            className="btn btn-ghost btn-sm text-error hover:bg-error/10 disabled:opacity-30"
+                            title="Remove Stop"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
                         </div>
-
-                        {/* Remove Button */}
-                        <button
-                          onClick={() => handleRemoveStop(stop.id)}
-                          disabled={gradient.stops.length <= 2}
-                          className="btn btn-ghost btn-sm text-error hover:bg-error/10 disabled:opacity-30"
-                          title="Remove Stop"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </div>
             </div>
@@ -359,7 +398,9 @@ export const InteractiveGradientEditor: React.FC<InteractiveGradientEditorProps>
                     Copy CSS
                   </button>
                   <button
-                    onClick={() => copyToClipboard(`background: ${gradientCSS};`)}
+                    onClick={() =>
+                      copyToClipboard(`background: ${gradientCSS};`)
+                    }
                     className="btn btn-outline"
                   >
                     <Download className="w-4 h-4" />
@@ -368,7 +409,9 @@ export const InteractiveGradientEditor: React.FC<InteractiveGradientEditorProps>
                   <button
                     onClick={() => {
                       const variableName = `--gradient-${gradient.type}-${Date.now()}`;
-                      copyToClipboard(`${variableName}: ${gradientCSS};\n/* Usage: background: var(${variableName}); */`);
+                      copyToClipboard(
+                        `${variableName}: ${gradientCSS};\n/* Usage: background: var(${variableName}); */`,
+                      );
                     }}
                     className="btn btn-outline"
                   >
@@ -376,23 +419,26 @@ export const InteractiveGradientEditor: React.FC<InteractiveGradientEditorProps>
                     CSS Variable
                   </button>
                 </div>
-                
+
                 {/* Theme Integration */}
                 <div className="mt-4 p-3 bg-base-200 rounded-lg">
-                  <h4 className="font-medium text-sm mb-2">Theme Integration</h4>
+                  <h4 className="font-medium text-sm mb-2">
+                    Theme Integration
+                  </h4>
                   <p className="text-xs text-base-content/70 mb-3">
-                    Add this gradient to your theme&apos;s CSS variables for consistent usage across your design system.
+                    Add this gradient to your theme&apos;s CSS variables for
+                    consistent usage across your design system.
                   </p>
                   <button
                     onClick={() => {
                       const themeVar = `/* Add to your theme CSS */
 :root {
-  --gradient-${gradient.name.toLowerCase().replace(/\s+/g, '-')}: ${gradientCSS};
+  --gradient-${gradient.name.toLowerCase().replace(/\s+/g, "-")}: ${gradientCSS};
 }
 
 /* Usage in components */
 .gradient-bg {
-  background: var(--gradient-${gradient.name.toLowerCase().replace(/\s+/g, '-')});
+  background: var(--gradient-${gradient.name.toLowerCase().replace(/\s+/g, "-")});
 }`;
                       copyToClipboard(themeVar);
                     }}

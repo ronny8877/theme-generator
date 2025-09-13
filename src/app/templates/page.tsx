@@ -4,8 +4,9 @@ import DeviceSelect from "@/components/navs/device-select";
 import ConditionalContent from "@/components/conditional-content";
 import MainContentArea from "@/components/main-content-area";
 import EditorToggle from "@/components/editor-toggle";
+import { FloatingAccessibilityPreview } from "@/components/floating-accessibility-preview";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useCallback, useRef } from "react";
 import { decodeParamToState, colorsFromCsv } from "@/lib/share-url";
 import {
   useActiveTemplateId,
@@ -13,6 +14,7 @@ import {
   useAppActions,
 } from "@/store/hooks";
 import { $themeColors, editEditorSettings } from "@/store/nano-store";
+import { useStore } from "@nanostores/react";
 import {
   loadGoogleFont,
   updateBodyFont,
@@ -26,6 +28,29 @@ function TemplatesPageInner() {
   const { setActiveTemplateById, updateColorScheme } = useTemplateActions();
   const { setActiveTool } = useAppActions();
   const activeTemplateId = useActiveTemplateId();
+  const themeColors = useStore($themeColors);
+  const themeColorsRef = useRef(themeColors);
+  const updateColorSchemeRef = useRef(updateColorScheme);
+
+  // Update refs on each render
+  themeColorsRef.current = themeColors;
+  updateColorSchemeRef.current = updateColorScheme;
+
+  // Stable callback for accessibility color changes
+  const handleAccessibilityColorsChange = useCallback((colors: string[]) => {
+    // Convert the colors array back to a color scheme object
+    const colorKeys = Object.keys(themeColorsRef.current);
+    const newColorScheme: Record<string, string> = {};
+
+    colors.forEach((color, index) => {
+      if (colorKeys[index]) {
+        newColorScheme[colorKeys[index]] = color;
+      }
+    });
+
+    // Update the theme with simulated colors for live preview
+    updateColorSchemeRef.current(newColorScheme);
+  }, []); // Empty deps to prevent recreation
 
   useEffect(() => {
     // Ensure the editor is open when entering edit mode
@@ -71,6 +96,10 @@ function TemplatesPageInner() {
       <ToolSelect />
       {/* <FloatingThemeSelector /> */}
       <EditorToggle />
+      <FloatingAccessibilityPreview
+        colors={Object.values(themeColors)}
+        onColorsChange={handleAccessibilityColorsChange}
+      />
     </div>
   );
 }

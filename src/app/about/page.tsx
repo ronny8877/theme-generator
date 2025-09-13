@@ -5,7 +5,8 @@ import { ArrowLeft } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About - LiveTheme | Professional Design Tools & Color Utilities",
-  description: "Learn about LiveTheme's mission to provide professional color tools for designers and developers. Discover our features, technology stack, and how to get involved with the project.",
+  description:
+    "Learn about LiveTheme's mission to provide professional color tools for designers and developers. Discover our features, technology stack, and how to get involved with the project.",
   keywords: [
     "about livetheme",
     "design tools",
@@ -22,17 +23,19 @@ export const metadata: Metadata = {
     "culori",
     "nextjs",
     "tailwind",
-    "radix ui"
+    "radix ui",
   ],
   openGraph: {
     title: "About LiveTheme - Professional Design Tools",
-    description: "Professional color tools and design utilities for modern web development.",
+    description:
+      "Professional color tools and design utilities for modern web development.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "About LiveTheme - Professional Design Tools",
-    description: "Professional color tools and design utilities for modern web development.",
+    description:
+      "Professional color tools and design utilities for modern web development.",
   },
 };
 
@@ -43,8 +46,8 @@ export default function AboutPage() {
       <header className="border-b border-base-300 bg-base-100/80 backdrop-blur-sm sticky top-0 z-40">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center gap-4">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="btn btn-ghost btn-sm"
               aria-label="Back to home"
             >

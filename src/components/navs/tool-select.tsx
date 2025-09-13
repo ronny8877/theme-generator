@@ -1,4 +1,11 @@
-import { Component, Dices, Laptop, PaintRoller, Settings2, Text } from "lucide-react";
+import {
+  Component,
+  Dices,
+  Laptop,
+  PaintRoller,
+  Settings2,
+  Text,
+} from "lucide-react";
 import React from "react";
 import { useAppActions } from "@/store/hooks";
 import { Dock, DockIcon, DockItem, DockLabel } from "@/ui/dock";
@@ -26,7 +33,7 @@ const data = [
     icon: <PaintRoller className="h-full w-full text-base-content" />,
     tool: "gradient" as const,
   },
-  
+
   {
     title: "Settings",
     icon: <Settings2 className="h-full w-full text-base-content" />,

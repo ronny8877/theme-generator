@@ -1,5 +1,11 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+  useRef,
+} from "react";
 import { useSearchParams, useParams, useRouter } from "next/navigation";
 import { decodeParamToState, colorsFromCsv } from "@/lib/share-url";
 import {
@@ -9,9 +15,11 @@ import {
 } from "@/store/hooks";
 import { CSSVariablesInjector } from "@/components/css-variables-injector";
 import { FontInjector } from "@/components/font-injector";
+import { FloatingAccessibilityPreview } from "@/components/floating-accessibility-preview";
 import ExportDialogContainer from "@/components/export-dialog-container";
 import ShareDialogContainer from "@/components/share-dialog-container";
 import { $themeColors } from "@/store/nano-store";
+import { useStore } from "@nanostores/react";
 import {
   updateHeadingFont,
   updateBodyFont,
@@ -20,6 +28,7 @@ import {
 import { useActiveTemplateId } from "@/store/hooks";
 import { editEditorSettings } from "@/store/nano-store";
 import { dynamicComponentMap } from "@/components/template-preview";
+import ToolNav from "@/components/navs/tool-nav";
 
 function FloatingActions({ encoded }: { encoded: string }) {
   const router = useRouter();
@@ -57,6 +66,29 @@ export default function ClientPreview() {
   const { setActiveTool } = useAppActions();
   const activeTemplateId = useActiveTemplateId();
   const router = useRouter();
+  const themeColors = useStore($themeColors);
+  const themeColorsRef = useRef(themeColors);
+  const updateColorSchemeRef = useRef(updateColorScheme);
+
+  // Update refs on each render
+  themeColorsRef.current = themeColors;
+  updateColorSchemeRef.current = updateColorScheme;
+
+  // Stable callback for accessibility color changes
+  const handleAccessibilityColorsChange = useCallback((colors: string[]) => {
+    // Convert the colors array back to a color scheme object
+    const colorKeys = Object.keys(themeColorsRef.current);
+    const newColorScheme: Record<string, string> = {};
+
+    colors.forEach((color, index) => {
+      if (colorKeys[index]) {
+        newColorScheme[colorKeys[index]] = color;
+      }
+    });
+
+    // Update the theme with simulated colors for live preview
+    updateColorSchemeRef.current(newColorScheme);
+  }, []); // Empty deps to prevent recreation
 
   // Decode theme param synchronously to compute the target template id immediately
   const decodedState = useMemo(
@@ -141,6 +173,9 @@ export default function ClientPreview() {
 
   return (
     <div className="min-h-screen bg-base-100 text-base-content">
+      <div className="absolute top-5 left-0 w-full">
+        <ToolNav />
+      </div>
       <div
         id="template-root"
         className="smooth-theme-transition template-content relative"
@@ -209,6 +244,10 @@ export default function ClientPreview() {
         )}
       </div>
       <FloatingActions encoded={encoded} />
+      <FloatingAccessibilityPreview
+        colors={Object.values(themeColors)}
+        onColorsChange={handleAccessibilityColorsChange}
+      />
       <ExportDialogContainer />
       <ShareDialogContainer />
     </div>

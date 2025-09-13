@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { 
-  GradientConfig, 
-  RadialGradientConfig, 
-  ConicGradientConfig 
+import {
+  GradientConfig,
+  RadialGradientConfig,
+  ConicGradientConfig,
 } from "@/lib/gradient-utils";
 
 interface GradientDirectionControlsProps {
@@ -12,13 +12,13 @@ interface GradientDirectionControlsProps {
   onUpdate: (gradient: GradientConfig) => void;
 }
 
-export const GradientDirectionControls: React.FC<GradientDirectionControlsProps> = ({
-  gradient,
-  onUpdate,
-}) => {
+export const GradientDirectionControls: React.FC<
+  GradientDirectionControlsProps
+> = ({ gradient, onUpdate }) => {
   if (gradient.type === "linear") {
-    const angle = typeof gradient.direction === "number" ? gradient.direction : 90;
-    
+    const angle =
+      typeof gradient.direction === "number" ? gradient.direction : 90;
+
     return (
       <div className="space-y-4">
         <div>
@@ -30,7 +30,9 @@ export const GradientDirectionControls: React.FC<GradientDirectionControlsProps>
             min={0}
             max={360}
             value={angle}
-            onChange={(e) => onUpdate({ ...gradient, direction: Number(e.target.value) })}
+            onChange={(e) =>
+              onUpdate({ ...gradient, direction: Number(e.target.value) })
+            }
             className="range range-primary"
           />
           <div className="w-full flex justify-between text-xs text-base-content/60 px-2 mt-1">
@@ -84,7 +86,7 @@ export const GradientDirectionControls: React.FC<GradientDirectionControlsProps>
                 onClick={() => {
                   const updatedGradient: RadialGradientConfig = {
                     ...radialGradient,
-                    shape: shapeOption
+                    shape: shapeOption,
                   };
                   onUpdate(updatedGradient);
                 }}
@@ -106,7 +108,7 @@ export const GradientDirectionControls: React.FC<GradientDirectionControlsProps>
             onChange={(e) => {
               const updatedGradient: RadialGradientConfig = {
                 ...radialGradient,
-                size: e.target.value as RadialGradientConfig["size"]
+                size: e.target.value as RadialGradientConfig["size"],
               };
               onUpdate(updatedGradient);
             }}
@@ -137,7 +139,7 @@ export const GradientDirectionControls: React.FC<GradientDirectionControlsProps>
                 onChange={(e) => {
                   const updatedGradient: RadialGradientConfig = {
                     ...radialGradient,
-                    position: { ...position, x: Number(e.target.value) }
+                    position: { ...position, x: Number(e.target.value) },
                   };
                   onUpdate(updatedGradient);
                 }}
@@ -156,7 +158,7 @@ export const GradientDirectionControls: React.FC<GradientDirectionControlsProps>
                 onChange={(e) => {
                   const updatedGradient: RadialGradientConfig = {
                     ...radialGradient,
-                    position: { ...position, y: Number(e.target.value) }
+                    position: { ...position, y: Number(e.target.value) },
                   };
                   onUpdate(updatedGradient);
                 }}
@@ -188,7 +190,7 @@ export const GradientDirectionControls: React.FC<GradientDirectionControlsProps>
                 onClick={() => {
                   const updatedGradient: RadialGradientConfig = {
                     ...radialGradient,
-                    position: { x, y }
+                    position: { x, y },
                   };
                   onUpdate(updatedGradient);
                 }}
@@ -224,7 +226,7 @@ export const GradientDirectionControls: React.FC<GradientDirectionControlsProps>
             onChange={(e) => {
               const updatedGradient: ConicGradientConfig = {
                 ...conicGradient,
-                angle: Number(e.target.value)
+                angle: Number(e.target.value),
               };
               onUpdate(updatedGradient);
             }}
@@ -257,7 +259,7 @@ export const GradientDirectionControls: React.FC<GradientDirectionControlsProps>
                 onChange={(e) => {
                   const updatedGradient: ConicGradientConfig = {
                     ...conicGradient,
-                    position: { ...position, x: Number(e.target.value) }
+                    position: { ...position, x: Number(e.target.value) },
                   };
                   onUpdate(updatedGradient);
                 }}
@@ -276,7 +278,7 @@ export const GradientDirectionControls: React.FC<GradientDirectionControlsProps>
                 onChange={(e) => {
                   const updatedGradient: ConicGradientConfig = {
                     ...conicGradient,
-                    position: { ...position, y: Number(e.target.value) }
+                    position: { ...position, y: Number(e.target.value) },
                   };
                   onUpdate(updatedGradient);
                 }}
@@ -308,7 +310,7 @@ export const GradientDirectionControls: React.FC<GradientDirectionControlsProps>
                 onClick={() => {
                   const updatedGradient: ConicGradientConfig = {
                     ...conicGradient,
-                    position: { x, y }
+                    position: { x, y },
                   };
                   onUpdate(updatedGradient);
                 }}

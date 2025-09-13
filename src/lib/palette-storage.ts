@@ -1,7 +1,7 @@
-import { ColorPalette } from './palette-utils';
+import { ColorPalette } from "./palette-utils";
 
-const STORAGE_KEY = 'saved-palettes';
-const TAGS_KEY = 'palette-tags';
+const STORAGE_KEY = "saved-palettes";
+const TAGS_KEY = "palette-tags";
 
 export interface SavedPaletteData {
   palettes: ColorPalette[];
@@ -14,10 +14,10 @@ export interface SavedPaletteData {
 export function savePalette(palette: ColorPalette): void {
   try {
     const saved = getSavedPalettes();
-    
+
     // Check if palette already exists (by id)
-    const existingIndex = saved.palettes.findIndex(p => p.id === palette.id);
-    
+    const existingIndex = saved.palettes.findIndex((p) => p.id === palette.id);
+
     if (existingIndex >= 0) {
       // Update existing palette
       saved.palettes[existingIndex] = { ...palette, createdAt: new Date() };
@@ -25,21 +25,21 @@ export function savePalette(palette: ColorPalette): void {
       // Add new palette
       saved.palettes.push(palette);
     }
-    
+
     // Update tags
     if (palette.tags) {
-      palette.tags.forEach(tag => {
+      palette.tags.forEach((tag) => {
         if (!saved.tags.includes(tag)) {
           saved.tags.push(tag);
         }
       });
     }
-    
+
     localStorage.setItem(STORAGE_KEY, JSON.stringify(saved.palettes));
     localStorage.setItem(TAGS_KEY, JSON.stringify(saved.tags));
   } catch (error) {
-    console.error('Failed to save palette:', error);
-    throw new Error('Failed to save palette to local storage');
+    console.error("Failed to save palette:", error);
+    throw new Error("Failed to save palette to local storage");
   }
 }
 
@@ -50,20 +50,22 @@ export function getSavedPalettes(): SavedPaletteData {
   try {
     const palettesData = localStorage.getItem(STORAGE_KEY);
     const tagsData = localStorage.getItem(TAGS_KEY);
-    
-    const palettes: ColorPalette[] = palettesData ? JSON.parse(palettesData) : [];
+
+    const palettes: ColorPalette[] = palettesData
+      ? JSON.parse(palettesData)
+      : [];
     const tags: string[] = tagsData ? JSON.parse(tagsData) : [];
-    
+
     // Convert date strings back to Date objects
-    palettes.forEach(palette => {
-      if (typeof palette.createdAt === 'string') {
+    palettes.forEach((palette) => {
+      if (typeof palette.createdAt === "string") {
         palette.createdAt = new Date(palette.createdAt);
       }
     });
-    
+
     return { palettes, tags };
   } catch (error) {
-    console.error('Failed to load saved palettes:', error);
+    console.error("Failed to load saved palettes:", error);
     return { palettes: [], tags: [] };
   }
 }
@@ -74,42 +76,47 @@ export function getSavedPalettes(): SavedPaletteData {
 export function deletePalette(paletteId: string): void {
   try {
     const saved = getSavedPalettes();
-    saved.palettes = saved.palettes.filter(p => p.id !== paletteId);
-    
+    saved.palettes = saved.palettes.filter((p) => p.id !== paletteId);
+
     localStorage.setItem(STORAGE_KEY, JSON.stringify(saved.palettes));
   } catch (error) {
-    console.error('Failed to delete palette:', error);
-    throw new Error('Failed to delete palette from local storage');
+    console.error("Failed to delete palette:", error);
+    throw new Error("Failed to delete palette from local storage");
   }
 }
 
 /**
  * Search palettes by name or tags
  */
-export function searchPalettes(query: string, filterTags?: string[]): ColorPalette[] {
+export function searchPalettes(
+  query: string,
+  filterTags?: string[],
+): ColorPalette[] {
   const saved = getSavedPalettes();
   const searchTerm = query.toLowerCase();
-  
-  return saved.palettes.filter(palette => {
+
+  return saved.palettes.filter((palette) => {
     // Search in name
     const nameMatch = palette.name.toLowerCase().includes(searchTerm);
-    
+
     // Search in tags
-    const tagMatch = palette.tags?.some(tag => 
-      tag.toLowerCase().includes(searchTerm)
-    ) ?? false;
-    
+    const tagMatch =
+      palette.tags?.some((tag) => tag.toLowerCase().includes(searchTerm)) ??
+      false;
+
     // Search in color names
-    const colorMatch = palette.colors.some(color => 
-      color.name?.toLowerCase().includes(searchTerm) ?? false
+    const colorMatch = palette.colors.some(
+      (color) => color.name?.toLowerCase().includes(searchTerm) ?? false,
     );
-    
-    const queryMatch = searchTerm === '' || nameMatch || tagMatch || colorMatch;
-    
+
+    const queryMatch = searchTerm === "" || nameMatch || tagMatch || colorMatch;
+
     // Filter by tags if provided
-    const tagFilter = !filterTags || filterTags.length === 0 || 
-      filterTags.some(tag => palette.tags?.includes(tag));
-    
+    const tagFilter =
+      !filterTags ||
+      filterTags.length === 0 ||
+      filterTags.some((tag) => palette.tags?.includes(tag));
+
     return queryMatch && tagFilter;
   });
 }
@@ -119,9 +126,9 @@ export function searchPalettes(query: string, filterTags?: string[]): ColorPalet
  */
 export function getPalettesByTags(tags: string[]): ColorPalette[] {
   const saved = getSavedPalettes();
-  
-  return saved.palettes.filter(palette => 
-    tags.some(tag => palette.tags?.includes(tag))
+
+  return saved.palettes.filter((palette) =>
+    tags.some((tag) => palette.tags?.includes(tag)),
   );
 }
 
@@ -138,24 +145,24 @@ export function getAllTags(): string[] {
 export function updatePaletteTags(paletteId: string, tags: string[]): void {
   try {
     const saved = getSavedPalettes();
-    const palette = saved.palettes.find(p => p.id === paletteId);
-    
+    const palette = saved.palettes.find((p) => p.id === paletteId);
+
     if (palette) {
       palette.tags = tags;
-      
+
       // Update global tags list
-      tags.forEach(tag => {
+      tags.forEach((tag) => {
         if (!saved.tags.includes(tag)) {
           saved.tags.push(tag);
         }
       });
-      
+
       localStorage.setItem(STORAGE_KEY, JSON.stringify(saved.palettes));
       localStorage.setItem(TAGS_KEY, JSON.stringify(saved.tags));
     }
   } catch (error) {
-    console.error('Failed to update palette tags:', error);
-    throw new Error('Failed to update palette tags');
+    console.error("Failed to update palette tags:", error);
+    throw new Error("Failed to update palette tags");
   }
 }
 
@@ -173,17 +180,19 @@ export function exportAllPalettes(): string {
 export function importPalettes(jsonData: string): void {
   try {
     const imported = JSON.parse(jsonData) as SavedPaletteData;
-    
+
     if (!imported.palettes || !Array.isArray(imported.palettes)) {
-      throw new Error('Invalid palette data format');
+      throw new Error("Invalid palette data format");
     }
-    
+
     const saved = getSavedPalettes();
-    
+
     // Merge imported palettes (avoid duplicates by id)
-    imported.palettes.forEach(importedPalette => {
-      const existingIndex = saved.palettes.findIndex(p => p.id === importedPalette.id);
-      
+    imported.palettes.forEach((importedPalette) => {
+      const existingIndex = saved.palettes.findIndex(
+        (p) => p.id === importedPalette.id,
+      );
+
       if (existingIndex >= 0) {
         // Update existing
         saved.palettes[existingIndex] = importedPalette;
@@ -192,21 +201,21 @@ export function importPalettes(jsonData: string): void {
         saved.palettes.push(importedPalette);
       }
     });
-    
+
     // Merge tags
     if (imported.tags && Array.isArray(imported.tags)) {
-      imported.tags.forEach(tag => {
+      imported.tags.forEach((tag) => {
         if (!saved.tags.includes(tag)) {
           saved.tags.push(tag);
         }
       });
     }
-    
+
     localStorage.setItem(STORAGE_KEY, JSON.stringify(saved.palettes));
     localStorage.setItem(TAGS_KEY, JSON.stringify(saved.tags));
   } catch (error) {
-    console.error('Failed to import palettes:', error);
-    throw new Error('Failed to import palettes');
+    console.error("Failed to import palettes:", error);
+    throw new Error("Failed to import palettes");
   }
 }
 
@@ -218,7 +227,7 @@ export function clearAllPalettes(): void {
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(TAGS_KEY);
   } catch (error) {
-    console.error('Failed to clear palettes:', error);
-    throw new Error('Failed to clear saved palettes');
+    console.error("Failed to clear palettes:", error);
+    throw new Error("Failed to clear saved palettes");
   }
 }

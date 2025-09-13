@@ -25,7 +25,9 @@ export function closeShare() {
 
 // Settings modal state
 export const $settingsOpen = atom(false);
-export const $settingsActiveTab = atom<'color-lab' | 'palette' | 'gradient' | 'about'>('color-lab');
+export const $settingsActiveTab = atom<
+  "color-lab" | "palette" | "gradient" | "app-settings" | "about"
+>("color-lab");
 
 export function setSettingsOpen(v: boolean) {
   $settingsOpen.set(v);
@@ -36,6 +38,8 @@ export function openSettings() {
 export function closeSettings() {
   $settingsOpen.set(false);
 }
-export function setSettingsActiveTab(tab: 'color-lab' | 'palette' | 'gradient' | 'about') {
+export function setSettingsActiveTab(
+  tab: "color-lab" | "palette" | "gradient" | "app-settings" | "about",
+) {
   $settingsActiveTab.set(tab);
 }

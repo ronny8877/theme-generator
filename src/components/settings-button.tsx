@@ -1,9 +1,9 @@
 "use client";
 
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { openSettings } from '@/store/ui-store';
-import { Settings } from 'lucide-react';
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { openSettings } from "@/store/ui-store";
+import { Settings } from "lucide-react";
 
 export function SettingsButton() {
   const handleOpenSettings = () => {

@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { ColorLabTool } from "@/components/tools/color-lab-tool";
 import { CommonToolbar } from "@/components/common-toolbar";
+import { SettingsDialog } from "@/components/settings-dialog";
 import Link from "next/link";
+import ToolNav from "@/components/navs/tool-nav";
 
 export const metadata: Metadata = {
-  title: "Color Lab - LiveTheme | Professional Color Conversion & Analysis Tool",
-  description: "Convert colors between formats (HEX, RGB, HSL), analyze accessibility contrasts with WCAG guidelines, generate color harmonies, and test color combinations. Free professional color tools for designers and developers.",
+  title:
+    "Color Lab - LiveTheme | Professional Color Conversion & Analysis Tool",
+  description:
+    "Convert colors between formats (HEX, RGB, HSL), analyze accessibility contrasts with WCAG guidelines, generate color harmonies, and test color combinations. Free professional color tools for designers and developers.",
   keywords: [
     "color converter",
     "hex to rgb",
@@ -26,24 +30,26 @@ export const metadata: Metadata = {
     "contrast ratio",
     "color formats",
     "color theory",
-    "designer tools"
+    "designer tools",
   ],
   openGraph: {
     title: "Color Lab - Professional Color Tools",
-    description: "Convert colors, check accessibility, and analyze color harmonies with our professional color lab.",
+    description:
+      "Convert colors, check accessibility, and analyze color harmonies with our professional color lab.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Color Lab - Professional Color Tools",
-    description: "Convert colors, check accessibility, and analyze color harmonies with our professional color lab.",
+    description:
+      "Convert colors, check accessibility, and analyze color harmonies with our professional color lab.",
   },
 };
 
 export default function ColorLabPage() {
   return (
     <div className="min-h-screen bg-base-100">
-      <CommonToolbar />
+      <ToolNav />
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
@@ -66,6 +72,8 @@ export default function ColorLabPage() {
           </div>
         </div>
       </footer>
+
+      <SettingsDialog />
     </div>
   );
 }

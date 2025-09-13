@@ -2,24 +2,24 @@
 
 import React, { useState, useMemo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { 
-  Copy, 
-  Check, 
-  Palette, 
-  Plus, 
+import {
+  Copy,
+  Check,
+  Palette,
+  Plus,
   Sparkles,
   BookOpen,
-  Settings
+  Settings,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useTemplateActions } from "@/store/hooks";
 import { useStore } from "@nanostores/react";
 import { $activeTheme } from "@/store/nano-store";
 import { InteractiveGradientEditor } from "./gradient-editor/interactive-gradient-editor";
-import { 
-  GradientConfig, 
+import {
+  GradientConfig,
   createGradientStop,
-  createPresetGradients 
+  createPresetGradients,
 } from "@/lib/gradient-utils";
 
 interface EnhancedGradientToolProps {
@@ -33,8 +33,10 @@ export const EnhancedGradientTool: React.FC<EnhancedGradientToolProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<TabType>("editor");
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [selectedPreset, setSelectedPreset] = useState<GradientConfig | null>(null);
-  
+  const [selectedPreset, setSelectedPreset] = useState<GradientConfig | null>(
+    null,
+  );
+
   useTemplateActions();
   const activeTheme = useStore($activeTheme);
 
@@ -71,7 +73,11 @@ export const EnhancedGradientTool: React.FC<EnhancedGradientToolProps> = ({
         id: `${currentTheme.id}-three-color`,
         name: `Three Color Blend`,
         gradient: `linear-gradient(90deg, ${primaryColor}, ${accentColor}, ${secondaryColor})`,
-        colors: { primary: primaryColor, secondary: secondaryColor, accent: accentColor },
+        colors: {
+          primary: primaryColor,
+          secondary: secondaryColor,
+          accent: accentColor,
+        },
         cssGradient: `background: linear-gradient(90deg, ${primaryColor}, ${accentColor}, ${secondaryColor});`,
       },
     ];
@@ -114,9 +120,13 @@ export const EnhancedGradientTool: React.FC<EnhancedGradientToolProps> = ({
       ],
       createdAt: new Date(),
     };
-    
+
     if (gradientData.colors.accent) {
-      gradientConfig.stops.splice(1, 0, createGradientStop(gradientData.colors.accent, 50));
+      gradientConfig.stops.splice(
+        1,
+        0,
+        createGradientStop(gradientData.colors.accent, 50),
+      );
     }
 
     setSelectedPreset(gradientConfig);
@@ -183,12 +193,14 @@ export const EnhancedGradientTool: React.FC<EnhancedGradientToolProps> = ({
           <ScrollArea className="h-full">
             <div className="p-4">
               <div className="mb-4">
-                <h2 className="text-lg font-semibold mb-2">Theme-Based Gradients</h2>
+                <h2 className="text-lg font-semibold mb-2">
+                  Theme-Based Gradients
+                </h2>
                 <p className="text-sm text-base-content/70">
                   Gradients created from your current theme colors
                 </p>
               </div>
-              
+
               <div className="grid grid-cols-1 gap-3">
                 {themeGradients.map((gradient) => (
                   <div
@@ -215,19 +227,25 @@ export const EnhancedGradientTool: React.FC<EnhancedGradientToolProps> = ({
                           <div className="flex gap-1.5">
                             <div
                               className="w-4 h-4 rounded-full border border-base-300 shadow-sm"
-                              style={{ backgroundColor: gradient.colors.primary }}
+                              style={{
+                                backgroundColor: gradient.colors.primary,
+                              }}
                               title={gradient.colors.primary}
                             />
                             {gradient.colors.accent && (
                               <div
                                 className="w-4 h-4 rounded-full border border-base-300 shadow-sm"
-                                style={{ backgroundColor: gradient.colors.accent }}
+                                style={{
+                                  backgroundColor: gradient.colors.accent,
+                                }}
                                 title={gradient.colors.accent}
                               />
                             )}
                             <div
                               className="w-4 h-4 rounded-full border border-base-300 shadow-sm"
-                              style={{ backgroundColor: gradient.colors.secondary }}
+                              style={{
+                                backgroundColor: gradient.colors.secondary,
+                              }}
                               title={gradient.colors.secondary}
                             />
                           </div>
@@ -243,7 +261,9 @@ export const EnhancedGradientTool: React.FC<EnhancedGradientToolProps> = ({
                             <Settings className="w-3 h-3" />
                           </button>
                           <button
-                            onClick={() => copyToClipboard(gradient.cssGradient, gradient.id)}
+                            onClick={() =>
+                              copyToClipboard(gradient.cssGradient, gradient.id)
+                            }
                             className="btn btn-ghost btn-sm"
                             title="Copy CSS"
                           >
@@ -272,7 +292,7 @@ export const EnhancedGradientTool: React.FC<EnhancedGradientToolProps> = ({
                   Beautiful gradients ready to use in your projects
                 </p>
               </div>
-              
+
               <div className="grid grid-cols-1 gap-3">
                 {presetGradients.map((preset) => (
                   <div
@@ -282,10 +302,11 @@ export const EnhancedGradientTool: React.FC<EnhancedGradientToolProps> = ({
                     {/* Gradient Preview */}
                     <div
                       className="h-32 w-full relative"
-                      style={{ 
-                        background: preset.type === "linear" 
-                          ? `linear-gradient(${preset.direction}deg, ${preset.stops.map(s => `${s.color} ${s.position}%`).join(", ")})`
-                          : `radial-gradient(circle, ${preset.stops.map(s => `${s.color} ${s.position}%`).join(", ")})`
+                      style={{
+                        background:
+                          preset.type === "linear"
+                            ? `linear-gradient(${preset.direction}deg, ${preset.stops.map((s) => `${s.color} ${s.position}%`).join(", ")})`
+                            : `radial-gradient(circle, ${preset.stops.map((s) => `${s.color} ${s.position}%`).join(", ")})`,
                       }}
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
@@ -317,9 +338,10 @@ export const EnhancedGradientTool: React.FC<EnhancedGradientToolProps> = ({
                           </button>
                           <button
                             onClick={() => {
-                              const css = preset.type === "linear" 
-                                ? `linear-gradient(${preset.direction}deg, ${preset.stops.map(s => `${s.color} ${s.position}%`).join(", ")})`
-                                : `radial-gradient(circle, ${preset.stops.map(s => `${s.color} ${s.position}%`).join(", ")})`;
+                              const css =
+                                preset.type === "linear"
+                                  ? `linear-gradient(${preset.direction}deg, ${preset.stops.map((s) => `${s.color} ${s.position}%`).join(", ")})`
+                                  : `radial-gradient(circle, ${preset.stops.map((s) => `${s.color} ${s.position}%`).join(", ")})`;
                               copyToClipboard(`background: ${css};`, preset.id);
                             }}
                             className="btn btn-ghost btn-sm"
@@ -345,9 +367,12 @@ export const EnhancedGradientTool: React.FC<EnhancedGradientToolProps> = ({
       {/* Footer Stats */}
       <div className="border-t border-base-300 p-3">
         <div className="text-xs text-base-content/60 text-center">
-          {activeTab === "editor" && "Interactive gradient editor with advanced controls"}
-          {activeTab === "presets" && `${themeGradients.length} theme-based gradients available`}
-          {activeTab === "gallery" && `${presetGradients.length} preset gradients available`}
+          {activeTab === "editor" &&
+            "Interactive gradient editor with advanced controls"}
+          {activeTab === "presets" &&
+            `${themeGradients.length} theme-based gradients available`}
+          {activeTab === "gallery" &&
+            `${presetGradients.length} preset gradients available`}
         </div>
       </div>
     </div>

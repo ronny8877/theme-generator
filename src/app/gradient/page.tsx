@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import { GradientTool } from "@/components/tools/gradient-tool";
 import { CommonToolbar } from "@/components/common-toolbar";
+import { SettingsDialog } from "@/components/settings-dialog";
 import Link from "next/link";
+import ToolNav from "@/components/navs/tool-nav";
 
 export const metadata: Metadata = {
   title: "Gradient Generator - LiveTheme | Professional CSS Gradient Tools",
-  description: "Create stunning CSS gradients with live preview. Generate linear, radial, and conic gradients. Edit color stops, adjust directions, and export CSS code. Professional gradient tools for web designers and developers.",
+  description:
+    "Create stunning CSS gradients with live preview. Generate linear, radial, and conic gradients. Edit color stops, adjust directions, and export CSS code. Professional gradient tools for web designers and developers.",
   keywords: [
     "gradient generator",
     "css gradient",
     "linear gradient",
-    "radial gradient", 
+    "radial gradient",
     "conic gradient",
     "gradient maker",
     "gradient creator",
@@ -26,24 +29,26 @@ export const metadata: Metadata = {
     "gradient export",
     "gradient code",
     "designer tools",
-    "web design"
+    "web design",
   ],
   openGraph: {
     title: "Gradient Generator - Professional CSS Gradient Tools",
-    description: "Create stunning CSS gradients with live preview and instant export. Professional gradient tools for designers.",
+    description:
+      "Create stunning CSS gradients with live preview and instant export. Professional gradient tools for designers.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Gradient Generator - Professional CSS Gradient Tools",
-    description: "Create stunning CSS gradients with live preview and instant export. Professional gradient tools for designers.",
+    description:
+      "Create stunning CSS gradients with live preview and instant export. Professional gradient tools for designers.",
   },
 };
 
 export default function GradientPage() {
   return (
     <div className="min-h-screen bg-base-100">
-      <CommonToolbar />
+      <ToolNav />
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
@@ -66,6 +71,8 @@ export default function GradientPage() {
           </div>
         </div>
       </footer>
+
+      <SettingsDialog />
     </div>
   );
 }

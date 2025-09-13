@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { isValidColor } from '@/lib/color-utils';
+import React, { useState, useEffect, useRef, useMemo } from "react";
+import { isValidColor } from "@/lib/color-utils";
 
 interface ColorPickerProps {
   value: string;
@@ -10,7 +10,7 @@ interface ColorPickerProps {
   debounceMs?: number;
   className?: string;
   disabled?: boolean;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   showTextInput?: boolean;
   placeholder?: string;
 }
@@ -20,11 +20,11 @@ export function ColorPicker({
   onChange,
   onChangeDebounced,
   debounceMs = 300,
-  className = '',
+  className = "",
   disabled = false,
-  size = 'md',
+  size = "md",
   showTextInput = true,
-  placeholder = 'Enter color...'
+  placeholder = "Enter color...",
 }: ColorPickerProps) {
   const [internalValue, setInternalValue] = useState(value);
   const [isValid, setIsValid] = useState(true);
@@ -53,20 +53,20 @@ export function ColorPicker({
   // Memoized size classes to prevent recalculation
   const sizeClasses = useMemo(() => {
     switch (size) {
-      case 'sm':
+      case "sm":
         return {
-          colorInput: 'w-8 h-8',
-          textInput: 'h-8 text-sm',
+          colorInput: "w-8 h-8",
+          textInput: "h-8 text-sm",
         };
-      case 'lg':
+      case "lg":
         return {
-          colorInput: 'w-16 h-16',
-          textInput: 'h-16 text-lg',
+          colorInput: "w-16 h-16",
+          textInput: "h-16 text-lg",
         };
       default:
         return {
-          colorInput: 'w-12 h-12',
-          textInput: 'h-12',
+          colorInput: "w-12 h-12",
+          textInput: "h-12",
         };
     }
   }, [size]);
@@ -75,17 +75,17 @@ export function ColorPicker({
     setInternalValue(newColor);
     const valid = isValidColor(newColor);
     setIsValid(valid);
-    
+
     // Immediate callback for valid colors only
     if (valid) {
       lastValidColorRef.current = newColor;
       onChange(newColor);
-      
+
       // Clear existing debounce timer
       if (debounceRef.current) {
         clearTimeout(debounceRef.current);
       }
-      
+
       // Debounced callback
       if (onChangeDebounced) {
         debounceRef.current = setTimeout(() => {
@@ -120,7 +120,7 @@ export function ColorPicker({
         className={`${sizeClasses.colorInput} rounded-2xl border-2 border-base-300 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 hover:border-primary focus:border-primary transition-colors shadow-sm`}
         title="Pick a color"
       />
-      
+
       {/* Text Input */}
       {showTextInput && (
         <input
@@ -132,7 +132,7 @@ export function ColorPicker({
           spellCheck={false}
           autoComplete="off"
           className={`${sizeClasses.textInput} flex-1 px-4 rounded-2xl border-2 border-base-300 focus:border-primary focus:outline-none transition-colors disabled:cursor-not-allowed disabled:opacity-50 font-mono shadow-sm ${
-            !isValid ? 'border-error bg-error/10' : ''
+            !isValid ? "border-error bg-error/10" : ""
           }`}
         />
       )}

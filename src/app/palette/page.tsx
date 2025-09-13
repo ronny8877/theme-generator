@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { PaletteTool } from "@/components/tools/palette-tool";
 import { CommonToolbar } from "@/components/common-toolbar";
+import { SettingsDialog } from "@/components/settings-dialog";
 import Link from "next/link";
+import ToolNav from "@/components/navs/tool-nav";
 
 export const metadata: Metadata = {
   title: "Palette Generator - LiveTheme | Professional Color Palette Tools",
-  description: "Generate beautiful color palettes using color harmony rules. Create monochromatic, analogous, complementary, triadic palettes. Analyze accessibility and export in multiple formats. Professional palette tools for designers.",
+  description:
+    "Generate beautiful color palettes using color harmony rules. Create monochromatic, analogous, complementary, triadic palettes. Analyze accessibility and export in multiple formats. Professional palette tools for designers.",
   keywords: [
     "color palette generator",
     "color scheme generator",
@@ -26,24 +29,26 @@ export const metadata: Metadata = {
     "color inspiration",
     "brand colors",
     "web palette",
-    "designer tools"
+    "designer tools",
   ],
   openGraph: {
     title: "Palette Generator - Professional Color Palette Tools",
-    description: "Generate beautiful color palettes with harmony analysis and accessibility checking. Export in multiple formats.",
+    description:
+      "Generate beautiful color palettes with harmony analysis and accessibility checking. Export in multiple formats.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Palette Generator - Professional Color Palette Tools", 
-    description: "Generate beautiful color palettes with harmony analysis and accessibility checking. Export in multiple formats.",
+    title: "Palette Generator - Professional Color Palette Tools",
+    description:
+      "Generate beautiful color palettes with harmony analysis and accessibility checking. Export in multiple formats.",
   },
 };
 
 export default function PalettePage() {
   return (
     <div className="min-h-screen bg-base-100">
-      <CommonToolbar />
+      <ToolNav />
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
@@ -66,6 +71,8 @@ export default function PalettePage() {
           </div>
         </div>
       </footer>
+
+      <SettingsDialog />
     </div>
   );
 }

@@ -10,9 +10,9 @@ import {
   interpolate,
   differenceEuclidean,
   clampGamut,
-} from 'culori';
+} from "culori";
 
-export type ColorFormat = 'hex' | 'hsl' | 'rgb' | 'hsv';
+export type ColorFormat = "hex" | "hsl" | "rgb" | "hsv";
 
 export interface ColorInfo {
   hex: string;
@@ -24,7 +24,7 @@ export interface ColorInfo {
 
 export interface ContrastResult {
   ratio: number;
-  level: 'AAA' | 'AA' | 'A' | 'FAIL';
+  level: "AAA" | "AA" | "A" | "FAIL";
   isAccessible: boolean;
 }
 
@@ -35,15 +35,15 @@ export interface ContrastResult {
 function formatHsv(colorInput: any): string {
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const hsv = converter('hsv')(colorInput) as any;
-    if (!hsv) return 'hsv(0, 0%, 0%)';
-    
+    const hsv = converter("hsv")(colorInput) as any;
+    if (!hsv) return "hsv(0, 0%, 0%)";
+
     const h = Math.round(hsv.h || 0);
     const s = Math.round((hsv.s || 0) * 100);
     const v = Math.round((hsv.v || 0) * 100);
     return `hsv(${h}, ${s}%, ${v}%)`;
   } catch {
-    return 'hsv(0, 0%, 0%)';
+    return "hsv(0, 0%, 0%)";
   }
 }
 
@@ -71,7 +71,7 @@ export function convertColor(input: string): ColorInfo | null {
       name,
     };
   } catch (error) {
-    console.error('Error converting color:', error);
+    console.error("Error converting color:", error);
     return null;
   }
 }
@@ -91,21 +91,24 @@ export function isValidColor(input: string): boolean {
 /**
  * Calculate contrast ratio between two colors
  */
-export function calculateContrast(color1: string, color2: string): ContrastResult | null {
+export function calculateContrast(
+  color1: string,
+  color2: string,
+): ContrastResult | null {
   try {
     const ratio = wcagContrast(color1, color2);
-    
-    let level: ContrastResult['level'] = 'FAIL';
+
+    let level: ContrastResult["level"] = "FAIL";
     let isAccessible = false;
 
     if (ratio >= 7) {
-      level = 'AAA';
+      level = "AAA";
       isAccessible = true;
     } else if (ratio >= 4.5) {
-      level = 'AA';
+      level = "AA";
       isAccessible = true;
     } else if (ratio >= 3) {
-      level = 'A';
+      level = "A";
       isAccessible = false;
     }
 
@@ -115,7 +118,7 @@ export function calculateContrast(color1: string, color2: string): ContrastResul
       isAccessible,
     };
   } catch (error) {
-    console.error('Error calculating contrast:', error);
+    console.error("Error calculating contrast:", error);
     return null;
   }
 }
@@ -159,7 +162,7 @@ export function getComplementaryColor(color: string): string | null {
     const parsed = parse(color);
     if (!parsed) return null;
 
-    const hsl = converter('hsl')(parsed);
+    const hsl = converter("hsl")(parsed);
     const complementary = {
       ...hsl,
       h: ((hsl.h || 0) + 180) % 360,
@@ -167,7 +170,7 @@ export function getComplementaryColor(color: string): string | null {
 
     return formatHex(complementary);
   } catch (error) {
-    console.error('Error getting complementary color:', error);
+    console.error("Error getting complementary color:", error);
     return null;
   }
 }
@@ -180,18 +183,18 @@ export function getAnalogousColors(color: string, count: number = 2): string[] {
     const parsed = parse(color);
     if (!parsed) return [];
 
-    const hsl = converter('hsl')(parsed);
+    const hsl = converter("hsl")(parsed);
     const colors: string[] = [];
     const step = 30; // degrees
 
     for (let i = 1; i <= count; i++) {
       const analogous1 = {
         ...hsl,
-        h: ((hsl.h || 0) + (step * i)) % 360,
+        h: ((hsl.h || 0) + step * i) % 360,
       };
       const analogous2 = {
         ...hsl,
-        h: ((hsl.h || 0) - (step * i) + 360) % 360,
+        h: ((hsl.h || 0) - step * i + 360) % 360,
       };
 
       colors.push(formatHex(analogous1));
@@ -202,7 +205,7 @@ export function getAnalogousColors(color: string, count: number = 2): string[] {
 
     return colors.slice(0, count * 2);
   } catch (error) {
-    console.error('Error getting analogous colors:', error);
+    console.error("Error getting analogous colors:", error);
     return [];
   }
 }
@@ -215,7 +218,7 @@ export function getTriadicColors(color: string): string[] {
     const parsed = parse(color);
     if (!parsed) return [];
 
-    const hsl = converter('hsl')(parsed);
+    const hsl = converter("hsl")(parsed);
     const triadic1 = {
       ...hsl,
       h: ((hsl.h || 0) + 120) % 360,
@@ -227,7 +230,7 @@ export function getTriadicColors(color: string): string[] {
 
     return [formatHex(triadic1), formatHex(triadic2)];
   } catch (error) {
-    console.error('Error getting triadic colors:', error);
+    console.error("Error getting triadic colors:", error);
     return [];
   }
 }
@@ -235,12 +238,15 @@ export function getTriadicColors(color: string): string[] {
 /**
  * Lighten a color
  */
-export function lightenColor(color: string, amount: number = 0.1): string | null {
+export function lightenColor(
+  color: string,
+  amount: number = 0.1,
+): string | null {
   try {
     const parsed = parse(color);
     if (!parsed) return null;
 
-    const hsl = converter('hsl')(parsed);
+    const hsl = converter("hsl")(parsed);
     const lightened = {
       ...hsl,
       l: Math.min(1, (hsl.l || 0) + amount),
@@ -248,7 +254,7 @@ export function lightenColor(color: string, amount: number = 0.1): string | null
 
     return formatHex(lightened);
   } catch (error) {
-    console.error('Error lightening color:', error);
+    console.error("Error lightening color:", error);
     return null;
   }
 }
@@ -256,12 +262,15 @@ export function lightenColor(color: string, amount: number = 0.1): string | null
 /**
  * Darken a color
  */
-export function darkenColor(color: string, amount: number = 0.1): string | null {
+export function darkenColor(
+  color: string,
+  amount: number = 0.1,
+): string | null {
   try {
     const parsed = parse(color);
     if (!parsed) return null;
 
-    const hsl = converter('hsl')(parsed);
+    const hsl = converter("hsl")(parsed);
     const darkened = {
       ...hsl,
       l: Math.max(0, (hsl.l || 0) - amount),
@@ -269,7 +278,7 @@ export function darkenColor(color: string, amount: number = 0.1): string | null 
 
     return formatHex(darkened);
   } catch (error) {
-    console.error('Error darkening color:', error);
+    console.error("Error darkening color:", error);
     return null;
   }
 }
@@ -282,7 +291,7 @@ export function adjustSaturation(color: string, amount: number): string | null {
     const parsed = parse(color);
     if (!parsed) return null;
 
-    const hsl = converter('hsl')(parsed);
+    const hsl = converter("hsl")(parsed);
     const adjusted = {
       ...hsl,
       s: Math.max(0, Math.min(1, (hsl.s || 0) + amount)),
@@ -290,7 +299,7 @@ export function adjustSaturation(color: string, amount: number): string | null {
 
     return formatHex(adjusted);
   } catch (error) {
-    console.error('Error adjusting saturation:', error);
+    console.error("Error adjusting saturation:", error);
     return null;
   }
 }
@@ -298,7 +307,11 @@ export function adjustSaturation(color: string, amount: number): string | null {
 /**
  * Create color interpolation between two colors
  */
-export function interpolateColors(color1: string, color2: string, steps: number = 10): string[] {
+export function interpolateColors(
+  color1: string,
+  color2: string,
+  steps: number = 10,
+): string[] {
   try {
     const interpolator = interpolate([color1, color2]);
     const colors: string[] = [];
@@ -313,7 +326,7 @@ export function interpolateColors(color1: string, color2: string, steps: number 
 
     return colors;
   } catch (error) {
-    console.error('Error interpolating colors:', error);
+    console.error("Error interpolating colors:", error);
     return [];
   }
 }
@@ -326,10 +339,10 @@ export function ensureGamut(color: string): string | null {
     const parsed = parse(color);
     if (!parsed) return null;
 
-    const clamped = clampGamut('rgb')(parsed);
+    const clamped = clampGamut("rgb")(parsed);
     return formatHex(clamped || parsed);
   } catch (error) {
-    console.error('Error ensuring gamut:', error);
+    console.error("Error ensuring gamut:", error);
     return null;
   }
 }

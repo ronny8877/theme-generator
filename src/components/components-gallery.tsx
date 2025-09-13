@@ -2,12 +2,16 @@
 import React from "react";
 import Clock from "@/components/ui/clock";
 import { BarChart3, Heart, MessageSquare, ShoppingBag } from "lucide-react";
+import ToolNav from "./navs/tool-nav";
 
 // Story-driven, cohesive component showcase built with DaisyUI (on Tailwind).
 export default function ComponentsGallery() {
   return (
     <div className="p-4 md:p-6 space-y-6 text-base-content">
       {/* Container-query root: fills available width from TemplatePreview */}
+      <div className="relative ">
+        <ToolNav />
+      </div>
       <div
         className="cq-root mx-auto rounded-3xl @md:border border-base-300 bg-base-100 @md:shadow overflow-hidden @container"
         style={{ width: "100%", containerType: "inline-size" as never }}
