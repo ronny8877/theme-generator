@@ -24,7 +24,6 @@ import {
 	Zap,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { toast } from 'sonner'
 import ColorPreviewWithCopy from '../color-lab/color-preview-with-copy'
 import { handleCopyToClipboard } from '@/lib/utils'
 
@@ -52,11 +51,6 @@ export function ColorLabTool() {
 		complementary: complementary ? [mainColor, complementary] : [mainColor],
 		analogous: [mainColor, ...analogous],
 		triadic: [mainColor, ...triadic],
-	}
-
-	const handleHarmonyColorClick = (color: string) => {
-		setMainColor(color)
-		toast.success('Color selected from harmony')
 	}
 
 	const rating = contrastResult ? getWCAGRating(contrastResult.ratio) : null
