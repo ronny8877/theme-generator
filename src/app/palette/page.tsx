@@ -1,14 +1,22 @@
 import type { Metadata } from 'next'
 import { PaletteTool } from '@/components/tools/palette-tool'
-import { CommonToolbar } from '@/components/common-toolbar'
 import { SettingsDialog } from '@/components/settings-dialog'
 import Link from 'next/link'
 import ToolNav from '@/components/navs/tool-nav'
+import { Pacifico } from 'next/font/google'
+import Footer from '@/components/footer'
+
+const pacifico = Pacifico({
+	subsets: ['latin'],
+	weight: ['400'],
+	variable: '--font-pacifico',
+	display: 'swap',
+})
 
 export const metadata: Metadata = {
 	title: 'Palette Generator - LiveTheme | Professional Color Palette Tools',
 	description:
-		'Generate beautiful color palettes using color harmony rules. Create monochromatic, analogous, complementary, triadic palettes. Analyze accessibility and export in multiple formats. Professional palette tools for designers.',
+		'Generate beautiful, accessible color palettes with harmony rules. Create monochromatic, analogous, complementary, and triadic palettes — analyze contrast and export in multiple formats.',
 	keywords: [
 		'color palette generator',
 		'color scheme generator',
@@ -34,45 +42,43 @@ export const metadata: Metadata = {
 	openGraph: {
 		title: 'Palette Generator - Professional Color Palette Tools',
 		description:
-			'Generate beautiful color palettes with harmony analysis and accessibility checking. Export in multiple formats.',
+			'Create professional color palettes with harmony rules and accessibility analysis. Build monochromatic, analogous, complementary, and triadic palettes, extract colors from images, save palettes, and export in multiple formats.',
 		type: 'website',
 	},
 	twitter: {
 		card: 'summary_large_image',
 		title: 'Palette Generator - Professional Color Palette Tools',
 		description:
-			'Generate beautiful color palettes with harmony analysis and accessibility checking. Export in multiple formats.',
+			'Create professional color palettes with harmony rules and accessibility analysis. Build, save, and export palettes with contrast checks for web and design.',
 	},
 }
 
 export default function PalettePage() {
 	return (
-		<div className="min-h-screen bg-base-100">
+		<>
 			<ToolNav />
-
-			{/* Main Content */}
-			<main className="container mx-auto px-4 py-8">
-				<div className="max-w-4xl mx-auto">
-					<PaletteTool />
-				</div>
+			<main className="min-h-screen max-w-5xl mx-auto bg-base-100 pt-20 ">
+				<h1
+					className={`text-8xl font-bold mb-16 text-center ${pacifico.className}`}
+				>
+					Color Palettes
+				</h1>
+				<p className="text-center mb-16 text-lg text-base-content/80 px-4 max-w-md mx-auto">
+					Generate beautiful, accessible color palettes using proven
+					harmony rules. Create monochromatic, analogous,
+					complementary, and triadic palettes, extract colors from
+					images, save your favorites, and export in multiple formats,
+					all with built-in contrast checks to ensure accessibility
+					for web and design.
+				</p>
+				{/* Main Content */}
+				<PaletteTool />
 			</main>
 
 			{/* Footer */}
-			<footer className="border-t border-base-300 bg-base-200 mt-16">
-				<div className="container mx-auto px-4 py-8">
-					<div className="text-center">
-						<p className="text-sm text-base-content/70">
-							Part of the{' '}
-							<Link href="/" className="link link-primary">
-								LiveTheme
-							</Link>{' '}
-							design tools suite
-						</p>
-					</div>
-				</div>
-			</footer>
+			<Footer />
 
 			<SettingsDialog />
-		</div>
+		</>
 	)
 }

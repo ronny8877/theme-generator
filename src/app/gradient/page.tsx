@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { GradientTool } from '@/components/tools/gradient-tool'
-import { CommonToolbar } from '@/components/common-toolbar'
 import { SettingsDialog } from '@/components/settings-dialog'
 import Link from 'next/link'
 import ToolNav from '@/components/navs/tool-nav'
