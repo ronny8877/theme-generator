@@ -40,7 +40,7 @@ export function ShadePalette({
 											: '0',
 								backgroundColor: shade.color,
 							}}
-							className="h-20 w-20 transition-all duration-300 ease-in-out cursor-pointer scale-100 group-hover:w-40 group-hover:scale-105"
+							className="h-20 w-8 md:w-20 transition-all duration-300 ease-in-out cursor-pointer scale-100 group-hover:w-40 group-hover:scale-105"
 							onClick={() => handleCopyToClipboard(shade.color)}
 							title={`Click to select ${shade.color}`}
 						/>
