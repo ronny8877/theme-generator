@@ -1,176 +1,176 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @theme {
-  --container-sm: 40rem;
-  --container-md: 48rem;
-  --container-lg: 64rem;
-  --container-xl: 80rem;
-  --container-2xl: 96rem;
+	--container-sm: 40rem;
+	--container-md: 48rem;
+	--container-lg: 64rem;
+	--container-xl: 80rem;
+	--container-2xl: 96rem;
 }
 
 @custom-variant dark (&:is(.dark *));
 @plugin "daisyui" {
-  themes: "all";
+	themes: 'all';
 }
 
 /* Minimal fallback CSS variables (used by some UI pieces). Primary coloring comes from DaisyUI themes via data-theme. */
 
 :root {
-  --radius: 0.625rem;
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --card: #ffffff;
-  --card-foreground: #0f172a;
-  --popover: #ffffff;
-  --popover-foreground: #0f172a;
-  --primary: #1e40af;
-  --primary-foreground: #ffffff;
-  --secondary: #f3f4f6;
-  --secondary-foreground: #0f172a;
-  --muted: #f8fafc;
-  --muted-foreground: #64748b;
-  --accent: #f0f9ff;
-  --accent-foreground: #0f172a;
-  --destructive: #ef4444;
-  --border: #e6e6e6;
-  --input: #ffffff;
-  --ring: rgba(59, 130, 246, 0.25);
-  --chart-1: #2563eb;
-  --chart-2: #10b981;
-  --chart-3: #ef4444;
-  --chart-4: #f59e0b;
-  --chart-5: #7c3aed;
-  --sidebar: #ffffff;
-  --sidebar-foreground: #0f172a;
-  --sidebar-primary: #1e40af;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f3f4f6;
-  --sidebar-accent-foreground: #0f172a;
-  --sidebar-border: #e6e6e6;
-  --sidebar-ring: rgba(59, 130, 246, 0.25);
+	--radius: 0.625rem;
+	--background: #ffffff;
+	--foreground: #0f172a;
+	--card: #ffffff;
+	--card-foreground: #0f172a;
+	--popover: #ffffff;
+	--popover-foreground: #0f172a;
+	--primary: #1e40af;
+	--primary-foreground: #ffffff;
+	--secondary: #f3f4f6;
+	--secondary-foreground: #0f172a;
+	--muted: #f8fafc;
+	--muted-foreground: #64748b;
+	--accent: #f0f9ff;
+	--accent-foreground: #0f172a;
+	--destructive: #ef4444;
+	--border: #e6e6e6;
+	--input: #ffffff;
+	--ring: rgba(59, 130, 246, 0.25);
+	--chart-1: #2563eb;
+	--chart-2: #10b981;
+	--chart-3: #ef4444;
+	--chart-4: #f59e0b;
+	--chart-5: #7c3aed;
+	--sidebar: #ffffff;
+	--sidebar-foreground: #0f172a;
+	--sidebar-primary: #1e40af;
+	--sidebar-primary-foreground: #ffffff;
+	--sidebar-accent: #f3f4f6;
+	--sidebar-accent-foreground: #0f172a;
+	--sidebar-border: #e6e6e6;
+	--sidebar-ring: rgba(59, 130, 246, 0.25);
 }
 
 .dark {
-  --background: #0b1220;
-  --foreground: #e6eef8;
-  --card: #071029;
-  --card-foreground: #e6eef8;
-  --popover: #071029;
-  --popover-foreground: #e6eef8;
-  --primary: #60a5fa;
-  --primary-foreground: #0b1220;
-  --secondary: #111827;
-  --secondary-foreground: #e6eef8;
-  --muted: #0f1724;
-  --muted-foreground: #94a3b8;
-  --accent: #0f1724;
-  --accent-foreground: #e6eef8;
-  --destructive: #f87171;
-  --border: rgba(255, 255, 255, 0.06);
-  --input: rgba(255, 255, 255, 0.04);
-  --ring: rgba(96, 165, 250, 0.18);
-  --chart-1: #60a5fa;
-  --chart-2: #34d399;
-  --chart-3: #fb7185;
-  --chart-4: #fbbf24;
-  --chart-5: #a78bfa;
-  --sidebar: #071029;
-  --sidebar-foreground: #e6eef8;
-  --sidebar-primary: #60a5fa;
-  --sidebar-primary-foreground: #071029;
-  --sidebar-accent: #0b1220;
-  --sidebar-accent-foreground: #e6eef8;
-  --sidebar-border: rgba(255, 255, 255, 0.06);
-  --sidebar-ring: rgba(96, 165, 250, 0.18);
+	--background: #0b1220;
+	--foreground: #e6eef8;
+	--card: #071029;
+	--card-foreground: #e6eef8;
+	--popover: #071029;
+	--popover-foreground: #e6eef8;
+	--primary: #60a5fa;
+	--primary-foreground: #0b1220;
+	--secondary: #111827;
+	--secondary-foreground: #e6eef8;
+	--muted: #0f1724;
+	--muted-foreground: #94a3b8;
+	--accent: #0f1724;
+	--accent-foreground: #e6eef8;
+	--destructive: #f87171;
+	--border: rgba(255, 255, 255, 0.06);
+	--input: rgba(255, 255, 255, 0.04);
+	--ring: rgba(96, 165, 250, 0.18);
+	--chart-1: #60a5fa;
+	--chart-2: #34d399;
+	--chart-3: #fb7185;
+	--chart-4: #fbbf24;
+	--chart-5: #a78bfa;
+	--sidebar: #071029;
+	--sidebar-foreground: #e6eef8;
+	--sidebar-primary: #60a5fa;
+	--sidebar-primary-foreground: #071029;
+	--sidebar-accent: #0b1220;
+	--sidebar-accent-foreground: #e6eef8;
+	--sidebar-border: rgba(255, 255, 255, 0.06);
+	--sidebar-ring: rgba(96, 165, 250, 0.18);
 }
 
 @layer base {
-  * {
-    /* Fallbacks for Tailwind @apply utilities (border-border, outline-ring/50) */
-    box-sizing: border-box;
-    /* set default border and outline colors from CSS variables; individual components add styles as needed */
-    border-color: var(--border);
-    outline-color: var(--ring);
-  }
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-  }
+	* {
+		/* Fallbacks for Tailwind @apply utilities (border-border, outline-ring/50) */
+		box-sizing: border-box;
+		/* set default border and outline colors from CSS variables; individual components add styles as needed */
+		border-color: var(--border);
+		outline-color: var(--ring);
+	}
+	body {
+		background-color: var(--background);
+		color: var(--foreground);
+	}
 }
 
 /* Custom scrollbar styles for theme selector */
 .theme-scroll {
-  scrollbar-width: thin;
-  scrollbar-color: oklch(var(--bc) / 0.2) transparent;
+	scrollbar-width: thin;
+	scrollbar-color: oklch(var(--bc) / 0.2) transparent;
 }
 
 .theme-scroll::-webkit-scrollbar {
-  width: 1px;
+	width: 1px;
 }
 
 .theme-scroll::-webkit-scrollbar-track {
-  background: transparent;
+	background: transparent;
 }
 
 .theme-scroll::-webkit-scrollbar-thumb {
-  background-color: oklch(var(--bc) / 0.2);
-  border-radius: 1px;
+	background-color: oklch(var(--bc) / 0.2);
+	border-radius: 1px;
 }
 
 .theme-scroll::-webkit-scrollbar-thumb:hover {
-  background-color: oklch(var(--bc) / 0.3);
+	background-color: oklch(var(--bc) / 0.3);
 }
 
 .smooth-theme-transition,
 .smooth-theme-transition * {
-  transition:
-    background-color 0.25s ease-out,
-    color 0.25s ease-out,
-    border-color 0.25s ease-out,
-    fill 0.25s ease-out,
-    stroke 0.25s ease-out,
-    box-shadow 0.25s ease-out;
-  will-change: background-color, color, border-color;
+	transition:
+		background-color 0.25s ease-out,
+		color 0.25s ease-out,
+		border-color 0.25s ease-out,
+		fill 0.25s ease-out,
+		stroke 0.25s ease-out,
+		box-shadow 0.25s ease-out;
+	will-change: background-color, color, border-color;
 }
 
 /* Analog clock styling */
 .clock {
-  position: relative;
-  aspect-ratio: 1/1;
-  /* Use DaisyUI palette tokens */
-  --clock-face: var(--color-base-300);
-  --hand: var(--color-primary);
-  --hand-dark: color-mix(in oklab, var(--color-primary) 70%, black);
-  --orbit: 150px;
-  --sec-delay: 0s;
-  /* Scale factor set by component based on rendered size */
-  --scale: 1;
-  /* Optional scale from component */
-  --thickScale: var(--thickScale, 1);
-  /* Derived thickness for hands, scales with actual size and optional factor */
-  /* Keep a safe minimum so hands never vanish */
-  --thick: clamp(
-    6px,
-    calc(var(--sizePx, 260px) * 0.03 * var(--thickScale)),
-    34px
-  );
-  /* Convenience: radius from computed size */
-  --radius: calc(var(--sizePx, 260px) * 0.5);
-  /* Separate thickness per hand so hour can be bolder than minute */
-  --thickHourScale: 1.15;
-  --thickMinuteScale: 0.85;
-  --thickHour: calc(var(--thick) * var(--thickHourScale));
-  --thickMinute: calc(var(--thick) * var(--thickMinuteScale));
+	position: relative;
+	aspect-ratio: 1/1;
+	/* Use DaisyUI palette tokens */
+	--clock-face: var(--color-base-300);
+	--hand: var(--color-primary);
+	--hand-dark: color-mix(in oklab, var(--color-primary) 70%, black);
+	--orbit: 150px;
+	--sec-delay: 0s;
+	/* Scale factor set by component based on rendered size */
+	--scale: 1;
+	/* Optional scale from component */
+	--thickScale: var(--thickScale, 1);
+	/* Derived thickness for hands, scales with actual size and optional factor */
+	/* Keep a safe minimum so hands never vanish */
+	--thick: clamp(
+		6px,
+		calc(var(--sizePx, 260px) * 0.03 * var(--thickScale)),
+		34px
+	);
+	/* Convenience: radius from computed size */
+	--radius: calc(var(--sizePx, 260px) * 0.5);
+	/* Separate thickness per hand so hour can be bolder than minute */
+	--thickHourScale: 1.15;
+	--thickMinuteScale: 0.85;
+	--thickHour: calc(var(--thick) * var(--thickHourScale));
+	--thickMinute: calc(var(--thick) * var(--thickMinuteScale));
 }
 
 .clock svg {
-  position: absolute;
-  inset: 0;
+	position: absolute;
+	inset: 0;
 }
 
 .clock .bgLightTint {
-  fill: var(--clock-face);
+	fill: var(--clock-face);
 }
 
 /* .clock .centerPoint {
@@ -181,92 +181,92 @@
 } */
 
 .clock .sui {
-  --angle: 0deg;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform-origin: 50% 100%;
-  z-index: 1;
+	--angle: 0deg;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform-origin: 50% 100%;
+	z-index: 1;
 }
 
 /* Hour hand: short and thick rounded */
 .clock #hour {
-  /* thickness adapts with size but stays within a sensible range */
-  width: var(--thickHour);
-  /* hour length = 60% of radius; cap to radius - half thickness */
-  height: min(
-    calc(var(--radius) * 0.6),
-    calc(var(--radius) - var(--thickHour) * 0.5)
-  );
-  background: var(--hand-dark);
-  border-radius: 999px;
-  transform: translate(-50%, -100%) rotate(var(--angle));
-  transition: transform 0.25s linear;
-  box-shadow: 0 calc(var(--thickHour) * 0.4) calc(var(--thickHour) * 0.7)
-    rgba(0, 0, 0, 0.06);
+	/* thickness adapts with size but stays within a sensible range */
+	width: var(--thickHour);
+	/* hour length = 60% of radius; cap to radius - half thickness */
+	height: min(
+		calc(var(--radius) * 0.6),
+		calc(var(--radius) - var(--thickHour) * 0.5)
+	);
+	background: var(--hand-dark);
+	border-radius: 999px;
+	transform: translate(-50%, -100%) rotate(var(--angle));
+	transition: transform 0.25s linear;
+	box-shadow: 0 calc(var(--thickHour) * 0.4) calc(var(--thickHour) * 0.7)
+		rgba(0, 0, 0, 0.06);
 }
 
 /* Minute hand: tapered by using a pseudo element for the longer triangular style */
 .clock #minute {
-  width: var(--thickMinute);
-  /* container height slightly longer than visible part */
-  height: min(
-    calc(var(--radius) * 1.05),
-    calc(var(--radius) * 1.8 - var(--thickMinute))
-  );
-  background: transparent;
-  transform: translate(-50%, -100%) rotate(var(--angle));
-  transition: transform 0.1s linear;
+	width: var(--thickMinute);
+	/* container height slightly longer than visible part */
+	height: min(
+		calc(var(--radius) * 1.05),
+		calc(var(--radius) * 1.8 - var(--thickMinute))
+	);
+	background: transparent;
+	transform: translate(-50%, -100%) rotate(var(--angle));
+	transition: transform 0.1s linear;
 }
 
 .clock #minute::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: var(--thickMinute);
-  /* minute visible length = 70% of radius; cap to radius */
-  height: min(
-    calc(var(--radius) * 0.7),
-    calc(var(--radius) - var(--thickMinute) * 0.5)
-  );
-  background: var(--hand);
-  border-radius: calc(var(--thickMinute) * 0.75);
-  transform: translateX(-50%);
-  box-shadow: 0 calc(var(--thickMinute) * 0.4) calc(var(--thickMinute) * 0.7)
-    rgba(0, 0, 0, 0.06);
+	content: '';
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	width: var(--thickMinute);
+	/* minute visible length = 70% of radius; cap to radius */
+	height: min(
+		calc(var(--radius) * 0.7),
+		calc(var(--radius) - var(--thickMinute) * 0.5)
+	);
+	background: var(--hand);
+	border-radius: calc(var(--thickMinute) * 0.75);
+	transform: translateX(-50%);
+	box-shadow: 0 calc(var(--thickMinute) * 0.4) calc(var(--thickMinute) * 0.7)
+		rgba(0, 0, 0, 0.06);
 }
 
 /* Second indicator: an orbiting dot rather than a long hand */
 .clock #second {
-  width: clamp(6px, calc(var(--sizePx, 260px) * 0.02), 16px);
-  height: clamp(6px, calc(var(--sizePx, 260px) * 0.02), 16px);
-  transform-origin: 50% 50%;
-  transform: translate(-50%, -50%);
-  animation: clock-rotate 60s linear infinite;
-  animation-delay: var(--sec-delay);
+	width: clamp(6px, calc(var(--sizePx, 260px) * 0.02), 16px);
+	height: clamp(6px, calc(var(--sizePx, 260px) * 0.02), 16px);
+	transform-origin: 50% 50%;
+	transform: translate(-50%, -50%);
+	animation: clock-rotate 60s linear infinite;
+	animation-delay: var(--sec-delay);
 }
 
 .clock #second::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: clamp(12px, calc(var(--sizePx, 260px) * 0.06), 32px);
-  height: clamp(12px, calc(var(--sizePx, 260px) * 0.06), 32px);
-  background: var(--hand);
-  border-radius: 50%;
-  /* Place the dot on the left orbit similar to screenshot */
-  transform: translate(calc(-1 * var(--orbit)), -50%);
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: clamp(12px, calc(var(--sizePx, 260px) * 0.06), 32px);
+	height: clamp(12px, calc(var(--sizePx, 260px) * 0.06), 32px);
+	background: var(--hand);
+	border-radius: 50%;
+	/* Place the dot on the left orbit similar to screenshot */
+	transform: translate(calc(-1 * var(--orbit)), -50%);
 }
 
 /* Ensure seconds dot is under the center cap so it appears anchored */
 .clock #second {
-  z-index: 2;
+	z-index: 2;
 }
 .clock #hour,
 .clock #minute {
-  z-index: 1;
+	z-index: 1;
 }
 
 /* Center cap */
@@ -284,37 +284,37 @@
 } */
 
 @keyframes clock-rotate {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
+	from {
+		transform: translate(-50%, -50%) rotate(0deg);
+	}
+	to {
+		transform: translate(-50%, -50%) rotate(360deg);
+	}
 }
 
 /* Font injection classes - Scoped to template content only */
 .template-content .font-heading {
-  font-family: var(--font-heading-family);
-  font-weight: var(--font-heading-weight);
-  font-size: var(--font-heading-size);
-  line-height: var(--font-heading-line-height);
-  letter-spacing: var(--font-heading-letter-spacing);
-  margin-bottom: max(
-    var(--font-heading-margin-bottom),
-    var(--font-heading-min-margin)
-  );
+	font-family: var(--font-heading-family);
+	font-weight: var(--font-heading-weight);
+	font-size: var(--font-heading-size);
+	line-height: var(--font-heading-line-height);
+	letter-spacing: var(--font-heading-letter-spacing);
+	margin-bottom: max(
+		var(--font-heading-margin-bottom),
+		var(--font-heading-min-margin)
+	);
 }
 
 .template-content .font-body {
-  font-family: var(--font-body-family);
-  font-weight: var(--font-body-weight);
-  font-size: var(--font-body-size);
-  line-height: var(--font-body-line-height);
-  letter-spacing: var(--font-body-letter-spacing);
-  margin-bottom: max(
-    var(--font-body-margin-bottom),
-    var(--font-body-min-margin)
-  );
+	font-family: var(--font-body-family);
+	font-weight: var(--font-body-weight);
+	font-size: var(--font-body-size);
+	line-height: var(--font-body-line-height);
+	letter-spacing: var(--font-body-letter-spacing);
+	margin-bottom: max(
+		var(--font-body-margin-bottom),
+		var(--font-body-min-margin)
+	);
 }
 
 /* Template-scoped heading tag styles */
@@ -324,14 +324,14 @@
 .template-content h4,
 .template-content h5,
 .template-content h6 {
-  font-family: var(--font-heading-family) !important;
-  font-weight: var(--font-heading-weight);
-  line-height: var(--font-heading-line-height) !important;
-  letter-spacing: var(--font-heading-letter-spacing) !important;
-  margin-bottom: max(
-    var(--font-heading-margin-bottom),
-    var(--font-heading-min-margin)
-  );
+	font-family: var(--font-heading-family) !important;
+	font-weight: var(--font-heading-weight);
+	line-height: var(--font-heading-line-height) !important;
+	letter-spacing: var(--font-heading-letter-spacing) !important;
+	margin-bottom: max(
+		var(--font-heading-margin-bottom),
+		var(--font-heading-min-margin)
+	);
 }
 
 /* Template-scoped body text styles */
@@ -344,37 +344,37 @@
 .template-content th,
 .template-content label,
 .template-content button {
-  font-family: var(--font-body-family);
-  font-weight: var(--font-body-weight);
-  font-size: var(--font-body-size);
-  line-height: var(--font-body-line-height);
-  letter-spacing: var(--font-body-letter-spacing);
+	font-family: var(--font-body-family);
+	font-weight: var(--font-body-weight);
+	font-size: var(--font-body-size);
+	line-height: var(--font-body-line-height);
+	letter-spacing: var(--font-body-letter-spacing);
 }
 
 /* Apply margin specifically to paragraph elements */
 .template-content p {
-  margin-bottom: max(
-    var(--font-body-margin-bottom),
-    var(--font-body-min-margin)
-  );
+	margin-bottom: max(
+		var(--font-body-margin-bottom),
+		var(--font-body-min-margin)
+	);
 }
 
 /* Template-scoped heading sizes while maintaining font family */
 .template-content h1 {
-  font-size: calc(var(--font-heading-size) * 1.8);
+	font-size: calc(var(--font-heading-size) * 1.8);
 }
 .template-content h2 {
-  font-size: calc(var(--font-heading-size) * 1.5);
+	font-size: calc(var(--font-heading-size) * 1.5);
 }
 .template-content h3 {
-  font-size: calc(var(--font-heading-size) * 1.3);
+	font-size: calc(var(--font-heading-size) * 1.3);
 }
 .template-content h4 {
-  font-size: calc(var(--font-heading-size) * 1.1);
+	font-size: calc(var(--font-heading-size) * 1.1);
 }
 .template-content h5 {
-  font-size: var(--font-heading-size);
+	font-size: var(--font-heading-size);
 }
 .template-content h6 {
-  font-size: calc(var(--font-heading-size) * 0.9);
+	font-size: calc(var(--font-heading-size) * 0.9);
 }

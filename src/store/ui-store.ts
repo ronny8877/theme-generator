@@ -1,45 +1,45 @@
-import { atom } from "nanostores";
+import { atom } from 'nanostores'
 
-export const $exportOpen = atom(false);
+export const $exportOpen = atom(false)
 export function setExportOpen(v: boolean) {
-  $exportOpen.set(v);
+	$exportOpen.set(v)
 }
 export function openExport() {
-  $exportOpen.set(true);
+	$exportOpen.set(true)
 }
 export function closeExport() {
-  $exportOpen.set(false);
+	$exportOpen.set(false)
 }
 
 // Share modal state
-export const $shareOpen = atom(false);
+export const $shareOpen = atom(false)
 export function setShareOpen(v: boolean) {
-  $shareOpen.set(v);
+	$shareOpen.set(v)
 }
 export function openShare() {
-  $shareOpen.set(true);
+	$shareOpen.set(true)
 }
 export function closeShare() {
-  $shareOpen.set(false);
+	$shareOpen.set(false)
 }
 
 // Settings modal state
-export const $settingsOpen = atom(false);
+export const $settingsOpen = atom(false)
 export const $settingsActiveTab = atom<
-  "color-lab" | "palette" | "gradient" | "app-settings" | "about"
->("color-lab");
+	'color-lab' | 'palette' | 'gradient' | 'app-settings' | 'about'
+>('color-lab')
 
 export function setSettingsOpen(v: boolean) {
-  $settingsOpen.set(v);
+	$settingsOpen.set(v)
 }
 export function openSettings() {
-  $settingsOpen.set(true);
+	$settingsOpen.set(true)
 }
 export function closeSettings() {
-  $settingsOpen.set(false);
+	$settingsOpen.set(false)
 }
 export function setSettingsActiveTab(
-  tab: "color-lab" | "palette" | "gradient" | "app-settings" | "about",
+	tab: 'color-lab' | 'palette' | 'gradient' | 'app-settings' | 'about'
 ) {
-  $settingsActiveTab.set(tab);
+	$settingsActiveTab.set(tab)
 }

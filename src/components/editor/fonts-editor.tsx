@@ -1,2 +1,2 @@
-"use client";
-export { FontEditor } from "./font-editor";
+'use client'
+export { FontEditor } from './font-editor'
