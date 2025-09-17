@@ -1,6 +1,5 @@
 import React from 'react'
 import { ShadeInfo } from '@/lib/color-utils'
-import { toast } from 'sonner'
 import { handleCopyToClipboard } from '@/lib/utils'
 
 interface ShadePaletteProps {

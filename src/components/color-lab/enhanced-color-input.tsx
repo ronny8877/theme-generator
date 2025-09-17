@@ -88,17 +88,17 @@ export function EnhancedColorInput({
 	return (
 		<div className={`space-y-4 ${className}`}>
 			<Tabs value={activeTab} onValueChange={setActiveTab}>
-				<TabsList className="grid w-full grid-cols-2">
+				<TabsList className="grid w-full grid-cols-2 h-12 rounded-box bg-primary">
 					<TabsTrigger
 						value="picker"
-						className="flex items-center gap-2"
+						className="flex items-center gap-2 cursor-pointer data-[state=active]:bg-accent dark:data-[state=active]:text-accent-content rounded-box"
 					>
 						<Palette className="h-4 w-4" />
 						Color Picker
 					</TabsTrigger>
 					<TabsTrigger
 						value="input"
-						className="flex items-center gap-2"
+						className="flex items-center gap-2 cursor-pointer data-[state=active]:bg-accent dark:data-[state=active]:text-accent-content rounded-box"
 					>
 						<Eye className="h-4 w-4" />
 						Text Input

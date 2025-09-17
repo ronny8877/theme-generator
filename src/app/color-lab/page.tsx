@@ -60,6 +60,12 @@ export default function ColorLabPage() {
 				>
 					Color Lab
 				</h1>
+				<p className="text-center mb-16 text-lg text-base-content/80 px-4 max-w-md mx-auto">
+					Convert colors between formats (HEX, RGB, HSL), analyze
+					accessibility contrasts with WCAG guidelines, generate color
+					harmonies, and test color combinations. Free professional
+					color tools for designers and developers.
+				</p>
 				{/* Main Content */}
 				<ColorLabTool />
 				{/* Footer */}

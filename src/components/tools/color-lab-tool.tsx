@@ -26,6 +26,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import ColorPreviewWithCopy from '../color-lab/color-preview-with-copy'
+import { handleCopyToClipboard } from '@/lib/utils'
 
 export function ColorLabTool() {
 	const [mainColor, setMainColor] = useState('#3b82f6')
@@ -58,11 +59,6 @@ export function ColorLabTool() {
 		toast.success('Color selected from harmony')
 	}
 
-	const handleShadeColorClick = (color: string) => {
-		setMainColor(color)
-		toast.success('Color selected from shade palette')
-	}
-
 	const rating = contrastResult ? getWCAGRating(contrastResult.ratio) : null
 
 	return (
@@ -75,7 +71,7 @@ export function ColorLabTool() {
       </div> */}
 
 			{/* Color Converter Section */}
-			<div className="card bg-base-200">
+			<div className="card bg-base-200/60">
 				<div className="card-body">
 					<h3 className="card-title text-2xl mb-6">
 						<Palette className="h-6 w-6" />
@@ -137,7 +133,7 @@ export function ColorLabTool() {
 			</div>
 
 			{/* Shade Palette Section */}
-			<div className="card bg-base-100 shadow-lg">
+			<div className="card bg-base-200/60">
 				<div className="card-body">
 					<div className="flex items-center justify-between mb-6">
 						<h3 className="card-title text-2xl">
@@ -157,13 +153,12 @@ export function ColorLabTool() {
 					<ShadePalette
 						shades={shades}
 						title="Generated Shade Palette"
-						onColorClick={handleShadeColorClick}
 					/>
 				</div>
 			</div>
 
 			{/* Contrast Checker Section */}
-			<div className="card bg-base-100 shadow-lg">
+			<div className="card bg-base-200/60">
 				<div className="card-body">
 					<h3 className="card-title text-2xl mb-6">
 						<Eye className="h-6 w-6" />
@@ -186,17 +181,17 @@ export function ColorLabTool() {
 						</div>
 
 						{/* Contrast Preview */}
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<div className="flex flex-col md:flex-row gap-8 md:gap-6">
 							{/* Visual Preview */}
-							<div className="space-y-4">
+							<div className="space-y-4 w-full">
 								<h4 className="font-semibold text-lg">
 									Preview
 								</h4>
 								<div
-									className="p-8 rounded-2xl border-2 border-base-300 text-center shadow-inner"
+									className="p-8 rounded-2xl border-2 border-base-300 text-center h-48 shadow-inner"
 									style={{
-										backgroundColor: contrastColor,
-										color: mainColor,
+										backgroundColor: mainColor,
+										color: contrastColor,
 										minHeight: '120px',
 										display: 'flex',
 										alignItems: 'center',
@@ -215,11 +210,11 @@ export function ColorLabTool() {
 							</div>
 
 							{/* Contrast Results */}
-							<div className="space-y-4">
+							<div className="space-y-4 w-full">
 								<h4 className="font-semibold text-lg">
 									Accessibility
 								</h4>
-								<div className="card bg-base-200 shadow-md">
+								<div className="card bg-base-200 shadow-sm">
 									<div className="card-body">
 										<div className="stat">
 											<div className="stat-title">
@@ -235,7 +230,7 @@ export function ColorLabTool() {
 													className={`stat-desc font-semibold`}
 												>
 													<div
-														className={`badge ${rating.class} badge-lg mb-2`}
+														className={`badge ${rating.class} px-5 badge-lg mb-2`}
 													>
 														{contrastResult &&
 															contrastResult.ratio >=
@@ -255,9 +250,32 @@ export function ColorLabTool() {
 					</div>
 				</div>
 			</div>
+			{/* Shade Palette Section */}
+			<div className="card bg-base-200/60">
+				<div className="card-body">
+					<div className="flex items-center justify-between mb-6">
+						<h3 className="card-title text-2xl">
+							<Zap className="h-6 w-6" />
+							Color Shades
+						</h3>
+						<Button
+							variant="outline"
+							onClick={() => setShowExportModal(true)}
+							className="flex items-center gap-2"
+						>
+							<Download className="h-4 w-4" />
+							Export Palette
+						</Button>
+					</div>
 
+					<ShadePalette
+						shades={generateShades(contrastColor, 11)}
+						title="Generated Shade Palette"
+					/>
+				</div>
+			</div>
 			{/* WCAG Compliance Section */}
-			<div className="card bg-base-100 shadow-lg">
+			<div className="card bg-base-200/60">
 				<div className="card-body">
 					<h3 className="card-title text-2xl mb-6">
 						<Shield className="h-6 w-6" />
@@ -268,7 +286,7 @@ export function ColorLabTool() {
 						<div className="card bg-success/10 border border-success/20">
 							<div className="card-body">
 								<div className="flex items-center gap-3 mb-3">
-									<div className="badge badge-success badge-lg">
+									<div className="badge badge-success badge-lg px-4">
 										AAA
 									</div>
 									<h4 className="font-semibold">Enhanced</h4>
@@ -284,7 +302,7 @@ export function ColorLabTool() {
 						<div className="card bg-info/10 border border-info/20">
 							<div className="card-body">
 								<div className="flex items-center gap-3 mb-3">
-									<div className="badge badge-info badge-lg">
+									<div className="badge badge-info badge-lg px-4">
 										AA
 									</div>
 									<h4 className="font-semibold">Standard</h4>
@@ -302,7 +320,7 @@ export function ColorLabTool() {
 						<div className="card bg-warning/10 border border-warning/20">
 							<div className="card-body">
 								<div className="flex items-center gap-3 mb-3">
-									<div className="badge badge-warning badge-lg">
+									<div className="badge badge-warning badge-lg px-4">
 										A
 									</div>
 									<h4 className="font-semibold">
@@ -319,7 +337,7 @@ export function ColorLabTool() {
 						<div className="card bg-warning/10 border border-warning/20">
 							<div className="card-body">
 								<div className="flex items-center gap-3 mb-3">
-									<div className="badge badge-warning badge-lg">
+									<div className="badge badge-warning badge-lg px-4">
 										B
 									</div>
 									<h4 className="font-semibold">Poor</h4>
@@ -334,7 +352,7 @@ export function ColorLabTool() {
 						<div className="card bg-error/10 border border-error/20">
 							<div className="card-body">
 								<div className="flex items-center gap-3 mb-3">
-									<div className="badge badge-error badge-lg">
+									<div className="badge badge-error badge-lg px-4">
 										C
 									</div>
 									<h4 className="font-semibold">Very Poor</h4>
@@ -351,7 +369,7 @@ export function ColorLabTool() {
 						<div className="card bg-error/10 border border-error/20">
 							<div className="card-body">
 								<div className="flex items-center gap-3 mb-3">
-									<div className="badge badge-error badge-lg">
+									<div className="badge badge-error badge-lg px-4">
 										D
 									</div>
 									<h4 className="font-semibold">Fail</h4>
@@ -369,7 +387,7 @@ export function ColorLabTool() {
 			</div>
 
 			{/* Color Harmonies Section */}
-			<div className="card bg-base-100 shadow-lg">
+			<div className="card bg-base-200/60">
 				<div className="card-body">
 					<h3 className="card-title text-2xl mb-6">
 						<Shuffle className="h-6 w-6" />
@@ -407,7 +425,7 @@ export function ColorLabTool() {
 																harmonyColor,
 														}}
 														onClick={() =>
-															handleHarmonyColorClick(
+															handleCopyToClipboard(
 																harmonyColor
 															)
 														}
