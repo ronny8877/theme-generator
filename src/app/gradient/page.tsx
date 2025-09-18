@@ -51,9 +51,7 @@ export default function GradientPage() {
 
 			{/* Main Content */}
 			<main className="container mx-auto px-4 py-8">
-				<div className="max-w-4xl mx-auto">
-					<GradientTool />
-				</div>
+				<GradientTool />
 			</main>
 
 			{/* Footer */}
