@@ -1,93 +1,95 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { EditorHeader } from "./header";
-import ThemeList from "./theme-list";
-import { FontEditor } from "./fonts-editor";
-import { ScrollArea } from "../ui/scroll-area";
-import { useStore } from "@nanostores/react";
-import { $activeEditorTab } from "@/store";
-import { useAppActions } from "../../store/hooks";
-import { ThemeCreator } from "./advance-editor/theme-creator";
-import { Share2, Code2 } from "lucide-react";
-import React from "react";
-import { openExport } from "@/store/ui-store";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
+import { EditorHeader } from './header'
+import ThemeList from './theme-list'
+import { FontEditor } from './fonts-editor'
+import { ScrollArea } from '../ui/scroll-area'
+import { useStore } from '@nanostores/react'
+import { $activeEditorTab } from '@/store'
+import { useAppActions } from '../../store/hooks'
+import { ThemeCreator } from './advance-editor/theme-creator'
+import { Share2, Code2 } from 'lucide-react'
+import React from 'react'
+import { openExport } from '@/store/ui-store'
 
 function EditorBase() {
-  // Export dialog handled globally to avoid re-rendering editor tree
-  const activeTab = useStore($activeEditorTab);
-  const { setActiveEditorTab } = useAppActions();
+	// Export dialog handled globally to avoid re-rendering editor tree
+	const activeTab = useStore($activeEditorTab)
+	const { setActiveEditorTab } = useAppActions()
 
-  const handleTabChange = (value: string) => {
-    setActiveEditorTab(value as "themes" | "fonts" | "advanced");
-  };
+	const handleTabChange = (value: string) => {
+		setActiveEditorTab(value as 'themes' | 'fonts' | 'advanced')
+	}
 
-  return (
-    <div className="w-[400px] h-full md:h-[95%] lg:h-[98%] 2xl:h-full rounded-4xl p-3 bg-base-300">
-      <EditorHeader />
-      <Tabs
-        value={activeTab}
-        onValueChange={handleTabChange}
-        className="w-full mt-3"
-      >
-        <TabsList className="w-full bg-base-100 rounded-full h-12 gap-3 cursor-pointer">
-          <TabsTrigger
-            value="themes"
-            className="rounded-full data-[state=active]:bg-base-200 shadow-none cursor-pointer"
-          >
-            Theme
-          </TabsTrigger>
-          <TabsTrigger
-            value="advanced"
-            className="rounded-full data-[state=active]:bg-base-200 shadow-none cursor-pointer"
-          >
-            Advanced
-          </TabsTrigger>
-          <TabsTrigger
-            value="fonts"
-            className="rounded-full data-[state=active]:bg-base-200 shadow-none cursor-pointer"
-          >
-            Fonts
-          </TabsTrigger>
-        </TabsList>
+	return (
+		<div className="w-[400px] h-full md:h-[95%] lg:h-[98%] 2xl:h-full rounded-4xl p-3 bg-base-300">
+			<EditorHeader />
+			<Tabs
+				value={activeTab}
+				onValueChange={handleTabChange}
+				className="w-full mt-3"
+			>
+				<TabsList className="w-full bg-base-100 rounded-full h-12 gap-3 cursor-pointer">
+					<TabsTrigger
+						value="themes"
+						className="rounded-full data-[state=active]:bg-base-200 shadow-none cursor-pointer"
+					>
+						Theme
+					</TabsTrigger>
+					<TabsTrigger
+						value="advanced"
+						className="rounded-full data-[state=active]:bg-base-200 shadow-none cursor-pointer"
+					>
+						Advanced
+					</TabsTrigger>
+					<TabsTrigger
+						value="fonts"
+						className="rounded-full data-[state=active]:bg-base-200 shadow-none cursor-pointer"
+					>
+						Fonts
+					</TabsTrigger>
+				</TabsList>
 
-        {/* Main scrollable area */}
-        <ScrollArea className="h-[80vh]  md:h-[75vh] 2xl:h-[80vh]">
-          <TabsContent value="themes">
-            <ThemeList />
-          </TabsContent>
-          <TabsContent value="advanced">
-            <ThemeCreator />
-          </TabsContent>
-          <TabsContent value="fonts" className="mt-4">
-            <FontEditor />
-          </TabsContent>
-        </ScrollArea>
+				{/* Main scrollable area */}
+				<ScrollArea className="h-[80vh]  md:h-[75vh] 2xl:h-[80vh]">
+					<TabsContent value="themes">
+						<ThemeList />
+					</TabsContent>
+					<TabsContent value="advanced">
+						<ThemeCreator />
+					</TabsContent>
+					<TabsContent value="fonts" className="mt-4">
+						<FontEditor />
+					</TabsContent>
+				</ScrollArea>
 
-        {/* Footer actions under scroller, visible for all tabs */}
-        <div className="flex items-center  justify-between gap-2">
-          <button
-            className="btn btn-lg w-1/2 rounded-full px-4 bg-base-200 hover:bg-base-300 border border-base-300"
-            onClick={async () => {
-              const { openShare } = await import("@/store/ui-store");
-              openShare();
-            }}
-          >
-            <span className="inline-flex items-center gap-2">
-              <Share2 className="w-4 h-4" />
-              Share
-            </span>
-          </button>
-          <button
-            className="btn btn-lg w-1/2 rounded-full px-4 btn-primary text-primary-content"
-            onClick={() => openExport()}
-          >
-            <span className="inline-flex items-center gap-2">
-              <Code2 className="w-4 h-4" />
-              Export
-            </span>
-          </button>
-        </div>
-      </Tabs>
-    </div>
-  );
+				{/* Footer actions under scroller, visible for all tabs */}
+				<div className="flex items-center  justify-between gap-2">
+					<button
+						className="btn btn-lg w-1/2 rounded-full px-4 bg-base-200 hover:bg-base-300 border border-base-300"
+						onClick={async () => {
+							const { openShare } = await import(
+								'@/store/ui-store'
+							)
+							openShare()
+						}}
+					>
+						<span className="inline-flex items-center gap-2">
+							<Share2 className="w-4 h-4" />
+							Share
+						</span>
+					</button>
+					<button
+						className="btn btn-lg w-1/2 rounded-full px-4 btn-primary text-primary-content"
+						onClick={() => openExport()}
+					>
+						<span className="inline-flex items-center gap-2">
+							<Code2 className="w-4 h-4" />
+							Export
+						</span>
+					</button>
+				</div>
+			</Tabs>
+		</div>
+	)
 }
-export default React.memo(EditorBase);
+export default React.memo(EditorBase)

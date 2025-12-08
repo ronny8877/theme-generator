@@ -1,1 +1,1 @@
-export { default as AIChatUI } from "./ai-chat-ui";
+export { default as AIChatUI } from './ai-chat-ui'
